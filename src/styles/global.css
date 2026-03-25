@@ -3,3 +3,25 @@
     flex-direction: row-reverse;
 }
 
+/* Глобальное уменьшение масштаба всего сайта */
+html {
+    zoom: 0.85; /* Для Chrome, Edge, Safari */
+    -webkit-text-size-adjust: 100%; /* Предотвращает скачки шрифтов на iOS */
+}
+
+/* Исправление для Firefox, который не поддерживает zoom */
+@supports not (zoom: 1) {
+    html {
+        transform: scale(0.85);
+        transform-origin: top center;
+        width: 117.6%; /* Рассчитывается как 100 / 0.85 */
+        height: 117.6%;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Важно, чтобы не появилась горизонтальная прокрутка */
+    width: 100%;
+}

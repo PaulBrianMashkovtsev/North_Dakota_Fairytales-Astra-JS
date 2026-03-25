@@ -217,12 +217,12 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         color: #b3e5fc; /* Делаем текст светлым, чтобы он был виден на фоне леса */
     }
     .intro-card, .intro-card p, .main-content p {
-        font-size: 35px !important; /* Ставим заведомо большой размер для теста */
-        line-height: 1.5 !important;
+        font-size: 1.2rem; /* Ставим заведомо большой размер для теста */
+        line-height: 1.5 ;
     }
 
     .main-content {
-        max-width: 2100px; /* Увеличиваем ширину, чтобы текст не был узким */
+        max-width: 1920px; /* Увеличиваем ширину, чтобы текст не был узким */
         margin: 0 auto;    /* Центрируем */
         padding: 20px 20px; /* Больше отступов сверху и по бокам */
         background: none; /* Чуть темнее фон для лучшей читаемости rgba(0, 0, 0, 0.4) */
@@ -291,23 +291,7 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         margin-bottom: 25px;
     }
 
-     html {
-         zoom: 0.85;
-     }
 
-    @supports not (zoom: 1) {
-        html {
-            transform: scale(0.85);
-            transform-origin: top center;
-            width: 118%;
-        }
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
 
 
 
