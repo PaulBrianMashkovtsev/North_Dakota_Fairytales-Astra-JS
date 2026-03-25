@@ -1,0 +1,209 @@
+---
+import LandingLayout from "../layouts/LandingLayout.astro";
+---
+
+<LandingLayout>
+
+
+<html lang="x-default">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>North Dakota Fairytales – More Languages</title>
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <style>
+        :root {
+            --panel: #0f6aa1;
+            --paper: #fff4cf;
+            --ink: #222;
+            --shadow: 0 12px 40px rgba(0,0,0,.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: var(--ink);
+            background:
+                    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+                    url('/img/forest.jpg') center/cover no-repeat fixed;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+
+        /* Снег */
+        .snow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall { to { transform: translateY(100vh); } }
+
+        /* Контейнер */
+        .wrap {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(20px, 5vw, 60px);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Сетка языков */
+        nav.lang-stack {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(400px, 1fr));
+            gap: 70px;
+            width: 100%;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .lang {
+            --accent: #7dd3fc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--ink);
+            background: var(--paper);
+            padding: 40px 45px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 3px solid rgba(0,0,0,.09);
+            font-weight: 700;
+            transition: transform .18s ease, box-shadow .18s ease, translate .18s ease;
+        }
+
+        .lang:hover { translate: 2px -2px; box-shadow: 0 16px 48px rgba(0,0,0,.45); }
+        .lang:active, .lang.kick { transform: scale(1.05); }
+
+        .swatch {
+            width: 40px; height: 40px; border-radius: 6px;
+            background: var(--accent);
+            border: 3px solid rgba(0,0,0,.12);
+            flex-shrink: 0;
+        }
+
+        .lang .text { font-size: 22px; line-height: 1.3; }
+
+        /* Цвета кнопок */
+        .lang.fr { --accent: #fb923c; }
+        .lang.pt { --accent: #9ed7f5; }
+        .lang.ur { --accent: #830b4b; }
+        .lang.hi { --accent: #e74c3c; }
+        .lang.bn { --accent: #59f436; }
+        .lang.fa { --accent: #d06aef; }
+        .lang.ms { --accent: #edd716; }
+        .lang.id { --accent: #3c72e7; }
+        .lang.de { --accent: #461c51; }
+        .lang.ca { --accent: #2695af; }
+        .lang.az { --accent: #2ca115; }
+        .lang.hy { --accent: #f3680d; }
+        .lang.haw { --accent: #dfaeef; }
+        .lang.tt { --accent: #da0d0d; }
+
+        /* Кнопка Home (Избушка) */
+        .ndf-home-btn {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 22px;
+            background: #ffead0;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            text-decoration: none;
+            z-index: 9999;
+            transition: all .2s ease;
+        }
+        .ndf-home-btn:hover { transform: scale(1.05); background: #ffead0; }
+        .ndf-home-label { font-weight: 900; color: #0F172A; font-size: 16px; font-family: inherit}
+
+        /* Респонсив */
+        @media (max-width: 1200px) { nav.lang-stack { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 900px) { nav.lang-stack { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) {
+            nav.lang-stack { grid-template-columns: 1fr; }
+            .ndf-home-btn { left: 50%; transform: translateX(-50%); }
+            .ndf-home-btn:hover { transform: translateX(-50%) scale(1.05); }
+        }
+    </style>
+</head>
+
+<body>
+<div class="snow" id="snow"></div>
+
+<div class="wrap" role="main">
+    <nav class="lang-stack" aria-label="Choose language">
+        <a class="lang fr" href="/fr/"><span class="swatch"></span><span class="text">French (Français)</span></a>
+        <a class="lang pt" href="/pt/"><span class="swatch"></span><span class="text">Portuguese (Português)</span></a>
+        <a class="lang ur" href="/ur/"><span class="swatch"></span><span class="text">Urdu (اردو)</span></a>
+        <a class="lang hi" href="/hi/"><span class="swatch"></span><span class="text">Hindi (हिन्दी)</span></a>
+        <a class="lang bn" href="/bn/"><span class="swatch"></span><span class="text">Bengali (বাংলা)</span></a>
+        <a class="lang fa" href="/fa/"><span class="swatch"></span><span class="text">Persian (فارسی)</span></a>
+        <a class="lang ms" href="/ms/"><span class="swatch"></span><span class="text">Malay (Bahasa Melayu)</span></a>
+        <a class="lang id" href="/id/"><span class="swatch"></span><span class="text">Indonesian (Bahasa Indonesia)</span></a>
+        <a class="lang de" href="/de/"><span class="swatch"></span><span class="text">German (Deutsch)</span></a>
+        <a class="lang ca" href="/ca/"><span class="swatch"></span><span class="text">Catalan (Català)</span></a>
+        <a class="lang az" href="/az/"><span class="swatch"></span><span class="text">Azerbaijani (Azərbaycan dili)</span></a>
+        <a class="lang hy" href="/hy/"><span class="swatch"></span><span class="text">Armenian (Հայերեն)</span></a>
+        <a class="lang haw" href="/haw/"><span class="swatch"></span><span class="text">Hawaiian (ʻŌlelo Hawaiʻi)</span></a>
+        <a class="lang tt" href="/tt/"><span class="swatch"></span><span class="text">Tatar (Татарча)</span></a>
+
+    </nav>
+</div>
+
+<a href="/" class="ndf-home-btn" aria-label="Go to Home">
+    <svg viewBox="0 0 120 120" aria-hidden="true" width="50" height="50">
+        <ellipse cx="60" cy="102" rx="28" ry="6" fill="#E6F4FF"/>
+        <g>
+            <path d="M50 96 C48 92, 48 88, 51 84 L54 80" stroke="#6B4226" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M70 96 C72 92, 72 88, 69 84 L66 80" stroke="#6B4226" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M47 98 l-6 4" stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M51 99 l-2 6" stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M73 99 l2 6"  stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M69 98 l6 4"  stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <rect x="30" y="46" width="60" height="36" rx="4" fill="#C46A2B" />
+        <g stroke="#8B3E17" stroke-width="2" stroke-linecap="round">
+            <line x1="32" y1="52" x2="88" y2="52"/><line x1="32" y1="58" x2="88" y2="58"/>
+            <line x1="32" y1="64" x2="88" y2="64"/><line x1="32" y1="70" x2="88" y2="70"/>
+            <line x1="32" y1="76" x2="88" y2="76"/><line x1="32" y1="82" x2="88" y2="82"/>
+        </g>
+        <path d="M24 48 L60 26 L96 48 Z" fill="#3B82F6" />
+        <path d="M26 48 Q60 36 94 48 L24 48 Z" fill="#F2FAFF"/>
+        <rect x="54" y="60" width="12" height="22" rx="2" fill="#8C4A1E"/>
+        <circle cx="64" cy="71" r="1.8" fill="#F9D17A"/>
+        <rect x="36" y="60" width="10" height="10" rx="2" fill="#FDE68A" stroke="#8C4A1E" stroke-width="2"/>
+        <rect x="74" y="60" width="10" height="10" rx="2" fill="#FDE68A" stroke="#8C4A1E" stroke-width="2"/>
+        <rect x="78" y="30" width="8" height="12" fill="#8B5CF6"/>
+        <circle cx="82" cy="24" r="3" fill="#C7D2FE" opacity="0.9"/>
+        <circle cx="86" cy="18" r="2.5" fill="#C7D2FE" opacity="0.7"/>
+        <circle cx="90" cy="13" r="2" fill="#C7D2FE" opacity="0.5"/>
+    </svg>
+    <span class="ndf-home-label">Home</span>
+</a>
+</body>
+</html>
+</LandingLayout>

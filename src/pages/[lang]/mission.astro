@@ -1,0 +1,355 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Our Mission`,
+
+        p2: `The mission of North Dakota Fairytales is to create calm, meaningful winter stories and music that nurture 
+        a child’s imagination and emotional well-being.`,
+
+        p3: `Through gentle storytelling, soft music, and carefully illustrated scenes, the brand offers children 
+        a peaceful alternative to fast and overstimulating media. Each story is created to be safe, thoughtful, 
+        and rooted in timeless human values such as kindness, empathy, courage, and respect.`,
+
+        p4: `North Dakota Fairytales is dedicated exclusively to winter-themed storytelling, preserving the quiet 
+        beauty of snowy landscapes and long northern evenings as a space for reflection, warmth, and imagination.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Nuestra Misión`,
+
+        p2: `La misión de North Dakota Fairytales es crear historias y música invernales tranquilas y significativas que
+         nutran la imaginación y el bienestar emocional de los niños.`,
+
+        p3: `A través de una narración suave, música delicada e ilustraciones cuidadosamente creadas, la marca ofrece a 
+        los niños una alternativa pacífica a los medios rápidos y sobreestimulantes. Cada historia se desarrolla de 
+        manera segura y reflexiva, transmitiendo valores humanos atemporales como la bondad, la empatía, el valor y el 
+        respeto.`,
+
+        p4: `North Dakota Fairytales está dedicada exclusivamente a la narración con temática invernal, preservando 
+        la belleza silenciosa de los paisajes nevados y las largas noches del norte como un espacio de calma, calidez 
+        e imaginación.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Notre Mission`,
+
+        p2: `La mission de North Dakota Fairytales est de créer des histoires et des musiques hivernales calmes et 
+        porteuses de sens, favorisant l’imagination et le bien-être émotionnel des enfants.`,
+
+        p3: `Grâce à une narration douce, une musique apaisante et des illustrations soigneusement réalisées, la 
+        marque propose une alternative paisible aux médias rapides et surstimulants. Chaque histoire est conçue 
+        pour être sûre, réfléchie et ancrée dans des valeurs humaines intemporelles telles que la bienveillance, 
+        l’empathie, le courage et le respect.`,
+
+        p4: `North Dakota Fairytales se consacre exclusivement à la narration à thème hivernal, mettant en valeur la 
+        beauté silencieuse des paysages enneigés et des longues soirées nordiques comme un espace de calme, de chaleur 
+        et d’imagination.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `رسالتنا`,
+
+        p2: `تتمثل رسالة North Dakota 
+        Fairytales في تقديم قصص وأغانٍ شتوية هادئة وذات معنى، تُسهم في تنمية خيال الأطفال وتعزيز سلامتهم العاطفية.`,
+
+        p3: `من خلال السرد اللطيف، والموسيقى
+         الهادئة، والرسومات المصممة بعناية، تقدم العلامة بديلاً هادئًا لوسائل الإعلام السريعة والمُفرطة في التحفيز. يتم 
+        إعداد كل قصة بأسلوب آمن ومتوازن، مستندة إلى قيم إنسانية خالدة مثل اللطف، والتعاطف، والشجاعة، والاحترام.`,
+
+        p4: `تكرس North Dakota Fairytales أعمالها حصريًا لسرد القصص ذات الطابع
+         الشتوي، محافظةً على جمال المناظر الثلجية الهادئة وأمسيات الشمال الطويلة كمساحة للسكينة والدفء والخيال.`,
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `Наша миссия`,
+
+        p2: `Миссия North Dakota Fairytales — создавать спокойные, наполненные смыслом зимние истории и музыку,
+    которые развивают воображение ребёнка и поддерживают его эмоциональное благополучие.`,
+
+        p3: `Через мягкое повествование, спокойную музыку и тщательно проработанные иллюстрации бренд предлагает детям
+    мирную альтернативу быстрому и перегружающему медиа-контенту. Каждая история создаётся так, чтобы быть безопасной,
+    вдумчивой и основанной на вечных человеческих ценностях — доброте, эмпатии, смелости и уважении.`,
+
+        p4: `North Dakota Fairytales посвящён исключительно зимним историям, сохраняя тихую красоту снежных пейзажей
+    и длинных северных вечеров как пространство для размышлений, уюта и воображения.`
+    },
+
+    ur: {
+        subtitle: "",
+        p1: `ہماری مشن`,
+
+        p2: `North Dakota Fairytales کا مشن پُرسکون اور معنی خیز سردیوں کی کہانیاں اور موسیقی تخلیق کرنا ہے،
+    جو بچوں کے تخیل کو فروغ دیں اور ان کی جذباتی فلاح و بہبود کی حمایت کریں۔`,
+
+        p3: `نرم اندازِ کہانی، مدھم موسیقی، اور احتیاط سے تیار کی گئی تصاویر کے ذریعے یہ برانڈ بچوں کو
+    تیز رفتار اور حد سے زیادہ محرک میڈیا کے مقابلے میں ایک پُرامن متبادل فراہم کرتا ہے۔
+    ہر کہانی اس طرح تخلیق کی جاتی ہے کہ وہ محفوظ، بامعنی ہو، اور ہمیشہ رہنے والی انسانی اقدار جیسے
+    مہربانی، ہمدردی، حوصلہ، اور احترام پر مبنی ہو۔`,
+
+        p4: `North Dakota Fairytales مکمل طور پر سردیوں کے موضوع پر مبنی کہانیوں کے لیے وقف ہے،
+    جہاں برفیلے مناظر اور لمبی شمالی شاموں کی خاموش خوبصورتی کو ایک ایسی جگہ کے طور پر محفوظ کیا جاتا ہے
+    جہاں سکون، گرمی اور تخیل پروان چڑھتے ہیں۔`
+    },
+
+    hi: {
+        subtitle: "",
+        p1: `हमारा मिशन`,
+
+        p2: `North Dakota Fairytales का मिशन शांत और अर्थपूर्ण सर्दियों की कहानियाँ और संगीत बनाना है,
+    जो बच्चों की कल्पना शक्ति को विकसित करे और उनके भावनात्मक संतुलन को सहारा दे।`,
+
+        p3: `मृदु कहानी कहने की शैली, शांत संगीत और सावधानीपूर्वक बनाई गई चित्रों के माध्यम से यह ब्रांड
+    बच्चों को तेज़ और अत्यधिक उत्तेजक मीडिया का एक शांत विकल्प प्रदान करता है।
+    हर कहानी को सुरक्षित, विचारशील और दया, सहानुभूति, साहस और सम्मान जैसे
+    स्थायी मानवीय मूल्यों पर आधारित बनाया जाता है।`,
+
+        p4: `North Dakota Fairytales पूरी तरह से सर्दियों पर आधारित कहानियों के लिए समर्पित है,
+    जहाँ बर्फीले दृश्यों और लंबी उत्तरी शामों की शांत सुंदरता को
+    चिंतन, सुकून और कल्पना के लिए एक विशेष स्थान के रूप में संरक्षित किया जाता है।`
+    },
+
+    bn: {
+        subtitle: "",
+        p1: `আমাদের লক্ষ্য`,
+
+        p2: `North Dakota Fairytales-এর লক্ষ্য হলো শান্ত, অর্থপূর্ণ শীতকালীন গল্প ও সঙ্গীত তৈরি করা,
+    যা শিশুদের কল্পনাশক্তি বিকাশ করে এবং তাদের মানসিক সুস্থতাকে সমর্থন করে।`,
+
+        p3: `নরম গল্প বলার ধরণ, শান্ত সঙ্গীত এবং যত্নসহকারে তৈরি করা চিত্রের মাধ্যমে এই ব্র্যান্ড
+    শিশুদের জন্য দ্রুতগতির ও অতিরিক্ত উত্তেজনাপূর্ণ মিডিয়ার একটি শান্ত বিকল্প প্রদান করে।
+    প্রতিটি গল্প এমনভাবে তৈরি করা হয় যাতে তা নিরাপদ, চিন্তাশীল হয় এবং
+    দয়া, সহানুভূতি, সাহস ও সম্মানের মতো চিরন্তন মানবিক মূল্যবোধের উপর ভিত্তি করে।`,
+
+        p4: `North Dakota Fairytales সম্পূর্ণরূপে শীতকালীন গল্প বলার জন্য নিবেদিত,
+    যেখানে তুষারময় প্রাকৃতিক দৃশ্য এবং দীর্ঘ উত্তরের সন্ধ্যার নীরব সৌন্দর্যকে
+    ভাবনা, উষ্ণতা এবং কল্পনার জন্য একটি বিশেষ স্থান হিসেবে সংরক্ষণ করা হয়।`
+    },
+
+    fa: {
+        subtitle: "",
+        p1: `ماموریت ما`,
+
+        p2: `ماموریت North Dakota Fairytales خلق داستان‌ها و موسیقی‌های زمستانی آرام و معنادار است
+    که تخیل کودکان را پرورش داده و از سلامت عاطفی آن‌ها حمایت می‌کند.`,
+
+        p3: `از طریق داستان‌گویی ملایم، موسیقی آرام و تصاویر با دقت طراحی‌شده، این برند
+    جایگزینی آرام برای محتوای سریع و بیش‌ازحد تحریک‌کننده ارائه می‌دهد.
+    هر داستان به گونه‌ای ساخته می‌شود که ایمن، اندیشمندانه باشد و بر ارزش‌های انسانی ماندگار
+    مانند مهربانی، همدلی، شجاعت و احترام استوار باشد.`,
+
+        p4: `North Dakota Fairytales به‌طور کامل به داستان‌های زمستانی اختصاص دارد،
+    جایی که زیبایی آرام مناظر برفی و شب‌های طولانی شمالی
+    به‌عنوان فضایی برای تأمل، آرامش و تخیل حفظ می‌شود.`
+    },
+
+    pt: {
+        subtitle: "",
+        p1: 'Nossa Missão',
+
+        p2: `A missão do North Dakota Fairytales é criar histórias e músicas de inverno calmas e significativas,
+    que desenvolvem a imaginação das crianças e apoiam seu bem-estar emocional.`,
+
+        p3: `Por meio de uma narrativa suave, música tranquila e ilustrações cuidadosamente elaboradas,
+    a marca oferece às crianças uma alternativa pacífica aos conteúdos rápidos e excessivamente estimulantes.
+    Cada história é criada para ser segura, reflexiva e baseada em valores humanos atemporais
+    como bondade, empatia, coragem e respeito.`,
+
+        p4: `North Dakota Fairytales é dedicado exclusivamente a histórias com temática de inverno,
+    preservando a beleza silenciosa das paisagens nevadas e das longas noites do norte
+    como um espaço para reflexão, acolhimento e imaginação.`
+    },
+
+    ms: {
+        subtitle: "",
+        p1: `Misi Kami`,
+
+        p2: `Misi North Dakota Fairytales adalah untuk mencipta cerita dan muzik musim sejuk yang tenang dan bermakna,
+    yang memupuk imaginasi kanak-kanak serta menyokong kesejahteraan emosi mereka.`,
+
+        p3: `Melalui penceritaan yang lembut, muzik yang menenangkan, dan ilustrasi yang direka dengan teliti,
+    jenama ini menawarkan alternatif yang damai kepada media yang pantas dan terlalu merangsang.
+    Setiap cerita dicipta supaya selamat, penuh pertimbangan, dan berakar pada nilai kemanusiaan sejagat
+    seperti kebaikan, empati, keberanian, dan rasa hormat.`,
+
+        p4: `North Dakota Fairytales didedikasikan sepenuhnya kepada penceritaan bertema musim sejuk,
+    mengekalkan keindahan tenang landskap bersalji dan malam utara yang panjang
+    sebagai ruang untuk refleksi, kehangatan, dan imaginasi.`
+    },
+
+    id: {
+        subtitle: "",
+        p1: `Misi Kami`,
+
+        p2: `Misi North Dakota Fairytales adalah menciptakan cerita dan musik musim dingin yang tenang dan bermakna,
+    yang mengembangkan imajinasi anak serta mendukung kesejahteraan emosional mereka.`,
+
+        p3: `Melalui penceritaan yang lembut, musik yang menenangkan, dan ilustrasi yang dibuat dengan penuh perhatian,
+    merek ini menawarkan alternatif yang damai terhadap media yang cepat dan terlalu merangsang.
+    Setiap cerita dirancang agar aman, penuh makna, dan berakar pada nilai-nilai kemanusiaan yang abadi
+    seperti kebaikan, empati, keberanian, dan rasa hormat.`,
+
+        p4: `North Dakota Fairytales sepenuhnya didedikasikan untuk cerita bertema musim dingin,
+    menjaga keindahan tenang lanskap bersalju dan malam utara yang panjang
+    sebagai ruang untuk refleksi, kehangatan, dan imajinasi.`
+    },
+
+    de: {
+        subtitle: "",
+        p1: `Unsere Mission`,
+
+        p2: `Die Mission von North Dakota Fairytales ist es, ruhige und bedeutungsvolle Wintergeschichten und Musik zu schaffen,
+    die die Fantasie von Kindern fördern und ihr emotionales Wohlbefinden unterstützen.`,
+
+        p3: `Durch sanftes Erzählen, beruhigende Musik und sorgfältig gestaltete Illustrationen bietet die Marke Kindern
+    eine friedliche Alternative zu schnellen und überstimulierenden Medien.
+    Jede Geschichte wird so gestaltet, dass sie sicher, durchdacht ist und auf zeitlosen menschlichen Werten basiert
+    wie Freundlichkeit, Empathie, Mut und Respekt.`,
+
+        p4: `North Dakota Fairytales widmet sich ausschließlich winterlichen Geschichten und bewahrt
+    die stille Schönheit verschneiter Landschaften und langer nördlicher Abende
+    als Raum für Reflexion, Wärme und Fantasie.`
+    },
+
+    ca: {
+        subtitle: "",
+        p1: `La nostra missió`,
+
+        p2: `La missió de North Dakota Fairytales és crear històries i música d’hivern tranquil·les i significatives,
+    que fomentin la imaginació dels infants i donin suport al seu benestar emocional.`,
+
+        p3: `Mitjançant una narració suau, música calmada i il·lustracions acuradament elaborades,
+    la marca ofereix als infants una alternativa tranquil·la als mitjans ràpids i sobreestimulants.
+    Cada història es crea perquè sigui segura, reflexiva i arrelada en valors humans atemporals
+    com la bondat, l’empatia, el coratge i el respecte.`,
+
+        p4: `North Dakota Fairytales es dedica exclusivament a les històries d’hivern,
+    preservant la bellesa silenciosa dels paisatges nevats i de les llargues nits del nord
+    com un espai per a la reflexió, la calidesa i la imaginació.`
+    },
+
+    az: {
+        subtitle: "",
+        p1: `Bizim missiyamız`,
+
+        p2: `North Dakota Fairytales-in missiyası sakit və mənalı qış hekayələri və musiqiləri yaratmaqdır,
+    bu da uşaqların təxəyyülünü inkişaf etdirir və onların emosional rifahını dəstəkləyir.`,
+
+        p3: `Zərif hekayəçilik, sakitləşdirici musiqi və diqqətlə hazırlanmış illüstrasiyalar vasitəsilə bu brend
+    uşaqlara sürətli və həddindən artıq stimullaşdırıcı mediaya qarşı sakit bir alternativ təqdim edir.
+    Hər bir hekayə təhlükəsiz, düşünülmüş və xeyirxahlıq, empatiya, cəsarət və hörmət kimi
+    zamansız insani dəyərlərə əsaslanaraq yaradılır.`,
+
+        p4: `North Dakota Fairytales yalnız qış mövzulu hekayələrə həsr olunub,
+    qarla örtülü mənzərələrin və uzun şimal axşamlarının sakit gözəlliyini
+    düşüncə, istilik və təxəyyül üçün bir məkan kimi qoruyur.`
+    },
+
+    hy: {
+        subtitle: "",
+        p1: `Մեր առաքելությունը`,
+
+        p2: `North Dakota Fairytales-ի առաքելությունն է ստեղծել հանգիստ և իմաստալից ձմեռային պատմություններ և երաժշտություն,
+    որոնք զարգացնում են երեխաների երևակայությունը և աջակցում նրանց հուզական բարեկեցությանը։`,
+
+        p3: `Մեղմ պատմողականության, հանգիստ երաժշտության և խնամքով ստեղծված պատկերազարդումների միջոցով այս բրենդը
+    երեխաներին առաջարկում է խաղաղ այլընտրանք արագ և գերխթանող մեդիային։
+    Յուրաքանչյուր պատմություն ստեղծվում է այնպես, որ լինի անվտանգ, մտածված և հիմնված լինի
+    հավերժական մարդկային արժեքների վրա՝ բարություն, կարեկցանք, քաջություն և հարգանք։`,
+
+        p4: `North Dakota Fairytales-ը ամբողջությամբ նվիրված է ձմեռային պատմություններին՝
+    պահպանելով ձյունածածկ տեսարանների և երկար հյուսիսային երեկոների լուռ գեղեցկությունը
+    որպես տարածք մտածելու, ջերմության և երևակայության համար։`
+    },
+
+    haw: {
+        subtitle: "",
+        p1: `Ko mākou Misiona`,
+
+        p2: `ʻO ka misiona o North Dakota Fairytales ka hana ʻana i nā moʻolelo a me ke mele hoʻoilo mālie a hohonu,
+    e kōkua ana i ka hoʻomohala ʻana i ka noʻonoʻo noʻeau o nā keiki a me ko lākou olakino naʻau.`,
+
+        p3: `Ma o ka haʻi moʻolelo mālie, ke mele hoʻomaluhia, a me nā kiʻi i hana ʻia me ka mālama nui,
+    hāʻawi kēia hōʻailona i kahi koho mālie i nā pāpaho wikiwiki a hoʻoulu nui.
+    Hoʻokumu ʻia kēlā me kēia moʻolelo i mea e palekana ai, noʻonoʻo pono, a pili i nā waiwai kanaka mau loa
+    e like me ka lokomaikaʻi, ke aloha, ka wiwo ʻole, a me ka mahalo.`,
+
+        p4: `Hoʻolaʻa piha ʻia ʻo North Dakota Fairytales i nā moʻolelo hoʻoilo wale nō,
+    e mālama ana i ka nani mālie o nā ʻāina hau a me nā ahiahi lōʻihi o ka ʻākau
+    ma ke ʻano he wahi no ka noʻonoʻo ʻana, ka mahana, a me ka noʻeau.`
+    },
+
+    tt: {
+        subtitle: "",
+        p1: `Безнең миссия`,
+
+        p2: `North Dakota Fairytales миссиясе — тыныч һәм мәгънәле кышкы хикәяләр һәм музыка булдыру,
+    алар балаларның хыялын үстерә һәм аларның эмоциональ халәтен ныгыта.`,
+
+        p3: `Йомшак хикәяләү, тынычландыручы музыка һәм җентекләп эшләнгән иллюстрацияләр аша бу бренд
+    балаларга тиз һәм артык стимул бирүче медианың урынына тыныч альтернатива тәкъдим итә.
+    Һәр хикәя куркынычсыз, уйлап эшләнгән һәм мәңгелек кешелек кыйммәтләренә —
+    игелек, кызгану, батырлык һәм хөрмәткә нигезләнеп иҗат ителә.`,
+
+        p4: `North Dakota Fairytales тулысынча кыш темасына багышланган,
+    карлы пейзажларның һәм озын төньяк кичләренең тыныч матурлыгын
+    уйлану, җылылык һәм хыял өчен махсус мохит итеп саклый.`
+    },
+};
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+    </div>
+
+
+
+
+
+</BaseLayout>

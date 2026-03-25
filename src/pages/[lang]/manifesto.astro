@@ -1,0 +1,1297 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: 'en' } },
+        { params: { lang: 'es' } },
+        { params: { lang: 'fr' } },
+        { params: { lang: 'ar' } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+
+const lang = Astro.params.lang;
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `❄️ We Create Quiet`,
+        p2: `We believe children need quiet as much as they need stories.
+        In a world that moves fast, flashes bright, and speaks loudly, we choose something different.`,
+        p3: `We choose winter.`,
+        p4: `We choose calm.`,
+        p5: `We choose time that moves slowly.`,
+        p6: `North Dakota Fairytales exists to create a gentle world for children —
+        a world of snow-covered landscapes, soft voices, simple melodies,
+        and stories that do not rush to entertain, but invite a child to rest, imagine, and feel safe.`,
+        p7: `Winter is not empty.`,
+        p8: `Winter is listening.`,
+        p9: `Under the snow, everything is alive.`,
+        p10: `🌙 A World Built for Children`,
+        p11: `Our stories and songs are made for children first —
+        not for algorithms, not for trends, not for noise.`,
+        p12: `We believe childhood should be a place of trust:
+        where voices are kind
+        where emotions are allowed to unfold slowly
+        where imagination grows without pressure`,
+        p13: `Our characters are gentle.`,
+        p14: `Our worlds are calm.`,
+        p15: `Our stories leave space — for thought, for feeling, for silence.`,
+        p16: `We create bedtime moments, not endless stimulation.`,
+        p17: `We create comfort, not urgency.`,
+        p18: `⚙️ Technology With Responsibility`,
+        p19: `We live in the modern world, and we do not pretend otherwise.
+        Technology is part of how our studio works —
+        just as pencils, musical instruments, and cameras were tools in other times.
+        We use modern tools thoughtfully and responsibly,
+        always guided by human intention, care, and final choice.
+        Technology helps us shape ideas,
+        but meaning, ethics, and creative direction remain human.
+        Every story we share is created with purpose —
+        to calm, to comfort, and to respect the child who listens.`,
+        p20: `🌍 Language, Culture, and Respect`,
+        p21: `North Dakota Fairytales is a multilingual project,
+        created with deep respect for languages and cultures around the world.
+        Languages are not decorations.
+        They carry memory, identity, and history.
+        When we work with different languages — especially rare or endangered ones —
+        we approach them with care and humility.
+        Our work is inspired by the sound, rhythm, and beauty of language.
+        It is not a replacement for native speakers, traditions, or living cultures.
+        Our goal is gentle introduction, curiosity, and appreciation —
+        a first doorway, not a final definition.`,
+        p22: `🧸 Our Responsibility`,
+        p23: `We understand the responsibility that comes with creating content for children.`,
+        p24: `We promise:
+        to be honest about what we create
+        to avoid fear, aggression, and manipulation
+        to design worlds that feel safe and kind
+        to respect families, cultures, and childhood itself
+        We do not chase attention.
+        We earn trust.`,
+        p25: `🌿 A Quiet Promise`,
+        p26: `North Dakota Fairytales is not loud.`,
+        p27: `It does not demand.`,
+        p28: `It waits.`,
+        p29: `Like snow outside a warm window.`,
+        p30: `Like a story told slowly by the fire.`,
+        p31: `Like a child drifting gently into sleep.`,
+        p32: `We are here to create a place where winter never feels cold — only calm.`,
+        p33: `We Create Quiet`
+    },
+
+    es: {
+        subtitle: "",
+        p1: `❄️ Creamos silencio`,
+        p2: `Creemos que los niños necesitan silencio tanto como necesitan historias.
+    En un mundo que se mueve rápido, brilla intensamente y habla en voz alta, elegimos algo diferente.`,
+        p3: `Elegimos el invierno.`,
+        p4: `Elegimos la calma.`,
+        p5: `Elegimos un tiempo que avanza lentamente.`,
+        p6: `North Dakota Fairytales existe para crear un mundo suave para los niños —
+    un mundo de paisajes cubiertos de nieve, voces suaves, melodías simples,
+    y cuentos que no se apresuran a entretener, sino que invitan al niño a descansar, imaginar y sentirse seguro.`,
+        p7: `El invierno no está vacío.`,
+        p8: `El invierno escucha.`,
+        p9: `Bajo la nieve, todo está vivo.`,
+        p10: `🌙 Un mundo creado para los niños`,
+        p11: `Nuestras historias y canciones están hechas primero para los niños —
+    no para algoritmos, no para tendencias, no para el ruido.`,
+        p12: `Creemos que la infancia debe ser un lugar de confianza:
+    donde las voces son amables
+    donde las emociones pueden desarrollarse lentamente
+    donde la imaginación crece sin presión`,
+        p13: `Nuestros personajes son suaves.`,
+        p14: `Nuestros mundos son tranquilos.`,
+        p15: `Nuestras historias dejan espacio — para pensar, sentir y estar en silencio.`,
+        p16: `Creamos momentos para dormir, no estimulación infinita.`,
+        p17: `Creamos confort, no urgencia.`,
+        p18: `⚙️ Tecnología con responsabilidad`,
+        p19: `Vivimos en el mundo moderno, y no lo negamos.
+    La tecnología es parte de cómo funciona nuestro estudio —
+    así como los lápices, los instrumentos musicales y las cámaras fueron herramientas en otros tiempos.
+    Usamos herramientas modernas con cuidado y responsabilidad,
+    siempre guiados por la intención humana, el cuidado y la decisión final.
+    La tecnología nos ayuda a dar forma a las ideas,
+    pero el significado, la ética y la dirección creativa siguen siendo humanos.
+    Cada historia que compartimos se crea con un propósito —
+    calmar, reconfortar y respetar al niño que escucha.`,
+        p20: `🌍 Lenguaje, cultura y respeto`,
+        p21: `North Dakota Fairytales es un proyecto multilingüe,
+    creado con profundo respeto por los idiomas y culturas de todo el mundo.
+    Los idiomas no son decoraciones.
+    Llevan memoria, identidad e historia.
+    Cuando trabajamos con diferentes idiomas — especialmente los raros o en peligro —
+    lo hacemos con cuidado y humildad.
+    Nuestro trabajo se inspira en el sonido, el ritmo y la belleza del lenguaje.
+    No sustituye a los hablantes nativos, las tradiciones ni las culturas vivas.
+    Nuestro objetivo es una introducción suave, curiosidad y apreciación —
+    una primera puerta, no una definición final.`,
+        p22: `🧸 Nuestra responsabilidad`,
+        p23: `Entendemos la responsabilidad que implica crear contenido para niños.`,
+        p24: `Prometemos:
+    ser honestos con lo que creamos
+    evitar el miedo, la agresión y la manipulación
+    diseñar mundos que se sientan seguros y amables
+    respetar a las familias, las culturas y la infancia misma
+    No perseguimos la atención.
+    Ganamos confianza.`,
+        p25: `🌿 Una promesa silenciosa`,
+        p26: `North Dakota Fairytales no es ruidoso.`,
+        p27: `No exige.`,
+        p28: `Espera.`,
+        p29: `Como la nieve fuera de una ventana cálida.`,
+        p30: `Como una historia contada lentamente junto al fuego.`,
+        p31: `Como un niño que se queda dormido suavemente.`,
+        p32: `Estamos aquí para crear un lugar donde el invierno nunca se sienta frío — solo tranquilo.`,
+        p33: `Creamos silencio`
+    },
+
+    fr: {
+        subtitle: ``,
+        p1: `❄️ Nous créons le calme`,
+    p2: `Nous croyons que les enfants ont besoin de calme autant qu’ils ont besoin d’histoires.
+    Dans un monde qui va vite, brille fortement et parle fort, nous choisissons quelque chose de différent.`,
+    p3: `Nous choisissons l’hiver.`,
+    p4: `Nous choisissons le calme.`,
+    p5: `Nous choisissons un temps qui s’écoule lentement.`,
+    p6: `North Dakota Fairytales existe pour créer un monde doux pour les enfants —
+    un monde de paysages enneigés, de voix douces, de mélodies simples,
+    et d’histoires qui ne cherchent pas à divertir rapidement, mais qui invitent l’enfant à se reposer, imaginer et se sentir en sécurité.`,
+    p7: `L’hiver n’est pas vide.`,
+    p8: `L’hiver écoute.`,
+    p9: `Sous la neige, tout est vivant.`,
+    p10: `🌙 Un monde construit pour les enfants,`,
+    p11: `Nos histoires et nos chansons sont créées d’abord pour les enfants —
+    pas pour les algorithmes, pas pour les tendances, pas pour le bruit.`,
+    p12: `Nous croyons que l’enfance doit être un lieu de confiance :
+    où les voix sont bienveillantes
+    où les émotions peuvent se déployer lentement
+    où l’imagination grandit sans pression`,
+    p13: `Nos personnages sont doux.`,
+    p14: `Nos mondes sont calmes.`,
+    p15: `Nos histoires laissent de l’espace — pour penser, ressentir et rester en silence.`,
+    p16: `Nous créons des moments de coucher, pas une stimulation infinie.`,
+    p17: `Nous créons du réconfort, pas de l’urgence.`,
+    p18: `⚙️ Technologie avec responsabilité`,
+    p19: `Nous vivons dans le monde moderne, et nous ne le nions pas.
+    La technologie fait partie du fonctionnement de notre studio —
+    tout comme les crayons, les instruments de musique et les caméras étaient des outils autrefois.
+    Nous utilisons les outils modernes avec attention et responsabilité,
+    toujours guidés par l’intention humaine, le soin et le choix final.
+    La technologie nous aide à façonner les idées,
+    mais le sens, l’éthique et la direction créative restent humains.
+    Chaque histoire que nous partageons est créée avec un but —
+    apaiser, réconforter et respecter l’enfant qui écoute.`,
+    p20: `🌍 Langue, culture et respect`,
+    p21: `North Dakota Fairytales est un projet multilingue,
+    créé avec un profond respect pour les langues et les cultures du monde entier.
+    Les langues ne sont pas des décorations.
+    Elles portent la mémoire, l’identité et l’histoire.
+    Lorsque nous travaillons avec différentes langues — en particulier les langues rares ou en danger —
+    nous les abordons avec soin et humilité.
+    Notre travail s’inspire du son, du rythme et de la beauté du langage.
+    Il ne remplace pas les locuteurs natifs, les traditions ou les cultures vivantes.
+    Notre objectif est une introduction douce, la curiosité et l’appréciation —
+    une première porte, pas une définition finale.`,
+    p22: `🧸 Notre responsabilité`,
+    p23: `Nous comprenons la responsabilité liée à la création de contenu pour les enfants.`,
+    p24: `Nous promettons :
+    d’être honnêtes sur ce que nous créons
+    d’éviter la peur, l’agression et la manipulation
+    de concevoir des mondes sûrs et bienveillants
+    de respecter les familles, les cultures et l’enfance elle-même
+    Nous ne poursuivons pas l’attention.
+    Nous gagnons la confiance.`,
+    p25: `🌿 Une promesse silencieuse`,
+    p26: `North Dakota Fairytales n’est pas bruyant.`,
+    p27: `Il n’exige pas.`,
+    p28: `Il attend.`,
+    p29: `Comme la neige derrière une fenêtre chaude.`,
+    p30: `Comme une histoire racontée lentement près du feu.`,
+    p31: `Comme un enfant qui s’endort doucement.`,
+    p32: `Nous sommes ici pour créer un endroit où l’hiver ne semble jamais froid — seulement calme.`,
+    p33: `Nous créons le calme`
+},
+
+    ar: {
+        subtitle: ``,
+        p1: `❄️ نحن نخلق الهدوء`,
+    p2: `نؤمن أن الأطفال يحتاجون إلى الهدوء بقدر حاجتهم إلى القصص.
+    في عالم يتحرك بسرعة، يلمع بقوة، ويتحدث بصوت عالٍ، نختار شيئًا مختلفًا.`,
+    p3: `نختار الشتاء.`,
+    p4: `نختار الهدوء.`,
+    p5: `نختار وقتًا يسير ببطء.`,
+    p6: `توجد North Dakota Fairytales لخلق عالم لطيف للأطفال —
+    عالم من المناظر المغطاة بالثلج، والأصوات الهادئة، والألحان البسيطة،
+    وقصص لا تتسرع في الترفيه، بل تدعو الطفل للراحة، والتخيل، والشعور بالأمان.`,
+    p7: `الشتاء ليس فارغًا.`,
+    p8: `الشتاء يُصغي.`,
+    p9: `تحت الثلج، كل شيء حي.`,
+    p10: `🌙 عالم صُمّم من أجل الأطفال`,
+    p11: `قصصنا وأغانينا صُنعت للأطفال أولاً —
+    ليس للخوارزميات، ولا للاتجاهات، ولا للضجيج.`,
+    p12: `نؤمن أن الطفولة يجب أن تكون مكانًا للثقة:
+    حيث تكون الأصوات لطيفة
+    حيث يُسمح للمشاعر أن تنمو ببطء
+    حيث ينمو الخيال دون ضغط`,
+    p13: `شخصياتنا لطيفة.`,
+    p14: `عوالمنا هادئة.`,
+    p15: `قصصنا تترك مساحة — للتفكير، وللشعور، وللصمت.`,
+    p16: `نحن نخلق لحظات للنوم، لا تحفيزًا لا ينتهي.`,
+    p17: `نحن نخلق الراحة، لا الاستعجال.`,
+    p18: `⚙️ التكنولوجيا بمسؤولية`,
+    p19: `نحن نعيش في العالم الحديث، ولا ننكر ذلك.
+    التكنولوجيا جزء من طريقة عمل استوديو الخاص بنا —
+    تمامًا كما كانت الأقلام، والآلات الموسيقية، والكاميرات أدوات في أوقات أخرى.
+    نستخدم الأدوات الحديثة بعناية ومسؤولية،
+    ونسترشد دائمًا بالنية الإنسانية، والرعاية، والاختيار النهائي.
+    تساعدنا التكنولوجيا في تشكيل الأفكار،
+    لكن المعنى، والأخلاق، والتوجيه الإبداعي تبقى بشرية.
+    كل قصة نشاركها تُصنع بهدف —
+    لتهدئة الطفل، وطمأنته، واحترامه.`,
+    p20: `🌍 اللغة، الثقافة، والاحترام`,
+    p21: `North Dakota Fairytales هو مشروع متعدد اللغات،
+    أُنشئ باحترام عميق للغات والثقافات حول العالم.
+    اللغات ليست مجرد زينة.
+    إنها تحمل الذاكرة، والهوية، والتاريخ.
+    عندما نعمل مع لغات مختلفة — خاصة النادرة أو المهددة —
+    نتعامل معها بعناية وتواضع.
+    عملنا مستوحى من صوت اللغة وإيقاعها وجمالها.
+    وهو لا يحل محل المتحدثين الأصليين أو التقاليد أو الثقافات الحية.
+    هدفنا هو التقديم بلطف، وإثارة الفضول، وبناء التقدير —
+    باب أول، وليس تعريفًا نهائيًا.`,
+    p22: `🧸 مسؤوليتنا`,
+    p23: `نحن ندرك المسؤولية التي تأتي مع إنشاء محتوى للأطفال.`,
+    p24: `نعد بما يلي:
+    أن نكون صادقين فيما نُنشئه
+    أن نتجنب الخوف، والعنف، والتلاعب
+    أن نصمم عوالم آمنة ولطيفة
+    أن نحترم العائلات، والثقافات، والطفولة نفسها
+    نحن لا نسعى وراء الانتباه.
+    نحن نبني الثقة.`,
+    p25: `🌿 وعد هادئ`,
+    p26: `North Dakota Fairytales ليس صاخبًا.`,
+    p27: `لا يفرض نفسه.`,
+    p28: `بل ينتظر.`,
+    p29: `مثل الثلج خلف نافذة دافئة.`,
+    p30: `مثل قصة تُروى ببطء بجانب النار.`,
+    p31: `مثل طفل ينجرف بهدوء نحو النوم.`,
+    p32: `نحن هنا لنخلق مكانًا لا يشعر فيه الشتاء بالبرودة — بل بالهدوء فقط.`,
+    p33: `نحن نخلق الهدوء`
+},
+
+    ru: {
+        subtitle: ``,
+        p1: `❄️ Мы создаём тишину`,
+    p2: `Мы верим, что детям тишина нужна так же, как и истории.
+    В мире, который движется быстро, ярко сияет и говорит громко, мы выбираем другое.`,
+    p3: `Мы выбираем зиму.`,
+    p4: `Мы выбираем спокойствие.`,
+    p5: `Мы выбираем время, которое течёт медленно.`,
+    p6: `North Dakota Fairytales существует, чтобы создать мягкий мир для детей —
+    мир заснеженных пейзажей, тихих голосов, простых мелодий
+    и историй, которые не спешат развлекать, а приглашают ребёнка отдохнуть, представить и почувствовать безопасность.`,
+    p7: `Зима не пуста.`,
+    p8: `Зима слушает.`,
+    p9: `Под снегом всё живёт.`,
+    p10: `🌙 Мир, созданный для детей`,
+    p11: `Наши истории и песни созданы в первую очередь для детей —
+    не для алгоритмов, не для трендов, не для шума.`,
+    p12: `Мы верим, что детство должно быть местом доверия:
+    где голоса добрые
+    где эмоции могут раскрываться медленно
+    где воображение растёт без давления`,
+    p13: `Наши персонажи мягкие.`,
+    p14: `Наши миры спокойные.`,
+    p15: `Наши истории оставляют пространство — для мыслей, чувств и тишины.`,
+    p16: `Мы создаём моменты перед сном, а не бесконечную стимуляцию.`,
+    p17: `Мы создаём комфорт, а не срочность.`,
+    p18: `⚙️ Технологии с ответственностью`,
+    p19: `Мы живём в современном мире и не отрицаем этого.
+    Технологии — часть того, как работает наша студия —
+    так же, как карандаши, музыкальные инструменты и камеры были инструментами раньше.
+    Мы используем современные инструменты осознанно и ответственно,
+    всегда руководствуясь человеческим намерением, заботой и финальным выбором.
+    Технологии помогают нам формировать идеи,
+    но смысл, этика и творческое направление остаются человеческими.
+    Каждая история, которой мы делимся, создаётся с целью —
+    успокоить, поддержать и уважать ребёнка, который слушает.`,
+    p20: `🌍 Язык, культура и уважение`,
+    p21: `North Dakota Fairytales — это многоязычный проект,
+    созданный с глубоким уважением к языкам и культурам по всему миру.
+    Языки — это не украшение.
+    Они несут память, идентичность и историю.
+    Когда мы работаем с разными языками — особенно редкими или исчезающими —
+    мы подходим к этому с вниманием и скромностью.
+    Наша работа вдохновлена звучанием, ритмом и красотой языка.
+    Она не заменяет носителей языка, традиции или живые культуры.
+    Наша цель — мягкое знакомство, интерес и уважение —
+    первая дверь, а не окончательное определение.`,
+    p22: `🧸 Наша ответственность`,
+    p23: `Мы понимаем ответственность, которая приходит с созданием контента для детей.`,
+    p24: `Мы обещаем:
+    быть честными в том, что создаём
+    избегать страха, агрессии и манипуляций
+    создавать миры, которые ощущаются безопасными и добрыми
+    уважать семьи, культуры и само детство
+    Мы не гонимся за вниманием.
+    Мы заслуживаем доверие.`,
+    p25: `🌿 Тихое обещание`,
+    p26: `North Dakota Fairytales не шумный.`,
+    p27: `Он не требует.`,
+    p28: `Он ждёт.`,
+    p29: `Как снег за тёплым окном.`,
+    p30: `Как история, рассказанная медленно у огня.`,
+    p31: `Как ребёнок, который тихо засыпает.`,
+    p32: `Мы здесь, чтобы создать место, где зима никогда не кажется холодной — только спокойной.`,
+    p33: `Мы создаём тишину`
+},
+
+    ur: {
+        subtitle: ``,
+        p1: `❄️ ہم سکون پیدا کرتے ہیں`,
+    p2: `ہم یقین رکھتے ہیں کہ بچوں کو کہانیوں کی طرح سکون کی بھی ضرورت ہوتی ہے۔
+    ایک ایسی دنیا میں جو تیزی سے چلتی ہے، چمکتی ہے اور بلند آواز میں بولتی ہے، ہم کچھ مختلف چنتے ہیں۔`,
+    p3: `ہم سردی کو چنتے ہیں۔`,
+p4: `ہم سکون کو چنتے ہیں۔`,
+p5: `ہم ایسے وقت کو چنتے ہیں جو آہستہ گزرتا ہے۔`,
+p6: `North Dakota Fairytales بچوں کے لیے ایک نرم دنیا بنانے کے لیے موجود ہے —
+    برف سے ڈھکے مناظر، نرم آوازیں، سادہ دھنیں
+    اور ایسی کہانیاں جو جلدی تفریح نہیں کرتیں بلکہ بچے کو آرام، تخیل اور تحفظ کا احساس دیتی ہیں۔`,
+    p7: `سردی خالی نہیں ہوتی۔`,
+p8: `سردی سنتی ہے۔`,
+p9: `برف کے نیچے سب کچھ زندہ ہے۔`,
+p10: `🌙 بچوں کے لیے ایک دنیا`,
+    p11: `ہماری کہانیاں اور گانے سب سے پہلے بچوں کے لیے بنائے گئے ہیں —
+    نہ کہ الگورتھم کے لیے، نہ رجحانات کے لیے، نہ شور کے لیے۔`,
+    p12: `ہم یقین رکھتے ہیں کہ بچپن اعتماد کی جگہ ہونا چاہیے:
+    جہاں آوازیں نرم ہوں
+    جہاں جذبات آہستہ کھل سکیں
+    جہاں تخیل بغیر دباؤ کے بڑھے`,
+    p13: `ہمارے کردار نرم ہیں۔`,
+p14: `ہماری دنیا پرسکون ہے۔`,
+p15: `ہماری کہانیاں جگہ چھوڑتی ہیں — سوچنے، محسوس کرنے اور خاموشی کے لیے۔`,
+p16: `ہم سونے کے لمحات بناتے ہیں، نہ کہ مسلسل تحریک۔`,
+p17: `ہم سکون پیدا کرتے ہیں، نہ کہ جلدی۔`,
+p18: `⚙️ ذمہ دار ٹیکنالوجی`,
+    p19: `ہم جدید دنیا میں رہتے ہیں اور اس سے انکار نہیں کرتے۔
+    ٹیکنالوجی ہمارے کام کا حصہ ہے —
+    جیسے پہلے قلم، موسیقی کے آلات اور کیمرے تھے۔
+    ہم جدید اوزار سوچ سمجھ کر اور ذمہ داری سے استعمال کرتے ہیں،
+    ہمیشہ انسانی ارادے، خیال اور آخری انتخاب کے ساتھ۔
+    ٹیکنالوجی ہمیں خیالات بنانے میں مدد دیتی ہے،
+    لیکن معنی، اخلاق اور تخلیقی سمت انسان کے پاس رہتی ہے۔
+    ہر کہانی ایک مقصد کے ساتھ بنائی جاتی ہے —
+    بچے کو سکون دینے، سہارا دینے اور اس کا احترام کرنے کے لیے۔`,
+    p20: `🌍 زبان، ثقافت اور احترام`,
+    p21: `North Dakota Fairytales ایک کثیر لسانی منصوبہ ہے،
+    جو دنیا بھر کی زبانوں اور ثقافتوں کے احترام کے ساتھ بنایا گیا ہے۔
+    زبانیں سجاوٹ نہیں ہوتیں۔
+    وہ یاد، شناخت اور تاریخ رکھتی ہیں۔
+    جب ہم مختلف زبانوں کے ساتھ کام کرتے ہیں — خاص طور پر نایاب یا ختم ہوتی زبانیں —
+    ہم نرمی اور عاجزی سے پیش آتے ہیں۔
+    ہمارا کام زبان کی آواز، تال اور خوبصورتی سے متاثر ہے۔
+    یہ مقامی بولنے والوں یا ثقافتوں کی جگہ نہیں لیتا۔
+    ہمارا مقصد نرمی سے تعارف، تجسس اور قدر پیدا کرنا ہے —
+    ایک دروازہ، نہ کہ آخری تعریف۔`,
+    p22: `🧸 ہماری ذمہ داری`,
+    p23: `ہم بچوں کے لیے مواد بنانے کی ذمہ داری کو سمجھتے ہیں۔`,
+p24: `ہم وعدہ کرتے ہیں:
+    سچ بولنے کا
+    خوف، تشدد اور ہیرا پھیری سے بچنے کا
+    محفوظ اور نرم دنیا بنانے کا
+    خاندانوں اور ثقافتوں کا احترام کرنے کا
+    ہم توجہ کے پیچھے نہیں بھاگتے۔
+    ہم اعتماد کماتے ہیں۔`,
+    p25: `🌿 ایک پرسکون وعدہ`,
+    p26: `North Dakota Fairytales شور والا نہیں ہے۔`,
+p27: `یہ مطالبہ نہیں کرتا۔`,
+p28: `یہ انتظار کرتا ہے۔`,
+p29: `جیسے گرم کھڑکی کے باہر برف۔`,
+p30: `جیسے آگ کے پاس آہستہ سنائی گئی کہانی۔`,
+p31: `جیسے بچہ آہستہ سو جاتا ہے۔`,
+p32: `ہم یہاں ایک ایسی جگہ بنانے کے لیے ہیں جہاں سردی کبھی سرد محسوس نہ ہو — صرف سکون ہو۔`,
+p33: `ہم سکون پیدا کرتے ہیں`
+},
+
+    hi: {
+        subtitle: ``,
+        p1: `❄️ हम शांति बनाते हैं`,
+    p2: `हम मानते हैं कि बच्चों को कहानियों जितनी ही शांति की भी ज़रूरत होती है।
+    एक ऐसी दुनिया में जो तेज़ चलती है, चमकती है और ऊँची आवाज़ में बोलती है, हम कुछ अलग चुनते हैं।`,
+    p3: `हम सर्दी चुनते हैं।`,
+p4: `हम शांति चुनते हैं।`,
+p5: `हम ऐसा समय चुनते हैं जो धीरे चलता है।`,
+p6: `North Dakota Fairytales बच्चों के लिए एक कोमल दुनिया बनाने के लिए है —
+    बर्फ से ढके दृश्य, नरम आवाज़ें, सरल धुनें
+    और कहानियाँ जो जल्दी मनोरंजन नहीं करतीं बल्कि बच्चे को आराम, कल्पना और सुरक्षा का अनुभव कराती हैं।`,
+    p7: `सर्दी खाली नहीं है।`,
+p8: `सर्दी सुनती है।`,
+p9: `बर्फ के नीचे सब जीवित है।`,
+p10: `🌙 बच्चों के लिए एक दुनिया`,
+    p11: `हमारी कहानियाँ और गीत सबसे पहले बच्चों के लिए बनाए गए हैं —
+    न कि एल्गोरिद्म, न ट्रेंड, न शोर के लिए।`,
+    p12: `हम मानते हैं कि बचपन विश्वास की जगह होना चाहिए:
+    जहाँ आवाज़ें कोमल हों
+    जहाँ भावनाएँ धीरे खुल सकें
+    जहाँ कल्पना बिना दबाव के बढ़े`,
+    p13: `हमारे पात्र कोमल हैं।`,
+p14: `हमारी दुनिया शांत है।`,
+p15: `हमारी कहानियाँ जगह छोड़ती हैं — सोचने, महसूस करने और शांति के लिए।`,
+p16: `हम सोने के पल बनाते हैं, अंतहीन उत्तेजना नहीं।`,
+p17: `हम आराम बनाते हैं, जल्दी नहीं।`,
+p18: `⚙️ जिम्मेदार तकनीक`,
+    p19: `हम आधुनिक दुनिया में रहते हैं और इसे स्वीकार करते हैं।
+    तकनीक हमारे काम का हिस्सा है —
+    जैसे पहले पेंसिल, वाद्ययंत्र और कैमरे थे।
+    हम तकनीक का उपयोग सोच-समझकर और जिम्मेदारी से करते हैं,
+    हमेशा मानव इरादे और अंतिम निर्णय के साथ।
+    तकनीक हमें विचार बनाने में मदद करती है,
+    लेकिन अर्थ, नैतिकता और रचनात्मक दिशा मानव ही रखते हैं।
+    हर कहानी उद्देश्य के साथ बनाई जाती है —
+    बच्चे को शांत करने, सहारा देने और सम्मान देने के लिए।`,
+    p20: `🌍 भाषा, संस्कृति और सम्मान`,
+    p21: `North Dakota Fairytales एक बहुभाषी परियोजना है,
+    जो दुनिया भर की भाषाओं और संस्कृतियों के सम्मान के साथ बनाई गई है।
+    भाषाएँ सजावट नहीं हैं।
+    वे स्मृति, पहचान और इतिहास रखती हैं।
+    जब हम अलग भाषाओं के साथ काम करते हैं —
+    विशेष रूप से दुर्लभ या लुप्त होती भाषाएँ —
+    हम उन्हें सावधानी और विनम्रता से अपनाते हैं।
+    हमारा काम भाषा की ध्वनि और सुंदरता से प्रेरित है।
+    यह किसी संस्कृति का स्थान नहीं लेता।
+    हमारा लक्ष्य एक कोमल शुरुआत है —
+    एक दरवाज़ा, अंतिम उत्तर नहीं।`,
+    p22: `🧸 हमारी जिम्मेदारी`,
+    p23: `हम बच्चों के लिए सामग्री बनाने की जिम्मेदारी समझते हैं।`,
+p24: `हम वादा करते हैं:
+    सच बोलने का
+    डर और आक्रामकता से बचने का
+    सुरक्षित और कोमल दुनिया बनाने का
+    परिवार और संस्कृति का सम्मान करने का
+    हम ध्यान का पीछा नहीं करते।
+    हम विश्वास कमाते हैं।`,
+    p25: `🌿 एक शांत वादा`,
+    p26: `North Dakota Fairytales शोर नहीं करता।`,
+p27: `यह मांग नहीं करता।`,
+p28: `यह प्रतीक्षा करता है।`,
+p29: `जैसे गर्म खिड़की के बाहर बर्फ।`,
+p30: `जैसे आग के पास धीरे सुनाई गई कहानी।`,
+p31: `जैसे बच्चा धीरे सो जाता है।`,
+p32: `हम यहाँ एक ऐसी जगह बनाने के लिए हैं जहाँ सर्दी ठंडी नहीं लगती — सिर्फ शांत होती है।`,
+p33: `हम शांति बनाते हैं`
+},
+
+    bn: {
+        subtitle: ``,
+        p1: `❄️ আমরা নীরবতা তৈরি করি`,
+    p2: `আমরা বিশ্বাস করি, শিশুদের যেমন গল্পের প্রয়োজন, তেমনি নীরবতারও প্রয়োজন।
+    এমন এক পৃথিবীতে যা দ্রুত চলে, উজ্জ্বলভাবে ঝলমল করে এবং উচ্চস্বরে কথা বলে, আমরা ভিন্ন কিছু বেছে নিই।`,
+    p3: `আমরা শীত বেছে নিই।`,
+p4: `আমরা শান্তি বেছে নিই।`,
+p5: `আমরা এমন সময় বেছে নিই যা ধীরে চলে।`,
+p6: `North Dakota Fairytales শিশুদের জন্য একটি কোমল পৃথিবী তৈরি করতে আছে —
+    তুষারে ঢাকা দৃশ্য, নরম কণ্ঠস্বর, সহজ সুর
+    এবং এমন গল্প যা তাড়াহুড়ো করে না, বরং শিশুকে বিশ্রাম, কল্পনা ও নিরাপত্তা অনুভব করতে সাহায্য করে।`,
+    p7: `শীত ফাঁকা নয়।`,
+p8: `শীত শুনছে।`,
+p9: `তুষারের নিচে সব কিছু জীবিত।`,
+p10: `🌙 শিশুদের জন্য একটি পৃথিবী`,
+    p11: `আমাদের গল্প ও গান প্রথমে শিশুদের জন্য তৈরি —
+    অ্যালগরিদম, ট্রেন্ড বা শব্দের জন্য নয়।`,
+    p12: `আমরা বিশ্বাস করি শৈশব হওয়া উচিত বিশ্বাসের জায়গা:
+    যেখানে কণ্ঠস্বর কোমল
+    যেখানে অনুভূতি ধীরে খুলে যায়
+    যেখানে কল্পনা চাপ ছাড়া বেড়ে ওঠে`,
+    p13: `আমাদের চরিত্রগুলো কোমল।`,
+p14: `আমাদের পৃথিবী শান্ত।`,
+p15: `আমাদের গল্পগুলো জায়গা দেয় — চিন্তা, অনুভূতি ও নীরবতার জন্য।`,
+p16: `আমরা ঘুমের মুহূর্ত তৈরি করি, অন্তহীন উদ্দীপনা নয়।`,
+p17: `আমরা স্বস্তি তৈরি করি, তাড়াহুড়ো নয়।`,
+p18: `⚙️ দায়িত্বশীল প্রযুক্তি`,
+    p19: `আমরা আধুনিক পৃথিবীতে বাস করি এবং তা অস্বীকার করি না।
+    প্রযুক্তি আমাদের কাজের অংশ —
+    যেমন আগে কলম, বাদ্যযন্ত্র ও ক্যামেরা ছিল।
+    আমরা প্রযুক্তি ব্যবহার করি দায়িত্বের সাথে,
+    মানুষের চিন্তা ও সিদ্ধান্তকে গুরুত্ব দিয়ে।
+    প্রযুক্তি আমাদের ধারণা গড়তে সাহায্য করে,
+    কিন্তু অর্থ, নীতি ও সৃজনশীলতা মানুষেরই থাকে।
+    প্রতিটি গল্প একটি উদ্দেশ্য নিয়ে তৈরি —
+    শিশুকে শান্ত করা, সান্ত্বনা দেওয়া এবং সম্মান করা।`,
+    p20: `🌍 ভাষা, সংস্কৃতি ও সম্মান`,
+    p21: `North Dakota Fairytales একটি বহুভাষিক প্রকল্প,
+    যা বিশ্বজুড়ে ভাষা ও সংস্কৃতির প্রতি সম্মান রেখে তৈরি।
+    ভাষা শুধু সাজসজ্জা নয়।
+    এতে স্মৃতি, পরিচয় ও ইতিহাস থাকে।
+    আমরা বিভিন্ন ভাষার সাথে কাজ করি —
+    বিশেষ করে বিরল বা হারিয়ে যাওয়া ভাষা —
+    খুব যত্ন ও বিনয়ের সাথে।
+    আমাদের কাজ ভাষার সৌন্দর্য থেকে অনুপ্রাণিত।
+    এটি কোনো সংস্কৃতির বিকল্প নয়।
+    আমাদের লক্ষ্য কোমল পরিচয় —
+    একটি দরজা, শেষ উত্তর নয়।`,
+    p22: `🧸 আমাদের দায়িত্ব`,
+    p23: `আমরা শিশুদের জন্য কনটেন্ট তৈরির দায়িত্ব বুঝি।`,
+p24: `আমরা প্রতিশ্রুতি দিই:
+    সত্য বলা
+    ভয় ও আক্রমণ এড়ানো
+    নিরাপদ পৃথিবী তৈরি করা
+    পরিবার ও সংস্কৃতিকে সম্মান করা
+    আমরা মনোযোগের পেছনে ছুটি না।
+    আমরা বিশ্বাস অর্জন করি।`,
+    p25: `🌿 একটি নীরব প্রতিশ্রুতি`,
+    p26: `North Dakota Fairytales উচ্চস্বরে নয়।`,
+p27: `এটি দাবি করে না।`,
+p28: `এটি অপেক্ষা করে।`,
+p29: `যেন উষ্ণ জানালার বাইরে তুষার।`,
+p30: `যেন আগুনের পাশে ধীরে বলা গল্প।`,
+p31: `যেন একটি শিশু শান্তভাবে ঘুমিয়ে পড়ছে।`,
+p32: `আমরা এমন একটি জায়গা তৈরি করতে চাই যেখানে শীত ঠান্ডা মনে হয় না — শুধু শান্ত।`,
+p33: `আমরা নীরবতা তৈরি করি`
+},
+
+    fa: {
+        subtitle: ``,
+        p1: `❄️ ما آرامش می‌سازیم`,
+    p2: `ما باور داریم که کودکان همان‌قدر که به داستان نیاز دارند، به آرامش هم نیاز دارند.
+    در دنیایی که سریع حرکت می‌کند، درخشان است و با صدای بلند صحبت می‌کند، ما چیزی متفاوت را انتخاب می‌کنیم.`,
+    p3: `ما زمستان را انتخاب می‌کنیم.`,
+    p4: `ما آرامش را انتخاب می‌کنیم.`,
+    p5: `ما زمانی را انتخاب می‌کنیم که آهسته می‌گذرد.`,
+    p6: `North Dakota Fairytales برای خلق دنیایی لطیف برای کودکان وجود دارد —
+    دنیایی از مناظر پوشیده از برف، صداهای آرام، ملودی‌های ساده
+    و داستان‌هایی که برای سرگرمی عجله نمی‌کنند، بلکه کودک را به استراحت، تخیل و احساس امنیت دعوت می‌کنند.`,
+    p7: `زمستان خالی نیست.`,
+    p8: `زمستان گوش می‌دهد.`,
+    p9: `زیر برف، همه چیز زنده است.`,
+    p10: `🌙 دنیایی برای کودکان`,
+    p11: `داستان‌ها و آهنگ‌های ما در درجه اول برای کودکان ساخته شده‌اند —
+    نه برای الگوریتم‌ها، نه برای ترندها، نه برای سر و صدا.`,
+    p12: `ما باور داریم کودکی باید مکانی برای اعتماد باشد:
+    جایی که صداها مهربان هستند
+    جایی که احساسات می‌توانند به‌آرامی شکل بگیرند
+    جایی که تخیل بدون فشار رشد می‌کند`,
+    p13: `شخصیت‌های ما لطیف هستند.`,
+    p14: `دنیاهای ما آرام هستند.`,
+    p15: `داستان‌های ما فضا می‌گذارند — برای فکر کردن، احساس کردن و سکوت.`,
+    p16: `ما لحظات خواب ایجاد می‌کنیم، نه تحریک بی‌پایان.`,
+    p17: `ما آرامش می‌سازیم، نه عجله.`,
+    p18: `⚙️ فناوری با مسئولیت`,
+    p19: `ما در دنیای مدرن زندگی می‌کنیم و این را انکار نمی‌کنیم.
+    فناوری بخشی از کار ماست —
+    همان‌طور که در گذشته مدادها، سازها و دوربین‌ها ابزار بودند.
+    ما از فناوری با دقت و مسئولیت استفاده می‌کنیم،
+    همیشه با هدایت نیت انسانی، توجه و انتخاب نهایی.
+    فناوری به ما کمک می‌کند ایده‌ها را شکل دهیم،
+    اما معنا، اخلاق و جهت خلاقانه انسانی باقی می‌ماند.
+    هر داستانی که به اشتراک می‌گذاریم با هدفی ساخته می‌شود —
+    برای آرام کردن، حمایت کردن و احترام به کودکی که گوش می‌دهد.`,
+    p20: `🌍 زبان، فرهنگ و احترام`,
+    p21: `North Dakota Fairytales یک پروژه چندزبانه است،
+    که با احترام عمیق به زبان‌ها و فرهنگ‌های سراسر جهان ساخته شده است.
+    زبان‌ها تزئین نیستند.
+    آن‌ها حامل حافظه، هویت و تاریخ هستند.
+    وقتی با زبان‌های مختلف کار می‌کنیم —
+    به‌ویژه زبان‌های نادر یا در حال از بین رفتن —
+    با دقت و فروتنی برخورد می‌کنیم.
+    کار ما از صدا، ریتم و زیبایی زبان الهام گرفته است.
+    جایگزین گویشوران بومی یا فرهنگ‌های زنده نیست.
+    هدف ما معرفی آرام، ایجاد کنجکاوی و قدردانی است —
+    یک درِ آغاز، نه تعریف نهایی.`,
+    p22: `🧸 مسئولیت ما`,
+    p23: `ما مسئولیتی را که در ایجاد محتوا برای کودکان وجود دارد، درک می‌کنیم.`,
+    p24: `ما متعهد می‌شویم:
+    صادق باشیم
+    از ترس، خشونت و دستکاری دوری کنیم
+    دنیاهای امن و مهربان طراحی کنیم
+    به خانواده‌ها، فرهنگ‌ها و خودِ کودکی احترام بگذاریم
+    ما به دنبال جلب توجه نیستیم.
+    ما اعتماد را به دست می‌آوریم.`,
+    p25: `🌿 یک وعده آرام`,
+    p26: `North Dakota Fairytales پر سر و صدا نیست.`,
+    p27: `مطالبه نمی‌کند.`,
+    p28: `منتظر می‌ماند.`,
+    p29: `مثل برف پشت یک پنجره گرم.`,
+    p30: `مثل داستانی که آرام کنار آتش گفته می‌شود.`,
+    p31: `مثل کودکی که آرام به خواب می‌رود.`,
+    p32: `ما اینجا هستیم تا جایی بسازیم که زمستان هرگز سرد به نظر نرسد — فقط آرام.`,
+    p33: `ما آرامش می‌سازیم`
+},
+
+    pt: {
+        subtitle: ``,
+        p1: `❄️ Nós criamos silêncio`,
+    p2: `Acreditamos que as crianças precisam de silêncio tanto quanto precisam de histórias.
+    Em um mundo que se move rápido, brilha intensamente e fala alto, escolhemos algo diferente.`,
+    p3: `Escolhemos o inverno.`,
+    p4: `Escolhemos a calma.`,
+    p5: `Escolhemos um tempo que se move devagar.`,
+    p6: `North Dakota Fairytales existe para criar um mundo gentil para as crianças —
+    um mundo de paisagens cobertas de neve, vozes suaves, melodias simples
+    e histórias que não se apressam para entreter, mas convidam a criança a descansar, imaginar e se sentir segura.`,
+    p7: `O inverno não está vazio.`,
+    p8: `O inverno escuta.`,
+    p9: `Debaixo da neve, tudo está vivo.`,
+    p10: `🌙 Um mundo feito para crianças`,
+    p11: `Nossas histórias e músicas são feitas primeiro para crianças —
+    não para algoritmos, não para tendências, não para o ruído.`,
+    p12: `Acreditamos que a infância deve ser um lugar de confiança:
+    onde as vozes são gentis
+    onde as emoções podem se desenvolver lentamente
+    onde a imaginação cresce sem pressão`,
+    p13: `Nossos personagens são gentis.`,
+    p14: `Nossos mundos são calmos.`,
+    p15: `Nossas histórias deixam espaço — para pensar, sentir e silenciar.`,
+    p16: `Criamos momentos de dormir, não estímulo infinito.`,
+    p17: `Criamos conforto, não urgência.`,
+    p18: `⚙️ Tecnologia com responsabilidade`,
+    p19: `Vivemos no mundo moderno, e não fingimos o contrário.
+    A tecnologia faz parte de como nosso estúdio funciona —
+    assim como lápis, instrumentos musicais e câmeras eram ferramentas no passado.
+    Usamos ferramentas modernas com cuidado e responsabilidade,
+    sempre guiados pela intenção humana, pelo cuidado e pela decisão final.
+    A tecnologia nos ajuda a moldar ideias,
+    mas o significado, a ética e a direção criativa permanecem humanos.
+    Cada história que compartilhamos é criada com um propósito —
+    acalmar, confortar e respeitar a criança que escuta.`,
+    p20: `🌍 Linguagem, cultura e respeito`,
+    p21: `North Dakota Fairytales é um projeto multilíngue,
+    criado com profundo respeito pelas línguas e culturas ao redor do mundo.
+    As línguas não são decoração.
+    Elas carregam memória, identidade e história.
+    Quando trabalhamos com diferentes línguas —
+    especialmente as raras ou em risco —
+    fazemos isso com cuidado e humildade.
+    Nosso trabalho é inspirado pelo som, ritmo e beleza da linguagem.
+    Não substitui falantes nativos ou culturas vivas.
+    Nosso objetivo é uma introdução gentil, curiosidade e apreciação —
+    uma primeira porta, não uma definição final.`,
+    p22: `🧸 Nossa responsabilidade`,
+    p23: `Entendemos a responsabilidade de criar conteúdo para crianças.`,
+    p24: `Prometemos:
+    ser honestos
+    evitar medo, agressão e manipulação
+    criar mundos seguros e gentis
+    respeitar famílias, culturas e a infância
+    Não buscamos atenção.
+    Conquistamos confiança.`,
+    p25: `🌿 Uma promessa silenciosa`,
+    p26: `North Dakota Fairytales não é barulhento.`,
+    p27: `Não exige.`,
+    p28: `Espera.`,
+    p29: `Como a neve do lado de fora de uma janela quente.`,
+    p30: `Como uma história contada lentamente ao lado do fogo.`,
+    p31: `Como uma criança adormecendo suavemente.`,
+    p32: `Estamos aqui para criar um lugar onde o inverno nunca parece frio — apenas calmo.`,
+    p33: `Nós criamos silêncio`
+},
+
+    ms: {
+        subtitle: ``,
+        p1: `❄️ Kami mencipta ketenangan`,
+    p2: `Kami percaya bahawa kanak-kanak memerlukan ketenangan sama seperti mereka memerlukan cerita.
+    Dalam dunia yang bergerak pantas, bersinar terang dan bercakap dengan kuat, kami memilih sesuatu yang berbeza.`,
+    p3: `Kami memilih musim sejuk.`,
+    p4: `Kami memilih ketenangan.`,
+    p5: `Kami memilih masa yang bergerak perlahan.`,
+    p6: `North Dakota Fairytales wujud untuk mencipta dunia yang lembut untuk kanak-kanak —
+    dunia landskap bersalji, suara yang lembut, melodi yang ringkas
+    dan cerita yang tidak tergesa-gesa untuk menghibur, tetapi mengajak kanak-kanak berehat, berimaginasi dan berasa selamat.`,
+    p7: `Musim sejuk tidak kosong.`,
+    p8: `Musim sejuk mendengar.`,
+    p9: `Di bawah salji, semuanya hidup.`,
+    p10: `🌙 Dunia yang dibina untuk kanak-kanak`,
+    p11: `Cerita dan lagu kami dicipta untuk kanak-kanak terlebih dahulu —
+    bukan untuk algoritma, bukan untuk trend, bukan untuk bunyi bising.`,
+    p12: `Kami percaya zaman kanak-kanak harus menjadi tempat kepercayaan:
+    di mana suara itu lembut
+    di mana emosi boleh berkembang perlahan-lahan
+    di mana imaginasi tumbuh tanpa tekanan`,
+    p13: `Watak kami lembut.`,
+    p14: `Dunia kami tenang.`,
+    p15: `Cerita kami memberi ruang — untuk berfikir, merasa dan diam.`,
+    p16: `Kami mencipta momen waktu tidur, bukan rangsangan tanpa henti.`,
+    p17: `Kami mencipta keselesaan, bukan tergesa-gesa.`,
+    p18: `⚙️ Teknologi dengan tanggungjawab`,
+    p19: `Kami hidup dalam dunia moden dan tidak menafikannya.
+    Teknologi adalah sebahagian daripada cara studio kami berfungsi —
+    sama seperti pensel, alat muzik dan kamera pada masa lalu.
+    Kami menggunakan teknologi dengan berhati-hati dan bertanggungjawab,
+    sentiasa dipandu oleh niat manusia, kepedulian dan keputusan akhir.
+    Teknologi membantu kami membentuk idea,
+    tetapi makna, etika dan arah kreatif kekal milik manusia.
+    Setiap cerita yang kami kongsi dicipta dengan tujuan —
+    untuk menenangkan, menghiburkan dan menghormati kanak-kanak yang mendengar.`,
+    p20: `🌍 Bahasa, budaya dan hormat`,
+    p21: `North Dakota Fairytales ialah projek pelbagai bahasa,
+    dicipta dengan penghormatan mendalam terhadap bahasa dan budaya di seluruh dunia.
+    Bahasa bukan sekadar hiasan.
+    Ia membawa memori, identiti dan sejarah.
+    Apabila kami bekerja dengan pelbagai bahasa —
+    terutamanya yang jarang atau terancam —
+    kami mendekatinya dengan berhati-hati dan rendah hati.
+    Kerja kami diinspirasikan oleh bunyi, irama dan keindahan bahasa.
+    Ia tidak menggantikan penutur asli atau budaya hidup.
+    Matlamat kami adalah pengenalan yang lembut, rasa ingin tahu dan penghargaan —
+    pintu pertama, bukan definisi terakhir.`,
+    p22: `🧸 Tanggungjawab kami`,
+    p23: `Kami memahami tanggungjawab dalam mencipta kandungan untuk kanak-kanak.`,
+    p24: `Kami berjanji:
+    untuk jujur
+    untuk mengelakkan ketakutan, agresi dan manipulasi
+    untuk mencipta dunia yang selamat dan lembut
+    untuk menghormati keluarga, budaya dan zaman kanak-kanak
+    Kami tidak mengejar perhatian.
+    Kami membina kepercayaan.`,
+    p25: `🌿 Janji yang tenang`,
+    p26: `North Dakota Fairytales tidak bising.`,
+    p27: `Ia tidak menuntut.`,
+    p28: `Ia menunggu.`,
+    p29: `Seperti salji di luar tingkap yang hangat.`,
+    p30: `Seperti cerita yang diceritakan perlahan di tepi api.`,
+    p31: `Seperti kanak-kanak yang perlahan-lahan tertidur.`,
+    p32: `Kami di sini untuk mencipta tempat di mana musim sejuk tidak pernah terasa sejuk — hanya tenang.`,
+    p33: `Kami mencipta ketenangan`
+},
+
+    id: {
+        subtitle: ``,
+        p1: `❄️ Kami menciptakan ketenangan`,
+    p2: `Kami percaya anak-anak membutuhkan ketenangan sama seperti mereka membutuhkan cerita.
+    Di dunia yang bergerak cepat, bersinar terang, dan berbicara dengan keras, kami memilih sesuatu yang berbeda.`,
+    p3: `Kami memilih musim dingin.`,
+    p4: `Kami memilih ketenangan.`,
+    p5: `Kami memilih waktu yang berjalan perlahan.`,
+    p6: `North Dakota Fairytales hadir untuk menciptakan dunia yang lembut bagi anak-anak —
+    dunia dengan lanskap bersalju, suara lembut, melodi sederhana
+    dan cerita yang tidak terburu-buru menghibur, tetapi mengajak anak untuk beristirahat, berimajinasi, dan merasa aman.`,
+    p7: `Musim dingin tidak kosong.`,
+    p8: `Musim dingin mendengarkan.`,
+    p9: `Di bawah salju, semuanya hidup.`,
+    p10: `🌙 Dunia yang dibuat untuk anak-anak`,
+    p11: `Cerita dan lagu kami dibuat untuk anak-anak terlebih dahulu —
+    bukan untuk algoritma, bukan untuk tren, bukan untuk kebisingan.`,
+    p12: `Kami percaya masa kecil harus menjadi tempat kepercayaan:
+    di mana suara lembut
+    di mana emosi berkembang perlahan
+    di mana imajinasi tumbuh tanpa tekanan`,
+    p13: `Karakter kami lembut.`,
+    p14: `Dunia kami tenang.`,
+    p15: `Cerita kami memberi ruang — untuk berpikir, merasakan, dan diam.`,
+    p16: `Kami menciptakan momen tidur, bukan rangsangan tanpa akhir.`,
+    p17: `Kami menciptakan kenyamanan, bukan urgensi.`,
+    p18: `⚙️ Teknologi dengan tanggung jawab`,
+    p19: `Kami hidup di dunia modern dan tidak menyangkalnya.
+    Teknologi adalah bagian dari cara studio kami bekerja —
+    seperti halnya pensil, alat musik, dan kamera di masa lalu.
+    Kami menggunakan teknologi dengan hati-hati dan bertanggung jawab,
+    selalu dipandu oleh niat manusia, kepedulian, dan keputusan akhir.
+    Teknologi membantu kami membentuk ide,
+    tetapi makna, etika, dan arah kreatif tetap milik manusia.
+    Setiap cerita yang kami bagikan dibuat dengan tujuan —
+    untuk menenangkan, menghibur, dan menghormati anak yang mendengarkan.`,
+    p20: `🌍 Bahasa, budaya, dan rasa hormat`,
+    p21: `North Dakota Fairytales adalah proyek multibahasa,
+    yang dibuat dengan rasa hormat mendalam terhadap bahasa dan budaya di seluruh dunia.
+    Bahasa bukan sekadar hiasan.
+    Bahasa membawa memori, identitas, dan sejarah.
+    Ketika kami bekerja dengan berbagai bahasa —
+    terutama yang langka atau terancam —
+    kami melakukannya dengan hati-hati dan rendah hati.
+    Karya kami terinspirasi oleh suara, ritme, dan keindahan bahasa.
+    Ini bukan pengganti penutur asli atau budaya hidup.
+    Tujuan kami adalah pengenalan yang lembut, rasa ingin tahu, dan apresiasi —
+    sebuah pintu awal, bukan definisi akhir.`,
+    p22: `🧸 Tanggung jawab kami`,
+    p23: `Kami memahami tanggung jawab dalam menciptakan konten untuk anak-anak.`,
+    p24: `Kami berjanji:
+    untuk jujur
+    untuk menghindari ketakutan, agresi, dan manipulasi
+    untuk menciptakan dunia yang aman dan lembut
+    untuk menghormati keluarga, budaya, dan masa kecil
+    Kami tidak mengejar perhatian.
+    Kami membangun kepercayaan.`,
+    p25: `🌿 Janji yang tenang`,
+    p26: `North Dakota Fairytales tidak berisik.`,
+    p27: `Tidak menuntut.`,
+    p28: `Ia menunggu.`,
+    p29: `Seperti salju di luar jendela yang hangat.`,
+    p30: `Seperti cerita yang diceritakan perlahan di dekat api.`,
+    p31: `Seperti anak yang perlahan tertidur.`,
+    p32: `Kami di sini untuk menciptakan tempat di mana musim dingin tidak pernah terasa dingin — hanya tenang.`,
+    p33: `Kami menciptakan ketenangan`
+},
+
+    de: {
+        subtitle: ``,
+        p1: `❄️ Wir schenken Ruhe`,
+    p2: `Wir glauben, dass Kinder Ruhe genauso brauchen wie Geschichten.
+    In einer Welt, die immer schneller wird, grell leuchtet und laut spricht, wählen wir einen anderen Weg.`,
+    p3: `Wir wählen den Winter.`,
+    p4: `Wir wählen die Gelassenheit.`,
+    p5: `Wir wählen eine Zeit, die langsam vergeht.`,
+    p6: `North Dakota Fairytales wurde geschaffen, um eine sanfte Welt für Kinder zu schaffen —
+    eine Welt aus verschneiten Landschaften, leisen Stimmen, einfachen Melodien
+    und Geschichten, die nicht auf schnelle Unterhaltung zielen, sondern das Kind einladen, zur Ruhe zu kommen, zu träumen und sich geborgen zu fühlen.`,
+    p7: `Der Winter ist nicht leer.`,
+    p8: `Der Winter hört zu.`,
+    p9: `Unter dem Schnee pulsiert das Leben.`,
+    p10: `🌙 Eine Welt für Kinder`,
+    p11: `Unsere Geschichten und Lieder entstehen zuerst für die Kinder —
+    nicht für Algorithmen, nicht für Trends, nicht für den Lärm.`,
+    p12: `Wir glauben, dass die Kindheit ein Ort des Vertrauens sein sollte:
+    wo Stimmen sanft klingen,
+    wo Gefühle sich ohne Eile entfalten dürfen,
+    wo die Fantasie frei von Druck wächst.`,
+    p13: `Unsere Figuren sind voller Sanftmut.`,
+    p14: `Unsere Welten sind friedvoll.`,
+    p15: `Unsere Geschichten lassen Raum — zum Nachdenken, zum Fühlen und für die Stille.`,
+    p16: `Wir schaffen Momente des Einschlafens, keine endlose Reizüberflutung.`,
+    p17: `Wir schenken Geborgenheit, keine Eile.`,
+    p18: `⚙️ Technologie mit Verantwortung`,
+    p19: `Wir leben in der modernen Welt und verleugnen dies nicht.
+    Technologie ist ein Teil unseres Schaffens —
+    so wie einst Stifte, Instrumente und Kameras bloße Werkzeuge waren.
+    Wir nutzen moderne Mittel bewusst und verantwortungsvoll,
+    stets geleitet von menschlicher Absicht, Fürsorge und der bewussten Entscheidung.
+    Technologie hilft uns, Ideen Form zu geben,
+    doch Sinn, Ethik und die kreative Seele bleiben menschlich.
+    Jede Geschichte, die wir teilen, verfolgt ein Ziel —
+    zu beruhigen, zu trösten und die Kindheit zu achten.`,
+    p20: `🌍 Sprache, Kultur und Respekt`,
+    p21: `North Dakota Fairytales ist ein mehrsprachiges Projekt,
+    geschaffen mit tiefer Achtung vor den Sprachen und Kulturen dieser Welt.
+    Sprachen sind für uns kein Schmuckwerk.
+    Sie sind Träger von Erinnerung, Identität und Geschichte.
+    Wenn wir mit verschiedenen Sprachen arbeiten — besonders mit seltenen oder bedrohten —
+    tun wir dies mit größter Sorgfalt und Demut.
+    Unsere Arbeit ist inspiriert vom Klang, dem Rhythmus und der Poesie der Sprache.
+    Wir ersetzen keine Muttersprachler und keine lebendigen Traditionen.
+    Unser Ziel ist eine behutsame Annäherung, Neugier und Wertschätzung —
+    eine erste Tür, keine endgültige Definition.`,
+    p22: `🧸 Unsere Verantwortung`,
+    p23: `Wir sind uns der Verantwortung bewusst, die das Schaffen von Inhalten für Kinder mit sich bringt.`,
+    p24: `Wir versprechen:
+    ehrlich zu sein in dem, was wir erschaffen,
+    Angst, Aggression und Manipulation zu meiden,
+    sichere und gütige Welten zu gestalten,
+    Familien, Kulturen und die Kindheit an sich zu achten.
+    Wir suchen nicht die Aufmerksamkeit.
+    Wir gewinnen Vertrauen.`,
+    p25: `🌿 Ein stilles Versprechen`,
+    p26: `North Dakota Fairytales ist nicht laut.`,
+    p27: `Es fordert nichts.`,
+    p28: `Es wartet.`,
+    p29: `Wie der fallende Schnee vor einem behaglichen Fenster.`,
+    p30: `Wie eine Geschichte, die leise am Kamin erzählt wird.`,
+    p31: `Wie ein Kind, das friedlich in den Schlaf gleitet.`,
+    p32: `Wir sind hier, um einen Ort zu schaffen, an dem der Winter niemals kalt wirkt — sondern nur voller Ruhe.`,
+    p33: `Wir schenken Ruhe`
+},
+
+    ca: {
+        subtitle: ``,
+        p1: `❄️ Cultivem el silenci`,
+    p2: `Creiem que els infants necessiten silenci tant com necessiten històries.
+    En un món que corre massa, que enlluerna i que parla fort, nosaltres triem un camí diferent.`,
+    p3: `Triem l’hivern.`,
+    p4: `Triem la calma.`,
+    p5: `Triem un temps que flueix sense pressa.`,
+    p6: `North Dakota Fairytales neix per crear un recer de tendresa per als infants —
+    un món de paisatges nevats, veus pausades, melodies senzilles
+    i relats que no busquen l'entreteniment ràpid, sinó que conviden a descansar, imaginar i sentir-se protegit.`,
+    p7: `L’hivern no és buit.`,
+    p8: `L’hivern sap escoltar.`,
+    p9: `Sota la neu, batega la vida.`,
+    p10: `🌙 Un món pensat per als infants`,
+    p11: `Les nostres històries i cançons neixen primer per als infants —
+    ni per als algoritmes, ni per a les modes, ni per al soroll.`,
+    p12: `Creiem que la infància ha de ser un espai de confiança:
+    on les veus són amables,
+    on les emocions es bressolen lentament,
+    on la imaginació creix lliure de pressions.`,
+    p13: `Els nostres personatges són dolços.`,
+    p14: `Els nostres mons són serens.`,
+    p15: `Les nostres històries deixen espai — per pensar, per sentir i per fer una pausa.`,
+    p16: `Creem moments per agafar el son, no una estimulació infinita.`,
+    p17: `Oferim caliu, no urgència.`,
+    p18: `⚙️ Tecnologia amb responsabilitat`,
+    p19: `Vivim en el món modern i no ens n'amaguem.
+    La tecnologia forma part de la manera de fer del nostre estudi —
+    com ho van ser els llapis, els instruments o les càmeres en altres temps.
+    Utilitzem les eines actuals amb consciència i responsabilitat,
+    sempre guiats per la intenció humana, la cura i la decisió final.
+    La tecnologia ens ajuda a donar forma a les idees,
+    però el sentit, l’ètica i la direcció creativa continuen sent humans.
+    Cada història es crea amb un propòsit —
+    calmar, reconfortar i respectar l’infant que ens escolta.`,
+    p20: `🌍 Llengua, cultura i respecte`,
+    p21: `North Dakota Fairytales és un projecte multilingüe,
+    creat amb un respecte profund per les llengües i cultures d’arreu del món.
+    Les llengües no són una ornamentació.
+    Són el bressol de la memòria, la identitat i la història.
+    Quan treballem amb diferents idiomes —especialment els rars o en perill—
+    ho fem amb humilitat i una cura extrema.
+    La nostra feina s’inspira en la sonoritat, el ritme i la bellesa de cada parla.
+    No pretenem substituir els parlants nadius ni les cultures vives.
+    El nostre objectiu és una invitació amable, despertar la curiositat i l’apreciació —
+    una primera porta oberta, no una definició final.`,
+    p22: `🧸 La nostra responsabilitat`,
+    p23: `Som conscients de la responsabilitat que implica crear continguts per als més petits.`,
+    p24: `Ens comprometem a:
+    ser honestos en tot el que creem,
+    evitar la por, l’agressió i la manipulació,
+    dissenyar mons segurs i amorosos,
+    respectar les famílies, les cultures i la pròpia infantesa.
+    No busquem l’atenció immediata.
+    Ens guanyem la confiança.`,
+    p25: `🌿 Una promesa serena`,
+    p26: `North Dakota Fairytales no crida.`,
+    p27: `No exigeix res.`,
+    p28: `Simplement espera.`,
+    p29: `Com la neu que cau darrere d’una finestra acollidora.`,
+    p30: `Com un conte explicat a cau d'orella vora el foc.`,
+p31: `Com un infant que es lliura al son suaument.`,
+    p32: `Som aquí per crear un lloc on l’hivern mai no sembli fred — només calma.`,
+    p33: `Cultivem el silenci`
+},
+
+    az: {
+        subtitle: ``,
+        p1: `❄️ Biz sakitlik yaradırıq`,
+    p2: `Biz inanırıq ki, uşaqlar hekayələr qədər sakitliyə də ehtiyac duyurlar.
+    Sürətlə hərəkət edən, parlaq və səs-küylü bir dünyada biz fərqli yolu seçirik.`,
+    p3: `Biz qışı seçirik.`,
+    p4: `Biz sakitliyi seçirik.`,
+    p5: `Biz yavaş axan zamanı seçirik.`,
+    p6: `North Dakota Fairytales uşaqlar üçün yumşaq bir dünya yaratmaq üçün mövcuddur —
+    qarla örtülü mənzərələr, sakit səslər, sadə melodiyalar
+    və uşağı dincəlməyə, xəyal qurmağa və özünü təhlükəsiz hiss etməyə dəvət edən hekayələr.`,
+    p7: `Qış boş deyil.`,
+    p8: `Qış dinləyir.`,
+    p9: `Qarın altında hər şey canlıdır.`,
+    p10: `🌙 Uşaqlar üçün bir dünya`,
+    p11: `Bizim hekayələrimiz və mahnılarımız ilk növbədə uşaqlar üçündür —
+    alqoritmlər, trendlər və ya səs-küy üçün deyil.`,
+    p12: `Biz inanırıq ki, uşaqlıq etibar məkanı olmalıdır:
+    səslərin yumşaq olduğu
+    hisslərin yavaş-yavaş açıldığı
+    xəyalın təzyiqsiz böyüdüyü yer`,
+    p13: `Bizim personajlarımız yumşaqdır.`,
+    p14: `Bizim dünyalarımız sakitdir.`,
+    p15: `Bizim hekayələrimiz yer buraxır — düşünmək, hiss etmək və sakitlik üçün.`,
+    p16: `Biz yuxu anları yaradırıq, sonsuz stimullaşdırma deyil.`,
+    p17: `Biz rahatlıq yaradırıq, tələskənlik yox.`,
+    p18: `⚙️ Texnologiya məsuliyyətlə`,
+    p19: `Biz müasir dünyada yaşayırıq və bunu inkar etmirik.
+    Texnologiya bizim işimizin bir hissəsidir —
+    keçmişdə qələm, musiqi alətləri və kameralar kimi.
+    Biz texnologiyanı diqqətlə və məsuliyyətlə istifadə edirik,
+    həmişə insan niyyəti və son qərar ilə.
+    Texnologiya bizə ideyaları formalaşdırmağa kömək edir,
+    amma məna, etika və yaradıcılıq istiqaməti insan olaraq qalır.
+    Hər hekayə bir məqsədlə yaradılır —
+    uşağı sakitləşdirmək, ona dəstək olmaq və ona hörmət etmək üçün.`,
+    p20: `🌍 Dil, mədəniyyət və hörmət`,
+    p21: `North Dakota Fairytales çoxdilli bir layihədir,
+    dünya dillərinə və mədəniyyətlərinə dərin hörmətlə yaradılmışdır.
+    Dillər sadəcə bəzək deyil.
+    Onlar yaddaş, kimlik və tarix daşıyır.
+    Müxtəlif dillərlə işlədikdə —
+    xüsusilə nadir və ya yox olmaqda olan dillərlə —
+    biz bunu diqqətlə və təvazökarlıqla edirik.
+    İşimiz dilin səsi, ritmi və gözəlliyindən ilham alır.
+    Bu, yerli danışanları və ya canlı mədəniyyətləri əvəz etmir.
+    Məqsədimiz yumşaq tanışlıq, maraq və dəyər verməkdir —
+    ilk qapı, son tərif deyil.`,
+    p22: `🧸 Bizim məsuliyyətimiz`,
+    p23: `Biz uşaqlar üçün məzmun yaratmağın məsuliyyətini anlayırıq.`,
+    p24: `Biz söz veririk:
+    dürüst olmaq
+    qorxu, aqressiya və manipulyasiyadan uzaq durmaq
+    təhlükəsiz və yumşaq dünyalar yaratmaq
+    ailələrə və mədəniyyətlərə hörmət etmək
+    Biz diqqət dalınca qaçmırıq.
+    Biz etibar qazanırıq.`,
+    p25: `🌿 Sakit bir vəd`,
+    p26: `North Dakota Fairytales səs-küylü deyil.`,
+    p27: `Heç nə tələb etmir.`,
+    p28: `Gözləyir.`,
+    p29: `İsti bir pəncərənin arxasındakı qar kimi.`,
+    p30: `Ocaq yanında yavaş danışılan bir hekayə kimi.`,
+    p31: `Yavaş-yavaş yuxuya gedən uşaq kimi.`,
+    p32: `Biz elə bir yer yaratmaq üçün buradayıq ki, qış heç vaxt soyuq hiss olunmasın — yalnız sakit.`,
+    p33: `Biz sakitlik yaradırıq`
+},
+
+    hy: {
+        subtitle: ``,
+        p1: `❄️ Մենք անդորր ենք արարում`,
+    p2: `Մենք հավատում ենք, որ երեխաները խաղաղության կարիք ունեն նույնքան, որքան պատմությունների:
+    Այս սրընթաց, շլացուցիչ ու աղմկոտ աշխարհում մենք ընտրում ենք այլ ուղի:`,
+    p3: `Մենք ընտրում ենք ձմեռը:`,
+p4: `Մենք ընտրում ենք անդորրը:`,
+p5: `Մենք ընտրում ենք ժամանակը, որը հոսում է մեղմ ու անշտապ:`,
+p6: `North Dakota Fairytales-ը գոյություն ունի երեխաների համար նրբակերտ մի աշխարհ հյուսելու համար՝
+    ձյունապատ տեսարաններով, մեղմաձայն խոսքով, պարզ մեղեդիներով
+    և պատմություններով, որոնք չեն շտապում զվարճացնել, այլ հրավիրում են երեխային հանգստի, երազանքների ու ապահովության:`,
+    p7: `Ձմեռը դատարկ չէ:`,
+p8: `Ձմեռը լսում է:`,
+p9: `Ձյան տակ ամեն ինչ շնչում է ու կենդանի է:`,
+p10: `🌙 Աշխարհ՝ ստեղծված երեխաների համար`,
+    p11: `Մեր պատմություններն ու երգերը նախևառաջ երեխաների համար են,
+    այլ ոչ թե ալգորիթմների, թրենդների կամ աղմուկի:`,
+    p12: `Մենք հավատում ենք, որ մանկությունը պետք է լինի վստահության վայր.
+    որտեղ ձայները բարի են,
+    որտեղ զգացմունքները բացվում են դանդաղ ու բնական,
+    որտեղ երևակայությունն աճում է առանց ճնշման:`,
+    p13: `Մեր կերպարները հեզ են ու բարի։`,
+p14: `Մեր աշխարհները խաղաղ են։`,
+p15: `Մեր պատմությունները տեղ են թողնում մտորումների, զգացմունքների ու լռության համար:`,
+p16: `Մենք ստեղծում ենք քնի նախաշեմի պահեր, այլ ոչ թե անվերջ խթանում:`,
+p17: `Մենք պարգևում ենք հարմարավետություն, այլ ոչ թե շտապողականություն:`,
+p18: `⚙️ Տեխնոլոգիա և պատասխանատվություն`,
+    p19: `Մենք ապրում ենք ժամանակակից աշխարհում և չենք հերքում դա:
+    Տեխնոլոգիան մեր ստեղծագործական գործընթացի մի մասն է՝
+    ինչպես ժամանակին գրիչը, երաժշտական գործիքն ու տեսախցիկն էին:
+    Մենք օգտագործում ենք տեխնոլոգիան խոհեմությամբ ու պատասխանատվությամբ՝
+    միշտ առաջնորդվելով մարդկային մտադրությամբ, հոգատարությամբ ու վերջնական ընտրությամբ:
+    Տեխնոլոգիան օգնում է ձևավորել գաղափարները,
+    բայց իմաստը, էթիկան ու ստեղծագործական ոգին մնում են մարդկային:
+    Յուրաքանչյուր պատմություն ստեղծվում է նպատակով՝
+    խաղաղեցնելու, սփոփելու և հարգելու երեխայի աշխարհը:`,
+    p20: `🌍 Լեզու, մշակույթ և հարգանք`,
+    p21: `North Dakota Fairytales-ը բազմալեզու նախագիծ է՝
+    ծնված աշխարհի լեզուների և մշակույթների հանդեպ խորին հարգանքից:
+    Լեզուները պարզապես զարդարանք չեն.
+    դրանք կրում են հիշողություն, ինքնություն և պատմություն:
+    Աշխատելով տարբեր լեզուների հետ, հատկապես հազվադեպ կամ անհետացող,
+    մենք դա անում ենք երկյուղածությամբ ու խոնարհությամբ:
+    Մեր աշխատանքը ներշնչված է լեզվի հնչյունից, ռիթմից ու գեղեցկությունից:
+    Այն չի փոխարինում բնիկ խոսողներին կամ կենդանի մշակույթներին:
+    Մեր նպատակն է մեղմ ծանոթացումը, հետաքրքրության արթնացումն ու արժևորումը.
+    մի բաց դուռ, այլ ոչ թե վերջնական սահմանում:`,
+    p22: `🧸 Մեր պատասխանատվությունը`,
+    p23: `Մենք գիտակցում ենք երեխաների համար բովանդակություն ստեղծելու մեծ պատասխանատվությունը:`,
+p24: `Մենք խոստանում ենք՝
+    լինել ազնիվ մեր արարումների մեջ,
+    զերծ մնալ վախից, ագրեսիայից ու մանիպուլյացիայից,
+    կերտել անվտանգ ու բարի աշխարհներ,
+    հարգել ընտանիքները, մշակույթներն ու հենց մանկությունը:
+    Մենք չենք հետապնդում ուշադրություն:
+    Մենք վաստակում ենք վստահություն:`,
+    p25: `🌿 Լուռ խոստում`,
+    p26: `North Dakota Fairytales-ը աղմկոտ չէ:`,
+p27: `Այն ոչինչ չի պահանջում:`,
+p28: `Այն սպասում է:`,
+p29: `Ինչպես ձյունը՝ հարմարավետ տան պատուհանից այն կողմ:`,
+p30: `Ինչպես կրակի մոտ մեղմորեն պատմվող հեքիաթը:`,
+p31: `Ինչպես երեխան, որը խաղաղ ննջում է:`,
+p32: `Մենք այստեղ ենք ստեղծելու մի վայր, որտեղ ձմեռը երբեք սառը չի թվում — միայն անդորր:`,
+p33: `Մենք անդորր ենք արարում`
+},
+
+    haw: {
+        subtitle: ``,
+        p1: `❄️ Kūkulu mākou i ka maluhia`,
+    p2: `Manaʻo mākou, he mea nui ka mālie i nā keiki e like me nā moʻolelo.
+    I loko o kēia ao e holo wikiwiki ana, e ʻālohilohi ana, a e walaʻau nui ana, koho mākou i ke ala ʻokoʻa.`,
+    p3: `Koho mākou i ke kau hoʻoilo.`,
+    p4: `Koho mākou i ka mālie.`,
+    p5: `Koho mākou i ka manawa e kahe mālie ana.`,
+    p6: `ʻO North Dakota Fairytales e kū nei e kūkulu i ao palupalu no nā keiki —
+    he ao o nā ʻāina i uhi ʻia e ka hau keʻokeʻo, nā leo mālie, nā mele nahenahe,
+    a me nā moʻolelo e kono ana i ke keiki e hoʻomaha, e noʻonoʻo, a e ʻoluʻolu me ka palekana.`,
+    p7: `ʻAʻole hakahaka ke kau hoʻoilo.`,
+    p8: `Ke hoʻolohe nei ke kau hoʻoilo.`,
+    p9: `Ma lalo o ka hau, ola nā mea a pau.`,
+    p10: `🌙 He ao no nā keiki`,
+    p11: `Haku ʻia kā mākou mau moʻolelo a me nā mele no nā keiki mua —
+    ʻaʻole no nā algorithm, ʻaʻole no nā trends, ʻaʻole no ka walaʻau.`,
+    p12: `Manaʻo mākou, he wahi hilinaʻi ka wā kamaliʻi:
+    kahi mālie nā leo
+    kahi ulu mālie nā manaʻo
+    kahi ulu ka noʻonoʻo me ka ʻole o ka paʻakikī`,
+    p13: `Palupalu kā mākou mau ʻano.`,
+    p14: `Mālie kā mākou mau ao.`,
+    p15: `Haʻalele kā mākou mau moʻolelo i kahi — no ka noʻonoʻo, ka manaʻo a me ka mālie.`,
+    p16: `Kūkulu mākou i nā manawa moe, ʻaʻole ka hoʻoulu pau ʻole.`,
+    p17: `Hāʻawi mākou i ka ʻoluʻolu, ʻaʻole ka wikiwiki.`,
+    p18: `⚙️ ʻEnehana me ke kuleana`,
+    p19: `Noho mākou i kēia ao hou, ʻaʻole mākou e hōʻole i kēia.
+    He ʻāpana ka ʻenehana o kā mākou hana —
+    e like me nā peni, nā mea kani a me nā kāmela i ka wā ma mua.
+    Hoʻohana mākou i ka ʻenehana me ke kuleana a me ka noʻonoʻo,
+    alakaʻi ʻia e ka manaʻo kanaka a me ka koho hope loa.
+    Kōkua ka ʻenehana iā mākou e kūkulu i nā manaʻo,
+    akā noho ka manaʻo a me ke ala hana ma ke kanaka.
+    Hana ʻia kēlā me kēia moʻolelo me ke kumu —
+    e hoʻomālielie, e hōʻoluʻolu a e mahalo i ke keiki.`,
+    p20: `🌍 ʻŌlelo, moʻomeheu a me ka mahalo`,
+    p21: `ʻO North Dakota Fairytales he papahana ʻōlelo he nui,
+    i hana ʻia me ka mahalo nui i nā ʻōlelo a me nā moʻomeheu o ke ao holoʻokoʻa.
+    ʻAʻole nā ʻōlelo he mea hoʻonaninani.
+    Hāpai lākou i ka hoʻomanaʻo, ka ʻike a me ka mōʻaukala.
+    Ke hana mākou me nā ʻōlelo like ʻole —
+    ʻoi loa nā ʻōlelo liʻiliʻi a i ʻole e nalowale ana —
+    hana mākou me ka mālama a me ka haʻahaʻa.
+    Hoʻoulu ʻia kā mākou hana e ke kani a me ka nani o ka ʻōlelo.
+    ʻAʻole ia e pani i nā kamaʻāina ʻōlelo a i ʻole nā moʻomeheu ola.
+    ʻO kā mākou pahuhopu he hoʻolauna mālie —
+    he puka mua, ʻaʻole he wehewehe hope loa.`,
+    p22: `🧸 Ko mākou kuleana`,
+    p23: `Maopopo iā mākou ke kuleana o ka hana ʻana i nā mea no nā keiki.`,
+    p24: `Hoʻohiki mākou:
+    e ʻoiaʻiʻo
+    e pale aku i ka makaʻu a me ka hana ʻino
+    e hana i nā ao palekana a mālie
+    e mahalo i nā ʻohana a me nā moʻomeheu
+    ʻAʻole mākou e ʻimi i ka nānā.
+    Loaʻa mākou i ka hilinaʻi.`,
+    p25: `🌿 He hoʻohiki mālie`,
+    p26: `ʻAʻole walaʻau ʻo North Dakota Fairytales.`,
+    p27: `ʻAʻole koi.`,
+    p28: `Kali.`,
+    p29: `E like me ka hau ma waho o ka puka aniani mahana.`,
+    p30: `E like me ka moʻolelo i haʻi mālie ʻia ma ke ahi.`,
+    p31: `E like me ke keiki e hiamoe mālie ana.`,
+    p32: `Aia mākou e hana i kahi wahi ʻaʻole anu ke kau hoʻoilo — mālie wale nō.`,
+    p33: `Kūkulu mākou i ka maluhia`
+},
+
+    tt: {
+        subtitle: ``,
+        p1: `❄️ Без күңел тынычлыгы иҗат итәбез`,
+    p2: `Без ышанабыз: балаларга хикәяләр кебек үк тынычлык та кирәк.
+    Дөнья ашыга, якты утлар белән күзләрне камаштыра һәм кычкырып сөйләшә — без исә башка юлны сайлыйбыз.`,
+    p3: `Без кышны сайлыйбыз.`,
+    p4: `Без тынлыкны сайлыйбыз.`,
+    p5: `Без ашыкмыйча, акрын агучы вакытны сайлыйбыз.`,
+    p6: `North Dakota Fairytales балалар өчен мөлаем дөнья тудыру өчен бар —
+    кар белән капланган тылсымлы табигать, йомшак тавышлар, гади көйләр
+    һәм ашыктырмыйча, баланы ял итәргә, хыялланырга һәм үзен имин хис итәргә чакыручы хикәяләр.`,
+    p7: `Кыш буш түгел.`,
+    p8: `Кыш тыңлый.`,
+    p9: `Кар астында һәр нәрсә тере, һәр нәрсә сулыш ала.`,
+    p10: `🌙 Балалар өчен дөнья`,
+    p11: `Безнең хикәяләр һәм җырлар иң элек балалар өчен —
+    алгоритмнар, трендлар яки коры шау-шу өчен түгел.`,
+    p12: `Без ышанабыз: балачак — ышаныч урыны булырга тиеш:
+    анда тавышлар назлы,
+    анда хисләр ашыкмыйча ачыла,
+    анда хыял басымсыз үсә.`,
+    p13: `Безнең геройларыбыз игелекле һәм мөлаем.`,
+    p14: `Безнең дөньяларыбыз тыныч.`,
+    p15: `Безнең хикәяләр уйлану, тою һәм тынлык өчен урын калдыра.`,
+    p16: `Без чиксез стимуллар түгел, ә татлы йокыга илтүче мизгелләр тудырабыз.`,
+    p17: `Без ашыгу түгел, ә күңел тынычлыгы бирәбез.`,
+    p18: `⚙️ Технология һәм җаваплылык`,
+    p19: `Без заманча дөньяда яшибез һәм моны кире какмыйбыз.
+    Технология — безнең эшнең бер өлеше —
+    элек каләм, музыка кораллары һәм камералар хезмәт иткән кебек.
+    Без технологияне уйлап һәм җаваплылык белән кулланабыз,
+    һәрвакыт кеше нияте, кайгыртучанлыгы һәм соңгы карары белән җитәкчелек итәбез.
+    Технология идеяләргә форма бирергә ярдәм итә,
+    ләкин мәгънә, әхлак һәм иҗади рух кешедә кала.
+    Һәр хикәя максат белән тудырыла —
+    баланы тынычландырырга, юатырга һәм аның дөньясын хөрмәт итәргә.`,
+    p20: `🌍 Тел, мәдәният һәм ихтирам`,
+    p21: `North Dakota Fairytales — күп телле проект,
+    ул дөнья телләренә һәм мәдәниятләренә тирән ихтирам белән булдырылган.
+    Телләр — бизәк кенә түгел.
+    Алар хәтер, шәхес һәм тарих йөртә.
+    Без төрле телләр белән эшләгәндә — аеруча сирәк яки юкка чыга торганнар белән —
+    бик игътибарлы һәм тыйнак булабыз.
+    Безнең эш телнең тавышы, ритмы һәм матурлыгыннан илһам ала.
+    Ул туган тел ияләрен яки тере мәдәниятләрне алыштырмый.
+    Безнең максат — йомшак танышу, кызыксыну уяту һәм хөрмәт итергә өйрәтү —
+    бу беренче ишек кенә, соңгы аңлатма түгел.`,
+    p22: `🧸 Безнең җаваплылык`,
+    p23: `Без балалар өчен дөнья тудыруның никадәр зур җаваплылык икәнен аңлыйбыз.`,
+    p24: `Без вәгъдә итәбез:
+    иҗатыбызда намуслы булырга,
+    курку, агрессия һәм манипуляциядән сакланырга,
+    имин һәм назлы дөньялар тудырырга,
+    гаиләләрне, мәдәниятләрне һәм балачакның үзен хөрмәт итәргә.
+    Без игътибар артыннан кумыйбыз.
+    Без ышаныч казанабыз.`,
+    p25: `🌿 Тын вәгъдә`,
+    p26: `North Dakota Fairytales кычкырмый.`,
+    p27: `Ул таләп итми.`,
+    p28: `Ул көтә.`,
+    p29: `Җылы өй тәрәзәсеннән күренгән кар кебек.`,
+    p30: `Учак янында акрын сөйләнгән әкият кебек.`,
+    p31: `Татлы йокыга талган бала кебек.`,
+    p32: `Без монда кыш беркайчан да салкын булып тоелмаган урын тудыру өчен — бары тик тыныч.`,
+    p33: `Без күңел тынычлыгы иҗат итәбез`
+},
+}
+
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+        <p>{t.p7}</p>
+        <p>{t.p8}</p>
+        <p>{t.p9}</p>
+        <p>{t.p10}</p>
+        <p>{t.p11}</p>
+        <p>{t.p12}</p>
+        <p>{t.p13}</p>
+        <p>{t.p14}</p>
+        <p>{t.p15}</p>
+        <p>{t.p16}</p>
+        <p>{t.p17}</p>
+        <p>{t.p18}</p>
+        <p>{t.p19}</p>
+        <p>{t.p20}</p>
+        <p>{t.p21}</p>
+        <p>{t.p22}</p>
+        <p>{t.p23}</p>
+        <p>{t.p24}</p>
+        <p>{t.p25}</p>
+        <p>{t.p26}</p>
+        <p>{t.p27}</p>
+        <p>{t.p28}</p>
+        <p>{t.p29}</p>
+        <p>{t.p30}</p>
+        <p>{t.p31}</p>
+        <p>{t.p32}</p>
+        <p>{t.p33}</p>
+
+
+    </div>
+
+
+</BaseLayout>

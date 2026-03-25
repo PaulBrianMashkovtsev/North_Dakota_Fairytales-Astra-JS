@@ -1,0 +1,136 @@
+---
+import "../styles/global.css";
+
+
+
+// Достаем пропсы, которые передаются в Layout (например, из index.astro)
+const { lang, title = "North Dakota Fairytales" } = Astro.props;
+
+// Логика определения языка на сервере
+const currentLang = lang || 'en';
+---
+
+<!DOCTYPE html>
+<html lang={currentLang}>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>North Dakota Fairytales | Choose Language</title>
+
+    <meta name="description" content="Choose your language to explore calm winter stories and songs for
+    children from North Dakota Fairytales." />
+
+    <meta property="og:title" content="North Dakota Fairytales" />
+    <meta property="og:description" content="Choose your language to explore calm winter stories and songs for children." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://northdakotafairytales.org/" />
+    <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="North Dakota Fairytales" />
+    <meta name="twitter:description" content="Choose your language to explore calm winter stories and songs for children." />
+    <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
+
+    <link rel="canonical" href="https://northdakotafairytales.org/" />
+
+    <link rel="alternate" hreflang="x-default" href="https://northdakotafairytales.org/" />
+
+    <link rel="alternate" hreflang="en" href="https://northdakotafairytales.org/en/" />
+    <link rel="alternate" hreflang="es" href="https://northdakotafairytales.org/es/" />
+    <link rel="alternate" hreflang="fr" href="https://northdakotafairytales.org/fr/" />
+    <link rel="alternate" hreflang="ar" href="https://northdakotafairytales.org/ar/" />
+    <link rel="alternate" hreflang="ru" href="https://northdakotafairytales.org/ru/" />
+    <link rel="alternate" hreflang="ur" href="https://northdakotafairytales.org/ur/" />
+    <link rel="alternate" hreflang="hi" href="https://northdakotafairytales.org/hi/" />
+    <link rel="alternate" hreflang="bn" href="https://northdakotafairytales.org/bn/" />
+    <link rel="alternate" hreflang="fa" href="https://northdakotafairytales.org/fa/" />
+    <link rel="alternate" hreflang="pt" href="https://northdakotafairytales.org/pt/" />
+    <link rel="alternate" hreflang="ms" href="https://northdakotafairytales.org/ms/" />
+    <link rel="alternate" hreflang="id" href="https://northdakotafairytales.org/id/" />
+    <link rel="alternate" hreflang="de" href="https://northdakotafairytales.org/de/" />
+    <link rel="alternate" hreflang="ca" href="https://northdakotafairytales.org/ca/" />
+    <link rel="alternate" hreflang="az" href="https://northdakotafairytales.org/az/" />
+    <link rel="alternate" hreflang="hy" href="https://northdakotafairytales.org/hy/" />
+    <link rel="alternate" hreflang="haw" href="https://northdakotafairytales.org/haw/" />
+    <link rel="alternate" hreflang="tt" href="https://northdakotafairytales.org/tt/" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://northdakotafairytales.org/#homepage",
+        "url": "https://northdakotafairytales.org/",
+        "name": "North Dakota Fairytales",
+        "description": "Choose your language to explore calm winter stories and songs for children.",
+        "inLanguage": "en"
+    })} />
+
+    <!--<title>{title}</title>-->
+</head>
+<body>
+
+<div id="snow"></div>
+
+<slot />
+
+<script define:vars={{ currentLang }}>
+    // Теперь ошибка "title is not defined" или "lang is not defined" исчезнет,
+    // так как мы явно передали данные из Astro в браузерный JS.
+
+    const snowContainer = document.getElementById("snow");
+
+    function createSnowflake() {
+        if (!snowContainer) return;
+
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+
+        // Используем переменную, пришедшую с сервера
+        snowflake.textContent = "❄️";
+
+        // Стилизация снежинки
+        snowflake.style.left = Math.random() * 100 + "vw";
+        snowflake.style.fontSize = (Math.random() * 20 + 14) + "px";
+        snowflake.style.animationDuration = (Math.random() * 8 + 8) + "s";
+        snowflake.style.opacity = (Math.random() * 0.7 + 0.3).toString();
+
+        snowContainer.appendChild(snowflake);
+
+        // Удаление через 16 секунд, чтобы не перегружать память браузера
+        setTimeout(() => {
+            snowflake.remove();
+        }, 16000);
+    }
+
+    // Запуск генерации снежинок
+    setInterval(createSnowflake, 180);
+</script>
+
+<style is:global>
+    /* Базовые стили для работы снега */
+    #snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Чтобы снег не мешал нажимать на кнопки */
+        z-index: 9999;
+        overflow: hidden;
+    }
+
+    .snowflake {
+        position: absolute;
+        top: -20px;
+        user-select: none;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+        }
+    }
+</style>
+</body>
+</html>

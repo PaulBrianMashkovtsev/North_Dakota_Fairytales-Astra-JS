@@ -1,0 +1,298 @@
+---
+import "../styles/global.css";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const { title, description, lang = "en" } = Astro.props;
+
+// Используем lang, который уже пришел из Astro.props выше
+const currentLang = lang || 'en';
+
+const homeLabels = {
+    en: "Home",
+    ru: "Домой",
+    es: "Inicio",
+    fr: "Accueil",
+    ar: "الرئيسية",
+
+    ur: "ہوم",
+    hi: "होम",
+    bn: "হোম",
+    fa: "خانه",
+    pt: "Início",
+
+    ms: "Laman Utama",
+    id: "Beranda",
+
+    de: "Startseite",
+    ca: "Inici",
+
+    az: "Ana səhifə",
+    hy: "Գլխավոր",
+
+    haw: "Home",
+    tt: "Баш бит"
+};
+
+const label = (homeLabels as any)[currentLang] || homeLabels.en;
+
+---
+<!DOCTYPE html>
+<html lang={lang} dir={["ar","fa","ur"].includes(lang) ? "rtl" : "ltr"}>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${Astro.site}${Astro.url.pathname}`} />
+    <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
+
+
+    <link rel="canonical" href={`${Astro.site}${Astro.url.pathname}`} />
+    <link rel="alternate" hreflang="x-default" href="https://northdakotafairytales.org/" />
+
+    <link rel="alternate" hreflang="en" href="https://northdakotafairytales.org/en/" />
+    <link rel="alternate" hreflang="es" href="https://northdakotafairytales.org/es/" />
+    <link rel="alternate" hreflang="fr" href="https://northdakotafairytales.org/fr/" />
+    <link rel="alternate" hreflang="ar" href="https://northdakotafairytales.org/ar/" />
+    <link rel="alternate" hreflang="ru" href="https://northdakotafairytales.org/ru/" />
+    <link rel="alternate" hreflang="ur" href="https://northdakotafairytales.org/ur/" />
+    <link rel="alternate" hreflang="hi" href="https://northdakotafairytales.org/hi/" />
+    <link rel="alternate" hreflang="bn" href="https://northdakotafairytales.org/bn/" />
+    <link rel="alternate" hreflang="fa" href="https://northdakotafairytales.org/fa/" />
+    <link rel="alternate" hreflang="pt" href="https://northdakotafairytales.org/pt/" />
+    <link rel="alternate" hreflang="ms" href="https://northdakotafairytales.org/ms/" />
+    <link rel="alternate" hreflang="id" href="https://northdakotafairytales.org/id/" />
+    <link rel="alternate" hreflang="de" href="https://northdakotafairytales.org/de/" />
+    <link rel="alternate" hreflang="ca" href="https://northdakotafairytales.org/ca/" />
+    <link rel="alternate" hreflang="az" href="https://northdakotafairytales.org/az/" />
+    <link rel="alternate" hreflang="hy" href="https://northdakotafairytales.org/hy/" />
+    <link rel="alternate" hreflang="haw" href="https://northdakotafairytales.org/haw/" />
+    <link rel="alternate" hreflang="tt" href="https://northdakotafairytales.org/tt/" />
+
+
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/style.css">
+
+    <script
+            type="application/ld+json"
+            is:inline
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebSite",
+                        "@id": "https://northdakotafairytales.org/#website",
+                        "url": "https://northdakotafairytales.org/",
+                        "name": "North Dakota Fairytales",
+                        "description": "A winter-themed children’s brand creating calm stories and songs.",
+                        "inLanguage": lang,
+                        "publisher": {
+                            "@id": "https://northdakotafairytales.org/#organization"
+                        }
+                    },
+                    {
+                        "@type": "Organization",
+                        "@id": "https://northdakotafairytales.org/#organization",
+                        "name": "North Dakota Fairytales",
+                        "url": "https://northdakotafairytales.org/",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://northdakotafairytales.org/favicon.ico"
+                        },
+                        "inLanguage": lang,
+                        "sameAs": [
+                            "https://www.youtube.com/@NorthDakotaFairytales",
+                            "https://rumble.com/user/NorthDakotaFairytales"
+                        ],
+                        "description": "A winter-themed children’s brand creating calm stories, songs, and educational content inspired by the snowy landscapes of North Dakota."
+                    }
+                ]
+            })}
+    />
+
+</head>
+
+<body>
+
+<div class="snow" id="snow"></div>
+
+<!--home button-->
+<a href="/" class="ndf-home-btn" aria-label={label}>
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+        <ellipse cx="60" cy="102" rx="28" ry="6" fill="#E6F4FF"/>
+        <g>
+            <path d="M50 96 C48 92, 48 88, 51 84 L54 80" stroke="#6B4226" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M70 96 C72 92, 72 88, 69 84 L66 80" stroke="#6B4226" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M47 98 l-6 4" stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M51 99 l-2 6" stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M73 99 l2 6"  stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+            <path d="M69 98 l6 4"  stroke="#6B4226" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <rect x="30" y="46" width="60" height="36" rx="4" fill="#C46A2B" />
+        <g stroke="#8B3E17" stroke-width="2" stroke-linecap="round">
+            <line x1="32" y1="52" x2="88" y2="52"/><line x1="32" y1="58" x2="88" y2="58"/>
+            <line x1="32" y1="64" x2="88" y2="64"/><line x1="32" y1="70" x2="88" y2="70"/>
+            <line x1="32" y1="76" x2="88" y2="76"/><line x1="32" y1="82" x2="88" y2="82"/>
+        </g>
+        <path d="M24 48 L60 26 L96 48 Z" fill="#3B82F6" />
+        <path d="M26 48 Q60 36 94 48 L24 48 Z" fill="#F2FAFF"/>
+        <rect x="54" y="60" width="12" height="22" rx="2" fill="#8C4A1E"/>
+        <circle cx="64" cy="71" r="1.8" fill="#F9D17A"/>
+        <rect x="36" y="60" width="10" height="10" rx="2" fill="#FDE68A" stroke="#8C4A1E" stroke-width="2"/>
+        <rect x="74" y="60" width="10" height="10" rx="2" fill="#FDE68A" stroke="#8C4A1E" stroke-width="2"/>
+        <rect x="78" y="30" width="8" height="12" fill="#8B5CF6"/>
+        <circle cx="82" cy="24" r="3" fill="#C7D2FE" opacity="0.9"/>
+        <circle cx="86" cy="18" r="2.5" fill="#C7D2FE" opacity="0.7"/>
+        <circle cx="90" cy="13" r="2" fill="#C7D2FE" opacity="0.5"/>
+    </svg>
+    <span class="ndf-home-label">{label}</span>
+</a>
+
+<Header />
+
+<main class="main-content">
+    <slot />
+</main>
+
+<Footer />
+
+<script>
+
+    const snowContainer = document.getElementById("snow");
+
+    function createSnowflake(){
+
+        const snowflake=document.createElement("div");
+
+        snowflake.classList.add("snowflake");
+
+        snowflake.textContent="❄️";
+
+        snowflake.style.left=Math.random()*100+"vw";
+        snowflake.style.fontSize=(Math.random()*20+14)+"px";
+        snowflake.style.animationDuration=(Math.random()*8+8)+"s";
+        snowflake.style.opacity = (Math.random() * 0.7 + 0.3).toString();
+        snowContainer?.appendChild(snowflake);
+
+        setTimeout(()=>{
+            snowflake.remove();
+        },16000);
+
+    }
+
+    setInterval(createSnowflake,180);
+
+</script>
+
+</body>
+
+<style is:global>
+    body {
+        /* Файл forest.jpg лежит в корне public, поэтому путь начинается с / */
+        background-image: url('/img/forest.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+
+        /* Темный цвет-заглушка, чтобы белый текст читался до загрузки фото */
+        background-color: #0b1116;
+
+        margin: 0;
+        min-height: 100vh;
+        color: #b3e5fc; /* Делаем текст светлым, чтобы он был виден на фоне леса */
+    }
+    .intro-card, .intro-card p, .main-content p {
+        font-size: 35px !important; /* Ставим заведомо большой размер для теста */
+        line-height: 1.5 !important;
+    }
+
+    .main-content {
+        max-width: 2100px; /* Увеличиваем ширину, чтобы текст не был узким */
+        margin: 0 auto;    /* Центрируем */
+        padding: 20px 20px; /* Больше отступов сверху и по бокам */
+        background: none; /* Чуть темнее фон для лучшей читаемости rgba(0, 0, 0, 0.4) */
+        border-radius: 20px; /* Скругляем углы контентной области */
+
+    }
+
+
+    /* Новая стилизация избушки под "кнопку-капсулу" */
+    .ndf-home-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 9999;
+
+        /* Создаем белую капсулу */
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 18px;
+        font-size: 22px;
+        background-color: #ffead0; /* Белый фон с легкой прозрачностью */
+        border-radius: 50px; /* Скругление как у капсулы */
+
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень для объема */
+        transition: all 0.2s ease;
+    }
+
+    .ndf-home-btn:hover {
+        transform: translateY(-3px); /* Подпрыгивание при наведении */
+        background-color: #ffead0;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .ndf-home-label {
+        color: #1a2b3c; /* Темный цвет текста для контраста на белом */
+        font-size: 40px;
+        font-weight: 800;
+        text-transform: capitalize;
+    }
+
+    /* Настройка иконки внутри кнопки */
+    .ndf-home-btn svg {
+        width: 70px;  /* Чуть уменьшим размер, чтобы влезло в капсулу */
+        height: 70px;
+    }
+
+    /* Для арабской версии кнопка улетает вправо */
+    [dir="rtl"] .ndf-home-btn {
+        left: auto;
+        right: 20px;
+        flex-direction: row-reverse; /* Меняем местами текст и иконку для RTL */
+    }
+
+    h1 {
+        font-size: 6.5rem !important; /* Очень крупный заголовок */
+        font-weight: 900 !important;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+
+    p {
+        font-size: 1.4rem !important; /* Укрупненный текст сказок */
+        line-height: 1.8; /* Большой межстрочный интервал для легкости чтения */
+        margin-bottom: 25px;
+    }
+
+
+
+</style>
+
+</html>

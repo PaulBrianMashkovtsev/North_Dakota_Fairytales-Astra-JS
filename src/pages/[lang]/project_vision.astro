@@ -1,0 +1,439 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Project Vision`,
+
+        p2: `The long-term vision of North Dakota Fairytales is to build a calm and culturally meaningful storytelling 
+        universe for children and families across languages and generations.`,
+
+        p3: `The project seeks to preserve the emotional depth of traditional storytelling while presenting it in a 
+        modern, gentle format suited to today’s children. Through winter-themed stories, music, illustrations, and 
+        interactive experiences, North Dakota Fairytales aims to offer a space where imagination can grow without 
+        noise, pressure, or overstimulation.`,
+
+        p4: `Over time, the project envisions expanding its library of stories, songs, books, and digital experiences 
+        while remaining faithful to its core principles: calm storytelling, emotional safety, cultural respect, and
+         creative consistency.`,
+
+        p5: `North Dakota Fairytales aspires to become a trusted creative reference for families seeking thoughtful 
+        and peaceful content that values imagination, warmth, and timeless human values.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Visión del Proyecto`,
+
+        p2: `La visión a largo plazo de North Dakota Fairytales es construir un universo de narración tranquilo y 
+        culturalmente significativo para niños y familias, a través de idiomas y generaciones.`,
+
+        p3: `El proyecto busca preservar la profundidad emocional de la narración tradicional, presentándola en un 
+        formato moderno y delicado, adecuado para los niños de hoy. A través de historias invernales, música, 
+        ilustraciones y experiencias interactivas, North Dakota Fairytales ofrece un espacio donde la imaginación
+         puede crecer sin ruido, presión ni sobreestimulación.`,
+
+        p4: `Con el tiempo, el proyecto prevé ampliar su colección de historias, canciones, libros y experiencias 
+        digitales, manteniéndose siempre fiel a sus principios fundamentales: narración calmada, seguridad emocional, 
+        respeto cultural y coherencia creativa.`,
+
+        p5: `North Dakota Fairytales aspira a convertirse en una referencia creativa de confianza para las familias 
+        que buscan contenido reflexivo, pacífico y con valores humanos atemporales.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Vision du Projet`,
+
+        p2: `La vision à long terme de North Dakota Fairytales est de construire un univers de narration calme et 
+        culturellement significatif pour les enfants et les familles, à travers les langues et les générations.`,
+
+        p3: `Le projet vise à préserver la profondeur émotionnelle de la narration traditionnelle tout en la présentant 
+        dans un format moderne et délicat, adapté aux enfants d’aujourd’hui. À travers des histoires hivernales, de la
+         musique, des illustrations et des expériences interactives, North Dakota Fairytales propose un espace où 
+         l’imagination peut s’épanouir sans bruit, pression ou surstimulation.`,
+
+        p4: `À long terme, le projet envisage d’élargir sa collection d’histoires, de chansons, de livres et 
+        d’expériences numériques, tout en restant fidèle à ses principes fondamentaux : narration apaisée, sécurité 
+        émotionnelle, respect culturel et cohérence créative.`,
+
+        p5: `North Dakota Fairytales aspire à devenir une référence créative fiable pour les familles à la recherche 
+        de contenus réfléchis, paisibles et porteurs de valeurs humaines intemporelles.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `رؤية المشروع`,
+
+        p2: `تتمثل الرؤية طويلة المدى لمشروع
+         North Dakota Fairytales في بناء عالم سردي هادئ وذو قيمة ثقافية للأطفال والعائلات، عبر اللغات والأجيال.`,
+
+        p3: `يهدف المشروع إلى الحفاظ على العمق العاطفي للسرد التقليدي، مع
+         تقديمه بأسلوب حديث ولطيف يناسب أطفال اليوم. ومن خلال القصص الشتوية، والموسيقى، والرسومات، والتجارب 
+        التفاعلية، يوفر North Dakota Fairytales مساحة ينمو فيها الخيال دون ضجيج أو ضغط أو إفراط في التحفيز.`,
+
+        p4: `مع مرور الوقت، يسعى المشروع إلى توسيع مكتبته من القصص والأغاني والكتب والتجارب الرقمية، مع
+         الالتزام الدائم بمبادئه الأساسية: السرد الهادئ، السلامة العاطفية، احترام الثقافة، والاتساق الإبداعي.`,
+
+        p5: `يطمح North Dakota Fairytales
+         إلى أن يصبح مرجعًا إبداعيًا موثوقًا للعائلات الباحثة عن محتوى هادئ، متزن، وقائم على قيم إنسانية خالدة.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `Видение проекта`,
+
+        p2: `Долгосрочное видение North Dakota Fairytales — создать спокойную и культурно значимую вселенную
+    повествования для детей и семей разных языков и поколений.`,
+
+        p3: `Проект стремится сохранить эмоциональную глубину традиционного повествования,
+    представляя его в современном и мягком формате, подходящем для детей сегодняшнего дня.
+    Через зимние истории, музыку, иллюстрации и интерактивные элементы
+    North Dakota Fairytales создаёт пространство, где воображение может развиваться
+    без шума, давления и чрезмерной стимуляции.`,
+
+        p4: `Со временем проект планирует расширять свою библиотеку историй, песен, книг и цифровых форматов,
+    оставаясь верным своим основным принципам: спокойное повествование, эмоциональная безопасность,
+    уважение к культуре и творческая целостность.`,
+
+        p5: `North Dakota Fairytales стремится стать надёжным творческим ориентиром для семей,
+    которые ищут вдумчивый и спокойный контент, ценящий воображение, тепло и вечные человеческие ценности.`
+    },
+
+    ur: {
+        subtitle: "",
+        p1: 'منصوبے کا وژن',
+
+        p2: `North Dakota Fairytales کا طویل مدتی وژن یہ ہے کہ بچوں اور خاندانوں کے لیے
+    مختلف زبانوں اور نسلوں میں ایک پُرسکون اور ثقافتی طور پر بامعنی کہانیوں کی دنیا تخلیق کی جائے۔`,
+
+        p3: `یہ منصوبہ روایتی کہانی سنانے کی جذباتی گہرائی کو محفوظ رکھتے ہوئے اسے
+    ایک جدید اور نرم انداز میں پیش کرنا چاہتا ہے جو آج کے بچوں کے لیے موزوں ہو۔
+    سردیوں پر مبنی کہانیوں، موسیقی، تصاویر اور انٹرایکٹو تجربات کے ذریعے
+    North Dakota Fairytales ایک ایسی جگہ فراہم کرتا ہے جہاں تخیل بغیر شور،
+    دباؤ یا حد سے زیادہ محرک کے پروان چڑھ سکے۔`,
+
+        p4: `وقت کے ساتھ یہ منصوبہ اپنی کہانیوں، گانوں، کتابوں اور ڈیجیٹل تجربات کی لائبریری کو وسعت دینے کا ارادہ رکھتا ہے،
+    جبکہ اپنے بنیادی اصولوں پر قائم رہتا ہے: پُرسکون کہانی سنانا، جذباتی تحفظ،
+    ثقافتی احترام اور تخلیقی ہم آہنگی۔`,
+
+        p5: `North Dakota Fairytales کا مقصد ایک قابلِ اعتماد تخلیقی حوالہ بننا ہے ان خاندانوں کے لیے
+    جو ایسا مواد تلاش کرتے ہیں جو پُرسکون، بامعنی ہو اور تخیل، گرمی اور
+    لازوال انسانی اقدار کو اہمیت دیتا ہو۔`
+    },
+
+    hi: {
+        subtitle: "",
+        p1: 'परियोजना का दृष्टिकोण',
+
+        p2: `North Dakota Fairytales का दीर्घकालिक दृष्टिकोण यह है कि बच्चों और परिवारों के लिए
+    विभिन्न भाषाओं और पीढ़ियों में एक शांत और सांस्कृतिक रूप से अर्थपूर्ण कहानी संसार बनाया जाए।`,
+
+        p3: `यह परियोजना पारंपरिक कहानी कहने की भावनात्मक गहराई को संरक्षित रखते हुए
+    उसे एक आधुनिक और सौम्य रूप में प्रस्तुत करना चाहती है, जो आज के बच्चों के लिए उपयुक्त हो।
+    शीतकालीन कहानियों, संगीत, चित्रों और इंटरैक्टिव अनुभवों के माध्यम से
+    North Dakota Fairytales एक ऐसी जगह प्रदान करता है जहाँ कल्पना बिना शोर,
+    दबाव या अत्यधिक उत्तेजना के विकसित हो सके।`,
+
+        p4: `समय के साथ यह परियोजना अपनी कहानियों, गीतों, पुस्तकों और डिजिटल अनुभवों की लाइब्रेरी का विस्तार करने की योजना रखती है,
+    जबकि अपने मूल सिद्धांतों के प्रति प्रतिबद्ध रहती है: शांत कहानी कहने की शैली,
+    भावनात्मक सुरक्षा, सांस्कृतिक सम्मान और रचनात्मक निरंतरता।`,
+
+        p5: `North Dakota Fairytales का उद्देश्य उन परिवारों के लिए एक विश्वसनीय रचनात्मक संदर्भ बनना है
+    जो विचारशील और शांत सामग्री की तलाश में हैं, जो कल्पना, स्नेह और
+    शाश्वत मानवीय मूल्यों को महत्व देती है।`
+    },
+
+    bn: {
+        subtitle: "",
+        p1: 'প্রকল্পের দৃষ্টিভঙ্গি',
+
+        p2: `North Dakota Fairytales-এর দীর্ঘমেয়াদী দৃষ্টিভঙ্গি হলো শিশু ও পরিবারদের জন্য
+    বিভিন্ন ভাষা ও প্রজন্ম জুড়ে একটি শান্ত ও সাংস্কৃতিকভাবে অর্থপূর্ণ গল্পের জগৎ গড়ে তোলা।`,
+
+        p3: `এই প্রকল্পটি ঐতিহ্যবাহী গল্প বলার আবেগগত গভীরতাকে সংরক্ষণ করতে চায়,
+    একই সাথে এটিকে একটি আধুনিক ও কোমল আকারে উপস্থাপন করে যা আজকের শিশুদের জন্য উপযুক্ত।
+    শীতকালীন গল্প, সঙ্গীত, চিত্র এবং ইন্টারঅ্যাকটিভ অভিজ্ঞতার মাধ্যমে
+    North Dakota Fairytales এমন একটি স্থান তৈরি করতে চায় যেখানে কল্পনা বিকাশ লাভ করতে পারে
+    কোনো শব্দ, চাপ বা অতিরিক্ত উত্তেজনা ছাড়াই।`,
+
+        p4: `সময়ের সাথে সাথে এই প্রকল্পটি তার গল্প, গান, বই এবং ডিজিটাল অভিজ্ঞতার সংগ্রহ বিস্তৃত করার পরিকল্পনা করছে,
+    একই সাথে তার মূল নীতিগুলোর প্রতি অটল থাকবে: শান্ত গল্প বলা, আবেগগত নিরাপত্তা,
+    সাংস্কৃতিক সম্মান এবং সৃজনশীল ধারাবাহিকতা।`,
+
+        p5: `North Dakota Fairytales এমন একটি নির্ভরযোগ্য সৃজনশীল উৎস হয়ে উঠতে চায়
+    সেই পরিবারগুলোর জন্য যারা চিন্তাশীল ও শান্ত বিষয়বস্তু খুঁজছেন,
+    যা কল্পনা, উষ্ণতা এবং চিরন্তন মানবিক মূল্যবোধকে গুরুত্ব দেয়।`
+    },
+
+    fa: {
+        subtitle: "",
+        p1: 'چشم‌انداز پروژه',
+
+        p2: `چشم‌انداز بلندمدت North Dakota Fairytales ایجاد دنیایی آرام و از نظر فرهنگی معنادار از داستان‌گویی
+    برای کودکان و خانواده‌ها در میان زبان‌ها و نسل‌های مختلف است.`,
+
+        p3: `این پروژه تلاش می‌کند عمق احساسی داستان‌گویی سنتی را حفظ کند و در عین حال آن را
+    در قالبی مدرن و ملایم که مناسب کودکان امروز است ارائه دهد.
+    از طریق داستان‌های زمستانی، موسیقی، تصویرسازی‌ها و تجربه‌های تعاملی،
+    North Dakota Fairytales فضایی فراهم می‌کند که در آن تخیل می‌تواند بدون
+    سر و صدا، فشار یا تحریک بیش از حد رشد کند.`,
+
+        p4: `با گذشت زمان، این پروژه قصد دارد مجموعه داستان‌ها، آهنگ‌ها، کتاب‌ها و تجربه‌های دیجیتال خود را گسترش دهد،
+    در حالی که به اصول اصلی خود وفادار می‌ماند: داستان‌گویی آرام، ایمنی عاطفی،
+    احترام فرهنگی و انسجام خلاقانه.`,
+
+        p5: `North Dakota Fairytales در تلاش است تا به یک مرجع خلاق قابل اعتماد برای خانواده‌ها تبدیل شود
+    که به دنبال محتوای آرام و اندیشمندانه هستند، محتوایی که به تخیل، گرما
+    و ارزش‌های انسانی جاودانه اهمیت می‌دهد.`
+    },
+
+    pt: {
+        subtitle: "",
+        p1: 'Visão do Projeto',
+
+        p2: `A visão de longo prazo do North Dakota Fairytales é construir um universo de histórias calmo
+    e culturalmente significativo para crianças e famílias, atravessando diferentes línguas e gerações.`,
+
+        p3: `O projeto busca preservar a profundidade emocional da narrativa tradicional,
+    ao mesmo tempo em que a apresenta em um formato moderno e suave, adequado às crianças de hoje.
+    Por meio de histórias de inverno, músicas, ilustrações e experiências interativas,
+    o North Dakota Fairytales oferece um espaço onde a imaginação pode crescer
+    sem ruído, pressão ou superestimulação.`,
+
+        p4: `Com o tempo, o projeto pretende expandir sua biblioteca de histórias, músicas, livros e experiências digitais,
+    mantendo-se fiel aos seus princípios centrais: narrativa calma, segurança emocional,
+    respeito cultural e consistência criativa.`,
+
+        p5: `North Dakota Fairytales aspira se tornar uma referência criativa confiável para famílias
+    que buscam conteúdos reflexivos e tranquilos, que valorizam a imaginação, o acolhimento
+    e valores humanos atemporais.`
+    },
+
+    ms: {
+        subtitle: "",
+        p1: 'Visi Projek',
+
+        p2: `Visi jangka panjang North Dakota Fairytales adalah untuk membina sebuah dunia penceritaan
+    yang tenang dan bermakna dari segi budaya bagi kanak-kanak dan keluarga merentasi bahasa dan generasi.`,
+
+        p3: `Projek ini bertujuan untuk mengekalkan kedalaman emosi penceritaan tradisional,
+    sambil mempersembahkannya dalam bentuk moden dan lembut yang sesuai untuk kanak-kanak masa kini.
+    Melalui cerita bertema musim sejuk, muzik, ilustrasi dan pengalaman interaktif,
+    North Dakota Fairytales menyediakan ruang di mana imaginasi boleh berkembang
+    tanpa bunyi bising, tekanan atau rangsangan berlebihan.`,
+
+        p4: `Dari masa ke masa, projek ini merancang untuk mengembangkan perpustakaan cerita, lagu, buku dan pengalaman digitalnya,
+    sambil kekal setia kepada prinsip terasnya: penceritaan yang tenang, keselamatan emosi,
+    penghormatan budaya dan konsistensi kreatif.`,
+
+        p5: `North Dakota Fairytales bercita-cita untuk menjadi rujukan kreatif yang dipercayai bagi keluarga
+    yang mencari kandungan yang tenang dan bermakna, yang menghargai imaginasi, kehangatan
+    dan nilai-nilai kemanusiaan yang abadi.`
+    },
+
+    id: {
+        subtitle: "",
+        p1: 'Visi Proyek',
+
+        p2: `Visi jangka panjang North Dakota Fairytales adalah membangun dunia penceritaan yang tenang
+    dan bermakna secara budaya bagi anak-anak dan keluarga di berbagai bahasa dan generasi.`,
+
+        p3: `Proyek ini bertujuan untuk mempertahankan kedalaman emosional dari penceritaan tradisional,
+    sambil menyajikannya dalam bentuk modern dan lembut yang sesuai untuk anak-anak masa kini.
+    Melalui cerita bertema musim dingin, musik, ilustrasi, dan pengalaman interaktif,
+    North Dakota Fairytales menyediakan ruang di mana imajinasi dapat berkembang
+    tanpa kebisingan, tekanan, atau stimulasi berlebihan.`,
+
+        p4: `Seiring waktu, proyek ini berencana untuk memperluas perpustakaan cerita, lagu, buku, dan pengalaman digitalnya,
+    sambil tetap setia pada prinsip utamanya: penceritaan yang tenang, keamanan emosional,
+    penghormatan terhadap budaya, dan konsistensi kreatif.`,
+
+        p5: `North Dakota Fairytales bercita-cita menjadi referensi kreatif yang tepercaya bagi keluarga
+    yang mencari konten yang penuh makna dan menenangkan, yang menghargai imajinasi, kehangatan,
+    dan nilai-nilai kemanusiaan yang abadi.`
+    },
+
+    de: {
+        subtitle: "",
+        p1: 'Projektvision',
+
+        p2: `Die langfristige Vision von North Dakota Fairytales ist es, eine ruhige und kulturell bedeutsame
+    Erzählwelt für Kinder und Familien über verschiedene Sprachen und Generationen hinweg aufzubauen.`,
+
+        p3: `Das Projekt zielt darauf ab, die emotionale Tiefe traditioneller Erzählkunst zu bewahren
+    und sie gleichzeitig in einem modernen und sanften Format zu präsentieren, das für heutige Kinder geeignet ist.
+    Durch winterliche Geschichten, Musik, Illustrationen und interaktive Erlebnisse
+    schafft North Dakota Fairytales einen Raum, in dem die Fantasie ohne Lärm,
+    Druck oder Überstimulation wachsen kann.`,
+
+        p4: `Im Laufe der Zeit plant das Projekt, seine Bibliothek aus Geschichten, Liedern, Büchern und digitalen Erlebnissen zu erweitern,
+    während es seinen Grundprinzipien treu bleibt: ruhiges Erzählen, emotionale Sicherheit,
+    kultureller Respekt und kreative Konsistenz.`,
+
+        p5: `North Dakota Fairytales strebt danach, zu einer vertrauenswürdigen kreativen Referenz für Familien zu werden,
+    die nach durchdachten und ruhigen Inhalten suchen, die Fantasie, Wärme
+    und zeitlose menschliche Werte schätzen.`
+    },
+
+    ca: {
+        subtitle: "",
+        p1: 'Visió del projecte',
+
+        p2: `La visió a llarg termini de North Dakota Fairytales és construir un univers de narració tranquil
+    i culturalment significatiu per a infants i famílies a través de llengües i generacions.`,
+
+        p3: `El projecte busca preservar la profunditat emocional de la narració tradicional,
+    alhora que la presenta en un format modern i suau, adequat per als infants d’avui.
+    A través d’històries d’hivern, música, il·lustracions i experiències interactives,
+    North Dakota Fairytales crea un espai on la imaginació pot créixer
+    sense soroll, pressió ni sobreestimulació.`,
+
+        p4: `Amb el temps, el projecte preveu ampliar la seva biblioteca d’històries, cançons, llibres i experiències digitals,
+    mantenint-se fidel als seus principis fonamentals: narració tranquil·la, seguretat emocional,
+    respecte cultural i coherència creativa.`,
+
+        p5: `North Dakota Fairytales aspira a esdevenir una referència creativa de confiança per a famílies
+    que busquen contingut reflexiu i tranquil, que valori la imaginació, la calidesa
+    i els valors humans atemporals.`
+    },
+
+    az: {
+        subtitle: "",
+        p1: 'Layihənin baxışı',
+
+        p2: `North Dakota Fairytales-in uzunmüddətli baxışı uşaqlar və ailələr üçün
+    müxtəlif dillər və nəsillər arasında sakit və mədəni baxımdan mənalı hekayə dünyası yaratmaqdır.`,
+
+        p3: `Layihə ənənəvi hekayəçiliyin emosional dərinliyini qorumağı hədəfləyir,
+    eyni zamanda onu bu günün uşaqları üçün uyğun olan müasir və yumşaq formada təqdim edir.
+    Qış mövzulu hekayələr, musiqi, illüstrasiyalar və interaktiv təcrübələr vasitəsilə
+    North Dakota Fairytales elə bir məkan yaradır ki, burada təxəyyül
+    səs-küy, təzyiq və ya həddindən artıq stimulyasiya olmadan inkişaf edə bilər.`,
+
+        p4: `Zamanla layihə hekayələr, mahnılar, kitablar və rəqəmsal təcrübələr kitabxanasını genişləndirməyi planlaşdırır,
+    eyni zamanda əsas prinsiplərinə sadiq qalır: sakit hekayəçilik, emosional təhlükəsizlik,
+    mədəni hörmət və yaradıcı ardıcıllıq.`,
+
+        p5: `North Dakota Fairytales düşüncəli və sakit məzmun axtaran ailələr üçün
+    etibarlı yaradıcı istinad nöqtəsinə çevrilməyi hədəfləyir,
+    bu məzmun təxəyyülü, istiliyi və əbədi insani dəyərləri qiymətləndirir.`
+    },
+
+    hy: {
+        subtitle: "",
+        p1: 'Նախագծի տեսլականը',
+
+        p2: `North Dakota Fairytales-ի երկարաժամկետ տեսլականն է ստեղծել խաղաղ և մշակութային առումով իմաստալից
+    պատմողական աշխարհ երեխաների և ընտանիքների համար՝ տարբեր լեզուների և սերունդների միջև։`,
+
+        p3: `Նախագիծը նպատակ ունի պահպանել ավանդական պատմողականության հուզական խորությունը՝
+    այն ներկայացնելով ժամանակակից և մեղմ ձևաչափով, որը հարմար է այսօրվա երեխաների համար։
+    Ձմեռային պատմությունների, երաժշտության, պատկերազարդումների և ինտերակտիվ փորձառությունների միջոցով
+    North Dakota Fairytales-ը ստեղծում է մի միջավայր, որտեղ երևակայությունը կարող է զարգանալ
+    առանց աղմուկի, ճնշման կամ գերխթանման։`,
+
+        p4: `Ժամանակի ընթացքում նախագիծը նախատեսում է ընդլայնել իր պատմությունների, երգերի, գրքերի և թվային փորձառությունների հավաքածուն՝
+    միևնույն ժամանակ մնալով հավատարիմ իր հիմնական սկզբունքներին՝ խաղաղ պատմողականություն, հուզական անվտանգություն,
+    մշակութային հարգանք և ստեղծագործական հետևողականություն։`,
+
+        p5: `North Dakota Fairytales-ը ձգտում է դառնալ վստահելի ստեղծագործական ուղենիշ ընտանիքների համար,
+    որոնք փնտրում են մտածված և խաղաղ բովանդակություն, որը գնահատում է երևակայությունը,
+    ջերմությունը և հավերժական մարդկային արժեքները։`
+    },
+
+    haw: {
+        subtitle: "",
+        p1: 'Hihio o ka Papahana',
+
+        p2: `ʻO ka hihio lōʻihi o North Dakota Fairytales ka kūkulu ʻana i kahi ao moʻolelo mālie
+    a me ka waiwai moʻomeheu no nā keiki a me nā ʻohana ma nā ʻōlelo a me nā hanauna like ʻole.`,
+
+        p3: `Ke ʻimi nei ka papahana e mālama i ka hohonu naʻau o ka haʻi moʻolelo kuʻuna,
+    ʻoiai e hōʻike ana iā ia ma kahi ʻano hou a mālie e kūpono ana i nā keiki o kēia au.
+    Ma o nā moʻolelo hoʻoilo, ke mele, nā kiʻi, a me nā ʻike pāheona,
+    hāʻawi ʻo North Dakota Fairytales i kahi e ulu ai ka noʻonoʻo noʻeau
+    me ka ʻole o ka walaʻau, ka paʻakikī, a i ʻole ka hoʻoulu nui.`,
+
+        p4: `Ma ka wā e hiki mai ana, manaʻo ka papahana e hoʻonui i kona waihona moʻolelo, mele, puke a me nā ʻike kikohoʻe,
+    ʻoiai e kūpaʻa ana i kāna mau kumu: ka haʻi moʻolelo mālie, ka palekana naʻau,
+    ka mahalo moʻomeheu, a me ka paʻa o ka hana noʻeau.`,
+
+        p5: `Ke ʻimi nei ʻo North Dakota Fairytales e lilo i kuhikuhi hana noʻeau i hilinaʻi ʻia e nā ʻohana
+    e ʻimi ana i ka ʻike mālie a noʻonoʻo, e mahalo ana i ka noʻonoʻo noʻeau,
+    ka mahana, a me nā waiwai kanaka mau loa.`
+    },
+
+    tt: {
+        subtitle: "",
+        p1: 'Проектның күзаллавы',
+
+        p2: `North Dakota Fairytales проектының озак вакытлы күзаллавы — балалар һәм гаиләләр өчен
+    төрле телләр һәм буыннар арасында тыныч һәм мәдәни яктан мәгънәле хикәяләү дөньясын булдыру.`,
+
+        p3: `Проект традицион хикәяләүнең эмоциональ тирәнлеген сакларга омтыла,
+    шул ук вакытта аны бүгенге балалар өчен туры килгән заманча һәм йомшак форматта тәкъдим итә.
+    Кыш темасына багышланган хикәяләр, музыка, иллюстрацияләр һәм интерактив тәҗрибәләр аша
+    North Dakota Fairytales шундый мохит тудыра, анда хыял
+    тавыш-тынсыз, басымсыз һәм артык стимулсыз үсә ала.`,
+
+        p4: `Вакыт узу белән проект үзенең хикәяләр, җырлар, китаплар һәм цифрлы тәҗрибәләр китапханәсен киңәйтергә ниятли,
+    шул ук вакытта үзенең төп принципларына тугры кала: тыныч хикәяләү, эмоциональ иминлек,
+    мәдәни хөрмәт һәм иҗади тотрыклылык.`,
+
+        p5: `North Dakota Fairytales уйланылган һәм тыныч контент эзләүче гаиләләр өчен
+    ышанычлы иҗади ориентир булырга омтыла,
+    бу контент хыялны, җылылыкны һәм мәңгелек кешелек кыйммәтләрен бәяли.`
+    },
+};
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+
+    </div>
+
+
+</BaseLayout>

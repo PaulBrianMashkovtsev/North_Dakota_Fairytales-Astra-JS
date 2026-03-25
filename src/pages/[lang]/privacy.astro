@@ -1,0 +1,688 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Privacy & No Data Collected`,
+
+        p2: `North Dakota Fairytales respects the privacy and safety of children and families.`,
+
+        p3: `This website does not collect, store, or process personal data.`,
+
+        p4: `It does not use contact forms, user accounts, comments, or advertising trackers.`,
+
+        p5: `Basic, privacy-friendly website statistics may be used solely to understand general site usage. These 
+        statistics do not identify individual users and are not used for tracking, profiling, or advertising purposes.`,
+
+        p6: `The website is intended as an informational and presentation platform for the North Dakota Fairytales project only.`,
+
+        p7: `Children’s Privacy`,
+
+        p8: `All content is created with children’s emotional well-being in mind.`,
+
+        p9: `The website does not request or collect any information from children.`,
+
+        p10: `External Platforms`,
+
+        p11: `North Dakota Fairytales content may also be available on third-party platforms.`,
+
+        p12: `Each external platform operates under its own privacy policies and terms.`,
+
+        p13: `Visitors are encouraged to review the privacy policies of those platforms independently.`,
+
+        p14: `Contact`,
+
+        p15: `This website does not provide direct communication features and does not collect contact information from visitors.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Privacidad y No Recopilación de Datos`,
+
+        p2: `North Dakota Fairytales respeta la privacidad y la seguridad de los niños y sus familias.`,
+
+        p3: `Este sitio web no recopila, almacena ni procesa datos personales.`,
+
+        p4: `No utiliza formularios de contacto, cuentas de usuario, comentarios ni sistemas publicitarios de seguimiento.`,
+
+        p5: `Pueden utilizarse estadísticas básicas y respetuosas con la privacidad únicamente para comprender el uso 
+        general del sitio. Estas estadísticas no identifican a los usuarios individuales ni se utilizan para seguimiento, 
+        perfilado o fines publicitarios.`,
+
+        p6: `El sitio web tiene únicamente fines informativos y de presentación del proyecto North Dakota Fairytales.`,
+
+        p7: `Privacidad de los niños`,
+
+        p8: `Todo el contenido se crea teniendo en cuenta el bienestar emocional de los niños.`,
+
+        p9: `El sitio web no solicita ni recopila información de menores.`,
+
+        p10: `Plataformas externas`,
+
+        p11: `El contenido de North Dakota Fairytales puede estar disponible en plataformas de terceros.`,
+
+        p12: `Cada plataforma externa opera bajo sus propias políticas de privacidad y condiciones de uso.`,
+
+        p13: `Se recomienda a los visitantes revisar dichas políticas de forma independiente.`,
+
+        p14: `Contacto`,
+
+        p15: `Este sitio web no ofrece funciones de comunicación directa ni recopila información de contacto de los visitantes.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Confidentialité et Absence de Collecte de Données`,
+
+        p2: `North Dakota Fairytales respecte la vie privée et la sécurité des enfants et de leurs familles.`,
+
+        p3: `Ce site web ne collecte, ne stocke ni ne traite aucune donnée personnelle.`,
+
+        p4: `Il n’utilise pas de formulaires de contact, de comptes utilisateurs, de commentaires ni de systèmes 
+        publicitaires de suivi.`,
+
+        p5: `Des statistiques de base, respectueuses de la vie privée, peuvent être utilisées uniquement pour 
+        comprendre l’utilisation générale du site. Ces statistiques n’identifient pas les utilisateurs individuellement 
+        et ne sont pas utilisées à des fins de suivi, de profilage ou de publicité.`,
+
+        p6: `Le site a uniquement vocation à présenter et informer sur le projet North Dakota Fairytales.`,
+
+        p7: `Protection des enfants`,
+
+        p8: `Tout le contenu est créé dans le respect du bien-être émotionnel des enfants.`,
+
+        p9: `Le site ne demande ni ne collecte aucune information auprès des enfants.`,
+
+        p10: `Plateformes externes`,
+
+        p11: `Le contenu de North Dakota Fairytales peut être accessible sur des plateformes tierces.`,
+
+        p12: `Chaque plateforme externe applique ses propres politiques de confidentialité et conditions d’utilisation.`,
+
+        p13: `Les visiteurs sont invités à consulter ces politiques indépendamment.`,
+
+        p14: `Contact`,
+
+        p15: `Ce site ne propose pas de fonctionnalités de communication directe et ne collecte aucune information de contact.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `الخصوصية وعدم جمع البيانات`,
+
+        p2: `تحترم North Dakota Fairytales خصوصية الأطفال والعائلات وسلامتهم.`,
+
+        p3: `لا يقوم هذا الموقع بجمع أو تخزين أو معالجة أي بيانات شخصية.`,
+
+        p4: `ولا يستخدم نماذج اتصال أو حسابات مستخدمين أو تعليقات أو أنظمة تتبع إعلانية.`,
+
+        p5: `قد تُستخدم إحصاءات أساسية تحترم الخصوصية فقط لفهم 
+        الاستخدام العام للموقع. لا تُستخدم هذه الإحصاءات لتحديد هوية المستخدمين، ولا لأغراض التتبع أو التحليل الإعلاني.`,
+
+        p6: `يُستخدم هذا الموقع لأغراض تعريفية وعرض مشروع North Dakota Fairytales فقط.`,
+
+        p7: `خصوصية الأطفال`,
+
+        p8: `تم إنشاء جميع المحتويات مع مراعاة السلامة العاطفية للأطفال.`,
+
+        p9: `لا يطلب الموقع أي معلومات من الأطفال ولا يجمعها.`,
+
+        p10: `المنصات الخارجية`,
+
+        p11: `قد يتوفر محتوى North Dakota Fairytales على منصات خارجية تابعة لجهات أخرى.`,
+
+        p12: `تخضع كل منصة خارجية لسياسات الخصوصية وشروط الاستخدام الخاصة بها.`,
+
+        p13: `يُنصح الزوار بمراجعة سياسات تلك المنصات بشكل مستقل.`,
+
+        p14: `التواصل`,
+
+        p15: `لا يوفر هذا الموقع وسائل تواصل مباشرة ولا يجمع أي معلومات اتصال من الزوار.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `Конфиденциальность и отсутствие сбора данных`,
+
+        p2: `North Dakota Fairytales уважает конфиденциальность и безопасность детей и семей.`,
+
+        p3: `Этот сайт не собирает, не хранит и не обрабатывает персональные данные.`,
+
+        p4: `Он не использует формы обратной связи, пользовательские аккаунты, комментарии или рекламные трекеры.`,
+
+        p5: `Базовая, ориентированная на конфиденциальность статистика сайта может использоваться исключительно
+    для понимания общего использования сайта. Эти данные не позволяют идентифицировать пользователей
+    и не используются для отслеживания, профилирования или рекламы.`,
+
+        p6: `Сайт предназначен исключительно как информационная и презентационная платформа
+    для проекта North Dakota Fairytales.`,
+
+        p7: `Конфиденциальность детей`,
+
+        p8: `Весь контент создаётся с учётом эмоционального благополучия детей.`,
+
+        p9: `Сайт не запрашивает и не собирает никакую информацию от детей.`,
+
+        p10: `Внешние платформы`,
+
+        p11: `Контент North Dakota Fairytales также может быть доступен на сторонних платформах.`,
+
+        p12: `Каждая внешняя платформа работает в соответствии со своими политиками конфиденциальности и условиями.`,
+
+        p13: `Посетителям рекомендуется самостоятельно ознакомиться с политиками конфиденциальности этих платформ.`,
+
+        p14: `Контакты`,
+
+        p15: `Этот сайт не предоставляет средств прямой связи и не собирает контактную информацию посетителей.`
+    },
+
+    ur: {
+        subtitle: "",
+        p1: 'رازداری اور ڈیٹا جمع نہ کرنا',
+
+        p2: 'North Dakota Fairytales بچوں اور خاندانوں کی رازداری اور حفاظت کا احترام کرتا ہے۔',
+
+        p3: 'یہ ویب سائٹ کسی بھی ذاتی ڈیٹا کو جمع، محفوظ یا پراسیس نہیں کرتی۔',
+
+        p4: 'یہ نہ تو رابطہ فارم، نہ صارف اکاؤنٹس، نہ تبصرے، اور نہ ہی اشتہاری ٹریکرز استعمال کرتی ہے۔',
+
+        p5: `بنیادی اور رازداری کے مطابق ویب سائٹ کے اعداد و شمار صرف عمومی استعمال کو سمجھنے کے لیے استعمال کیے جا سکتے ہیں۔
+    یہ اعداد و شمار کسی فرد کی شناخت نہیں کرتے اور نہ ہی ٹریکنگ، پروفائلنگ یا اشتہارات کے لیے استعمال ہوتے ہیں۔`,
+
+        p6: `یہ ویب سائٹ صرف North Dakota Fairytales منصوبے کے لیے معلوماتی اور تعارفی پلیٹ فارم کے طور پر بنائی گئی ہے۔`,
+
+        p7: 'بچوں کی رازداری',
+
+        p8: 'تمام مواد بچوں کی جذباتی فلاح و بہبود کو مدنظر رکھتے ہوئے تیار کیا گیا ہے۔',
+
+        p9: 'یہ ویب سائٹ بچوں سے کوئی معلومات طلب یا جمع نہیں کرتی۔',
+
+        p10: 'بیرونی پلیٹ فارمز',
+
+        p11: 'North Dakota Fairytales کا مواد دیگر پلیٹ فارمز پر بھی دستیاب ہو سکتا ہے۔',
+
+        p12: 'ہر بیرونی پلیٹ فارم اپنی رازداری کی پالیسیوں اور شرائط کے تحت کام کرتا ہے۔',
+
+        p13: 'صارفین کو مشورہ دیا جاتا ہے کہ وہ ان پلیٹ فارمز کی رازداری کی پالیسیوں کا خود جائزہ لیں۔',
+
+        p14: 'رابطہ',
+
+        p15: 'یہ ویب سائٹ براہِ راست رابطے کی سہولت فراہم نہیں کرتی اور نہ ہی صارفین کی رابطہ معلومات جمع کرتی ہے۔'
+},
+
+    hi: {
+        subtitle: "",
+        p1: 'गोपनीयता और डेटा संग्रह नहीं',
+
+        p2: 'North Dakota Fairytales बच्चों और परिवारों की गोपनीयता और सुरक्षा का सम्मान करता है।',
+
+        p3: 'यह वेबसाइट किसी भी व्यक्तिगत डेटा को एकत्र, संग्रहीत या संसाधित नहीं करती।',
+
+        p4: 'यह न तो संपर्क फ़ॉर्म, न उपयोगकर्ता खाते, न टिप्पणियाँ और न ही विज्ञापन ट्रैकर्स का उपयोग करती है।',
+
+        p5: `बुनियादी, गोपनीयता-अनुकूल वेबसाइट आँकड़ों का उपयोग केवल साइट के सामान्य उपयोग को समझने के लिए किया जा सकता है।
+    ये आँकड़े किसी व्यक्तिगत उपयोगकर्ता की पहचान नहीं करते और न ही ट्रैकिंग, प्रोफाइलिंग या विज्ञापन के लिए उपयोग किए जाते हैं।`,
+
+        p6: `यह वेबसाइट केवल North Dakota Fairytales परियोजना के लिए एक सूचनात्मक और प्रस्तुति मंच के रूप में बनाई गई है।`,
+
+        p7: 'बच्चों की गोपनीयता',
+
+        p8: 'सभी सामग्री बच्चों के भावनात्मक कल्याण को ध्यान में रखकर बनाई गई है।',
+
+        p9: 'यह वेबसाइट बच्चों से कोई जानकारी नहीं मांगती और न ही एकत्र करती है।',
+
+        p10: 'बाहरी प्लेटफ़ॉर्म',
+
+        p11: 'North Dakota Fairytales की सामग्री अन्य प्लेटफ़ॉर्म पर भी उपलब्ध हो सकती है।',
+
+        p12: 'प्रत्येक बाहरी प्लेटफ़ॉर्म अपनी स्वयं की गोपनीयता नीतियों और शर्तों के अनुसार कार्य करता है।',
+
+        p13: 'आगंतुकों को इन प्लेटफ़ॉर्म की गोपनीयता नीतियों की स्वतंत्र रूप से समीक्षा करने के लिए प्रोत्साहित किया जाता है।',
+
+        p14: 'संपर्क',
+
+        p15: 'यह वेबसाइट सीधे संचार की सुविधा प्रदान नहीं करती और न ही आगंतुकों की संपर्क जानकारी एकत्र करती है।'
+},
+
+    bn: {
+        subtitle: "",
+        p1: 'গোপনীয়তা এবং কোনো ডেটা সংগ্রহ নয়',
+
+        p2: 'North Dakota Fairytales শিশু ও পরিবারের গোপনীয়তা এবং নিরাপত্তাকে সম্মান করে।',
+
+        p3: 'এই ওয়েবসাইট কোনো ব্যক্তিগত তথ্য সংগ্রহ, সংরক্ষণ বা প্রক্রিয়া করে না।',
+
+        p4: 'এটি কোনো যোগাযোগ ফর্ম, ব্যবহারকারী অ্যাকাউন্ট, মন্তব্য বা বিজ্ঞাপন ট্র্যাকার ব্যবহার করে না।',
+
+        p5: `মৌলিক, গোপনীয়তা-বান্ধব ওয়েবসাইট পরিসংখ্যান শুধুমাত্র সাইটের সাধারণ ব্যবহার বোঝার জন্য ব্যবহার করা হতে পারে।
+    এই পরিসংখ্যান কোনো ব্যক্তিগত ব্যবহারকারীকে শনাক্ত করে না এবং ট্র্যাকিং, প্রোফাইলিং বা বিজ্ঞাপনের জন্য ব্যবহার করা হয় না।`,
+
+        p6: `এই ওয়েবসাইটটি শুধুমাত্র North Dakota Fairytales প্রকল্পের জন্য একটি তথ্যভিত্তিক এবং উপস্থাপনামূলক প্ল্যাটফর্ম হিসেবে ব্যবহৃত হয়।`,
+
+        p7: 'শিশুদের গোপনীয়তা',
+
+        p8: 'সমস্ত বিষয়বস্তু শিশুদের মানসিক সুস্থতাকে মাথায় রেখে তৈরি করা হয়েছে।',
+
+        p9: 'এই ওয়েবসাইট শিশুদের কাছ থেকে কোনো তথ্য চায় না বা সংগ্রহ করে না।',
+
+        p10: 'বাহ্যিক প্ল্যাটফর্ম',
+
+        p11: 'North Dakota Fairytales-এর বিষয়বস্তু অন্যান্য প্ল্যাটফর্মেও উপলব্ধ হতে পারে।',
+
+        p12: 'প্রতিটি বাহ্যিক প্ল্যাটফর্ম তাদের নিজস্ব গোপনীয়তা নীতি এবং শর্ত অনুযায়ী পরিচালিত হয়।',
+
+        p13: 'দর্শনার্থীদের সেই প্ল্যাটফর্মগুলোর গোপনীয়তা নীতিগুলো আলাদাভাবে পর্যালোচনা করার জন্য উৎসাহিত করা হয়।',
+
+        p14: 'যোগাযোগ',
+
+        p15: 'এই ওয়েবসাইট সরাসরি যোগাযোগের কোনো সুবিধা দেয় না এবং দর্শনার্থীদের যোগাযোগের তথ্য সংগ্রহ করে না।'
+},
+
+    fa: {
+        subtitle: "",
+        p1: 'حریم خصوصی و عدم جمع‌آوری داده',
+
+        p2: 'North Dakota Fairytales به حریم خصوصی و امنیت کودکان و خانواده‌ها احترام می‌گذارد.',
+
+        p3: 'این وب‌سایت هیچ‌گونه داده شخصی را جمع‌آوری، ذخیره یا پردازش نمی‌کند.',
+
+        p4: 'این سایت از فرم‌های تماس، حساب‌های کاربری، بخش نظرات یا ردیاب‌های تبلیغاتی استفاده نمی‌کند.',
+
+        p5: `آمارهای پایه و سازگار با حریم خصوصی وب‌سایت ممکن است فقط برای درک استفاده کلی از سایت استفاده شوند.
+    این آمارها کاربران را به‌صورت فردی شناسایی نمی‌کنند و برای ردیابی، پروفایل‌سازی یا اهداف تبلیغاتی استفاده نمی‌شوند.`,
+
+        p6: `این وب‌سایت صرفاً به‌عنوان یک پلتفرم اطلاعاتی و نمایشی برای پروژه North Dakota Fairytales در نظر گرفته شده است.`,
+
+        p7: 'حریم خصوصی کودکان',
+
+        p8: 'تمامی محتوا با در نظر گرفتن سلامت عاطفی کودکان ایجاد شده است.',
+
+        p9: 'این وب‌سایت هیچ اطلاعاتی از کودکان درخواست یا جمع‌آوری نمی‌کند.',
+
+        p10: 'پلتفرم‌های خارجی',
+
+        p11: 'محتوای North Dakota Fairytales ممکن است در پلتفرم‌های شخص ثالث نیز در دسترس باشد.',
+
+        p12: 'هر پلتفرم خارجی بر اساس سیاست‌ها و شرایط حریم خصوصی خود عمل می‌کند.',
+
+        p13: 'به بازدیدکنندگان توصیه می‌شود سیاست‌های حریم خصوصی این پلتفرم‌ها را به‌صورت مستقل بررسی کنند.',
+
+        p14: 'تماس',
+
+        p15: 'این وب‌سایت امکان ارتباط مستقیم را فراهم نمی‌کند و هیچ اطلاعات تماسی از بازدیدکنندگان جمع‌آوری نمی‌کند.'
+    },
+
+    pt: {
+        subtitle: "",
+        p1: 'Privacidade e Nenhuma Coleta de Dados',
+
+        p2: 'North Dakota Fairytales respeita a privacidade e a segurança das crianças e das famílias.',
+
+        p3: 'Este site não coleta, armazena ou processa dados pessoais.',
+
+        p4: 'Ele não utiliza formulários de contato, contas de usuário, comentários ou rastreadores de publicidade.',
+
+        p5: `Estatísticas básicas do site, compatíveis com a privacidade, podem ser usadas apenas para compreender o uso geral do site.
+    Essas estatísticas não identificam usuários individualmente e não são utilizadas para rastreamento, criação de perfis ou fins publicitários.`,
+
+        p6: `O site destina-se exclusivamente a ser uma plataforma informativa e de apresentação
+    do projeto North Dakota Fairytales.`,
+
+        p7: 'Privacidade das Crianças',
+
+        p8: 'Todo o conteúdo é criado com o bem-estar emocional das crianças em mente.',
+
+        p9: 'O site não solicita nem coleta qualquer informação de crianças.',
+
+        p10: 'Plataformas Externas',
+
+        p11: 'O conteúdo de North Dakota Fairytales também pode estar disponível em plataformas de terceiros.',
+
+        p12: 'Cada plataforma externa opera sob suas próprias políticas de privacidade e termos.',
+
+        p13: 'Os visitantes são incentivados a revisar as políticas de privacidade dessas plataformas de forma independente.',
+
+        p14: 'Contato',
+
+        p15: 'Este site não oferece recursos de comunicação direta e não coleta informações de contato dos visitantes.'
+    },
+
+    ms: {
+        subtitle: "",
+        p1: 'Privasi & Tiada Pengumpulan Data',
+
+        p2: 'North Dakota Fairytales menghormati privasi dan keselamatan kanak-kanak serta keluarga.',
+
+        p3: 'Laman web ini tidak mengumpul, menyimpan atau memproses sebarang data peribadi.',
+
+        p4: 'Ia tidak menggunakan borang hubungan, akaun pengguna, komen, atau penjejak pengiklanan.',
+
+        p5: `Statistik laman web asas yang mesra privasi mungkin digunakan hanya untuk memahami penggunaan umum laman.
+    Statistik ini tidak mengenal pasti pengguna secara individu dan tidak digunakan untuk penjejakan, pemprofilan atau tujuan pengiklanan.`,
+
+        p6: `Laman web ini hanya bertujuan sebagai platform maklumat dan pembentangan untuk projek North Dakota Fairytales.`,
+
+        p7: 'Privasi Kanak-kanak',
+
+        p8: 'Semua kandungan dihasilkan dengan mengambil kira kesejahteraan emosi kanak-kanak.',
+
+        p9: 'Laman web ini tidak meminta atau mengumpul sebarang maklumat daripada kanak-kanak.',
+
+        p10: 'Platform Luaran',
+
+        p11: 'Kandungan North Dakota Fairytales juga mungkin tersedia di platform pihak ketiga.',
+
+        p12: 'Setiap platform luaran beroperasi mengikut dasar privasi dan terma mereka sendiri.',
+
+        p13: 'Pengunjung digalakkan untuk menyemak dasar privasi platform tersebut secara berasingan.',
+
+        p14: 'Hubungan',
+
+        p15: 'Laman web ini tidak menyediakan ciri komunikasi langsung dan tidak mengumpul maklumat hubungan daripada pengunjung.'
+    },
+
+    id: {
+        subtitle: "",
+        p1: 'Privasi & Tidak Ada Pengumpulan Data',
+
+        p2: 'North Dakota Fairytales menghormati privasi dan keamanan anak-anak serta keluarga.',
+
+        p3: 'Situs web ini tidak mengumpulkan, menyimpan, atau memproses data pribadi apa pun.',
+
+        p4: 'Situs ini tidak menggunakan formulir kontak, akun pengguna, komentar, atau pelacak iklan.',
+
+        p5: `Statistik situs web dasar yang ramah privasi dapat digunakan hanya untuk memahami penggunaan umum situs.
+    Statistik ini tidak mengidentifikasi pengguna secara individu dan tidak digunakan untuk pelacakan, pembuatan profil, atau tujuan periklanan.`,
+
+        p6: `Situs web ini dimaksudkan hanya sebagai platform informasi dan presentasi untuk proyek North Dakota Fairytales.`,
+
+        p7: 'Privasi Anak',
+
+        p8: 'Semua konten dibuat dengan mempertimbangkan kesejahteraan emosional anak-anak.',
+
+        p9: 'Situs web ini tidak meminta atau mengumpulkan informasi apa pun dari anak-anak.',
+
+        p10: 'Platform Eksternal',
+
+        p11: 'Konten North Dakota Fairytales juga dapat tersedia di platform pihak ketiga.',
+
+        p12: 'Setiap platform eksternal beroperasi sesuai dengan kebijakan privasi dan ketentuannya masing-masing.',
+
+        p13: 'Pengunjung dianjurkan untuk meninjau kebijakan privasi platform tersebut secara mandiri.',
+
+        p14: 'Kontak',
+
+        p15: 'Situs web ini tidak menyediakan fitur komunikasi langsung dan tidak mengumpulkan informasi kontak dari pengunjung.'
+    },
+
+    de: {
+        subtitle: "",
+        p1: 'Datenschutz & Keine Datenerhebung',
+
+        p2: 'North Dakota Fairytales respektiert die Privatsphäre und Sicherheit von Kindern und Familien.',
+
+        p3: 'Diese Website sammelt, speichert oder verarbeitet keine personenbezogenen Daten.',
+
+        p4: 'Sie verwendet keine Kontaktformulare, Benutzerkonten, Kommentare oder Werbetracker.',
+
+        p5: `Grundlegende, datenschutzfreundliche Website-Statistiken können ausschließlich genutzt werden,
+    um die allgemeine Nutzung der Website zu verstehen. Diese Statistiken identifizieren keine einzelnen Nutzer
+    und werden nicht für Tracking, Profiling oder Werbezwecke verwendet.`,
+
+        p6: `Diese Website dient ausschließlich als Informations- und Präsentationsplattform
+    für das Projekt North Dakota Fairytales.`,
+
+        p7: 'Datenschutz von Kindern',
+
+        p8: 'Alle Inhalte werden unter Berücksichtigung des emotionalen Wohlbefindens von Kindern erstellt.',
+
+        p9: 'Diese Website fordert keine Informationen von Kindern an und sammelt auch keine solchen Daten.',
+
+        p10: 'Externe Plattformen',
+
+        p11: 'Inhalte von North Dakota Fairytales können auch auf Drittplattformen verfügbar sein.',
+
+        p12: 'Jede externe Plattform arbeitet gemäß ihren eigenen Datenschutzrichtlinien und Bedingungen.',
+
+        p13: 'Besucher werden ermutigt, die Datenschutzrichtlinien dieser Plattformen eigenständig zu prüfen.',
+
+        p14: 'Kontakt',
+
+        p15: 'Diese Website bietet keine direkte Kommunikationsmöglichkeit und sammelt keine Kontaktdaten von Besuchern.'
+    },
+
+    ca: {
+        subtitle: "",
+        p1: 'Privadesa i sense recollida de dades',
+
+        p2: 'North Dakota Fairytales respecta la privadesa i la seguretat dels infants i les famílies.',
+
+        p3: 'Aquest lloc web no recull, emmagatzema ni processa dades personals.',
+
+        p4: 'No utilitza formularis de contacte, comptes d’usuari, comentaris ni rastrejadors publicitaris.',
+
+        p5: `Es poden utilitzar estadístiques bàsiques del lloc web, respectuoses amb la privadesa, únicament
+    per entendre l’ús general del lloc. Aquestes estadístiques no identifiquen usuaris individuals
+    i no s’utilitzen per al seguiment, la creació de perfils ni finalitats publicitàries.`,
+
+        p6: `Aquest lloc web està destinat únicament com a plataforma informativa i de presentació
+    del projecte North Dakota Fairytales.`,
+
+        p7: 'Privadesa dels infants',
+
+        p8: 'Tot el contingut es crea tenint en compte el benestar emocional dels infants.',
+
+        p9: 'Aquest lloc web no sol·licita ni recull cap informació dels infants.',
+
+        p10: 'Plataformes externes',
+
+        p11: 'El contingut de North Dakota Fairytales també pot estar disponible en plataformes de tercers.',
+
+        p12: 'Cada plataforma externa opera segons les seves pròpies polítiques de privadesa i condicions.',
+
+        p13: 'Es recomana als visitants revisar de manera independent les polítiques de privadesa d’aquestes plataformes.',
+
+        p14: 'Contacte',
+
+        p15: 'Aquest lloc web no ofereix funcions de comunicació directa i no recull informació de contacte dels visitants.'
+    },
+
+    az: {
+        subtitle: "",
+        p1: 'Məxfilik və məlumatların toplanmaması',
+
+        p2: 'North Dakota Fairytales uşaqların və ailələrin məxfiliyinə və təhlükəsizliyinə hörmət edir.',
+
+        p3: 'Bu vebsayt heç bir şəxsi məlumatı toplamır, saxlamır və ya emal etmir.',
+
+        p4: 'O, əlaqə formalarından, istifadəçi hesablarından, şərhlərdən və ya reklam izləyicilərindən istifadə etmir.',
+
+        p5: `Məxfiliyə uyğun əsas vebsayt statistikası yalnız saytın ümumi istifadəsini anlamaq üçün istifadə oluna bilər.
+    Bu statistika ayrı-ayrı istifadəçiləri müəyyən etmir və izləmə, profilləşdirmə və ya reklam məqsədləri üçün istifadə olunmur.`,
+
+        p6: `Bu vebsayt yalnız North Dakota Fairytales layihəsi üçün məlumat və təqdimat platforması kimi nəzərdə tutulub.`,
+
+        p7: 'Uşaqların məxfiliyi',
+
+        p8: 'Bütün məzmun uşaqların emosional rifahı nəzərə alınaraq hazırlanır.',
+
+        p9: 'Bu vebsayt uşaqlardan heç bir məlumat tələb etmir və ya toplamır.',
+
+        p10: 'Xarici platformalar',
+
+        p11: 'North Dakota Fairytales məzmunu digər platformalarda da mövcud ola bilər.',
+
+        p12: 'Hər bir xarici platforma öz məxfilik siyasətləri və şərtləri əsasında fəaliyyət göstərir.',
+
+        p13: 'Ziyarətçilərə həmin platformaların məxfilik siyasətlərini ayrıca nəzərdən keçirmək tövsiyə olunur.',
+
+        p14: 'Əlaqə',
+
+        p15: 'Bu vebsayt birbaşa əlaqə funksiyaları təqdim etmir və ziyarətçilərin əlaqə məlumatlarını toplamır.'
+    },
+
+    hy: {
+        subtitle: "",
+        p1: 'Գաղտնիություն և տվյալների չհավաքում',
+
+        p2: 'North Dakota Fairytales-ը հարգում է երեխաների և ընտանիքների գաղտնիությունն ու անվտանգությունը։',
+
+        p3: 'Այս կայքը չի հավաքում, չի պահպանում և չի մշակում որևէ անձնական տվյալ։',
+
+        p4: 'Այն չի օգտագործում կապի ձևեր, օգտատերերի հաշիվներ, մեկնաբանություններ կամ գովազդային հետևողներ։',
+
+        p5: `Հիմնական, գաղտնիությանը համապատասխան կայքի վիճակագրությունը կարող է օգտագործվել միայն կայքի ընդհանուր օգտագործումը հասկանալու համար։
+    Այս տվյալները չեն նույնականացնում առանձին օգտատերերին և չեն օգտագործվում հետևելու, պրոֆիլավորման կամ գովազդային նպատակներով։`,
+
+        p6: `Այս կայքը նախատեսված է բացառապես որպես տեղեկատվական և ներկայացման հարթակ
+    North Dakota Fairytales նախագծի համար։`,
+
+        p7: 'Երեխաների գաղտնիություն',
+
+        p8: 'Բոլոր բովանդակությունը ստեղծվում է՝ հաշվի առնելով երեխաների հուզական բարեկեցությունը։',
+
+        p9: 'Այս կայքը երեխաներից որևէ տեղեկատվություն չի պահանջում և չի հավաքում։',
+
+        p10: 'Արտաքին հարթակներ',
+
+        p11: 'North Dakota Fairytales-ի բովանդակությունը կարող է հասանելի լինել նաև երրորդ կողմի հարթակներում։',
+
+        p12: 'Յուրաքանչյուր արտաքին հարթակ գործում է իր սեփական գաղտնիության քաղաքականությունների և պայմանների համաձայն։',
+
+        p13: 'Այցելուներին խրախուսվում է ինքնուրույն ուսումնասիրել այդ հարթակների գաղտնիության քաղաքականությունները։',
+
+        p14: 'Կապ',
+
+        p15: 'Այս կայքը չի տրամադրում ուղիղ հաղորդակցության հնարավորություններ և չի հավաքում այցելուների կապի տվյալները։'
+    },
+
+    haw: {
+        subtitle: "",
+        p1: 'Kulekele a me ka ʻAʻohe ʻIke i hōʻiliʻili ʻia',
+
+        p2: 'Hoʻohanohano ʻo North Dakota Fairytales i ka pilikino a me ka palekana o nā keiki a me nā ʻohana.',
+
+        p3: 'ʻAʻole hōʻiliʻili, mālama, a hana paha kēia pūnaewele i kekahi ʻike pilikino.',
+
+        p4: 'ʻAʻole ia e hoʻohana i nā palapala hoʻopili, nā moʻokāki mea hoʻohana, nā manaʻo, a i ʻole nā mea nānā hoʻolaha.',
+
+        p5: `Hiki ke hoʻohana ʻia nā helu helu kumu o ka pūnaewele i kūlike me ka pilikino no ka hoʻomaopopo ʻana i ka hoʻohana maʻamau o ka pūnaewele.
+    ʻAʻole kēia mau helu helu e ʻike i nā mea hoʻohana pākahi a ʻaʻole hoʻohana ʻia no ka hahai ʻana, ka hoʻopaʻa ʻike, a i ʻole nā kumu hoʻolaha.`,
+
+        p6: `Ua manaʻo ʻia kēia pūnaewele ma ke ʻano he kahua ʻike a hōʻike wale nō
+    no ka papahana North Dakota Fairytales.`,
+
+        p7: 'Pilikino o nā keiki',
+
+        p8: 'Hana ʻia nā ʻike āpau me ka noʻonoʻo ʻana i ka pono naʻau o nā keiki.',
+
+        p9: 'ʻAʻole noi a hōʻiliʻili kēia pūnaewele i kekahi ʻike mai nā keiki.',
+
+        p10: 'Nā kahua waho',
+
+        p11: 'Hiki paha ke loaʻa ka ʻike o North Dakota Fairytales ma nā kahua ʻē aʻe.',
+
+        p12: 'Hana kēlā me kēia kahua waho ma lalo o kā lākou mau kulekele pilikino a me nā ʻōlelo ponoʻī.',
+
+        p13: 'Paipai ʻia nā malihini e nānā kūʻokoʻa i nā kulekele pilikino o ia mau kahua.',
+
+        p14: 'Hoʻokaʻaʻike',
+
+        p15: 'ʻAʻole hāʻawi kēia pūnaewele i nā hiʻohiʻona kamaʻilio pololei a ʻaʻole hōʻiliʻili i nā ʻike hoʻopili o nā malihini.'
+    },
+
+    tt: {
+        subtitle: "",
+        p1: 'Хосусыйлык һәм мәгълүмат җыю юк',
+
+        p2: 'North Dakota Fairytales балалар һәм гаиләләрнең хосусыйлыгын һәм куркынычсызлыгын хөрмәт итә.',
+
+        p3: 'Бу сайт бернинди шәхси мәгълүмат җыймый, сакламый һәм эшкәртми.',
+
+        p4: 'Ул контакт формаларын, кулланучы аккаунтларын, комментарийларны яки реклама трекерларын кулланмый.',
+
+        p5: `Сайтның гади, хосусыйлыкка туры килгән статистикасы сайтның гомуми кулланылышын аңлау өчен генә кулланылырга мөмкин.
+    Бу мәгълүматлар аерым кулланучыларны ачыкламый һәм күзәтү, профильләштерү яки реклама максатларында кулланылмый.`,
+
+        p6: `Бу сайт бары тик North Dakota Fairytales проекты өчен мәгълүмати һәм тәкъдим итү платформасы буларак каралган.`,
+
+        p7: 'Балаларның хосусыйлыгы',
+
+        p8: 'Барлык контент балаларның эмоциональ иминлеген исәпкә алып ясала.',
+
+        p9: 'Бу сайт балалардан бернинди мәгълүмат сорамый һәм җыймый.',
+
+        p10: 'Тышкы платформалар',
+
+        p11: 'North Dakota Fairytales контенты башка платформаларда да булырга мөмкин.',
+
+        p12: 'Һәр тышкы платформа үзенең хосусыйлык сәясәте һәм шартлары нигезендә эшли.',
+
+        p13: 'Кулланучыларга бу платформаларның хосусыйлык сәясәтләрен аерым карап чыгарга киңәш ителә.',
+
+        p14: 'Контакт',
+
+        p15: 'Бу сайт турыдан-туры элемтә мөмкинлекләре тәкъдим итми һәм кулланучыларның контакт мәгълүматларын җыймый.'
+    },
+};
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+        <p>{t.p7}</p>
+        <p>{t.p8}</p>
+        <p>{t.p9}</p>
+        <p>{t.p10}</p>
+        <p>{t.p11}</p>
+        <p>{t.p12}</p>
+        <p>{t.p13}</p>
+        <p>{t.p14}</p>
+        <p>{t.p15}</p>
+
+
+</div>
+
+</BaseLayout>

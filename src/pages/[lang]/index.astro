@@ -1,0 +1,473 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+
+    ];
+}
+
+const lang = Astro.params.lang as "en" | "es" | "fr" | "ar" | "ru" | "ur" | "hi" | "bn" | "fa" | "pt" | "ms" | "id" | "de" | "ca" | "az" | "hy" | "haw" | "tt";
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales is a magical winter wonderland of children's stories, songs, and fairy tales inspired 
+    by the snowy landscapes of North Dakota, USA. We create kids' songs, bedtime stories, winter fairy tales, educational 
+    songs, and moral tales for children ages 3–9 and families who love cute animals, snowy forests, and heartwarming adventures.`, // Нужна запятая
+
+        p2: `Our children's books are available in all major online bookstores worldwide, including Amazon,
+Barnes & Noble, Walmart, and many more. Wherever you are — in the USA, Canada, France, Africa,
+Australia, the Middle East, or Asia — you can enjoy our stories and songs anytime, anywhere.`, // Нужна запятая
+
+        p3: `Watch North Dakota Fairytales on YouTube, Dailymotion, and Rumble, where we publish new children's videos,
+sing-along songs, and fairy tales every day. Our content is designed to be calm, safe, and family-friendly,
+making it perfect for bedtime, early learning, and family time.`, // Нужна запятая
+
+        p4: `Step into our snowy world — where the fire is crackling, the snow is falling,
+and every story is filled with kindness, imagination, and winter magic.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales es un mundo mágico de invierno lleno de cuentos infantiles, canciones y relatos 
+        inspirados en los paisajes nevados de Dakota del Norte, Estados Unidos. Creamos canciones para niños, cuentos 
+        para dormir, cuentos de invierno, canciones educativas y relatos con moraleja para niños de 3 a 9 años y 
+        familias que aman los animales adorables, los bosques nevados y las aventuras llenas de ternura.`, // Нужна запятая
+
+        p2: `Nuestros libros infantiles están disponibles en todas las principales librerías en línea del mundo, 
+        incluyendo Amazon, Barnes & Noble, Walmart y muchas más. Dondequiera que estés —en Estados Unidos, Canadá, 
+        Francia, África, Australia, Oriente Medio o Asia— podrás disfrutar de nuestras historias y canciones en cualquier 
+        momento y lugar.`, // Нужна запятая
+
+        p3: `Mira North Dakota Fairytales en YouTube, Dailymotion y Rumble, donde publicamos nuevos vídeos infantiles, 
+        canciones para cantar y cuentos todos los días. Nuestro contenido está diseñado para ser tranquilo, seguro y 
+        familiar, perfecto para la hora de dormir, el aprendizaje temprano y el tiempo en familia.`, // Нужна запятая
+
+        p4: `Entra en nuestro mundo nevado, donde el fuego crepita, la nieve cae y cada historia está llena de amabilidad,
+         imaginación y magia invernal.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales est un monde hivernal magique d’histoires pour enfants, de chansons et de contes 
+        de fées, inspirés par les paysages enneigés du Dakota du Nord, aux États-Unis. Nous créons des chansons pour 
+        enfants, des histoires du coucher, des contes d’hiver, des chansons éducatives et des récits moraux pour les 
+        enfants de 3 à 9 ans et les familles qui aiment les petits animaux mignons, les forêts enneigées et les aventures 
+        réconfortantes. Vous trouverez aussi des vidéos pour enfants et des comptines adaptées aux familles francophones.`, // Нужна запятая
+
+        p2: `Nos livres pour enfants sont disponibles dans toutes les principales librairies en ligne dans le monde, 
+        y compris Amazon, Barnes & Noble, Walmart, et bien d’autres. Où que vous soyez — aux États-Unis, au Canada, 
+        en France, en Afrique, en Australie, au Moyen-Orient ou en Asie — vous pouvez profiter de nos histoires pour 
+        enfants et de nos chansons éducatives à tout moment et en tout lieu.`, // Нужна запятая
+
+        p3: `Regardez North Dakota Fairytales sur YouTube, Dailymotion et Rumble, où nous publions de nouvelles vidéos 
+        pour enfants, des chansons à reprendre en chœur et des contes de fées tous les jours. Notre contenu est conçu 
+        pour être calme, sûr et adapté aux familles, ce qui le rend parfait pour l’heure du coucher, l’apprentissage 
+        précoce et les moments en famille.`, // Нужна запятая
+
+        p4: `Entrez dans notre monde enneigé — où le feu crépite, la neige tombe et chaque histoire est remplie de 
+        gentillesse, d’imagination et de magie hivernale.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `حكايات نورث داكوتا هي عالم شتوي
+         ساحر مليء بقصص الأطفال والأغاني والحكايات المستوحاة من المناظر الثلجية في ولاية نورث داكوتا، الولايات المتحدة
+         الأمريكية. نحن نبتكر أغاني للأطفال، وحكايات قبل النوم، وقصصًا شتوية، وأغاني تعليمية، وحكايات ذات مغزى للأطفال
+         من سن 3 إلى 9 سنوات وللعائلات التي تحب الحيوانات اللطيفة، والغابات المكسوّة بالثلوج، والمغامرات الدافئة.`, // Нужна запятая
+
+        p2: `كتبنا للأطفال متوفرة في جميع المكتبات الإلكترونية الكبرى حول العالم، بما في
+         ذلك أمازون، وبارنز أند نوبل، وولمارت، وغيرها الكثير. أينما كنت — في الولايات المتحدة، أو كندا، أو فرنسا،
+         أو إفريقيا، أو أستراليا، أو الشرق الأوسط، أو آسيا — يمكنك الاستمتاع بقصصنا وأغانينا في أي وقت وأي مكان.`, // Нужна запятая
+
+        p3: `شاهد حكايات نورث داكوتا
+         على يوتيوب، وديليموشن، ورامبل، حيث ننشر يوميًا مقاطع فيديو للأطفال، وأغاني تفاعلية، وحكايات جديدة. تم تصميم
+         محتوىنا ليكون هادئًا، وآمنًا، ومناسبًا للعائلة، مما يجعله مثاليًا لوقت النوم، وللتعلّم المبكر، ولأوقات العائلة.`, // Нужна запятая
+
+        p4: `ادخل إلى عالمنا الثلجي — حيث يتطاير الشرر من المدفأة، ويتساقط الثلج، وكل قصة مليئة باللطف، والخيال، وسحر الشتاء.
+اتصل بنا`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — это волшебная зимняя страна детских историй, песен и сказок,
+    вдохновлённых заснеженными просторами штата Северная Дакота в США. Мы создаём детские песни,
+    сказки на ночь, зимние истории, познавательные песенки и добрые сказки для детей от 3 до 9 лет
+    и для семей, которые любят милых лесных животных, снежные леса и тёплые, добрые приключения.`,
+
+        p2: `Наши детские книги доступны во всех крупнейших онлайн-книжных магазинах мира,
+    включая Amazon, Barnes & Noble, Walmart и многие другие. Где бы вы ни находились —
+    в США, Канаде, Франции, Африке, Австралии, на Ближнем Востоке или в Азии —
+    вы можете читать наши истории и слушать наши песни в любое время и в любом месте.`,
+
+        p3: `Смотрите North Dakota Fairytales на YouTube, Dailymotion и Rumble,
+    где мы каждый день публикуем новые детские видео, песенки для совместного пения
+    и добрые зимние сказки. Наш контент создаётся спокойным, безопасным и дружелюбным
+    для всей семьи — он идеально подходит для сказок перед сном,
+    спокойного обучения и семейных вечеров.`,
+
+        p4: `Войдите в наш снежный мир — где тихо потрескивает огонь в камине,
+    медленно падает снег, а каждая история наполнена добротой,
+    воображением и настоящим зимним волшебством.`
+    },
+
+    ur: {
+        subtitle: "",
+        p1: `North Dakota Fairytales بچوں کی کہانیوں، گیتوں اور پریوں کی کہانیوں کی ایک جادوئی سردیوں کی دنیا ہے،
+    جو امریکہ کی ریاست نارتھ ڈکوٹا کے برف سے ڈھکے خوبصورت مناظر سے متاثر ہے۔
+    ہم بچوں کے گیت، سونے سے پہلے سنائی جانے والی کہانیاں، سردیوں کی پریوں کی کہانیاں،
+    تعلیمی گیت اور اخلاقی سبق والی کہانیاں تخلیق کرتے ہیں — خاص طور پر 3 سے 9 سال کے بچوں
+    اور اُن خاندانوں کے لیے جو پیارے جانوروں، برفیلے جنگلات اور دل کو خوش کرنے والی مہمات سے محبت کرتے ہیں.`,
+
+        p2: `ہماری بچوں کی کتابیں دنیا کے بڑے آن لائن کتاب فروشوں میں دستیاب ہیں،
+    جن میں Amazon، Barnes & Noble، Walmart اور بہت سے دوسرے شامل ہیں۔
+    آپ دنیا کے کسی بھی حصے میں ہوں — امریکہ، کینیڈا، فرانس، افریقہ،
+    آسٹریلیا، مشرقِ وسطیٰ یا ایشیا میں — آپ ہماری کہانیوں اور گیتوں
+    سے کسی بھی وقت اور کہیں بھی لطف اندوز ہو سکتے ہیں.`,
+
+        p3: `North Dakota Fairytales کو YouTube، Dailymotion اور Rumble پر دیکھیں،
+    جہاں ہم ہر روز بچوں کے نئے ویڈیوز، ساتھ گانے والے گیت اور خوبصورت پریوں کی کہانیاں
+    شائع کرتے ہیں۔ ہمارا مواد پُرسکون، محفوظ اور خاندان کے لیے موزوں بنایا جاتا ہے،
+    اس لیے یہ سونے سے پہلے سننے، ابتدائی سیکھنے اور خاندانی وقت کے لیے بہترین ہے.`,
+
+        p4: `ہماری برفانی دنیا میں قدم رکھیں — جہاں چولہے کی آگ آہستہ آہستہ جلتی ہے،
+    نرم برف آسمان سے گرتی ہے، اور ہر کہانی مہربانی، تخیل اور
+    سردیوں کے جادو سے بھری ہوتی ہے۔`
+    },
+
+    hi: {
+        subtitle: "",
+        p1: `North Dakota Fairytales बच्चों की कहानियों, गीतों और परियों की कहानियों की एक जादुई सर्दियों की दुनिया है,
+    जो अमेरिका के नॉर्थ डकोटा राज्य के बर्फ से ढके सुंदर दृश्यों से प्रेरित है।
+    हम बच्चों के गीत, सोने से पहले सुनाई जाने वाली कहानियाँ, सर्दियों की परियों की कहानियाँ,
+    शैक्षिक गीत और नैतिक कहानियाँ बनाते हैं — खास तौर पर 3 से 9 साल के बच्चों
+    और उन परिवारों के लिए जो प्यारे जानवरों, बर्फीले जंगलों और दिल को छू लेने वाले रोमांच पसंद करते हैं.`,
+
+        p2: `हमारी बच्चों की किताबें दुनिया के प्रमुख ऑनलाइन पुस्तक स्टोर्स में उपलब्ध हैं,
+    जिनमें Amazon, Barnes & Noble, Walmart और कई अन्य शामिल हैं।
+    आप दुनिया में कहीं भी हों — अमेरिका, कनाडा, फ्रांस, अफ्रीका,
+    ऑस्ट्रेलिया, मध्य पूर्व या एशिया में — आप हमारी कहानियों और गीतों का
+    कभी भी और कहीं भी आनंद ले सकते हैं.`,
+
+        p3: `North Dakota Fairytales को YouTube, Dailymotion और Rumble पर देखें,
+    जहाँ हम हर दिन बच्चों के नए वीडियो, साथ गाने वाले गीत
+    और सुंदर परियों की कहानियाँ प्रकाशित करते हैं।
+    हमारा कंटेंट शांत, सुरक्षित और पूरे परिवार के लिए उपयुक्त बनाया जाता है,
+    इसलिए यह सोने से पहले सुनने, शुरुआती सीखने और परिवार के साथ समय बिताने के लिए आदर्श है.`,
+
+        p4: `हमारी बर्फीली दुनिया में कदम रखें — जहाँ चूल्हे की आग धीरे-धीरे जलती है,
+    आसमान से नरम बर्फ गिरती है, और हर कहानी दया, कल्पना
+    और सर्दियों के जादू से भरी होती है।`
+    },
+
+    bn: {
+        subtitle: "",
+        p1: `North Dakota Fairytales হলো শিশুদের গল্প, গান আর রূপকথার এক জাদুকরী শীতের জগৎ। যুক্তরাষ্ট্রের নর্থ ডাকোটার তুষারঢাকা 
+        অপরূপ প্রকৃতি থেকে অনুপ্রাণিত হয়ে আমরা তৈরি করি শিশুদের প্রিয় গান, ঘুমের আগে শোনার গল্প এবং শিক্ষামূলক রূপকথা। আমাদের এই জগৎ 
+        ৩ থেকে ৯ বছর বয়সী শিশুদের জন্য, যারা বনের মিষ্টি প্রাণীদের, বরফে ঢাকা অরণ্য এবং মায়াবী অ্যাডভেঞ্চার ভালোবাসে।`,
+
+p2: `আমাদের শিশুদের বইগুলো বিশ্বের নামী অনলাইন স্টোরগুলোতে পাওয়া যায়, যার মধ্যে রয়েছে Amazon, Barnes & Noble এবং Walmart। আপনি
+ বিশ্বের যেখানেই থাকুন না কেন—যুক্তরাষ্ট্র, কানাডা, ইউরোপ, আফ্রিকা বা এশিয়ায়—আপনি সহজেই আমাদের গল্প আর গান উপভোগ করতে পারবেন।`,
+
+p3: `YouTube, Dailymotion এবং Rumble-এ দেখুন North Dakota Fairytales। আমরা প্রতিদিন নতুন ভিডিও, একসাথে গাওয়ার গান এবং সুন্দর 
+সব রূপকথা প্রকাশ করি। আমাদের প্রতিটি ভিডিও শান্ত, নিরাপদ এবং পুরো পরিবারের জন্য উপযোগী, যা শিশুদের শেখার জন্য এবং ঘুমের আগে শোনার জন্য 
+একদম উপযুক্ত।`,
+
+p4: `চলে আসুন আমাদের তুষারঢাকা জগতে—যেখানে আগুনের উষ্ণতা, আকাশ থেকে নরম তুষার ঝরে পড়া এবং প্রতিটি গল্পে মিশে থাকে দয়া, কল্পনা এবং 
+শীতের আসল জাদু।`
+},
+
+    fa: {
+        subtitle: "",
+        p1: `North Dakota Fairytales دنیایی جادویی از داستان‌ها، ترانه‌ها و افسانه‌های زمستانی برای کودکان است
+    که از مناظر برفی و زیبای ایالت داکوتای شمالی در ایالات متحده الهام گرفته شده است.
+    ما ترانه‌های کودکانه، داستان‌های قبل از خواب، افسانه‌های زمستانی،
+    ترانه‌های آموزشی و داستان‌های آموزنده برای کودکان ۳ تا ۹ ساله
+    و برای خانواده‌هایی می‌سازیم که حیوانات دوست‌داشتنی، جنگل‌های برفی
+    و ماجراجویی‌های گرم و دلنشین را دوست دارند.`,
+
+        p2: `کتاب‌های کودکانه ما در بزرگ‌ترین فروشگاه‌های آنلاین کتاب در سراسر جهان
+    از جمله Amazon، Barnes & Noble، Walmart و بسیاری دیگر در دسترس هستند.
+    هر کجا که باشید — در آمریکا، کانادا، فرانسه، آفریقا،
+    استرالیا، خاورمیانه یا آسیا — می‌توانید در هر زمان و هر مکان
+    از داستان‌ها و ترانه‌های ما لذت ببرید.`,
+
+        p3: `North Dakota Fairytales را در YouTube، Dailymotion و Rumble تماشا کنید،
+    جایی که ما هر روز ویدیوهای جدید کودکانه، ترانه‌های همخوانی
+    و افسانه‌های زیبا منتشر می‌کنیم.
+    محتوای ما آرام، امن و مناسب خانواده طراحی شده است،
+    بنابراین برای داستان‌های قبل از خواب،
+    یادگیری آرام کودکان و لحظه‌های گرم خانوادگی بسیار مناسب است.`,
+
+        p4: `به دنیای برفی ما قدم بگذارید —
+    جایی که آتش شومینه آرام آرام می‌سوزد،
+    برف نرم از آسمان می‌بارد،
+    و هر داستان سرشار از مهربانی،
+    خیال‌پردازی و جادوی واقعی زمستان است.`
+    },
+
+    pt: {
+        subtitle: "",
+        p1: `North Dakota Fairytales é um mundo mágico de inverno cheio de histórias, canções e contos de fadas para crianças,
+    inspirado pelas paisagens nevadas do estado de Dakota do Norte, nos Estados Unidos.
+    Criamos canções infantis, histórias para a hora de dormir, contos de inverno,
+    músicas educativas e histórias com valores para crianças de 3 a 9 anos
+    e para famílias que amam animais fofos, florestas cobertas de neve
+    e aventuras calorosas que tocam o coração.`,
+
+        p2: `Nossos livros infantis estão disponíveis nas maiores livrarias online do mundo,
+    incluindo Amazon, Barnes & Noble, Walmart e muitas outras.
+    Onde quer que você esteja — nos Estados Unidos, Canadá, França, África,
+    Austrália, Oriente Médio ou Ásia — você pode aproveitar nossas histórias
+    e canções a qualquer hora e em qualquer lugar.`,
+
+        p3: `Assista North Dakota Fairytales no YouTube, Dailymotion e Rumble,
+    onde publicamos todos os dias novos vídeos infantis,
+    canções para cantar junto e lindos contos de fadas.
+    Nosso conteúdo é criado para ser calmo, seguro e amigável para toda a família,
+    perfeito para a hora de dormir, para o aprendizado tranquilo das crianças
+    e para momentos especiais em família.`,
+
+        p4: `Entre em nosso mundo de neve —
+    onde o fogo da lareira crepita suavemente,
+    a neve cai devagar do céu,
+    e cada história é cheia de bondade,
+    imaginação e a verdadeira magia do inverno.`
+    },
+
+    ms: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ialah sebuah dunia musim sejuk yang penuh keajaiban,
+    dipenuhi dengan cerita kanak-kanak, lagu dan kisah dongeng yang terinspirasi
+    oleh landskap bersalji yang indah di negeri North Dakota, Amerika Syarikat.
+    Kami mencipta lagu kanak-kanak, cerita sebelum tidur, kisah dongeng musim sejuk,
+    lagu pendidikan dan cerita bermoral untuk kanak-kanak berumur 3 hingga 9 tahun
+    serta untuk keluarga yang menyukai haiwan comel, hutan bersalji
+    dan pengembaraan hangat yang menyentuh hati.`,
+
+        p2: `Buku kanak-kanak kami tersedia di kedai buku dalam talian utama di seluruh dunia,
+    termasuk Amazon, Barnes & Noble, Walmart dan banyak lagi.
+    Di mana sahaja anda berada — di Amerika Syarikat, Kanada, Perancis, Afrika,
+    Australia, Timur Tengah atau Asia — anda boleh menikmati cerita
+    dan lagu kami pada bila-bila masa dan di mana sahaja.`,
+
+        p3: `Tonton North Dakota Fairytales di YouTube, Dailymotion dan Rumble,
+    di mana kami menerbitkan video kanak-kanak baharu, lagu untuk dinyanyikan bersama
+    dan kisah dongeng setiap hari.
+    Kandungan kami direka supaya tenang, selamat dan mesra keluarga,
+    menjadikannya sesuai untuk waktu sebelum tidur,
+    pembelajaran awal dan masa bersama keluarga.`,
+
+        p4: `Masuklah ke dunia bersalji kami —
+    di mana api perapian berkeriut perlahan,
+    salji turun lembut dari langit,
+    dan setiap cerita dipenuhi dengan kebaikan,
+    imaginasi dan keajaiban musim sejuk.`
+    },
+
+    id: {
+        subtitle: "",
+        p1: `North Dakota Fairytales adalah dunia musim dingin yang ajaib penuh dengan cerita anak-anak,
+    lagu, dan dongeng yang terinspirasi oleh pemandangan bersalju yang indah
+    di negara bagian North Dakota, Amerika Serikat.
+    Kami menciptakan lagu anak-anak, cerita sebelum tidur, dongeng musim dingin,
+    lagu edukatif, dan cerita bermakna untuk anak-anak usia 3–9 tahun
+    serta untuk keluarga yang menyukai hewan-hewan lucu,
+    hutan bersalju, dan petualangan hangat yang menyentuh hati.`,
+
+        p2: `Buku anak-anak kami tersedia di toko buku online besar di seluruh dunia,
+    termasuk Amazon, Barnes & Noble, Walmart, dan banyak lagi.
+    Di mana pun Anda berada — di Amerika Serikat, Kanada, Prancis, Afrika,
+    Australia, Timur Tengah, atau Asia — Anda dapat menikmati cerita
+    dan lagu kami kapan saja dan di mana saja.`,
+
+        p3: `Tonton North Dakota Fairytales di YouTube, Dailymotion, dan Rumble,
+    tempat kami menerbitkan video anak-anak baru, lagu untuk dinyanyikan bersama,
+    dan dongeng setiap hari.
+    Konten kami dirancang agar tenang, aman, dan ramah keluarga,
+    sehingga sangat cocok untuk cerita sebelum tidur,
+    pembelajaran awal, dan waktu bersama keluarga.`,
+
+        p4: `Masuklah ke dunia bersalju kami —
+    tempat api perapian berderak lembut,
+    salju turun perlahan dari langit,
+    dan setiap cerita dipenuhi dengan kebaikan,
+    imajinasi, dan keajaiban musim dingin.`
+    },
+
+    de: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ist eine zauberhafte Winterwelt voller Kindergeschichten,
+    Lieder und Märchen, inspiriert von den verschneiten Landschaften
+    des US-Bundesstaates North Dakota.
+    Wir erschaffen Kinderlieder, Gute-Nacht-Geschichten, winterliche Märchen,
+    Lernlieder und liebevolle Geschichten für Kinder im Alter von 3 bis 9 Jahren
+    und für Familien, die niedliche Tiere, verschneite Wälder
+    und herzerwärmende Abenteuer lieben.`,
+
+        p2: `Unsere Kinderbücher sind in den größten Online-Buchhandlungen der Welt erhältlich,
+    darunter Amazon, Barnes & Noble, Walmart und viele mehr.
+    Ganz gleich, wo Sie sich befinden — in den USA, Kanada, Frankreich, Afrika,
+    Australien, im Nahen Osten oder in Asien —
+    Sie können unsere Geschichten und Lieder jederzeit und überall genießen.`,
+
+        p3: `Schauen Sie North Dakota Fairytales auf YouTube, Dailymotion und Rumble,
+    wo wir jeden Tag neue Kindervideos, Mitsing-Lieder
+    und schöne Märchen veröffentlichen.
+    Unsere Inhalte sind ruhig, sicher und familienfreundlich gestaltet
+    und eignen sich perfekt für die Zeit vor dem Schlafengehen,
+    für frühes Lernen und für gemeinsame Familienmomente.`,
+
+        p4: `Treten Sie ein in unsere verschneite Welt —
+    wo das Kaminfeuer leise knistert,
+    sanfter Schnee vom Himmel fällt
+    und jede Geschichte voller Freundlichkeit,
+    Fantasie und winterlicher Magie ist.`
+    },
+
+    ca: {
+        subtitle: "",
+        p1: `North Dakota Fairytales és un món màgic d’hivern ple d’històries per a nens,
+    cançons i contes de fades inspirats en els paisatges nevats
+    de l’estat de Dakota del Nord, als Estats Units.
+    Creem cançons infantils, contes per anar a dormir, contes d’hivern,
+    cançons educatives i històries amb valors per a nens de 3 a 9 anys
+    i per a famílies que estimen els animals adorables,
+    els boscos nevats i les aventures càlides que toquen el cor.`,
+
+        p2: `Els nostres llibres infantils estan disponibles a les principals llibreries en línia del món,
+    incloent Amazon, Barnes & Noble, Walmart i moltes altres.
+    Siguis on siguis — als Estats Units, Canadà, França, Àfrica,
+    Austràlia, l’Orient Mitjà o Àsia —
+    pots gaudir de les nostres històries i cançons en qualsevol moment i a qualsevol lloc.`,
+
+        p3: `Mira North Dakota Fairytales a YouTube, Dailymotion i Rumble,
+    on publiquem cada dia nous vídeos infantils, cançons per cantar junts
+    i bells contes de fades.
+    El nostre contingut està creat per ser tranquil, segur i familiar,
+    ideal per a l’hora d’anar a dormir,
+    per a l’aprenentatge primerenc i per compartir moments en família.`,
+
+        p4: `Entra al nostre món nevat —
+    on el foc de la llar crepita suaument,
+    la neu cau lentament del cel
+    i cada història està plena de bondat,
+    imaginació i la màgia de l’hivern.`
+    },
+
+    az: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — uşaq hekayələri, mahnılar və nağıllarla dolu sehrli bir qış dünyasıdır. Bu dünya 
+        ABŞ-ın Şimali Dakota ştatının bəyaz qarlı mənzərələrindən ilhamlanaraq yaradılmışdır. Biz 3–9 yaşlı balacalar 
+        üçün şirin yuxu nağılları, öyrədici mahnılar və qış macəraları hazırlayırıq. Meşə heyvanlarını və qarlı meşələrin 
+        sehrini sevən ailələr üçün burada hər kəs özünə bir dost tapacaq.`,
+
+    p2: `Kitablarımızı dünyanın ən böyük onlayn mağazalarından, o cümlədən Amazon, Barnes & Noble və Walmart-dan əldə 
+    edə bilərsiniz. Dünyanın harasında olmağınızdan asılı olmayaraq — istər Amerika, istər Avropa, istərsə də Asiyada 
+    — nağıllarımız və mahnılarımız hər an sizinlədir.`,
+
+    p3: `North Dakota Fairytales-i YouTube, Dailymotion və Rumble-da izləyin. Burada hər gün yeni uşaq videoları, 
+    birlikdə oxunan mahnılar və mehriban nağıllar yayımlayırıq. Videolarımız sakit və təhlükəsizdir. Bu, yatmazdan 
+    əvvəl dinləmək və ailəvi vaxt keçirmək üçün ən yaxşı seçimdir.`,
+
+    p4: `Bizim qarlı dünyamıza addım atın — burada ocaqda odunlar çıtırdayır, göydən yumşaq qar yağır və hər bir hekayə 
+    xeyirxahlıq, xəyal dünyası və qışın əsl sehri ilə doludur.`
+},
+
+    hy: {
+        subtitle: "",
+        p1: `North Dakota Fairytales-ը հեքիաթների, երգերի և պատմությունների կախարդական ձմեռային աշխարհ է՝ ոգեշնչված 
+        ԱՄՆ Հյուսիսային Դակոտա նահանգի ձյունածածկ գեղեցիկ բնությամբ։ Մենք ստեղծում ենք մանկական երգեր, քնելուց առաջ 
+        լսվող պատմություններ և ձմեռային հեքիաթներ 3–9 տարեկան երեխաների համար։ Մեր պատմությունները նրանց համար են, 
+        ովքեր սիրում են սիրունիկ անտառային կենդանիներին և ջերմ ու բարի արկածները։`,
+
+p2: `Մեր գրքերը հասանելի են աշխարհի խոշորագույն առցանց գրախանութներում, ինչպիսիք են Amazon-ը, Barnes & Noble-ը և 
+Walmart-ը։ Որտեղ էլ լինեք՝ Ամերիկայում, Եվրոպայում, Աֆրիկայում թե Ասիայում, մեր հեքիաթներն ու երգերը միշտ ձեզ հետ են։`,
+
+p3: `Հետևեք North Dakota Fairytales-ին YouTube, Dailymotion և Rumble հարթակներում։ Ամեն օր մենք հրապարակում ենք նոր 
+տեսանյութեր, միասին երգվող երգեր և բարի հեքիաթներ։ Մեր հոլովակները հանգիստ են ու անվտանգ․ դրանք կատարյալ են քնելուց 
+առաջ լսելու և ընտանեկան հանգիստ երեկոների համար։`,
+
+p4: `Բարի գալուստ մեր ձյունապատ աշխարհ — որտեղ բուխարու կրակը մեղմորեն վառվում է, փափուկ ձյունը դանդաղ իջնում է 
+երկնքից, իսկ յուրաքանչյուր պատմություն լի է բարությամբ, երևակայությամբ և ձմեռային իսկական կախարդանքով։`
+},
+
+    haw: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — he ao hoʻokalakupua kēia o ka hau a me ka hoʻoilo. Ua hoʻoulu ʻia kā mākou 
+        mau moʻolelo e ka nani o nā ʻāina hau o North Dakota. Hana mākou i nā mele a me nā kaʻao hoʻoilo no nā 
+        keiki (3–9 makahiki) e aloha ana i nā holoholona o ka nahele a me nā huakaʻi pumehana i waena o ka hau.`,
+
+    p2: `Loaʻa kā mākou mau puke ma Amazon, Barnes & Noble, a me Walmart. Ma hea nō ʻoe — ma ʻAmelika, ʻEulopa, 
+    a ʻĀsia paha — hiki iā ʻoe ke nanea i kā mākou mau moʻolelo hoʻoilo i kēlā me kēia manawa.`,
+
+    p3: `E nānā iā North Dakota Fairytales ma YouTube, Dailymotion, a me Rumble. Ma laila mākou e hōʻike ai i nā wikiō 
+    hou a me nā moʻolelo kupanaha o ka hoʻoilo. He mālie a he palekana kā mākou mau wikiō, kūpono no ka hoʻolulu 
+    hiamoe ʻana a me ka manawa pū me ka ʻohana.`,
+
+    p4: `E komo mai i loko o ko mākou ao hau — kahi e ʻā mālie ai ke ahi o ke kapuahi, kahi e hāʻule mālie ai ka hau 
+    mai ka lani, a piha kēlā me kēia moʻolelo i ka lokomaikaʻi a me ke kilohana o ka hoʻoilo.`
+},
+
+    tt: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — балалар өчен әкиятләр, җырлар һәм тылсымлы кышкы дөньясы. Бу дөнья АКШ-ның 
+        Төньяк Дакота штатындагы карлы матур табигатьтән илһам алып иҗат ителде. Без 3–9 яшьлек балалар өчен йокы 
+        алдыннан укыла торган әкиятләр, балалар җырлары һәм кышкы маҗаралар иҗат итәбез. Сөйкемле җәнлекләрне һәм 
+        карлы урманнарны яратучы гаиләләр өчен бу — чын бүләк.`,
+
+    p2: `Безнең китапларны дөньяның иң зур онлайн кибетләрендә, шул исәптән Amazon, Barnes & Noble һәм Walmart аша 
+    сатып алырга мөмкин. Кайда гына булсагыз да — Америкада, Европада, Африкада яки Азиядә — безнең җырлар һәм 
+    әкиятләр һәрвакыт сезнең белән.`,
+
+    p3: `North Dakota Fairytales-ны YouTube, Dailymotion һәм Rumble платформаларында карагыз. Анда без һәр көн яңа 
+    видеолар, бергә җырлый торган җырлар һәм игелекле әкиятләр бастырабыз. Видеоларыбыз тыныч һәм куркынычсыз, 
+    шуңа күрә алар йокы алдыннан тыңлау һәм гаилә белән җылы вакыт үткәрү өчен бик туры килә.`,
+
+    p4: `Безнең карлы дөньяга рәхим итегез! Анда мичтә ут тыныч кына пыскып яна, күктән йомшак кар ява, ә һәр әкият 
+    игелек, хыял һәм кышның чын тылсымы белән тулы.`
+},
+};
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+    <p>{t.p1}</p>
+    <p>{t.p2}</p>
+    <p>{t.p3}</p>
+    <p>{t.p4}</p>
+    </div>
+
+
+
+
+</BaseLayout>

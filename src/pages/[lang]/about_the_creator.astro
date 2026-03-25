@@ -1,0 +1,438 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `About the Creator`, // Нужна запятая
+
+        p2: `North Dakota Fairytales is an original winter-themed children’s storytelling brand created by Paul Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `The project features original characters, songs, and stories inspired by the winter landscapes and atmosphere 
+        of North Dakota. It focuses on calm, cozy, and safe storytelling for children and does not retell Native American 
+        legends or historical folklore.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales was created by an independent author and storyteller with a deep interest in cultural 
+        heritage, childhood imagination, and thoughtful storytelling.`,
+
+        p5: `The creator works across writing, music, and visual concepts, focusing on calm, winter-themed stories 
+        designed to support children’s emotional well-being. Each project element — stories, songs, and illustrations — 
+        is developed with careful attention to atmosphere, language, and emotional tone.`,
+
+        p6: `North Dakota Fairytales is a long-term creative project guided by a consistent artistic vision and a belief 
+        in gentle storytelling as an important part of childhood.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `Sobre el Creador`, // Нужна запятая
+
+        p2: `North Dakota Fairytales es una marca original de narración infantil con temática invernal, creada por Paul 
+        Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `El proyecto presenta personajes, canciones e historias originales inspiradas en los paisajes invernales y 
+        la atmósfera de Dakota del Norte. Se centra en una narración tranquila, acogedora y segura para niños, y no
+         reinterpreta leyendas nativas americanas ni folclore histórico.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales fue creado por un autor y narrador independiente con un profundo interés en el 
+        patrimonio cultural, la imaginación infantil y la narración reflexiva.`,
+
+        p5: `El creador trabaja en escritura, música y conceptos visuales, centrándose en historias invernales calmadas 
+        diseñadas para apoyar el bienestar emocional de los niños. Cada elemento del proyecto — historias, canciones e 
+        ilustraciones — se desarrolla con especial atención a la atmósfera, el lenguaje y el tono emocional.`,
+
+        p6: `North Dakota Fairytales es un proyecto creativo a largo plazo, guiado por una visión artística coherente y 
+        por la convicción de que la narración suave es una parte esencial de la infancia.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `À propos du Créateur`, // Нужна запятая
+
+        p2: `North Dakota Fairytales est une marque originale de récits pour enfants sur le thème de l’hiver, créée par 
+        Paul Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `Le projet propose des personnages, des chansons et des histoires originales inspirés des paysages hivernaux
+         et de l’atmosphère du Dakota du Nord. Il met l’accent sur une narration calme, chaleureuse et sûre pour les 
+         enfants, et ne reprend pas les légendes amérindiennes ni le folklore historique.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales a été créé par un auteur et conteur indépendant, animé par un intérêt profond pour 
+        le patrimoine culturel, l’imaginaire de l’enfance et la narration réfléchie.`,
+
+        p5: `Le créateur travaille à travers l’écriture, la musique et les concepts visuels, en se concentrant sur des 
+        histoires hivernales calmes conçues pour soutenir le bien-être émotionnel des enfants. Chaque élément du projet — 
+        histoires, chansons et illustrations — est développé avec une attention particulière portée à l’atmosphère, au 
+        langage et à la tonalité émotionnelle.`,
+
+        p6: `North Dakota Fairytales est un projet créatif à long terme, guidé par une vision artistique cohérente et 
+        par la conviction que la narration douce est une composante essentielle de l’enfance.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `عن المُنشئ`,
+        p2: `نورث داكوتا فيري تايلز 
+        (North Dakota Fairytales) هي علامة أصلية لسرد قصص الأطفال ذات الطابع الشتوي، أنشأها بول براين ماشكوفتسيف.`,
+        p3: `يضم المشروع شخصيات وأغاني وقصصًا أصلية مستوحاة من المناظر الطبيعية الشتوية وأجواء ولاية نورث داكوتا. 
+        ويركّز على سرد هادئ ودافئ وآمن للأطفال، ولا يعيد رواية أساطير السكان الأصليين أو الحكايات التاريخية الشعبية.`,
+        p4: `تم إنشاء North Dakota Fairytales على يد مؤلف وراوٍ مستقل يهتم بالتراث الثقافي، وخيال الطفولة، والسرد القصصي المتوازن.`,
+        p5: `يعمل المُنشئ في مجالات
+         الكتابة والموسيقى والتصميم البصري، مع التركيز على قصص شتوية هادئة تهدف إلى دعم السلامة العاطفية للأطفال. يتم
+         تطوير كل عنصر من عناصر المشروع — القصص والأغاني والرسومات — بعناية خاصة للأجواء واللغة والنبرة العاطفية.`,
+        p6: `يُعد North Dakota Fairytales
+         مشروعًا إبداعيًا طويل المدى، يستند إلى رؤية فنية متسقة وإيمان بأهمية السرد الهادئ كجزء أساسي من تجربة الطفولة.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `Об авторе`,
+        p2: `North Dakota Fairytales — это авторский мир зимних историй для детей, созданный писателем и рассказчиком 
+        Полом Брайаном Машковцевым.`,
+    p3: `В этом мире живут добрые персонажи, звучат тихие зимние песни и рождаются новые сказки, вдохновлённые 
+    заснеженными пейзажами Северной Дакоты. Проект создаёт спокойные, уютные и безопасные истории для детей и не 
+    пересказывает легенды коренных народов Америки или исторический фольклор.`,
+    p4: `Проект был создан независимым автором и рассказчиком, который глубоко интересуется культурным наследием,
+     детским воображением и искусством вдумчивого повествования.`,
+    p5: `Создатель работает на пересечении литературы, музыки и визуальных идей, создавая спокойные зимние истории, 
+    направленные на поддержку эмоционального благополучия детей. Каждая история, песня и иллюстрация создаётся с 
+    вниманием к атмосфере, языку и мягкому эмоциональному тону.`,
+    p6: `North Dakota Fairytales — это долгосрочный творческий проект, основанный на едином художественном 
+    видении и вере в то, что доброе и спокойное повествование является важной частью детства.`
+},
+
+    ur: {
+        subtitle: "",
+        p1: `مصنف کے بارے میں`,
+
+        p2: `North Dakota Fairytales بچوں کے لیے سردیوں کی کہانیوں کی ایک تخلیقی
+         دنیا ہے، جسے مصنف اور کہانی سنانے والے پال برائن مشکوفٹسف نے تخلیق کیا ہے۔`,
+
+p3: `اس دنیا میں مہربان کردار بستے ہیں، نرم اور پرسکون سردیوں کے گیت سنائی دیتے ہیں، اور نئی کہانیاں جنم لیتی ہیں جو
+ نارتھ ڈکوٹا کے برفیلے مناظر سے متاثر ہیں۔ یہ منصوبہ بچوں کے لیے پُرسکون، محفوظ اور دل کو سکون دینے والی کہانیاں
+ تخلیق کرتا ہے اور مقامی امریکی اقوام کی روایتی داستانوں یا تاریخی لوک کہانیوں کو دوبارہ بیان نہیں کرتا۔`,
+
+p4: `یہ منصوبہ ایک آزاد مصنف اور
+ کہانی سنانے والے نے تخلیق کیا، جسے ثقافتی ورثے، بچوں کے تخیل اور بامعنی کہانی سنانے کے فن میں گہری دلچسپی ہے۔`,
+
+p5: `تخلیق کار تحریر، موسیقی اور بصری تصورات کے سنگم
+ پر کام کرتا ہے اور ایسی پُرسکون سردیوں کی کہانیاں تخلیق کرتا ہے جو بچوں کی جذباتی بھلائی کی حمایت کریں۔ منصوبے
+ کا ہر حصہ — کہانیاں، گیت اور تصویریں — ماحول، زبان اور نرم جذباتی لہجے پر خاص توجہ کے ساتھ تیار کیا جاتا ہے۔`,
+
+p6: `North Dakota Fairytales ایک طویل مدتی تخلیقی منصوبہ ہے جو ایک واضح فنکارانہ وژن اور
+ اس یقین سے رہنمائی لیتا ہے کہ نرم اور مہربان کہانیاں بچپن کا ایک اہم حصہ ہوتی ہیں۔`
+},
+
+    hi: {
+        subtitle: "",
+        p1: `लेखक के बारे में`,
+
+        p2: `North Dakota Fairytales बच्चों के लिए सर्दियों की कहानियों की एक रचनात्मक दुनिया है, जिसे लेखक और कथाकार पॉल ब्रायन माश्कोवत्सेव ने बनाया है।`,
+
+p3: `इस दुनिया में दयालु पात्र रहते हैं, शांत सर्दियों के गीत सुनाई देते हैं, और नई कहानियाँ जन्म लेती हैं जो नॉर्थ डकोटा के बर्फ़ से ढके दृश्यों से प्रेरित हैं। यह 
+परियोजना बच्चों के लिए शांत, सुरक्षित और सुकून देने वाली कहानियाँ बनाती है और मूल अमेरिकी समुदायों की पारंपरिक कथाओं या ऐतिहासिक लोककथाओं को दोहराती नहीं है।`,
+
+p4: `इस परियोजना को एक स्वतंत्र लेखक और कथाकार ने बनाया है, जिसे सांस्कृतिक विरासत, बच्चों की कल्पना और विचारपूर्ण कहानी कहने की कला में गहरी रुचि है।`,
+
+p5: `रचनाकार लेखन, संगीत और दृश्य कल्पनाओं के संगम पर काम करते हैं और ऐसी शांत सर्दियों की कहानियाँ बनाते हैं जो बच्चों के भावनात्मक संतुलन और भलाई 
+का समर्थन करती हैं। परियोजना का हर तत्व — कहानियाँ, गीत और चित्र — वातावरण, भाषा और कोमल भावनात्मक स्वर पर विशेष ध्यान के साथ बनाया जाता है।`,
+
+p6: `North Dakota Fairytales एक दीर्घकालिक रचनात्मक परियोजना है, जिसे एक स्पष्ट कलात्मक दृष्टि और इस विश्वास द्वारा मार्गदर्शन मिलता है कि कोमल और 
+दयालु कहानियाँ बचपन का एक महत्वपूर्ण हिस्सा होती हैं।`
+},
+
+    bn: {
+        subtitle: "",
+        p1: `স্রষ্টা সম্পর্কে`,
+
+        p2: `North Dakota Fairytales শিশুদের জন্য শীতের গল্পের এক সৃজনশীল জগৎ, যা লেখক ও গল্পকার পল ব্রায়ান মাশকভৎসেভ তৈরি করেছেন।`,
+
+p3: `এই জগতে বাস করে দয়ালু চরিত্ররা, শোনা যায় নরম শীতের গান, আর জন্ম নেয় নতুন গল্প—যেগুলো অনুপ্রাণিত হয়েছে নর্থ ডাকোটার তুষারে ঢাকা
+ প্রাকৃতিক দৃশ্য থেকে। এই প্রকল্পটি শিশুদের জন্য শান্ত, নিরাপদ এবং হৃদয়কে প্রশান্ত করে এমন গল্প তৈরি করে এবং এটি আমেরিকার আদিবাসী জনগোষ্ঠীর
+  কিংবদন্তি বা ঐতিহাসিক লোককথা পুনরায় বর্ণনা করে না।`,
+
+p4: `এই প্রকল্পটি একজন স্বাধীন লেখক ও গল্পকারের সৃষ্টি, যিনি সাংস্কৃতিক ঐতিহ্য, শিশুদের কল্পনা এবং চিন্তাশীল গল্প বলার শিল্পের প্রতি গভীর আগ্রহ রাখেন।`,
+
+p5: `স্রষ্টা লেখা, সঙ্গীত এবং দৃশ্যকল্পের সংযোগস্থলে কাজ করেন, এমন শান্ত শীতের গল্প তৈরি করেন যা শিশুদের মানসিক সুস্থতা ও আবেগগত ভারসাম্যকে 
+সমর্থন করে। প্রকল্পের প্রতিটি উপাদান — গল্প, গান এবং চিত্র — পরিবেশ, ভাষা এবং কোমল আবেগঘন সুরের প্রতি যত্ন নিয়ে তৈরি করা হয়।`,
+
+p6: `North Dakota Fairytales একটি দীর্ঘমেয়াদি সৃজনশীল প্রকল্প, যা একটি সুস্পষ্ট শিল্পীসুলভ দৃষ্টিভঙ্গি এবং এই বিশ্বাস দ্বারা পরিচালিত যে কোমল ও 
+দয়ালু গল্প বলা শিশুকালের একটি গুরুত্বপূর্ণ অংশ।`
+},
+
+    fa: {
+        subtitle: "",
+        p1: `درباره خالق`,
+
+        p2: `North Dakota Fairytales دنیایی خلاقانه از داستان‌های زمستانی
+         برای کودکان است که توسط نویسنده و داستان‌پرداز پل برایان ماشکوف‌تسف ساخته شده است.`,
+
+        p3: `در این دنیا شخصیت‌های مهربان زندگی می‌کنند، ترانه‌های آرام زمستانی شنیده
+         می‌شود و داستان‌های تازه‌ای متولد می‌شوند که از مناظر برفی ایالت داکوتای شمالی الهام گرفته‌اند. این پروژه داستان‌هایی
+         آرام، امن و دلنشین برای کودکان خلق می‌کند و افسانه‌های بومیان آمریکا یا فولکلور تاریخی را بازگو نمی‌کند.`,
+
+    p4: `این پروژه توسط یک
+     نویسنده و داستان‌گوی مستقل ایجاد شده است که علاقه‌ای عمیق به میراث فرهنگی، تخیل کودکان و هنر روایت اندیشمندانه دارد.`,
+
+    p5: `خالق این پروژه در نقطه تلاقی نوشتن، موسیقی و
+     ایده‌های بصری فعالیت می‌کند و داستان‌های آرام زمستانی می‌آفریند که به آرامش و سلامت عاطفی کودکان کمک می‌کنند. هر بخش
+     از این پروژه — داستان‌ها، ترانه‌ها و تصویرگری‌ها — با توجهی ویژه به فضا، زبان و لحن احساسی ملایم ساخته می‌شود.`,
+
+    p6: `North Dakota Fairytales یک پروژه خلاقانه بلندمدت است که با یک دیدگاه هنری روشن هدایت
+     می‌شود و بر این باور استوار است که داستان‌گویی آرام و مهربان بخش مهمی از دوران کودکی است.`
+},
+
+    pt: {
+        subtitle: "",
+        p1: `Sobre o Criador`,
+
+        p2: `North Dakota Fairytales é um mundo criativo de histórias de inverno para crianças, criado pelo escritor e 
+        contador de histórias Paul Brian Mashkovtsev.`,
+
+        p3: `Neste mundo vivem personagens gentis, ouvem-se canções suaves de inverno e nascem novas histórias 
+        inspiradas pelas paisagens cobertas de neve de North Dakota. O projeto cria histórias calmas, acolhedoras e 
+        seguras para crianças e não reconta lendas dos povos nativos da América nem folclore histórico.`,
+
+        p4: `O projeto foi criado por um autor e contador de histórias independente, com profundo interesse pelo 
+        patrimônio cultural, pela imaginação infantil e pela arte da narrativa cuidadosa.`,
+
+        p5: `O criador trabalha na interseção entre escrita, música e conceitos visuais, desenvolvendo histórias 
+        tranquilas de inverno pensadas para apoiar o bem-estar emocional das crianças. Cada elemento do projeto — 
+        histórias, canções e ilustrações — é desenvolvido com atenção especial à atmosfera, à linguagem e ao tom emocional suave.`,
+
+    p6: `North Dakota Fairytales é um projeto criativo de longo prazo guiado por uma visão artística consistente e pela 
+    crença de que histórias gentis e tranquilas são uma parte importante da infância.`
+},
+
+    ms: {
+        subtitle: "",
+        p1: `Tentang Pencipta`,
+
+        p2: `North Dakota Fairytales ialah sebuah dunia kreatif cerita musim sejuk untuk kanak-kanak yang dicipta oleh 
+        penulis dan pencerita Paul Brian Mashkovtsev.`,
+
+        p3: `Dalam dunia ini tinggal watak-watak yang baik hati, kedengaran lagu musim sejuk yang lembut, dan lahir 
+        cerita-cerita baharu yang diinspirasikan oleh pemandangan bersalji di North Dakota. Projek ini mencipta cerita 
+        yang tenang, selesa dan selamat untuk kanak-kanak, dan tidak menceritakan semula legenda masyarakat pribumi 
+        Amerika atau cerita rakyat sejarah.`,
+
+        p4: `Projek ini dicipta oleh seorang penulis dan pencerita bebas yang mempunyai minat mendalam terhadap 
+        warisan budaya, imaginasi kanak-kanak dan seni penceritaan yang penuh perhatian.`,
+
+        p5: `Pencipta projek ini bekerja di persimpangan penulisan, muzik dan konsep visual, menghasilkan cerita 
+        musim sejuk yang tenang yang direka untuk menyokong kesejahteraan emosi kanak-kanak. Setiap elemen projek — 
+        cerita, lagu dan ilustrasi — dibangunkan dengan perhatian terhadap suasana, bahasa dan nada emosi yang lembut.`,
+
+    p6: `North Dakota Fairytales ialah sebuah projek kreatif jangka panjang yang dipandu oleh visi seni yang konsisten 
+    serta kepercayaan bahawa penceritaan yang lembut dan penuh kebaikan merupakan bahagian penting dalam zaman kanak-kanak.`
+},
+
+    id: {
+        subtitle: "",
+        p1: `Tentang Pencipta`,
+
+        p2: `North Dakota Fairytales adalah sebuah dunia kreatif cerita musim dingin untuk anak-anak yang diciptakan 
+        oleh penulis dan pencerita Paul Brian Mashkovtsev.`,
+
+        p3: `Di dunia ini hidup karakter-karakter yang baik hati, terdengar lagu-lagu musim dingin yang lembut, 
+        dan lahir cerita-cerita baru yang terinspirasi oleh pemandangan bersalju di North Dakota. Proyek ini 
+        menciptakan cerita yang tenang, nyaman, dan aman untuk anak-anak serta tidak menceritakan kembali legenda 
+        masyarakat pribumi Amerika atau cerita rakyat sejarah.`,
+
+        p4: `Proyek ini diciptakan oleh seorang penulis dan pencerita independen yang memiliki minat mendalam terhadap 
+        warisan budaya, imajinasi anak-anak, dan seni bercerita yang penuh perhatian.`,
+
+        p5: `Pencipta proyek ini bekerja di persimpangan antara penulisan, musik, dan konsep visual, menciptakan 
+        cerita musim dingin yang tenang yang dirancang untuk mendukung kesejahteraan emosional anak-anak. Setiap 
+        elemen proyek — cerita, lagu, dan ilustrasi — dikembangkan dengan perhatian terhadap suasana, bahasa, dan nada 
+        emosional yang lembut.`,
+
+    p6: `North Dakota Fairytales adalah proyek kreatif jangka panjang yang dipandu oleh visi artistik yang konsisten 
+    serta keyakinan bahwa penceritaan yang lembut dan penuh kebaikan merupakan bagian penting dari masa kanak-kanak.`
+},
+
+    de: {
+        subtitle: "",
+        p1: `Über den Schöpfer`,
+
+        p2: `North Dakota Fairytales ist eine kreative Welt winterlicher Geschichten für Kinder, geschaffen vom 
+        Schriftsteller und Geschichtenerzähler Paul Brian Mashkovtsev.`,
+
+        p3: `In dieser Welt leben freundliche Figuren, leise Winterlieder erklingen und neue Geschichten entstehen, 
+        inspiriert von den verschneiten Landschaften North Dakotas. Das Projekt erschafft ruhige, gemütliche und 
+        sichere Geschichten für Kinder und erzählt keine Legenden der indigenen Völker Amerikas oder historisches Volksgut nach.`,
+
+        p4: `Das Projekt wurde von einem unabhängigen Autor und Geschichtenerzähler geschaffen, der sich intensiv für 
+        kulturelles Erbe, kindliche Fantasie und die Kunst des achtsamen Erzählens interessiert.`,
+
+        p5: `Der Schöpfer arbeitet an der Schnittstelle von Schreiben, Musik und visuellen Konzepten und entwickelt 
+        ruhige Wintergeschichten, die das emotionale Wohlbefinden von Kindern unterstützen sollen. Jedes Element des 
+        Projekts — Geschichten, Lieder und Illustrationen — wird mit besonderer Aufmerksamkeit für Atmosphäre, Sprache
+         und einen sanften emotionalen Ton gestaltet.`,
+
+    p6: `North Dakota Fairytales ist ein langfristiges kreatives Projekt, das von einer klaren künstlerischen Vision 
+    geleitet wird und von dem Glauben, dass sanftes und freundliches Erzählen ein wichtiger Teil der Kindheit ist.`
+},
+
+    ca: {
+        subtitle: "",
+        p1: `Sobre el creador`,
+
+        p2: `North Dakota Fairytales és un món creatiu d’històries d’hivern per a infants, creat per l’escriptor i 
+        narrador Paul Brian Mashkovtsev.`,
+
+    p3: `En aquest món hi viuen personatges amables, s’escolten suaus cançons d’hivern i neixen noves històries 
+    inspirades en els paisatges nevats de North Dakota. El projecte crea històries tranquil·les, acollidores i 
+    segures per als infants, i no torna a explicar llegendes dels pobles nadius d’Amèrica ni folklore històric.`,
+
+    p4: `El projecte va ser creat per un autor i narrador independent amb un profund interès pel patrimoni cultural, 
+    la imaginació infantil i l’art d’explicar històries amb sensibilitat.`,
+
+    p5: `El creador treballa a la intersecció entre l’escriptura, la música i els conceptes visuals, desenvolupant 
+    històries tranquil·les d’hivern pensades per donar suport al benestar emocional dels infants. Cada element del 
+    projecte — històries, cançons i il·lustracions — es desenvolupa amb una atenció especial a l’atmosfera, al llenguatge
+     i al to emocional suau.`,
+
+    p6: `North Dakota Fairytales és un projecte creatiu a llarg termini guiat per una visió artística coherent i per la 
+    convicció que una narració suau i amable és una part important de la infància.`
+},
+
+    az: {
+        subtitle: "",
+        p1: `Yaradıcısı haqqında`,
+
+        p2: `North Dakota Fairytales uşaqlar üçün qış hekayələrindən ibarət yaradıcı bir dünyadır və yazıçı və 
+        hekayəçi Paul Brian Mashkovtsev tərəfindən yaradılmışdır.`,
+
+        p3: `Bu dünyada mehriban obrazlar yaşayır, sakit qış mahnıları səslənir və North Dakota-nın qarla örtülü 
+        mənzərələrindən ilham alan yeni hekayələr yaranır. Layihə uşaqlar üçün sakit, rahat və təhlükəsiz hekayələr 
+        yaradır və Amerikanın yerli xalqlarının əfsanələrini və ya tarixi folklorunu yenidən danışmır.`,
+
+        p4: `Layihə mədəni irsə, uşaqların təxəyyülünə və düşünülmüş hekayəçilik sənətinə dərin maraq göstərən 
+        müstəqil bir yazıçı və hekayəçi tərəfindən yaradılmışdır.`,
+
+        p5: `Layihənin yaradıcısı yazı, musiqi və vizual ideyaların kəsişməsində çalışır və uşaqların emosional rifahını 
+        dəstəkləmək üçün sakit qış hekayələri yaradır. Layihənin hər bir elementi — hekayələr, mahnılar və 
+        illüstrasiyalar — atmosferə, dilə və yumşaq emosional tona xüsusi diqqət yetirilərək hazırlanır.`,
+
+    p6: `North Dakota Fairytales aydın bədii baxış və yumşaq, mehriban hekayəçiliyin uşaqlığın vacib bir hissəsi 
+    olduğuna inamla yönləndirilən uzunmüddətli yaradıcı bir layihədir.`
+},
+
+    hy: {
+        subtitle: "",
+        p1: `Հեղինակի մասին`,
+
+        p2: `North Dakota Fairytales-ը երեխաների համար ձմեռային պատմությունների ստեղծագործական աշխարհ է, որը ստեղծել 
+        է գրող և պատմող Փոլ Բրայան Մաշկովցևը։`,
+
+p3: `Այս աշխարհում ապրում են բարի կերպարներ, հնչում են մեղմ ձմեռային երգեր, և ծնվում են նոր պատմություններ՝ ներշնչված 
+Հյուսիսային Դակոտայի ձյունապատ բնապատկերներով։ Նախագիծը ստեղծում է հանգիստ, ջերմ և անվտանգ պատմություններ երեխաների 
+համար և չի վերապատմում Ամերիկայի բնիկ ժողովուրդների լեգենդները կամ պատմական ժողովրդական ավանդույթները։`,
+
+p4: `Նախագիծը ստեղծվել է անկախ գրողի և պատմողի կողմից, ով խոր հետաքրքրություն ունի մշակութային ժառանգության, մանկական 
+երևակայության և մտածված պատմելու արվեստի նկատմամբ։`,
+
+p5: `Նախագծի ստեղծողը աշխատում է գրության, երաժշտության և տեսողական գաղափարների խաչմերուկում՝ ստեղծելով հանգիստ ձմեռային 
+պատմություններ, որոնք նպաստում են երեխաների հուզական բարեկեցությանը։ Նախագծի յուրաքանչյուր տարր — պատմություններ, 
+երգեր և նկարազարդումներ — ստեղծվում է հատուկ ուշադրությամբ մթնոլորտին, լեզվին և մեղմ հուզական տոնին։`,
+
+p6: `North Dakota Fairytales-ը երկարաժամկետ ստեղծագործական նախագիծ է, որը առաջնորդվում է հստակ գեղարվեստական տեսլականով 
+և այն համոզմամբ, որ մեղմ ու բարի պատմություններն երեխանության կարևոր մասն են։`
+},
+
+    haw: {
+        subtitle: "",
+        p1: `No ka Mea Nāna i Hana`,
+
+        p2: `He ao hana no nā moʻolelo hoʻoilo no nā keiki ʻo North Dakota Fairytales, i hana ʻia e ka mea kākau a me 
+        ka mea haʻi moʻolelo ʻo Paul Brian Mashkovtsev.`,
+
+        p3: `Ma kēia ao noho nā ʻano kanaka lokomaikaʻi, lohe ʻia nā mele mālie o ka hoʻoilo, a hānau ʻia nā moʻolelo 
+        hou i hoʻoulu ʻia e nā ʻāina hau o North Dakota. Hana kēia papahana i nā moʻolelo mālie, pumehana a palekana 
+        no nā keiki, a ʻaʻole ia e haʻi hou i nā kaʻao o nā lāhui ʻōiwi o ʻAmelika a i ʻole nā moʻolelo kahiko o ka mōʻaukala.`,
+
+        p4: `Ua hana ʻia kēia papahana e kekahi mea kākau a me ka mea haʻi moʻolelo kūʻokoʻa i loaʻa ka hoihoi nui i ka 
+        moʻomeheu kahiko, ka noʻonoʻo o nā keiki, a me ke akamai o ka haʻi moʻolelo me ka noʻonoʻo.`,
+
+        p5: `Hana ka mea nāna i hana i ka papahana ma waena o ke kākau ʻana, ka mele, a me nā manaʻo ʻike. Hoʻokumu 
+        ʻo ia i nā moʻolelo mālie o ka hoʻoilo i hoʻolālā ʻia e kākoʻo i ke ola maikaʻi o ka naʻau o nā keiki. Hoʻokumu 
+        ʻia kēlā me kēia ʻāpana o ka papahana — nā moʻolelo, nā mele, a me nā kiʻi — me ka nānā nui i ka lewa, ka ʻōlelo, 
+        a me ka leo mālie o nā manaʻo.`,
+
+    p6: `He papahana hana lōʻihi ʻo North Dakota Fairytales i alakaʻi ʻia e kahi ʻike hana paʻa a me ka manaʻoʻiʻo 
+    he mea nui ka haʻi moʻolelo mālie a lokomaikaʻi i ka wā kamaliʻi.`
+},
+
+    tt: {
+        subtitle: "",
+        p1: `Автор турында`,
+
+        p2: `North Dakota Fairytales — балалар өчен кышкы хикәяләрдән торган иҗади дөнья, аны язучы һәм хикәя сөйләүче 
+        Пол Брайан Машковцев тудырган.`,
+
+    p3: `Бу дөньяда игелекле персонажлар яши, тыныч кышкы җырлар яңгырый, һәм Төньяк Дакотаның карлы пейзажлары белән 
+    илһамланган яңа әкиятләр туа. Проект балалар өчен тыныч, җылы һәм имин хикәяләр иҗат итә һәм Америкадагы җирле 
+    халыкларның риваятьләрен яки тарихи фольклорын яңадан сөйләми.`,
+
+    p4: `Проект мәдәни мирас, балаларның хыял дөньясы һәм уйлап сөйләү сәнгате белән тирән кызыксынучы бәйсез автор һәм 
+    хикәяче тарафыннан булдырылган.`,
+
+    p5: `Проектның авторы язма, музыка һәм визуаль идеяләр кисешкән урында эшли, балаларның эмоциональ иминлеген якларга 
+    ярдәм итә торган тыныч кышкы хикәяләр иҗат итә. Проектның һәр элементы — хикәяләр, җырлар һәм иллюстрацияләр — 
+    атмосферага, телгә һәм йомшак эмоциональ тонга игътибар белән эшләнә.`,
+
+    p6: `North Dakota Fairytales — ачык иҗади караш һәм йомшак, игелекле хикәя сөйләүнең балачакның мөһим өлеше булуына 
+    ышану белән алып барылган озак вакытлы иҗади проект.`
+},
+};
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+
+
+
+</div>
+</BaseLayout>

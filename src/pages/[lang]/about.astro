@@ -1,0 +1,1043 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: 'en' } },
+        { params: { lang: 'es' } },
+        { params: { lang: 'fr' } },
+        { params: { lang: 'ar' } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales is an independent international children’s storytelling and music project based in 
+        the United States.`, // Нужна запятая
+
+        p2: `The project creates original winter-themed fairy tales, songs, and illustrated stories for children and 
+        families around the world. Alongside original works, North Dakota Fairytales also carefully adapts traditional 
+        and lesser-known folk tales, preserving their moral foundations while presenting them in a gentle, modern, and 
+        child-friendly form.`, // Нужна запятая
+
+        p3: `All content is inspired by Northern landscapes and winter traditions of North America — snow-covered 
+        forests, calm winter nights, and the feeling of warmth, safety, and imagination that storytelling brings.`, // Нужна запятая
+
+        p4: `Music plays a central role in the North Dakota Fairytales project. Calm melodies and gentle rhythms help 
+        children experience stories emotionally and peacefully.`,
+
+        p5: `North Dakota Fairytales focuses on:
+original children’s fairy tales and songs
+adapted and reimagined folk stories
+multilingual storytelling for young audiences
+calm, cozy, and family-friendly content
+winter-only themes and visuals style`,
+        p6: `The mission of North Dakota Fairytales is to preserve timeless stories and values that have been passed 
+        down through generations but have gradually faded from everyday life. Through storytelling and music, the project 
+        explores universal themes such as kindness and cruelty, good and evil, friendship, loyalty, courage, compassion,
+         and responsibility.`,
+        p7: `Stories and songs are produced in multiple languages to help children experience storytelling that connects
+         cultures while remaining rooted in universal moral values. The project combines narration, music, and illustration 
+         to create an emotionally safe and peaceful experience for children.`,
+        p8: `North Dakota Fairytales is an independent creative project. All original stories, music, characters, and 
+        adaptations are created specifically for the project with respect for cultural heritage and children’s emotional 
+        well-being.`,
+        p9: `Who It Is For`,
+        p10: `North Dakota Fairytales is thoughtfully created for young children and their families. Each story and 
+        melody is paced specifically for this age group, ensuring it is easy to follow and perfect for shared family 
+        listening or bedtime reading.`,
+        p11: `Emotional Safety First`,
+        p12: `We prioritize a non-frightening environment. By avoiding aggressive themes and loud transitions, we 
+        provide a soft and supportive experience that helps children feel secure, relaxed, and emotionally comfortable.`,
+        p13: `A Winter-Only World`,
+        p14: `Our project is defined by a permanent winter-only identity. We focus exclusively on northern landscapes, 
+        snow-covered traditions, and the serenity of winter storytelling.`,
+        p15: `A Quiet Space for Imagination`,
+        p16: `More than a collection of media, this is a quiet winter sanctuary where children can explore universal 
+        values through the calming synergy of narration and music.`,
+
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales es un proyecto internacional e independiente de narración y música infantil con 
+        sede en Estados Unidos.`, // Нужна запятая
+
+        p2: `El proyecto crea cuentos de hadas, canciones e historias ilustradas originales con temática invernal para 
+        niños y familias de todo el mundo. Además de obras originales, North Dakota Fairytales adapta cuidadosamente 
+        cuentos tradicionales y menos conocidos, conservando sus valores morales y presentándolos de una forma suave, 
+        moderna y adecuada para niños.`, // Нужна запятая
+
+        p3: `Todo el contenido está inspirado en los paisajes del norte y las tradiciones invernales de América del 
+        Norte: bosques cubiertos de nieve, noches tranquilas de invierno y la sensación de calidez, seguridad e 
+        imaginación que brinda la narración de historias.`, // Нужна запятая
+
+        p4: `La música ocupa un lugar central en el proyecto North Dakota Fairytales. Las melodías suaves y los ritmos 
+        tranquilos ayudan a los niños a vivir las historias de una manera emocional y serena.`,
+
+        p5: `North Dakota Fairytales se enfoca en:`,
+        p6: `cuentos y canciones infantiles originales
+cuentos folklóricos adaptados y reinterpretados
+narración multilingüe para públicos infantiles
+contenido familiar, tranquilo y acogedor
+temática y estilo visual exclusivamente invernal`,
+        p7: `La misión de North Dakota Fairytales es preservar historias y valores atemporales que se han transmitido 
+        de generación en generación, pero que con el tiempo han ido desapareciendo de la vida cotidiana. A través de la 
+        narración y la música, el proyecto explora temas universales como la bondad y la crueldad, el bien y el mal, la 
+        amistad, la lealtad, el coraje, la compasión y la responsabilidad.`,
+        p8: `Las historias y canciones se producen en varios idiomas para que niños de diferentes culturas puedan 
+        compartir una experiencia común basada en valores universales. El proyecto combina narración, música e 
+        ilustración para crear una experiencia emocionalmente segura y tranquila para los niños.`,
+        p9: `North Dakota Fairytales es un proyecto creativo independiente. Todas las historias, músicas, personajes y 
+        adaptaciones originales se crean específicamente para el proyecto, respetando el patrimonio cultural y el 
+        bienestar emocional infantil.`,
+        p10: `Para Quién Está Diseñado`,
+        p11: `North Dakota Fairytales ha sido creado cuidadosamente para niños pequeños y sus familias. Cada historia 
+        y melodía tiene un ritmo adaptado a esta etapa, lo que facilita su comprensión y lo hace ideal para escuchar 
+        en familia o para leer antes de dormir.`,
+        p12: `Seguridad Emocional Ante Todo`,
+        p13: `Priorizamos un entorno no aterrador. Al evitar temas agresivos y transiciones bruscas, ofrecemos una 
+        experiencia suave y acogedora que ayuda a los niños a sentirse seguros, tranquilos y emocionalmente cómodos.`,
+        p14: `Un Mundo Solo de Invierno`,
+        p15: `Nuestro proyecto se define por una identidad permanente centrada exclusivamente en el invierno. Nos 
+        enfocamos únicamente en paisajes del norte, tradiciones cubiertas de nieve y la serenidad de los cuentos invernales.`,
+        p16: `Un Espacio Tranquilo para la Imaginación`,
+        p17: `Más que una colección de contenidos, este es un refugio invernal silencioso donde los niños pueden explorar 
+        valores universales a través de la armonía calmante entre la narración y la música.`,
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `North Dakota Fairytales est un projet international et indépendant de narration et de musique pour enfants, 
+        basé aux États-Unis.`, // Нужна запятая
+
+        p2: `Le projet crée des contes de fées, des chansons et des histoires illustrées originales à thème hivernal 
+        pour les enfants et les familles du monde entier. En plus des œuvres originales, North Dakota Fairytales adapte 
+        avec soin des contes folkloriques traditionnels et méconnus, en préservant leurs valeurs morales tout en les 
+        présentant sous une forme douce, moderne et adaptée aux enfants.`, // Нужна запятая
+
+        p3: `Tout le contenu s’inspire des paysages nordiques et des traditions hivernales de l’Amérique du Nord — forêts 
+        enneigées, nuits d’hiver paisibles et sentiment de chaleur, de sécurité et d’imagination que procure le conte.`, // Нужна запятая
+
+        p4: `La musique occupe une place centrale dans le projet North Dakota Fairytales. Des mélodies calmes et des 
+        rythmes doux permettent aux enfants de vivre les histoires de manière émotionnelle et apaisante.`,
+        p5: `North Dakota Fairytales se concentre sur :`,
+        p6: `des contes et chansons originales pour enfants
+des récits folkloriques adaptés et réimaginés
+une narration multilingue pour les jeunes publics
+un contenu calme, chaleureux et familial
+une thématique et une identité visuelle exclusivement hivernales`,
+        p7: `La mission de North Dakota Fairytales est de préserver des histoires et des valeurs intemporelles transmises 
+        de génération en génération, mais progressivement perdues dans la vie moderne. À travers les contes et la musique,
+         le projet explore des thèmes universels tels que la gentillesse et la cruauté, le bien et le mal, l’amitié, la 
+         loyauté, le courage, la compassion et la responsabilité.`,
+        p8: `Les histoires et les chansons sont produites en plusieurs langues afin de relier les cultures tout en 
+        restant ancrées dans des valeurs morales universelles. Le projet associe narration, musique et illustration pour 
+        offrir aux enfants une expérience paisible et émotionnellement sécurisée.`,
+        p9: `North Dakota Fairytales est un projet créatif indépendant. Toutes les histoires, musiques, personnages et 
+        adaptations sont créés spécifiquement pour le projet, dans le respect du patrimoine culturel et du bien-être 
+        émotionnel des enfants.`,
+        p10: `À Qui S’Adresse Ce Projet`,
+        p11: `North Dakota Fairytales est conçu avec soin pour les jeunes enfants et leurs familles. Chaque histoire 
+        et chaque mélodie est rythmée spécifiquement pour cet âge, afin d’être facile à suivre et idéale pour les 
+        moments partagés en famille ou la lecture du coucher.`,
+        p12: `La Sécurité Émotionnelle Avant Tout`,
+        p13: `Nous privilégions un environnement sans peur. En évitant les thèmes agressifs et les transitions brusques,
+         nous offrons une expérience douce et rassurante qui aide les enfants à se sentir en sécurité, détendus et 
+         émotionnellement à l’aise.`,
+        p14: `Un Univers Exclusivement Hivernal`,
+        p15: `Notre projet est défini par une identité permanente centrée uniquement sur l’hiver. Nous nous concentrons 
+        exclusivement sur les paysages nordiques, les traditions enneigées et la sérénité du conte hivernal.`,
+        p16: `Un Espace Paisible pour l’Imagination`,
+        p17: `Plus qu’une simple collection de médias, il s’agit d’un sanctuaire hivernal paisible où les enfants peuvent 
+        explorer des valeurs universelles grâce à l’harmonie apaisante entre la narration et la musique.`,
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `تُعد North Dakota 
+        Fairytales مشروعًا دوليًا مستقلًا لسرد القصص والموسيقى المخصصة للأطفال، ويقع مقره في الولايات المتحدة الأمريكية.`, // Нужна запятая
+        p2: `يقدّم المشروع قصصًا خيالية وأغانٍ وحكايات مصوّرة أصلية ذات طابع شتوي للأطفال
+         والعائلات حول العالم. وإلى جانب الأعمال الأصلية، تقوم North Dakota Fairytales بإعادة تقديم حكايات شعبية
+         تقليدية وأخرى أقل شهرة بعناية، مع الحفاظ على قيمها الأخلاقية وتقديمها بأسلوب لطيف، حديث، ومناسب للأطفال.,`,
+        p3: `يستوحي المحتوى أجواءه من المناظر الشمالية والتقاليد الشتوية في أمريكا
+         الشمالية، مثل الغابات المغطاة بالثلوج، ليالي الشتاء الهادئة، والشعور بالدفء والأمان والخيال الذي تمنحه القصص.`,
+        p4: `تلعب الموسيقى دورًا محوريًا في مشروع 
+        North Dakota Fairytales، حيث تساعد الألحان الهادئة والإيقاعات اللطيفة الأطفال على التفاعل مع القصص بصورة عاطفية ومريحة.`,
+        p5: `يركّز مشروع North Dakota Fairytales على:`,
+        p6: `قصص وأغانٍ أصلية مخصصة للأطفال
+إعادة تقديم الحكايات الشعبية المنسية بأسلوب حديث
+سرد القصص بعدة لغات لجمهور الأطفال
+محتوى هادئ، دافئ، ومناسب للعائلة
+مواضيع وهوية بصرية شتوية فقط`,
+        p7: `تتمثل رسالة North Dakota Fairytales في الحفاظ على القصص
+         والقيم التي انتقلت عبر الأجيال لكنها بدأت تتلاشى من الحياة اليومية. ومن خلال القصص والموسيقى، يستكشف المشروع
+         موضوعات إنسانية عالمية مثل الخير والشر، اللطف والقسوة، الصداقة، الوفاء، الشجاعة، التعاطف، والمسؤولية.`,
+        p8: `تُنتج القصص والأغاني 
+        بعدة لغات لتمكين الأطفال حول العالم من تجربة سرد قصصي يربط الثقافات المختلفة مع الحفاظ على القيم الأخلاقية 
+        المشتركة. يجمع المشروع بين السرد والموسيقى والرسوم ليقدّم تجربة آمنة ومسالمة للأطفال على الصعيد العاطفي.`,
+        p9: `North Dakota Fairytales هو مشروع إبداعي مستقل، وتُنشأ جميع القصص والموسيقى والشخصيات
+         والأعمال المقتبسة خصيصًا للمشروع، مع احترام التراث الثقافي ورفاه الأطفال العاطفي.`,
+        p10: `لمن هذا المشروع`,
+        p11: `تم إنشاء North Dakota Fairytales بعناية للأطفال الصغار وعائلاتهم. تم ضبط إيقاع كل قصة
+         ولحن خصيصًا لهذه الفئة العمرية، مما يجعل المحتوى سهل المتابعة ومثاليًا للاستماع العائلي أو للقراءة قبل النوم.`,
+        p12: `السلامة العاطفية أولاً`,
+        p13: `نحن نحرص على توفير بيئة خالية من الخوف. من خلال تجنب المواضيع العدوانية
+         والانتقالات المفاجئة، نقدم تجربة هادئة وداعمة تساعد الأطفال على الشعور بالأمان والراحة والاستقرار العاطفي.`,
+        p14: `عالم شتوي فقط`,
+        p15: `يتميز مشروعنا بهوية ثابتة تركز حصريًا 
+        على فصل الشتاء. نحن نركز فقط على المناظر الشمالية، والتقاليد المغطاة بالثلوج، وهدوء الحكايات الشتوية.`,
+        p16: `مساحة هادئة للخيال`,
+        p17: `هذا المشروع ليس مجرد مجموعة من الوسائط،
+         بل هو ملاذ شتوي هادئ يتيح للأطفال استكشاف القيم الإنسانية المشتركة من خلال التناغم الهادئ بين السرد والموسيقى.`
+
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — независимый международный проект детских историй и музыки, основанный в Соединённых Штатах.`,
+
+    p2: `Проект создаёт оригинальные зимние сказки, песни и иллюстрированные истории для детей и семей по всему миру. 
+    Наряду с авторскими произведениями North Dakota Fairytales бережно адаптирует традиционные и малоизвестные народные 
+    сказки, сохраняя их нравственные основы и представляя их в мягкой, современной и дружелюбной для детей форме.`,
+
+    p3: `Всё содержание вдохновлено северными пейзажами и зимними традициями Северной Америки — заснеженными лесами, 
+    спокойными зимними ночами и ощущением тепла, безопасности и воображения, которое дарит рассказывание историй.`,
+
+    p4: `Музыка играет центральную роль в проекте North Dakota Fairytales. Спокойные мелодии и мягкие ритмы помогают 
+    детям переживать истории эмоционально и гармонично.`,
+
+    p5: `North Dakota Fairytales сосредоточен на:
+оригинальных детских сказках и песнях
+адаптированных и переосмысленных народных историях
+многоязычном повествовании для юных слушателей
+спокойном, уютном и семейном контенте
+исключительно зимней тематике и визуальном стиле`,
+
+    p6: `Миссия North Dakota Fairytales — сохранять вечные истории и ценности, которые передавались из поколения в 
+    поколение, но постепенно начали исчезать из повседневной жизни. Через рассказывание историй и музыку проект 
+    исследует универсальные темы: доброту и жестокость, добро и зло, дружбу, верность, смелость, сострадание и ответственность.`,
+
+    p7: `Истории и песни создаются на разных языках, чтобы дети могли знакомиться с культурами мира через 
+    рассказывание историй, оставаясь при этом в пространстве универсальных нравственных ценностей. Проект 
+    объединяет повествование, музыку и иллюстрации, создавая эмоционально безопасный и спокойный опыт для детей.`,
+
+    p8: `North Dakota Fairytales — независимый творческий проект. Все оригинальные истории, музыка, персонажи и 
+    адаптации создаются специально для проекта с уважением к культурному наследию и эмоциональному благополучию детей.`,
+
+    p9: `Для кого создан проект?`,
+
+    p10: `North Dakota Fairytales создан с заботой о маленьких детях и их семьях. Каждая история и мелодия специально 
+    рассчитана на этот возраст, чтобы её было легко воспринимать и приятно слушать вместе с семьёй или читать перед сном.`,
+
+    p11: `Эмоциональная безопасность прежде всего`,
+
+    p12: `Мы уделяем особое внимание спокойной и безопасной атмосфере. Избегая агрессивных тем и резких переходов, 
+    мы создаём мягкое и поддерживающее пространство, где дети могут чувствовать себя защищёнными, расслабленными и 
+    эмоционально комфортно.`,
+
+    p13: `Мир только зимa`,
+
+    p14: `Наш проект определяется постоянной зимней атмосферой. Мы сосредоточены исключительно на северных пейзажах, 
+    заснеженных традициях и спокойствии зимних историй.`,
+
+    p15: `Тихое пространство для воображения`,
+
+    p16: `Это больше, чем просто коллекция медиа. Это тихое зимнее убежище, где дети могут открывать универсальные 
+    ценности через спокойное сочетание повествования и музыки.`
+},
+
+    ur: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ایک آزاد بین الاقوامی بچوں
+         کی کہانیوں اور موسیقی کا منصوبہ ہے جو ریاستہائے متحدہ امریکہ میں قائم کیا گیا ہے۔`,
+
+p2: `یہ منصوبہ دنیا بھر کے بچوں اور خاندانوں کے لیے موسمِ سرما پر مبنی اصل پریوں کی کہانیاں، گیت اور تصویری کہانیاں تخلیق کرتا ہے۔ اپنی اصل تخلیقات کے ساتھ ساتھ North Dakota Fairytales روایتی اور کم معروف لوک کہانیوں کو بھی نہایت احتیاط سے ڈھالتا
+ ہے، ان کی اخلاقی بنیادوں کو محفوظ رکھتے ہوئے انہیں نرم، جدید اور بچوں کے لیے موزوں انداز میں پیش کرتا ہے۔`,
+
+p3: `تمام مواد شمالی مناظر اور شمالی امریکہ کی سردیوں کی روایات سے
+ متاثر ہے — برف سے ڈھکے جنگلات، پُرسکون سرد راتیں، اور وہ احساسِ گرمی، تحفظ اور تخیل جو کہانیاں سنانے سے پیدا ہوتا ہے۔`,
+
+p4: `North Dakota Fairytales کے منصوبے میں موسیقی ایک مرکزی کردار ادا کرتی ہے۔ پُرسکون دھنیں
+ اور نرم ردھم بچوں کو کہانیوں کو جذباتی اور پُرامن انداز میں محسوس کرنے میں مدد دیتے ہیں۔`,
+
+p5: `North Dakota Fairytales کی توجہ ان پہلوؤں پر ہے:
+اصل بچوں کی پریوں کی کہانیاں اور گیت
+ڈھالی ہوئی اور نئے انداز میں بیان کی گئی لوک کہانیاں
+نوجوان سامعین کے لیے کثیر لسانی کہانی سنانا
+پُرسکون، آرام دہ اور خاندانی ماحول کے لیے موزوں مواد
+صرف موسمِ سرما پر مبنی موضوعات اور بصری انداز`,
+
+    p6: `North Dakota Fairytales کا مقصد ان لازوال کہانیوں اور اقدار کو محفوظ رکھنا ہے جو نسل در نسل
+     منتقل ہوتی آئی ہیں مگر آہستہ آہستہ روزمرہ زندگی سے دور ہوتی جا رہی ہیں۔ کہانی
+     سنانے اور موسیقی کے ذریعے یہ منصوبہ عالمگیر موضوعات کو دریافت کرتا ہے جیسے
+     مہربانی اور سختی، اچھائی اور برائی، دوستی، وفاداری، ہمت، ہمدردی اور ذمہ داری۔`,
+
+p7: `کہانیاں اور گیت مختلف زبانوں میں تیار کیے جاتے 
+ہیں تاکہ بچے کہانیوں کے ذریعے مختلف ثقافتوں سے جڑ سکیں جبکہ بنیادی انسانی اقدار کو برقرار رکھا جائے۔ یہ منصوبہ
+ بیان، موسیقی اور تصویری فن کو یکجا کر کے بچوں کے لیے ایک جذباتی طور پر محفوظ اور پُرامن تجربہ تخلیق کرتا ہے۔`,
+
+p8: `North Dakota Fairytales ایک آزاد تخلیقی منصوبہ ہے۔ تمام اصل کہانیاں، موسیقی، کردار اور اقتباسات اسی منصوبے کے
+ لیے تخلیق کیے جاتے ہیں، جن میں ثقافتی ورثے اور بچوں کی جذباتی بھلائی کا احترام کیا جاتا ہے۔`,
+
+p9: `یہ کس کے لیے ہے`,
+
+    p10: `North Dakota Fairytales خاص طور پر چھوٹے بچوں اور ان کے خاندانوں کے لیے سوچ سمجھ کر تخلیق کیا گیا
+     ہے۔ ہر کہانی اور دھن کو اس عمر کے بچوں کے مطابق ترتیب دیا گیا ہے تاکہ وہ آسانی
+     سے سمجھ سکیں اور خاندان کے ساتھ مل کر سننے یا سونے سے پہلے پڑھنے کے لیے بہترین ہو۔`,
+
+p11: `جذباتی تحفظ سب سے پہلے`,
+
+    p12: `ہم ایک غیر خوفناک ماحول کو ترجیح دیتے ہیں۔ جارحانہ موضوعات اور تیز تبدیلیوں سے گریز کرتے ہوئے ہم ایک نرم
+     اور مددگار تجربہ فراہم کرتے ہیں جس سے بچے خود کو محفوظ، پُرسکون اور جذباتی طور پر مطمئن محسوس کرتے ہیں۔`,
+
+p13: `صرف سردیوں کی دنیا`,
+
+    p14: `ہمارا منصوبہ مستقل طور پر سردیوں کی
+     شناخت رکھتا ہے۔ ہم صرف شمالی مناظر، برف سے ڈھکی روایات اور سردیوں کی کہانیوں کی پُرسکون فضا پر توجہ دیتے ہیں۔`,
+
+p15: `تخیل کے لیے ایک پُرسکون جگہ`,
+
+    p16: `یہ صرف میڈیا کا مجموعہ نہیں بلکہ ایک پُرسکون سردیوں
+     کی پناہ گاہ ہے جہاں بچے کہانی اور موسیقی کے نرم امتزاج کے ذریعے عالمگیر اقدار کو دریافت کر سکتے ہیں۔`
+},
+
+    hi: {
+        subtitle: "",
+        p1: `North Dakota Fairytales संयुक्त राज्य अमेरिका में आधारित बच्चों की कहानियों और संगीत का एक स्वतंत्र अंतरराष्ट्रीय रचनात्मक परियोजना है।`,
+
+p2: `यह परियोजना दुनिया भर के बच्चों और परिवारों के लिए शीतकालीन विषयों पर आधारित मौलिक परियों की कहानियाँ, गीत और चित्रित कथाएँ तैयार करती है। 
+अपनी मूल रचनाओं के साथ-साथ North Dakota Fairytales पारंपरिक और कम प्रसिद्ध लोक कथाओं को भी सावधानी से रूपांतरित करता है, उनकी नैतिक 
+मूल भावना को सुरक्षित रखते हुए उन्हें कोमल, आधुनिक और बच्चों के अनुकूल रूप में प्रस्तुत करता है।`,
+
+p3: `सारी सामग्री उत्तरी परिदृश्यों और उत्तर अमेरिका की सर्दियों की परंपराओं से प्रेरित है — बर्फ से ढके जंगल, शांत शीतकालीन रातें, और वह गर्माहट,
+ सुरक्षा और कल्पना की भावना जो कहानी सुनाने से जन्म लेती है।`,
+
+p4: `North Dakota Fairytales परियोजना में संगीत की केंद्रीय भूमिका है। शांत धुनें और कोमल लय बच्चों को कहानियों को भावनात्मक और शांतिपूर्ण ढंग से 
+अनुभव करने में मदद करती हैं।`,
+
+p5: `North Dakota Fairytales का ध्यान इन बातों पर केंद्रित है:
+मौलिक बच्चों की परियों की कहानियाँ और गीत
+रूपांतरित और नए रूप में प्रस्तुत लोक कथाएँ
+युवा श्रोताओं के लिए बहुभाषी कहानी-कथन
+शांत, सुकूनभरा और परिवार-अनुकूल कंटेंट
+केवल शीतकालीन विषय और दृश्य शैली`,
+
+    p6: `North Dakota Fairytales का मिशन उन कालातीत कहानियों और मूल्यों को सुरक्षित रखना है जो पीढ़ियों से आगे बढ़ते आए हैं, लेकिन धीरे-धीरे 
+    रोज़मर्रा के जीवन से ओझल होते जा रहे हैं। कहानी और संगीत के माध्यम से यह परियोजना सार्वभौमिक विषयों का अन्वेषण करती है — जैसे दया और क्रूरता, अच्छाई
+     और बुराई, मित्रता, निष्ठा, साहस, करुणा और जिम्मेदारी।`,
+
+p7: `कहानियाँ और गीत कई भाषाओं में तैयार किए जाते हैं ताकि बच्चे कहानी-कथन के माध्यम से विभिन्न संस्कृतियों से जुड़ सकें, जबकि मूल मानवीय मूल्यों से उनका
+ संबंध बना रहे। यह परियोजना कथन, संगीत और चित्रांकन को एक साथ जोड़कर बच्चों के लिए भावनात्मक रूप से सुरक्षित और शांत अनुभव बनाती है।`,
+
+p8: `North Dakota Fairytales एक स्वतंत्र रचनात्मक परियोजना है। सभी मूल कहानियाँ, संगीत, पात्र और रूपांतरण विशेष रूप से इसी परियोजना के लिए बनाए
+ जाते हैं, जिनमें सांस्कृतिक विरासत और बच्चों की भावनात्मक भलाई का सम्मान किया जाता है।`,
+
+p9: `यह किसके लिए है`,
+
+    p10: `North Dakota Fairytales विशेष रूप से छोटे बच्चों और उनके परिवारों के लिए सोच-समझकर बनाया गया है। हर कहानी और धुन इस आयु समूह 
+    के अनुरूप बनाई जाती है, ताकि उसे आसानी से समझा जा सके और परिवार के साथ सुनने या सोने से पहले पढ़ने के लिए उपयुक्त हो।`,
+
+p11: `भावनात्मक सुरक्षा सबसे पहले`,
+
+    p12: `हम ऐसा वातावरण बनाने को प्राथमिकता देते हैं जिसमें डर या तनाव न हो। आक्रामक विषयों और तेज़ बदलावों से बचते हुए हम एक कोमल और 
+    सहायक अनुभव प्रदान करते हैं, जिससे बच्चे सुरक्षित, शांत और भावनात्मक रूप से सहज महसूस करते हैं।`,
+
+p13: `केवल सर्दियों की दुनिया`,
+
+    p14: `हमारा परियोजना स्थायी रूप से सर्दियों की पहचान पर आधारित है। हम केवल उत्तरी परिदृश्यों, बर्फ से ढकी परंपराओं और सर्दियों की कहानियों की शांति 
+    पर ध्यान केंद्रित करते हैं।`,
+
+p15: `कल्पना के लिए एक शांत स्थान`,
+
+    p16: `यह केवल मीडिया का संग्रह नहीं है। यह एक शांत शीतकालीन आश्रय है जहाँ बच्चे कहानी और संगीत के कोमल संगम के माध्यम से सार्वभौमिक मूल्यों की खोज कर सकते हैं।`
+},
+
+    bn: {
+        subtitle: "",
+        p1: `North Dakota Fairytales হলো যুক্তরাষ্ট্রভিত্তিক শিশুদের গল্প ও সঙ্গীতের একটি স্বাধীন আন্তর্জাতিক সৃজনশীল প্রকল্প।`,
+
+p2: `এই প্রকল্পটি বিশ্বের শিশু ও পরিবারের জন্য শীতকালীন থিমে মৌলিক রূপকথা, গান এবং চিত্রিত গল্প তৈরি করে। নিজস্ব সৃষ্টির পাশাপাশি North Dakota 
+Fairytales ঐতিহ্যবাহী এবং কম পরিচিত লোককথাগুলোকেও যত্নের সাথে নতুনভাবে উপস্থাপন করে, তাদের নৈতিক ভিত্তি অক্ষুণ্ণ রেখে কোমল, আধুনিক এবং 
+শিশুদের উপযোগী রূপে তুলে ধরে।`,
+
+p3: `সমস্ত কনটেন্ট অনুপ্রাণিত উত্তর আমেরিকার উত্তরের প্রাকৃতিক দৃশ্য এবং শীতের ঐতিহ্য থেকে — তুষারে ঢাকা বন, শান্ত শীতের রাত, এবং গল্প বলার 
+মাধ্যমে যে উষ্ণতা, নিরাপত্তা ও কল্পনার অনুভূতি জন্ম নেয় তা থেকে।`,
+
+p4: `North Dakota Fairytales প্রকল্পে সঙ্গীতের একটি গুরুত্বপূর্ণ ভূমিকা রয়েছে। শান্ত সুর ও কোমল তাল শিশুদের গল্পগুলোকে আবেগের সঙ্গে এবং 
+শান্তভাবে অনুভব করতে সাহায্য করে।`,
+
+p5: `North Dakota Fairytales মূলত গুরুত্ব দেয়:
+মৌলিক শিশুদের রূপকথা ও গান
+রূপান্তরিত ও নতুনভাবে উপস্থাপিত লোককথা
+তরুণ শ্রোতাদের জন্য বহুভাষিক গল্প বলা
+শান্ত, আরামদায়ক এবং পরিবারবান্ধব কনটেন্ট
+শুধুমাত্র শীতকালীন থিম ও ভিজ্যুয়াল শৈলী`,
+
+    p6: `North Dakota Fairytales-এর লক্ষ্য হলো সেই চিরন্তন গল্প ও মূল্যবোধ সংরক্ষণ করা যা প্রজন্মের পর প্রজন্ম ধরে মানুষের মাঝে প্রচলিত ছিল,
+     কিন্তু ধীরে ধীরে দৈনন্দিন জীবন থেকে হারিয়ে যেতে শুরু করেছে। গল্প বলা ও সঙ্গীতের মাধ্যমে এই প্রকল্প দয়া ও নিষ্ঠুরতা, ভাল ও মন্দ, বন্ধুত্ব, বিশ্বস্ততা, 
+     সাহস, সহমর্মিতা এবং দায়িত্বের মতো সর্বজনীন বিষয়গুলোকে তুলে ধরে।`,
+
+p7: `গল্প এবং গান একাধিক ভাষায় তৈরি করা হয় যাতে শিশুরা গল্পের মাধ্যমে বিভিন্ন সংস্কৃতির সঙ্গে পরিচিত হতে পারে, আবার একই সঙ্গে সর্বজনীন মানবিক 
+মূল্যবোধের সঙ্গে যুক্ত থাকতে পারে। এই প্রকল্প গল্প বলা, সঙ্গীত এবং চিত্রকলাকে একত্রিত করে শিশুদের জন্য একটি আবেগগতভাবে নিরাপদ ও শান্ত অভিজ্ঞতা তৈরি করে।`,
+
+p8: `North Dakota Fairytales একটি স্বাধীন সৃজনশীল প্রকল্প। সমস্ত মৌলিক গল্প, সঙ্গীত, চরিত্র এবং রূপান্তর বিশেষভাবে এই প্রকল্পের জন্য তৈরি করা হয়,
+ যেখানে সাংস্কৃতিক ঐতিহ্য এবং শিশুদের আবেগগত কল্যাণের প্রতি সম্মান রাখা হয়।`,
+
+p9: `কার জন্য`,
+
+    p10: `North Dakota Fairytales ছোট শিশু এবং তাদের পরিবারের জন্য যত্নসহকারে তৈরি করা হয়েছে। প্রতিটি গল্প ও সুর এই বয়সের শিশুদের 
+    উপযোগীভাবে সাজানো হয়, যাতে তা সহজে বোঝা যায় এবং পরিবারের সঙ্গে একসাথে শোনা বা ঘুমের আগে পড়ার জন্য উপযুক্ত হয়।`,
+
+p11: `আবেগগত নিরাপত্তা সবার আগে`,
+
+    p12: `আমরা এমন একটি পরিবেশকে অগ্রাধিকার দিই যা ভীতিকর নয়। আক্রমণাত্মক বিষয় এবং হঠাৎ জোরালো পরিবর্তন এড়িয়ে আমরা একটি কোমল
+     ও সহায়ক অভিজ্ঞতা প্রদান করি, যাতে শিশুরা নিরাপদ, শান্ত এবং আবেগগতভাবে স্বাচ্ছন্দ্য বোধ করে।`,
+
+p13: `শুধু শীতের পৃথিবী`,
+
+    p14: `আমাদের প্রকল্প একটি স্থায়ী শীতকালীন পরিচয়ে গড়ে উঠেছে। আমরা একান্তভাবে উত্তরের প্রাকৃতিক দৃশ্য, তুষারঢাকা ঐতিহ্য এবং শীতের গল্প বলার 
+    শান্ত পরিবেশের ওপর মনোযোগ দিই।`,
+
+p15: `কল্পনার জন্য একটি শান্ত স্থান`,
+
+    p16: `এটি শুধু মিডিয়ার একটি সংগ্রহ নয়। এটি এক শান্ত শীতের আশ্রয়, যেখানে শিশুরা গল্প ও সঙ্গীতের কোমল সমন্বয়ের মাধ্যমে সর্বজনীন মূল্যবোধ 
+    আবিষ্কার করতে পারে।`
+},
+
+    fa: {
+        subtitle: "",
+        p1: `North Dakota Fairytales یک پروژه خلاقانه و مستقل بین‌المللی
+         در زمینه داستان‌گویی و موسیقی برای کودکان است که در ایالات متحده شکل گرفته است.`,
+
+        p2: `این پروژه برای کودکان و خانواده‌ها در سراسر جهان،
+         افسانه‌ها، ترانه‌ها و داستان‌های تصویری با موضوع زمستان خلق می‌کند. در کنار آثار اصلی، North Dakota Fairytales
+         با دقت فراوان داستان‌های عامیانه سنتی و کمتر شناخته‌شده را نیز بازآفرینی می‌کند
+         و در حالی که پایه‌های اخلاقی آن‌ها را حفظ می‌کند، آن‌ها را به شکلی آرام، مدرن و مناسب برای کودکان ارائه می‌دهد.`,
+
+    p3: `تمام محتوای این پروژه از مناظر شمالی و سنت‌های زمستانی آمریکای شمالی الهام گرفته شده است — جنگل‌های پوشیده
+     از برف، شب‌های آرام زمستانی، و احساسی از گرما، امنیت و خیال‌پردازی که از داستان‌گویی به وجود می‌آید.`,
+
+    p4: `موسیقی نقش مهمی در پروژه 
+    North Dakota Fairytales دارد. ملودی‌های آرام و ریتم‌های ملایم به کودکان کمک می‌کنند تا داستان‌ها را با احساس و آرامش تجربه کنند.`,
+
+    p5: `تمرکز North Dakota Fairytales بر موارد زیر است:
+داستان‌ها و ترانه‌های اصلی برای کودکان
+بازآفرینی و اقتباس از داستان‌های عامیانه
+داستان‌گویی چندزبانه برای مخاطبان کودک
+محتوای آرام، صمیمی و مناسب برای خانواده
+موضوعات و فضای بصری کاملاً زمستانی`,
+
+    p6: `هدف North Dakota Fairytales حفظ داستان‌ها و ارزش‌های ماندگاری است که نسل‌ها آن‌ها
+     را از گذشته به آینده منتقل کرده‌اند، اما به‌تدریج از زندگی روزمره کمرنگ شده‌اند. این پروژه از طریق داستان‌گویی و
+     موسیقی به موضوعات جهانی مانند مهربانی و بی‌رحمی، خوبی و بدی، دوستی، وفاداری، شجاعت، همدلی و مسئولیت می‌پردازد.`,
+
+    p7: `داستان‌ها و ترانه‌ها به چندین زبان تولید می‌شوند تا کودکان بتوانند از طریق داستان‌ها با فرهنگ‌های
+     مختلف آشنا شوند، در حالی که همچنان با ارزش‌های انسانی مشترک پیوند داشته باشند. این پروژه روایت، 
+    موسیقی و تصویرگری را با هم ترکیب می‌کند تا تجربه‌ای آرام و از نظر احساسی امن برای کودکان ایجاد کند.`,
+
+    p8: `North Dakota Fairytales یک پروژه خلاقانه مستقل است. همه داستان‌ها، موسیقی‌ها، شخصیت‌ها و اقتباس‌ها به طور ویژه برای
+     این پروژه خلق می‌شوند و در آن‌ها به میراث فرهنگی و سلامت عاطفی کودکان احترام گذاشته می‌شود.`,
+
+    p9: `برای چه کسانی`,
+
+    p10: `North Dakota Fairytales با دقت برای کودکان خردسال و خانواده‌هایشان ساخته
+     شده است. هر داستان و ملودی با توجه به این گروه سنی تنظیم می‌شود تا به راحتی قابل
+     درک باشد و برای شنیدن همراه با خانواده یا خواندن پیش از خواب مناسب باشد.`,
+
+    p11: `ایمنی عاطفی در اولویت است`,
+
+    p12: `ما محیطی غیرترسناک و آرام را در اولویت قرار می‌دهیم. با پرهیز از موضوعات تهاجمی و تغییرات ناگهانی
+     و بلند، تجربه‌ای نرم و حمایتگر فراهم می‌کنیم تا کودکان احساس امنیت، آرامش و راحتی عاطفی داشته باشند.`,
+
+    p13: `دنیایی فقط از زمستان`,
+
+    p14: `پروژه ما با هویتی کاملاً زمستانی
+     تعریف می‌شود. ما به طور کامل بر مناظر شمالی، سنت‌های پوشیده از برف و آرامش داستان‌های زمستانی تمرکز داریم.`,
+
+    p15: `فضایی آرام برای خیال‌پردازی`,
+
+    p16: `این تنها مجموعه‌ای از رسانه‌ها نیست، بلکه پناهگاهی
+     آرام در زمستان است؛ جایی که کودکان می‌توانند از طریق هماهنگی آرام روایت و موسیقی، ارزش‌های جهانی را کشف کنند.`
+},
+
+    pt: {
+        subtitle: "",
+        p1: `North Dakota Fairytales é um projeto criativo internacional independente de histórias e música para 
+        crianças, com base nos Estados Unidos.`,
+
+        p2: `O projeto cria contos de fadas originais com temática de inverno, canções e histórias ilustradas para 
+        crianças e famílias em todo o mundo. Além das obras originais, North Dakota Fairytales também adapta com 
+        cuidado contos populares tradicionais e pouco conhecidos, preservando seus fundamentos morais enquanto os 
+        apresenta de forma suave, moderna e adequada para crianças.`,
+
+        p3: `Todo o conteúdo é inspirado nas paisagens do norte e nas tradições de inverno da América do Norte — 
+        florestas cobertas de neve, noites calmas de inverno e a sensação de calor, segurança e imaginação que a arte 
+        de contar histórias traz.`,
+
+    p4: `A música desempenha um papel central no projeto North Dakota Fairytales. Melodias tranquilas e 
+    ritmos suaves ajudam as crianças a vivenciar as histórias de forma emocional e pacífica.`,
+
+    p5: `North Dakota Fairytales concentra-se em:
+contos de fadas e canções infantis originais
+histórias populares adaptadas e reinterpretadas
+narração multilíngue para jovens ouvintes
+conteúdo calmo, aconchegante e adequado para famílias
+temas e estilo visual exclusivamente de inverno`,
+
+    p6: `A missão de North Dakota Fairytales é preservar histórias e valores atemporais que foram transmitidos de 
+    geração em geração, mas que gradualmente foram desaparecendo da vida cotidiana. Por meio da narração de histórias 
+    e da música, o projeto explora temas universais como bondade e crueldade, bem e mal, amizade, lealdade, coragem, 
+    compaixão e responsabilidade.`,
+
+    p7: `As histórias e canções são produzidas em vários idiomas para ajudar as crianças a conhecer diferentes culturas 
+    através da narração de histórias, mantendo ao mesmo tempo raízes em valores morais universais. O projeto combina 
+    narração, música e ilustração para criar uma experiência emocionalmente segura e tranquila para as crianças.`,
+
+    p8: `North Dakota Fairytales é um projeto criativo independente. Todas as histórias originais, músicas, personagens 
+    e adaptações são criadas especificamente para o projeto, com respeito ao patrimônio cultural e ao bem-estar 
+    emocional das crianças.`,
+
+    p9: `Para quem é`,
+
+    p10: `North Dakota Fairytales é cuidadosamente criado para crianças pequenas e suas famílias. Cada história e 
+    melodia é pensada especialmente para essa faixa etária, garantindo que seja fácil de acompanhar e perfeita para 
+    ouvir em família ou para a leitura antes de dormir.`,
+
+    p11: `Segurança emocional em primeiro lugar`,
+
+    p12: `Priorizamos um ambiente sem medo. Ao evitar temas agressivos e transições bruscas, oferecemos uma experiência
+     suave e acolhedora que ajuda as crianças a se sentirem seguras, relaxadas e emocionalmente confortáveis.`,
+
+    p13: `Um mundo apenas de inverno`,
+
+    p14: `Nosso projeto é definido por uma identidade permanente de inverno. Focamos exclusivamente em paisagens 
+    do norte, tradições cobertas de neve e na serenidade das histórias de inverno.`,
+
+    p15: `Um espaço tranquilo para a imaginação`,
+
+    p16: `Mais do que uma coleção de mídia, este é um santuário silencioso de inverno onde as crianças podem explorar 
+    valores universais através da harmonia tranquila entre narração e música.`
+},
+
+    ms: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ialah sebuah projek kreatif antarabangsa yang bebas dalam bidang penceritaan dan 
+        muzik untuk kanak-kanak, yang berpusat di Amerika Syarikat.`,
+
+        p2: `Projek ini menghasilkan cerita dongeng bertemakan musim sejuk, lagu, dan kisah bergambar asli untuk 
+        kanak-kanak dan keluarga di seluruh dunia. Selain karya asli, North Dakota Fairytales juga menyesuaikan cerita 
+        rakyat tradisional dan yang kurang dikenali dengan penuh teliti, sambil mengekalkan asas moralnya dan 
+        mempersembahkannya dalam bentuk yang lembut, moden dan mesra kanak-kanak.`,
+
+        p3: `Semua kandungan diinspirasikan oleh landskap utara dan tradisi musim sejuk di Amerika Utara — hutan yang 
+        diliputi salji, malam musim sejuk yang tenang, serta perasaan hangat, selamat dan imaginatif yang lahir daripada penceritaan.`,
+
+    p4: `Muzik memainkan peranan penting dalam projek North Dakota Fairytales. Melodi yang tenang dan rentak yang 
+    lembut membantu kanak-kanak merasai cerita dengan cara yang emosi dan damai.`,
+
+    p5: `North Dakota Fairytales memberi tumpuan kepada:
+cerita dongeng dan lagu kanak-kanak asli
+cerita rakyat yang diadaptasi dan dibayangkan semula
+penceritaan pelbagai bahasa untuk pendengar muda
+kandungan yang tenang, selesa dan mesra keluarga
+tema dan gaya visual yang hanya berasaskan musim sejuk`,
+
+    p6: `Misi North Dakota Fairytales ialah memelihara cerita dan nilai abadi yang telah diwariskan dari generasi ke 
+    generasi tetapi semakin pudar daripada kehidupan seharian. Melalui penceritaan dan muzik, projek ini meneroka tema 
+    sejagat seperti kebaikan dan kekejaman, baik dan jahat, persahabatan, kesetiaan, keberanian, belas kasihan dan tanggungjawab.`,
+
+    p7: `Cerita dan lagu dihasilkan dalam pelbagai bahasa untuk membantu kanak-kanak mengenali pelbagai budaya
+     melalui penceritaan sambil tetap berakar pada nilai moral sejagat. Projek ini menggabungkan naratif, muzik dan
+      ilustrasi untuk mewujudkan pengalaman yang tenang dan selamat secara emosi bagi kanak-kanak.`,
+
+    p8: `North Dakota Fairytales ialah sebuah projek kreatif bebas. Semua cerita asal, muzik, watak dan adaptasi 
+    dicipta khas untuk projek ini dengan menghormati warisan budaya dan kesejahteraan emosi kanak-kanak.`,
+
+    p9: `Untuk Siapa`,
+
+    p10: `North Dakota Fairytales dicipta dengan teliti untuk kanak-kanak kecil dan keluarga mereka. Setiap cerita dan 
+    melodi disusun khusus untuk kumpulan umur ini supaya mudah diikuti dan sesuai untuk didengar bersama keluarga 
+    atau dibaca sebelum tidur.`,
+
+    p11: `Keselamatan Emosi Diutamakan`,
+
+    p12: `Kami mengutamakan persekitaran yang tidak menakutkan. Dengan mengelakkan tema yang agresif dan perubahan 
+    yang terlalu mendadak, kami menyediakan pengalaman yang lembut dan menyokong yang membantu kanak-kanak berasa 
+    selamat, tenang dan selesa secara emosi.`,
+
+    p13: `Dunia Musim Sejuk Sahaja`,
+
+    p14: `Projek kami ditentukan oleh identiti tetap yang berasaskan musim sejuk. Kami memberi tumpuan sepenuhnya kepada 
+    landskap utara, tradisi bersalji dan ketenangan penceritaan musim sejuk.`,
+
+    p15: `Ruang Tenang Untuk Imaginasi`,
+
+    p16: `Lebih daripada sekadar koleksi media, ini ialah sebuah tempat perlindungan musim sejuk yang tenang di mana 
+    kanak-kanak boleh meneroka nilai sejagat melalui gabungan naratif dan muzik yang menenangkan.`
+},
+
+    id: {
+        subtitle: "",
+        p1: `North Dakota Fairytales adalah sebuah proyek kreatif internasional independen dalam bidang penceritaan dan 
+        musik untuk anak-anak yang berbasis di Amerika Serikat.`,
+
+        p2: `Proyek ini menciptakan dongeng bertema musim dingin, lagu, dan cerita bergambar asli untuk anak-anak dan 
+        keluarga di seluruh dunia. Selain karya orisinal, North Dakota Fairytales juga dengan hati-hati mengadaptasi 
+        cerita rakyat tradisional dan yang kurang dikenal, sambil menjaga nilai moralnya dan menyajikannya dalam bentuk 
+        yang lembut, modern, dan ramah bagi anak-anak.`,
+
+        p3: `Seluruh konten terinspirasi oleh lanskap utara dan tradisi musim dingin Amerika Utara — hutan yang 
+        tertutup salju, malam musim dingin yang tenang, serta perasaan hangat, aman, dan penuh imajinasi yang lahir 
+        dari kegiatan bercerita.`,
+
+    p4: `Musik memainkan peran penting dalam proyek North Dakota Fairytales. Melodi yang tenang dan ritme yang lembut 
+    membantu anak-anak merasakan cerita secara emosional dan damai.`,
+
+    p5: `North Dakota Fairytales berfokus pada:
+dongeng dan lagu anak-anak orisinal
+cerita rakyat yang diadaptasi dan ditafsirkan kembali
+penceritaan multibahasa untuk pendengar muda
+konten yang tenang, hangat, dan ramah keluarga
+tema serta gaya visual yang hanya berfokus pada musim dingin`,
+
+    p6: `Misi North Dakota Fairytales adalah menjaga cerita dan nilai-nilai abadi yang telah diwariskan dari generasi 
+    ke generasi namun perlahan memudar dari kehidupan sehari-hari. Melalui cerita dan musik, proyek ini mengeksplorasi 
+    tema-tema universal seperti kebaikan dan kekejaman, baik dan jahat, persahabatan, kesetiaan, keberanian, kasih 
+    sayang, dan tanggung jawab.`,
+
+    p7: `Cerita dan lagu diproduksi dalam berbagai bahasa untuk membantu anak-anak mengenal berbagai budaya melalui 
+    penceritaan, sambil tetap berakar pada nilai moral yang bersifat universal. Proyek ini menggabungkan narasi, musik,
+     dan ilustrasi untuk menciptakan pengalaman yang aman secara emosional dan penuh ketenangan bagi anak-anak.`,
+
+    p8: `North Dakota Fairytales adalah proyek kreatif independen. Semua cerita asli, musik, karakter, dan adaptasi 
+    diciptakan khusus untuk proyek ini dengan menghormati warisan budaya dan kesejahteraan emosional anak-anak.`,
+
+    p9: `Untuk Siapa`,
+
+    p10: `North Dakota Fairytales dibuat dengan penuh perhatian untuk anak-anak kecil dan keluarga mereka. Setiap 
+    cerita dan melodi disusun khusus untuk kelompok usia ini, sehingga mudah dipahami dan sempurna untuk didengarkan 
+    bersama keluarga atau dibacakan sebelum tidur.`,
+
+    p11: `Keamanan Emosional adalah Prioritas`,
+
+    p12: `Kami memprioritaskan lingkungan yang tidak menakutkan. Dengan menghindari tema agresif dan perubahan yang 
+    terlalu keras, kami menyediakan pengalaman yang lembut dan mendukung agar anak-anak merasa aman, rileks, dan nyaman 
+    secara emosional.`,
+
+    p13: `Dunia yang Selalu Musim Dingin`,
+
+    p14: `Proyek kami ditentukan oleh identitas yang sepenuhnya berfokus pada musim dingin. Kami hanya menghadirkan 
+    lanskap utara, tradisi bersalju, dan ketenangan dalam penceritaan musim dingin.`,
+
+    p15: `Ruang Tenang untuk Imajinasi`,
+
+    p16: `Lebih dari sekadar kumpulan media, ini adalah sebuah tempat perlindungan musim dingin yang tenang di mana 
+    anak-anak dapat menjelajahi nilai-nilai universal melalui perpaduan yang menenangkan antara narasi dan musik.`
+},
+
+    de: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ist ein unabhängiges internationales Projekt für Kindergeschichten und Musik mit 
+        Sitz in den Vereinigten Staaten.`,
+
+        p2: `Das Projekt erschafft originale winterliche Märchen, Lieder und illustrierte Geschichten für Kinder und 
+        Familien auf der ganzen Welt. Neben eigenen Werken adaptiert North Dakota Fairytales auch behutsam traditionelle 
+        und weniger bekannte Volksmärchen, bewahrt deren moralische Grundlagen und präsentiert sie in einer sanften, 
+        modernen und kinderfreundlichen Form.`,
+
+        p3: `Alle Inhalte sind von nördlichen Landschaften und den Wintertraditionen Nordamerikas inspiriert — von 
+        schneebedeckten Wäldern, ruhigen Winternächten und dem Gefühl von Wärme, Sicherheit und Fantasie, das durch das 
+        Erzählen von Geschichten entsteht.`,
+
+    p4: `Musik spielt eine zentrale Rolle im Projekt North Dakota Fairytales. Ruhige Melodien und sanfte Rhythmen 
+    helfen Kindern, Geschichten emotional und friedlich zu erleben.`,
+
+    p5: `North Dakota Fairytales konzentriert sich auf:
+originale Märchen und Lieder für Kinder
+adaptierte und neu erzählte Volksgeschichten
+mehrsprachiges Erzählen für junge Zuhörer
+ruhige, gemütliche und familienfreundliche Inhalte
+Themen und visuelle Gestaltung ausschließlich rund um den Winter`,
+
+    p6: `Die Mission von North Dakota Fairytales ist es, zeitlose Geschichten und Werte zu bewahren, die über 
+    Generationen weitergegeben wurden, aber nach und nach aus dem Alltag verschwinden. Durch Geschichten und Musik 
+    erkundet das Projekt universelle Themen wie Freundlichkeit und Grausamkeit, Gut und Böse, Freundschaft, Loyalität, 
+    Mut, Mitgefühl und Verantwortung.`,
+
+    p7: `Die Geschichten und Lieder werden in mehreren Sprachen produziert, damit Kinder durch das Erzählen von 
+    Geschichten verschiedene Kulturen kennenlernen können, während sie gleichzeitig in universellen moralischen 
+    Werten verwurzelt bleiben. Das Projekt verbindet Erzählung, Musik und Illustration zu einem emotional sicheren und 
+    ruhigen Erlebnis für Kinder.`,
+
+    p8: `North Dakota Fairytales ist ein unabhängiges kreatives Projekt. Alle originalen Geschichten, Musikstücke, 
+    Figuren und Adaptionen werden speziell für dieses Projekt geschaffen — mit Respekt vor kulturellem Erbe und dem 
+    emotionalen Wohlbefinden von Kindern.`,
+
+    p9: `Für wen ist es gedacht`,
+
+    p10: `North Dakota Fairytales wird mit besonderer Sorgfalt für kleine Kinder und ihre Familien geschaffen. 
+    Jede Geschichte und jede Melodie ist speziell auf diese Altersgruppe abgestimmt, damit sie leicht zu verstehen 
+    ist und sich perfekt zum gemeinsamen Hören in der Familie oder zum Vorlesen vor dem Schlafengehen eignet.`,
+
+    p11: `Emotionale Sicherheit an erster Stelle`,
+
+    p12: `Wir legen großen Wert auf eine nicht beängstigende Umgebung. Durch das Vermeiden aggressiver Themen und 
+    lauter Übergänge schaffen wir eine sanfte und unterstützende Erfahrung, in der sich Kinder sicher, ruhig und 
+    emotional geborgen fühlen.`,
+
+    p13: `Eine Welt nur aus Winter`,
+
+    p14: `Unser Projekt wird durch eine dauerhafte winterliche Identität geprägt. Wir konzentrieren uns ausschließlich 
+    auf nördliche Landschaften, schneebedeckte Traditionen und die Ruhe winterlicher Geschichten.`,
+
+    p15: `Ein stiller Raum für Fantasie`,
+
+    p16: `Mehr als nur eine Sammlung von Medien ist dies ein ruhiger winterlicher Zufluchtsort, in dem Kinder durch 
+    das harmonische Zusammenspiel von Erzählung und Musik universelle Werte entdecken können.`
+},
+
+    ca: {
+        subtitle: "",
+        p1: `North Dakota Fairytales és un projecte internacional independent de narració d’històries i música per a 
+        infants, amb base als Estats Units.`,
+
+    p2: `El projecte crea contes de fades originals amb temàtica d’hivern, cançons i històries il·lustrades per a 
+    infants i famílies d’arreu del món. A més de les obres originals, North Dakota Fairytales també adapta amb cura 
+    contes populars tradicionals i menys coneguts, preservant els seus fonaments morals mentre els presenta d’una 
+    manera suau, moderna i adequada per als infants.`,
+
+    p3: `Tot el contingut està inspirat en els paisatges del nord i en les tradicions hivernals d’Amèrica del 
+    Nord — boscos coberts de neu, nits tranquil·les d’hivern i la sensació de calidesa, seguretat i imaginació que 
+    aporta l’art d’explicar històries.`,
+
+    p4: `La música té un paper central en el projecte North Dakota Fairytales. Les melodies suaus i els ritmes 
+    tranquils ajuden els infants a viure les històries d’una manera emocional i serena.`,
+
+    p5: `North Dakota Fairytales se centra en:
+contes de fades i cançons originals per a infants
+històries populars adaptades i reinterpretades
+narració multilingüe per a joves oients
+contingut tranquil, acollidor i apte per a famílies
+temes i estil visual exclusivament d’hivern`,
+
+    p6: `La missió de North Dakota Fairytales és preservar històries i valors intemporals que s’han transmès de 
+    generació en generació però que, amb el temps, han anat desapareixent de la vida quotidiana. Mitjançant la narració 
+    d’històries i la música, el projecte explora temes universals com la bondat i la crueltat, el bé i el mal, 
+    l’amistat, la lleialtat, el coratge, la compassió i la responsabilitat.`,
+
+    p7: `Les històries i les cançons es produeixen en diverses llengües per ajudar els infants a descobrir diferents 
+    cultures a través de la narració d’històries, mantenint alhora les arrels en valors morals universals. El projecte 
+    combina narració, música i il·lustració per crear una experiència emocionalment segura i tranquil·la per als infants.`,
+
+    p8: `North Dakota Fairytales és un projecte creatiu independent. Totes les històries originals, la música, els 
+    personatges i les adaptacions es creen específicament per a aquest projecte, amb respecte pel patrimoni cultural i 
+    pel benestar emocional dels infants.`,
+
+    p9: `Per a qui és`,
+
+    p10: `North Dakota Fairytales està creat amb cura per a infants petits i les seves famílies. Cada història i cada 
+    melodia està pensada especialment per a aquest grup d’edat, assegurant que sigui fàcil de seguir i perfecta per 
+    escoltar en família o per llegir abans d’anar a dormir.`,
+
+    p11: `La seguretat emocional primer`,
+
+    p12: `Prioritzem un entorn que no sigui espantós. Evitant temes agressius i transicions brusques, oferim una 
+    experiència suau i acollidora que ajuda els infants a sentir-se segurs, relaxats i emocionalment còmodes.`,
+
+    p13: `Un món només d’hivern`,
+
+    p14: `El nostre projecte es defineix per una identitat permanent d’hivern. Ens centrem exclusivament en paisatges 
+    del nord, tradicions cobertes de neu i la serenitat de les històries d’hivern.`,
+
+    p15: `Un espai tranquil per a la imaginació`,
+
+    p16: `Més que una col·lecció de mitjans, aquest és un refugi tranquil d’hivern on els infants poden explorar valors 
+    universals a través de l’harmonia calmada entre narració i música.`
+},
+
+    az: {
+        subtitle: "",
+        p1: `North Dakota Fairytales ABŞ-da yerləşən, uşaqlar üçün hekayəçilik və musiqi sahəsində fəaliyyət göstərən 
+        müstəqil beynəlxalq yaradıcı layihədir.`,
+
+        p2: `Layihə dünyanın müxtəlif ölkələrində yaşayan uşaqlar və ailələr üçün qış mövzusunda orijinal nağıllar, 
+        mahnılar və illüstrasiyalı hekayələr yaradır. Orijinal əsərlərlə yanaşı, North Dakota Fairytales ənənəvi və az 
+        tanınan xalq nağıllarını da diqqətlə uyğunlaşdırır, onların mənəvi əsaslarını qoruyaraq onları yumşaq, müasir və 
+        uşaqlar üçün uyğun formada təqdim edir.`,
+
+        p3: `Bütün məzmun Şimali Amerikanın şimal mənzərələrindən və qış ənənələrindən ilham alır — qarla örtülmüş 
+        meşələr, sakit qış gecələri və hekayə danışmağın yaratdığı istilik, təhlükəsizlik və təsəvvür hissi.`,
+
+    p4: `Musiqi North Dakota Fairytales layihəsində mühüm rol oynayır. Sakit melodiyalar və yumşaq ritmlər uşaqlara 
+    hekayələri emosional və dinc şəkildə hiss etməyə kömək edir.`,
+
+    p5: `North Dakota Fairytales aşağıdakılara diqqət yetirir:
+uşaqlar üçün orijinal nağıllar və mahnılar
+uyğunlaşdırılmış və yenidən təsəvvür edilmiş xalq hekayələri
+gənc dinləyicilər üçün çoxdilli hekayəçilik
+sakit, rahat və ailə üçün uyğun məzmun
+yalnız qış mövzuları və vizual üslub`,
+
+    p6: `North Dakota Fairytales layihəsinin missiyası nəsildən-nəslə ötürülən, lakin zamanla gündəlik həyatdan 
+    tədricən itən əbədi hekayələri və dəyərləri qorumaqdır. Hekayəçilik və musiqi vasitəsilə layihə xeyirxahlıq və 
+    qəddarlıq, yaxşılıq və pislik, dostluq, sədaqət, cəsarət, mərhəmət və məsuliyyət kimi ümumbəşəri mövzuları araşdırır.`,
+
+    p7: `Hekayələr və mahnılar müxtəlif dillərdə hazırlanır ki, uşaqlar hekayələr vasitəsilə müxtəlif mədəniyyətlərlə 
+    tanış ola bilsinlər və eyni zamanda ümumi mənəvi dəyərlərlə bağlı qalsınlar. Layihə hekayə, musiqi və illüstrasiyanı 
+    birləşdirərək uşaqlar üçün emosional cəhətdən təhlükəsiz və sakit bir təcrübə yaradır.`,
+
+    p8: `North Dakota Fairytales müstəqil yaradıcı layihədir. Bütün orijinal hekayələr, musiqilər, personajlar və 
+    uyğunlaşdırmalar mədəni irsə və uşaqların emosional rifahına hörmətlə xüsusi olaraq bu layihə üçün yaradılır.`,
+
+    p9: `Kimlər üçün`,
+
+    p10: `North Dakota Fairytales kiçik uşaqlar və onların ailələri üçün xüsusi diqqətlə hazırlanır. Hər bir hekayə və 
+    melodiya bu yaş qrupuna uyğun şəkildə qurulur ki, onu izləmək asan olsun və ailə ilə birlikdə dinləmək və ya 
+    yatmazdan əvvəl oxumaq üçün mükəmməl olsun.`,
+
+    p11: `Emosional təhlükəsizlik hər şeydən əvvəl`,
+
+    p12: `Biz qorxulu olmayan bir mühiti üstün tuturuq. Aqressiv mövzulardan və kəskin keçidlərdən qaçaraq uşaqların 
+    özlərini təhlükəsiz, rahat və emosional olaraq komfortlu hiss etməsinə kömək edən yumşaq və dəstəkləyici bir 
+    təcrübə yaradırıq.`,
+
+    p13: `Yalnız qışdan ibarət bir dünya`,
+
+    p14: `Layihəmiz daimi qış kimliyi ilə müəyyən olunur. Biz yalnız şimal mənzərələrinə, qarla örtülü ənənələrə 
+    və qış hekayələrinin sakitliyinə diqqət yetiririk.`,
+
+    p15: `Təsəvvür üçün sakit bir məkan`,
+
+    p16: `Bu sadəcə media toplusu deyil. Bu, hekayə və musiqinin sakit uyğunluğu vasitəsilə uşaqların ümumbəşəri 
+    dəyərləri kəşf edə biləcəyi sakit qış sığınacağıdır.`
+},
+
+    hy: {
+        subtitle: "",
+        p1: `North Dakota Fairytales-ը անկախ միջազգային ստեղծագործական նախագիծ է երեխաների համար պատմությունների և 
+        երաժշտության ոլորտում, որը հիմնված է Միացյալ Նահանգներում։`,
+
+p2: `Նախագիծը ստեղծում է ձմեռային թեմայով ինքնատիպ հեքիաթներ, երգեր և պատկերազարդ պատմություններ աշխարհի տարբեր 
+երկրներում ապրող երեխաների և ընտանիքների համար։ Ինքնատիպ ստեղծագործությունների հետ միասին North Dakota Fairytales-ը 
+նաև զգուշությամբ վերամշակում է ավանդական և քիչ հայտնի ժողովրդական հեքիաթները՝ պահպանելով դրանց բարոյական հիմքերը և 
+ներկայացնելով դրանք մեղմ, ժամանակակից ու երեխաների համար հարմար ձևով։`,
+
+p3: `Բոլոր նյութերը ներշնչված են Հյուսիսային Ամերիկայի հյուսիսային բնապատկերներով և ձմեռային ավանդույթներով — 
+ձյունապատ անտառներ, հանգիստ ձմեռային գիշերներ և այն ջերմության, անվտանգության ու երևակայության զգացումը, որը ծնվում 
+է պատմություններ պատմելուց։`,
+
+p4: `Երաժշտությունը կարևոր դեր ունի North Dakota Fairytales նախագծում։ Հանգիստ մեղեդիները և մեղմ ռիթմերը օգնում են 
+երեխաներին պատմությունները զգալ զգացմունքային և խաղաղ ձևով։`,
+
+p5: `North Dakota Fairytales-ը կենտրոնանում է հետևյալի վրա։
+երեխաների համար ինքնատիպ հեքիաթներ և երգեր
+վերամշակված և նորովի ներկայացված ժողովրդական պատմություններ
+բազմալեզու պատմություններ երիտասարդ լսարանի համար
+հանգիստ, ջերմ և ընտանիքների համար հարմար բովանդակություն
+միայն ձմեռային թեմաներ և տեսողական ոճ`,
+
+    p6: `North Dakota Fairytales-ի առաքելությունն է պահպանել այն ժամանակից դուրս պատմություններն ու արժեքները, 
+    որոնք փոխանցվել են սերնդից սերունդ, սակայն ժամանակի ընթացքում սկսել են անհետանալ առօրյա կյանքից։ Պատմությունների և 
+    երաժշտության միջոցով նախագիծը ուսումնասիրում է համամարդկային թեմաներ՝ բարություն և դաժանություն, լավ և վատ, 
+    ընկերություն, հավատարմություն, քաջություն, կարեկցանք և պատասխանատվություն։`,
+
+p7: `Պատմություններն ու երգերը ստեղծվում են մի քանի լեզուներով, որպեսզի երեխաները պատմությունների միջոցով ծանոթանան 
+տարբեր մշակույթների՝ միևնույն ժամանակ պահպանելով կապը համամարդկային բարոյական արժեքների հետ։ Նախագիծը միավորում է 
+պատմությունը, երաժշտությունը և պատկերազարդումը՝ ստեղծելով երեխաների համար զգացմունքային առումով անվտանգ և խաղաղ փորձառություն։`,
+
+p8: `North Dakota Fairytales-ը անկախ ստեղծագործական նախագիծ է։ Բոլոր ինքնատիպ պատմությունները, երաժշտությունը, 
+կերպարները և վերամշակումները ստեղծվում են հատուկ այս նախագծի համար՝ հարգելով մշակութային ժառանգությունը և երեխաների 
+հուզական բարեկեցությունը։`,
+
+p9: `Ում համար է այն`,
+
+    p10: `North Dakota Fairytales-ը ստեղծված է հատկապես փոքր երեխաների և նրանց ընտանիքների համար։ Յուրաքանչյուր 
+    պատմություն և մեղեդի հատուկ հարմարեցված է այս տարիքային խմբին, որպեսզի այն հեշտ ընկալելի լինի և հարմար լինի 
+    ընտանիքի հետ միասին լսելու կամ քնելուց առաջ կարդալու համար։`,
+
+p11: `Զգացմունքային անվտանգությունը առաջին տեղում է`,
+
+    p12: `Մենք առաջնահերթություն ենք տալիս չվախեցնող միջավայրին։ Խուսափելով ագրեսիվ թեմաներից և կտրուկ անցումներից՝ 
+    մենք ստեղծում ենք մեղմ և աջակցող փորձառություն, որը օգնում է երեխաներին զգալ ապահով, հանգիստ և հուզականորեն հարմարավետ։`,
+
+p13: `Մի աշխարհ միայն ձմռան մասին`,
+
+    p14: `Մեր նախագիծը բնորոշվում է մշտական ձմեռային ինքնությամբ։ Մենք կենտրոնանում ենք միայն հյուսիսային բնապատկերների,
+     ձյունապատ ավանդույթների և ձմեռային պատմությունների խաղաղության վրա։`,
+
+p15: `Հանգիստ տարածք երևակայության համար`,
+
+    p16: `Սա պարզապես մեդիայի հավաքածու չէ։ Սա խաղաղ ձմեռային ապաստան է, որտեղ երեխաները կարող են բացահայտել 
+    համամարդկային արժեքներ պատմության և երաժշտության ներդաշնակ համադրության միջոցով։`
+},
+
+    haw: {
+        subtitle: "",
+        p1: `He papahana kūʻokoʻa a kūwaho ʻo North Dakota Fairytales no ka haʻi moʻolelo a me ka mele no nā keiki, 
+        i hoʻokumu ʻia ma ʻAmelika Hui Pū ʻIa.`,
+
+        p2: `Hoʻokumu ka papahana i nā moʻolelo kupanaha o ka hoʻoilo, nā mele, a me nā moʻolelo kiʻi no nā keiki a 
+        me nā ʻohana ma ka honua holoʻokoʻa. Ma waho aʻe o nā hana kumu, hoʻoponopono pū ʻo North Dakota Fairytales i 
+        nā moʻolelo kahiko a me nā moʻolelo kānaka kahiko i ʻike ʻole nui ʻia, me ka mālama ʻana i ko lākou kumu waiwai
+         a me ka hōʻike ʻana iā lākou ma ke ʻano mālie, hou, a kūpono no nā keiki.`,
+
+        p3: `Hoʻoulu ʻia nā mea a pau e nā ʻāina o ka ʻākau a me nā kuʻuna hoʻoilo o ʻAmelika ʻĀkau — nā ululāʻau 
+        uhi hau, nā pō hoʻoilo mālie, a me ka manaʻo o ka pumehana, ka palekana, a me ka noʻonoʻo i hānau ʻia e ka haʻi 
+        moʻolelo.`,
+
+    p4: `He kuleana nui ka mele i loko o ka papahana North Dakota Fairytales. Kōkua nā mele mālie a me nā kuʻi mele 
+    palupalu i nā keiki e ʻike i nā moʻolelo me ka naʻau a me ka mālie.`,
+
+    p5: `Ke nānā nui nei ʻo North Dakota Fairytales i kēia mau mea:
+nā moʻolelo kupanaha a me nā mele kumu no nā keiki
+nā moʻolelo kānaka kahiko i hoʻoponopono hou ʻia
+ka haʻi moʻolelo ma nā ʻōlelo he nui no nā mea hoʻolohe ʻōpio
+nā mea mālie, pumehana, a kūpono no nā ʻohana
+nā kumuhana a me ke ʻano ʻike e pili wale ana i ka hoʻoilo`,
+
+    p6: `ʻO ka pahuhopu o North Dakota Fairytales ka mālama ʻana i nā moʻolelo a me nā waiwai kahiko i hāʻawi ʻia mai 
+    kekahi hanauna i kekahi hanauna, akā ua emi iki ko lākou ʻike ma ke ola o kēlā me kēia lā. Ma o ka haʻi moʻolelo 
+    a me ka mele, nānā ka papahana i nā kumuhana like ʻole o ke ao holoʻokoʻa e like me ka lokomaikaʻi a me ka ʻino, 
+    ka pono a me ka hewa, ka pilina, ka kūpaʻa, ka koa, ka aloha a me ke kuleana.`,
+
+    p7: `Hoʻokumu ʻia nā moʻolelo a me nā mele ma nā ʻōlelo he nui i hiki i nā keiki ke ʻike i nā moʻomeheu like ʻole 
+    ma o ka haʻi moʻolelo, ʻoiai e paʻa mau ana i nā waiwai kanaka like. Hoʻohui ka papahana i ka moʻolelo, ka mele, 
+    a me ke kiʻi e hana ai i kahi ʻike mālie a palekana no nā keiki.`,
+
+    p8: `He papahana hana kūʻokoʻa ʻo North Dakota Fairytales. Hana kūikawā ʻia nā moʻolelo kumu, nā mele, nā ʻano 
+    kanaka, a me nā hoʻoponopono no kēia papahana me ka mahalo i ka moʻomeheu kahiko a me ka pono o ka naʻau o nā keiki.`,
+
+    p9: `No wai kēia`,
+
+    p10: `Hana ʻia ʻo North Dakota Fairytales me ka noʻonoʻo nui no nā keiki liʻiliʻi a me ko lākou ʻohana. 
+    Hoʻonohonoho ʻia kēlā me kēia moʻolelo a me kēlā me kēia mele no kēia pūʻulu makahiki i mea e maʻalahi ai ka 
+    hoʻomaopopo ʻana a kūpono hoʻi no ka hoʻolohe pū ʻana me ka ʻohana a i ʻole ka heluhelu ʻana ma mua o ka hiamoe.`,
+
+    p11: `ʻO ka palekana o ka naʻau ka mea mua`,
+
+    p12: `Hoʻokumu mākou i kahi wahi ʻaʻole weliweli. Ma ka hōʻalo ʻana i nā kumuhana ikaika a me nā loli leo nui, 
+    hāʻawi mākou i kahi ʻike palupalu a kākoʻo e kōkua i nā keiki e manaʻo palekana, mālie, a ʻoluʻolu hoʻi ma ko lākou naʻau.`,
+
+    p13: `He ao hoʻoilo wale nō`,
+
+    p14: `Hoʻohālike ʻia kā mākou papahana e ka ʻike paʻa o ka hoʻoilo. Ke nānā wale nei mākou i nā ʻāina o ka ʻākau,
+     nā kuʻuna uhi hau, a me ka mālie o nā moʻolelo hoʻoilo.`,
+
+    p15: `He wahi mālie no ka noʻonoʻo`,
+
+    p16: `ʻAʻole kēia he hōʻiliʻili media wale nō. He wahi malu mālie kēia o ka hoʻoilo kahi e hiki ai i nā keiki 
+    ke ʻimi i nā waiwai o ke ao holoʻokoʻa ma o ka hoʻohui mālie ʻana o ka moʻolelo a me ka mele.`
+},
+
+    tt: {
+        subtitle: "",
+        p1: `North Dakota Fairytales — АКШта нигезләнгән балалар өчен хикәяләр сөйләү һәм музыка өлкәсендә эшләүче 
+        мөстәкыйль халыкара иҗади проект.`,
+
+    p2: `Проект дөньяның төрле илләрендәге балалар һәм гаиләләр өчен кыш темасына багышланган оригиналь әкиятләр, 
+    җырлар һәм рәсемле хикәяләр иҗат итә. Үз әсәрләре белән бергә North Dakota Fairytales традицион һәм сирәк очрый 
+    торган халык әкиятләрен дә сак кына яңадан эшкәртә, аларның әхлакый нигезләрен саклап калып, йомшак, заманча һәм 
+    балалар өчен аңлаешлы формада тәкъдим итә.`,
+
+    p3: `Барлык контент Төньяк Американың төньяк табигате һәм кышкы традицияләре белән илһамланган — кар белән капланган 
+    урманнар, тыныч кышкы кичләр һәм хикәя сөйләү тудыра торган җылылык, иминлек һәм хыял дөньясы.`,
+
+    p4: `Музыка North Dakota Fairytales проектында мөһим урын алып тора. Тыныч көйләр һәм йомшак ритмнар балаларга 
+    әкиятләрне тыныч һәм хисләр аша кабул итәргә ярдәм итә.`,
+
+    p5: `North Dakota Fairytales түбәндәгеләргә игътибар итә:
+балалар өчен оригиналь әкиятләр һәм җырлар
+яңадан эшкәртелгән һәм яңача сөйләнгән халык хикәяләре
+яшь тыңлаучылар өчен күптелле хикәя сөйләү
+тыныч, җылы һәм гаилә өчен уңай контент
+кыш темасына гына багышланган стиль һәм визуаль мохит`,
+
+    p6: `North Dakota Fairytales проектының миссиясе — буыннан-буынга күчеп килгән, әмма вакыт узу белән көндәлек 
+    тормыштан югала башлаган мәңгелек хикәяләрне һәм кыйммәтләрне саклау. Хикәяләр һәм музыка аша проект игелек һәм 
+    явызлык, яхшылык һәм начарлык, дуслык, тугрылык, батырлык, шәфкатьлелек һәм җаваплылык кебек гомумкешелек темаларын өйрәнә.`,
+
+    p7: `Хикәяләр һәм җырлар берничә телдә чыгарыла, шуның аша балалар төрле мәдәниятләр белән таныша ала, шул ук 
+    вакытта гомумкешелек әхлакый кыйммәтләренә бәйле булып кала. Проект хикәя, музыка һәм иллюстрацияне берләштереп, 
+    балалар өчен тыныч һәм эмоциональ яктан имин мохит тудыра.`,
+
+    p8: `North Dakota Fairytales — мөстәкыйль иҗади проект. Барлык оригиналь хикәяләр, музыка, персонажлар һәм 
+    адаптацияләр бу проект өчен махсус иҗат ителә һәм аларда мәдәни мирас һәм балаларның эмоциональ иминлеге хөрмәт ителә.`,
+
+    p9: `Кем өчен`,
+
+    p10: `North Dakota Fairytales кечкенә балалар һәм аларның гаиләләре өчен уйлап эшләнгән. Һәр хикәя һәм һәр көй
+     бу яшь төркеме өчен махсус көйләнгән, шуңа күрә аларны гаилә белән бергә тыңлау яки йокы алдыннан уку өчен бик уңай.`,
+
+    p11: `Эмоциональ иминлек беренче урында`,
+
+    p12: `Без куркынычсыз һәм тыныч мохитне өстен күрәбез. Кырыс темалардан һәм кискен тавышлы күчешләрдән качып, 
+    без балаларга үзләрен имин, тыныч һәм эмоциональ яктан уңай хис итәргә ярдәм итә торган йомшак һәм ярдәмчел тәҗрибә тудырабыз.`,
+
+    p13: `Кыш дөньясы гына`,
+
+    p14: `Безнең проект даими кыш атмосферасы белән билгеләнә. Без бары тик төньяк табигатькә, карлы традицияләргә 
+    һәм кышкы хикәяләрнең тынычлыгына игътибар итәбез.`,
+
+    p15: `Хыял өчен тыныч урын`,
+
+    p16: `Бу бары тик медиа җыелмасы гына түгел. Бу — тыныч кышкы сыену урыны, анда балалар хикәя һәм музыка берләшүе 
+    аша гомумкешелек кыйммәтләрен ача ала.`
+},
+
+};
+
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+        <p>{t.p7}</p>
+        <p>{t.p8}</p>
+        <p>{t.p9}</p>
+        <p>{t.p10}</p>
+        <p>{t.p11}</p>
+        <p>{t.p12}</p>
+        <p>{t.p13}</p>
+        <p>{t.p14}</p>
+        <p>{t.p15}</p>
+        <p>{t.p16}</p>
+        <p>{t.p17}</p>
+    </div>
+
+
+</BaseLayout>

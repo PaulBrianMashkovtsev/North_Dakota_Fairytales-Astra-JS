@@ -1,0 +1,8 @@
+/* Если у тега html стоит dir="rtl", меняем поведение флекс-контейнеров */
+[dir="rtl"] .ndf-menu-wrapper {
+    flex-direction: row-reverse;
+}
+
+html {
+    font-size: 35%;
+}

@@ -1,0 +1,30 @@
+---
+import { translations } from "../lib/i18n";
+const currentLang = Astro.url.pathname.split("/")[1] || "en";
+const t = translations[currentLang] || translations.en;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+
+    <div class="copyright">
+        © {year} North Dakota Fairytales. {t.footerRights}
+    </div>
+</footer>
+
+<style>
+    .site-footer {
+        background: none;
+        color: lightsteelblue;
+        padding-top: 0;
+        margin-top: 20px;
+           }
+
+    .copyright {
+        text-align: center;
+        padding: 5px 0;
+        font-size: 40px;
+        opacity: 0.6;
+        margin-top: 30px;
+    }
+</style>

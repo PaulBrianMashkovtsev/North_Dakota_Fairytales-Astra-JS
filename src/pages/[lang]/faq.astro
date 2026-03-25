@@ -1,0 +1,1301 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+        { params: { lang: "ru" } },
+        { params: { lang: "ur" } },
+        { params: { lang: "hi" } },
+        { params: { lang: "bn" } },
+        { params: { lang: "fa" } },
+        { params: { lang: "pt" } },
+        { params: { lang: "ms" } },
+        { params: { lang: "id" } },
+        { params: { lang: "de" } },
+        { params: { lang: "ca" } },
+        { params: { lang: "az" } },
+        { params: { lang: "hy" } },
+        { params: { lang: "haw" } },
+        { params: { lang: "tt" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+
+const text = {
+    en: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `❓ What is North Dakota Fairytales?`, // Нужна запятая
+        p2: `North Dakota Fairytales is an independent children’s storytelling and music brand that creates original 
+        winter-themed fairy tales, songs, and illustrated stories. The brand also adapts forgotten and traditional folk 
+        tales, carefully reimagining them for modern children while preserving their moral values.`,
+        p3: `❄️ Why are all stories winter-themed?`,
+        p4: `Winter is at the heart of the brand’s identity. Snow, quiet nights, northern forests, and long winter 
+        evenings create a sense of calm and reflection that is ideal for storytelling. North Dakota Fairytales is 
+        dedicated exclusively to winter-themed stories and visuals.`,
+        p5: `📚 Are the stories original or based on folk tales?`,
+        p6: `Both. The brand creates: original fairy tales and songs adapted folk tales inspired by traditional and 
+        lesser-known stories. All adaptations are retold in a gentle and child-friendly way, focusing on timeless values 
+        rather than fear or violence.`,
+        p7: `❤️ What values do North Dakota Fairytales stories teach?`,
+        p8: `The stories explore universal themes that have been passed down through generations, including: kindness 
+        and compassion, good and evil, friendship and loyalty, courage and responsibility, honesty and empathy. 
+        The goal is to help children understand these ideas through calm, imaginative storytelling.`,
+        p9: `🌍 In which languages is the content available?`,
+        p10: `North Dakota Fairytales stories and songs are produced in multiple languages including English, Spanish, 
+        French, Arabic, Russian, Urdu, Hindi, Bengali, Persian (Farsi), Portuguese, Malay, Indonesian, German, Catalan, 
+        Azerbaijani, Armenian, Hawaiian, and Tatar.
+        Multilingual storytelling helps children discover different cultures while remaining connected through shared human values.`,
+        p11: `👶 Is North Dakota Fairytales safe for children?`,
+        p12: `Yes. All content is created with children’s emotional well-being in mind. Stories are: calm and 
+        non-aggressive, family-friendly, free from shock-based or overstimulating elements. The brand aims to 
+        offer children a peaceful alternative to fast and noisy modern media.`,
+        p13: `🎶 Where can we enjoy North Dakota Fairytales content?`,
+        p14: `North Dakota Fairytales stories and songs are available through: illustrated books, music releases, 
+        digital platforms. Official links to all platforms are available on the website.`,
+        p15: `🧒 What age group is North Dakota Fairytales for?`,
+        p16: `The content is designed primarily for: young children, families who enjoy reading, listening, and 
+        storytelling together. Parents are encouraged to share these stories with children as part of calm routines 
+        such as bedtime or quiet family time.`,
+        p17: `🌲 What is the mission of North Dakota Fairytales?`,
+        p18: `The mission is to preserve meaningful stories and values that have been forgotten over generations, 
+        and to give children a true childhood rooted in imagination, warmth, and thoughtful storytelling — not 
+        overstimulation.`,
+        p19: `🧾 Is North Dakota Fairytales a company or a creative project?`,
+        p20: `North Dakota Fairytales is an independent creative project. All stories, music, characters, and adaptations
+         are created specifically for the brand with respect for cultural heritage and children’s emotional health.`,
+        p21: `💰 Does North Dakota Fairytales use advertising or fast-paced media techniques?`,
+        p22: `No. The brand avoids aggressive advertising, loud visual effects, and fast-cut editing styles. The focus 
+        is on calm storytelling, gentle music, and illustrations that support a peaceful viewing or listening experience
+         for children.`,
+        p23: `🎶 Where can we enjoy North Dakota Fairytales content?`,
+        p24: `North Dakota Fairytales stories and songs are available through: illustrated books, music releases, 
+        official digital platforms curated specifically for families and children. All official links are provided 
+        on the website to ensure safe access to the content.`,
+        p25: `☀️ Will North Dakota Fairytales ever create stories for other seasons?`,
+        p26: `No. The brand is intentionally dedicated only to winter-themed storytelling. This creative focus allows 
+        North Dakota Fairytales to maintain a consistent atmosphere, visual identity, and emotional tone across all 
+        stories and songs.`
+
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `❓ ¿Qué es North Dakota Fairytales?`,
+
+        p2: `North Dakota Fairytales es una marca infantil independiente de cuentos y música que crea historias 
+        originales de temática invernal, canciones y relatos ilustrados. La marca también adapta cuentos populares 
+        tradicionales y olvidados, reinterpretándolos cuidadosamente para los niños de hoy y preservando sus valores morales.`,
+
+        p3: `❄️ ¿Por qué todas las historias tienen temática invernal?`,
+
+        p4: `El invierno es el corazón de la identidad de la marca. La nieve, las noches tranquilas, los bosques del 
+        norte y las largas veladas invernales crean una atmósfera de calma ideal para contar historias. North Dakota 
+        Fairytales está dedicada exclusivamente a temas y visuales invernales.`,
+
+        p5: `📚 ¿Las historias son originales o están basadas en cuentos populares?`,
+
+        p6: `Ambas cosas. La marca crea: cuentos y canciones infantiles originales, adaptaciones de cuentos populares 
+        e historias tradicionales poco conocidas. Todas las adaptaciones se presentan de forma suave y adecuada para 
+        los niños, centradas en valores atemporales y sin violencia ni miedo.`,
+
+        p7: `❤️ ¿Qué valores transmiten las historias?`,
+
+        p8: `Las historias exploran temas universales transmitidos de generación en generación, como: la bondad y la 
+        compasión, el bien y el mal, la amistad y la lealtad, el valor y la responsabilidad, la honestidad y la empatía. 
+        El objetivo es ayudar a los niños a comprender estos valores a través de una narración tranquila e imaginativa.`,
+
+        p9: `🌍 ¿En qué idiomas está disponible el contenido?`,
+
+        p10: `Las historias y canciones de North Dakota Fairytales se producen en varios idiomas, entre ellos: inglés, 
+        español, francés, árabe, ruso, urdu, hindi, bengalí, persa (farsi), portugués, malayo, indonesio, alemán, 
+        catalán, azerbaiyano, armenio, hawaiano y tártaro.
+        La narración multilingüe ayuda a los niños a descubrir diferentes culturas mientras permanecen conectados a 
+        través de valores humanos compartidos.`,
+
+        p11: `👶 ¿Es seguro el contenido para los niños?`,
+
+        p12: `Sí. Todo el contenido se crea pensando en el bienestar emocional de los niños. Las historias son: 
+        tranquilas y no agresivas, aptas para toda la familia, libres de estímulos excesivos. La marca ofrece una 
+        alternativa calmada frente a los medios modernos rápidos y ruidosos.`,
+
+        p13: `🎶 ¿Dónde se puede disfrutar del contenido?`,
+
+        p14: `El contenido de North Dakota Fairytales está disponible a través de: libros ilustrados, lanzamientos 
+        musicales, plataformas digitales. Los enlaces oficiales se encuentran en el sitio web.`,
+
+        p15: `🧒 ¿Para qué edades está pensado el contenido?`,
+
+        p16: `El contenido está dirigido principalmente a: niños pequeños, familias que disfrutan leer y escuchar 
+        cuentos juntos. Es ideal para rutinas tranquilas como la hora de dormir o momentos familiares.`,
+
+        p17: `🌲 ¿Cuál es la misión de North Dakota Fairytales?`,
+
+        p18: `La misión es preservar historias y valores que se han ido perdiendo con el paso del tiempo y ofrecer a 
+        los niños una infancia auténtica basada en la imaginación, la calidez y el significado.`,
+
+        p19: `🧾 ¿Es una empresa o un proyecto creativo?`,
+
+        p20: `North Dakota Fairytales es un proyecto creativo independiente. Todas las historias, la música, los 
+        personajes y las adaptaciones se crean específicamente para la marca, respetando el patrimonio cultural y 
+        la salud emocional infantil.`,
+
+        p21: `💰 ¿North Dakota Fairytales utiliza publicidad o técnicas de medios acelerados?`,
+
+        p22: `No. La marca evita la publicidad agresiva, los efectos visuales ruidosos y los estilos de edición rápida. 
+        El enfoque está en una narración tranquila, música suave e ilustraciones que favorecen una experiencia pacífica 
+        de escucha o visualización para los niños.`,
+
+        p23: `🎶 ¿Dónde se puede disfrutar del contenido de North Dakota Fairytales?`,
+
+        p24: `Las historias y canciones de North Dakota Fairytales están disponibles a través de: libros ilustrados, 
+        lanzamientos musicales, plataformas digitales oficiales cuidadosamente seleccionadas para familias y niños. 
+        Todos los enlaces oficiales están disponibles en el sitio web para garantizar un acceso seguro al contenido.`,
+
+        p25: `☀️ ¿North Dakota Fairytales creará historias para otras estaciones?`,
+
+        p26: `No. La marca está dedicada intencionalmente únicamente a la narración con temática invernal. Este enfoque 
+        creativo permite mantener una atmósfera consistente, una identidad visual clara y un tono emocional uniforme en
+         todas las historias y canciones.`
+
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `❓ Qu’est-ce que North Dakota Fairytales ?`,
+
+        p2: `North Dakota Fairytales est une marque jeunesse indépendante de contes et de musique. Elle crée des 
+        histoires hivernales originales, des chansons et des récits illustrés, et adapte également des contes 
+        traditionnels et oubliés en préservant leurs valeurs morales essentielles.`,
+
+        p3: `❄️ Pourquoi toutes les histoires sont-elles hivernales ?`,
+
+        p4: `L’hiver est au cœur de l’identité de la marque. Les paysages enneigés, les nuits calmes et les forêts du 
+        Nord créent une atmosphère propice à la narration paisible. North Dakota Fairytales se consacre exclusivement 
+        aux thèmes et visuels hivernaux.`,
+
+        p5: `📚 Les histoires sont-elles originales ou issues du folklore ?`,
+
+        p6: `Les deux. La marque propose : des contes et chansons originaux pour enfants, des adaptations de contes
+         populaires et d’histoires traditionnelles. Les adaptations sont douces, adaptées aux enfants et centrées 
+         sur des valeurs universelles.`,
+
+        p7: `❤️ Quelles valeurs sont transmises ?`,
+
+        p8: `Les histoires abordent des thèmes intemporels tels que : la bonté et la compassion, le bien et le mal, 
+        l’amitié et la loyauté, le courage et la responsabilité, l’honnêteté et l’empathie. Elles aident les enfants 
+        à réfléchir à ces valeurs par l’imagination.`,
+
+        p9: `🌍 En quelles langues le contenu est-il disponible ?`,
+
+        p10: `Les histoires et chansons de North Dakota Fairytales sont produites en plusieurs langues, notamment : 
+        anglais, espagnol, français, arabe, russe, ourdou, hindi, bengali, persan (farsi), portugais, malais, 
+        indonésien, allemand, catalan, azéri, arménien, hawaïen et tatar.
+        La narration multilingue aide les enfants à découvrir différentes cultures tout en restant reliés par des 
+        valeurs humaines universelles.`,
+
+        p11: `👶 Le contenu est-il sûr pour les enfants ?`,
+
+        p12: `Oui. Tout le contenu est pensé pour le bien-être émotionnel des enfants. Les histoires sont : calmes et 
+        non agressives, adaptées à toute la famille, sans surstimulation. Elles offrent une alternative paisible aux 
+        médias modernes bruyants.`,
+
+        p13: `🎶 Où trouver le contenu ?`,
+
+        p14: `Le contenu est disponible via : des livres illustrés, des sorties musicales, des plateformes numériques. 
+        Les liens officiels figurent sur le site.`,
+
+        p15: `🧒 À quel âge s’adresse le contenu ?`,
+
+        p16: `Principalement : aux jeunes enfants, aux familles aimant partager des moments de lecture. Idéal pour les 
+        routines calmes et le coucher.`,
+
+        p17: `🌲 Quelle est la mission de la marque ?`,
+
+        p18: `Préserver des histoires et des valeurs oubliées et offrir aux enfants une véritable enfance fondée sur
+         l’imagination, la douceur et le sens.`,
+
+        p19: `🧾 Est-ce une entreprise ou un projet créatif ?`,
+
+        p20: `North Dakota Fairytales est un projet créatif indépendant. Toutes les histoires, musiques et adaptations 
+        sont créées pour la marque dans le respect du patrimoine culturel et émotionnel des enfants.`,
+
+        p21: `💰 North Dakota Fairytales utilise-t-il la publicité ou des techniques de médias rapides ?`,
+
+        p22: `Non. La marque évite la publicité agressive, les effets visuels bruyants et les styles de montage rapides.
+         L’accent est mis sur une narration calme, une musique douce et des illustrations qui favorisent une expérience 
+         paisible de visionnage ou d’écoute pour les enfants.`,
+
+        p23: `🎶 Où peut-on profiter du contenu de North Dakota Fairytales ?`,
+
+        p24: `Les histoires et chansons de North Dakota Fairytales sont disponibles via : des livres illustrés, des 
+        sorties musicales, des plateformes numériques officielles sélectionnées spécifiquement pour les familles et 
+        les enfants. Tous les liens officiels sont fournis sur le site web afin de garantir un accès sécurisé au contenu.`,
+
+        p25: `☀️ North Dakota Fairytales créera-t-il des histoires pour d’autres saisons ?`,
+
+        p26: `Non. La marque est volontairement dédiée uniquement à la narration à thème hivernal. Ce choix créatif 
+        permet de maintenir une atmosphère cohérente, une identité visuelle constante et une tonalité émotionnelle 
+        harmonieuse à travers toutes les histoires et chansons.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        subtitle: "", // Здесь нужна запятая
+        p1: `❓ ما هي North Dakota Fairytales؟`,
+
+        p2: `North Dakota Fairytales هي علامة تجارية مستقلة للأطفال
+         متخصصة في القصص والموسيقى، تقدم قصصًا شتوية أصلية، وأغاني، وحكايات مصوّرة، إضافة
+         إلى إعادة تقديم الحكايات الشعبية التقليدية والمنسية مع الحفاظ على قيمها الأخلاقية.`,
+
+        p3: `❄️ لماذا جميع القصص شتوية؟`,
+
+        p4: `الشتاء هو جوهر هوية العلامة. الثلوج، ليالي الشتاء الهادئة، والغابات الشمالية تخلق
+         جوًا مثاليًا للسرد القصصي الهادئ. لذلك تلتزم North Dakota Fairytales حصريًا بالموضوعات والمرئيات الشتوية.`,
+
+        p5: `📚 هل القصص أصلية أم مقتبسة من التراث؟`,
+
+        p6: `كلاهما. تقدم العلامة: قصصًا وأغاني أصلية للأطفال،
+         تكييفات لحكايات شعبية وقصص تقليدية منسية. وتُقدَّم جميعها بأسلوب لطيف ومناسب للأطفال، مع التركيز على القيم الإنسانية.`,
+
+        p7: `❤️ ما القيم التي تنقلها القصص؟`,
+
+        p8: `تتناول القصص موضوعات خالدة مثل: الخير والشر، الطيبة والرحمة، الصداقة
+         والوفاء، الشجاعة والمسؤولية، الصدق والتعاطف. وتهدف إلى مساعدة الأطفال على فهم هذه القيم من خلال الخيال.`,
+
+        p9: `🌍 ما اللغات المتوفرة؟`,
+
+        p10: `يتم إنتاج قصص وأغاني North Dakota Fairytales بعدة
+         لغات، منها: الإنجليزية، الإسبانية، الفرنسية، العربية، الروسية، الأردية، الهندية، البنغالية، الفارسية،
+         البرتغالية، الملايوية، الإندونيسية، الألمانية، الكتالونية، الأذربيجانية، الأرمنية، الهاوائية، والتترية.
+         يساعد السرد متعدد اللغات الأطفال على اكتشاف ثقافات مختلفة مع البقاء متصلين بالقيم الإنسانية المشتركة.`,
+
+        p11: `👶 هل المحتوى آمن للأطفال؟`,
+
+        p12: `نعم. يتم إنشاء جميع المحتويات مع مراعاة السلامة العاطفية للأطفال. القصص: هادئة
+         وغير عدوانية، مناسبة للعائلة، خالية من الإثارة المفرطة. وتمثل بديلاً هادئًا للمحتوى الحديث السريع.`,
+
+        p13: `🎶 أين يمكن متابعة المحتوى؟`,
+
+        p14: `يتوفر محتوى
+         North Dakota Fairytales عبر: كتب مصورة، إصدارات موسيقية، منصات رقمية. جميع الروابط الرسمية موجودة على الموقع.`,
+
+        p15: `🧒 لمن هذا المحتوى؟`,
+
+        p16: `المحتوى مخصص أساسًا:
+         للأطفال الصغار، للعائلات التي تحب القراءة والاستماع معًا. وهو مناسب لأوقات ما قبل النوم واللحظات الهادئة.`,
+
+        p17: `🌲 ما هي رسالة North Dakota Fairytales؟`,
+
+        p18: `الحفاظ على القصص والقيم التي تناقلتها الأجيال ومنح الأطفال طفولة حقيقية قائمة على الخيال والدفء والمعنى.`,
+
+        p19: `🧾 هل هي شركة أم مشروع إبداعي؟`,
+
+        p20: `North Dakota Fairytales مشروع إبداعي مستقل. جميع القصص والأغاني
+         والشخصيات والتكييفات تُنتج خصيصًا للعلامة مع احترام التراث الثقافي والصحة العاطفية للأطفال.`,
+
+        p21: `💰 هل تستخدم North Dakota Fairytales الإعلانات أو أساليب الإعلام السريعة؟`,
+
+        p22: `لا. تتجنب العلامة التجارية الإعلانات العدوانية، والمؤثرات البصرية الصاخبة، وأساليب المونتاج السريع. يركّز المحتوى
+         على السرد الهادئ، والموسيقى اللطيفة، والرسوم التوضيحية التي تدعم تجربة مشاهدة أو استماع مريحة للأطفال.`,
+
+        p23: `🎶 أين يمكن الاستمتاع بمحتوى North Dakota Fairytales؟`,
+
+        p24: `تتوفر قصص وأغاني North Dakota Fairytales من خلال: الكتب المصوّرة، الإصدارات الموسيقية، المنصات الرقمية الرسمية
+         المُعدّة خصيصًا للعائلات والأطفال. تتوفر جميع الروابط الرسمية على الموقع لضمان وصول آمن إلى المحتوى.`,
+
+        p25: `☀️ هل ستُنشئ North Dakota Fairytales قصصًا لمواسم أخرى؟`,
+
+        p26: `لا. العلامة التجارية مكرّسة عمدًا لسرد القصص ذات الطابع الشتوي فقط. يسمح هذا التركيز
+         الإبداعي بالحفاظ على أجواء متناسقة، وهوية بصرية واضحة، ونغمة عاطفية موحّدة في جميع القصص والأغاني.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ru: {
+        subtitle: "",
+        p1: `❓ Что такое North Dakota Fairytales?`,
+    p2: `North Dakota Fairytales — это независимый детский бренд сказок и музыки, который создаёт оригинальные зимние
+    истории, песни и иллюстрированные сказки. Бренд также бережно адаптирует забытые и традиционные народные сказки,
+    переосмысливая их для современных детей и сохраняя их нравственные ценности.`,
+
+    p3: `❄️ Почему все истории посвящены зиме?`,
+    p4: `Зима лежит в самом сердце идентичности бренда. Снег, тихие ночи, северные леса и долгие зимние вечера создают
+    атмосферу спокойствия и размышления, идеально подходящую для рассказов. North Dakota Fairytales посвящён
+    исключительно зимним историям и визуальному миру зимы.`,
+
+    p5: `📚 Истории оригинальные или основаны на народных сказках?`,
+    p6: `И то и другое. Бренд создаёт: оригинальные сказки и песни, а также адаптированные народные истории,
+    вдохновлённые традиционными и малоизвестными сказками. Все адаптации рассказываются мягко и понятно для детей,
+    с акцентом на вечные ценности, а не на страх или насилие.`,
+
+    p7: `❤️ Какие ценности передают истории North Dakota Fairytales?`,
+    p8: `Истории раскрывают универсальные темы, которые передавались из поколения в поколение, среди них: доброта и
+    сострадание, добро и зло, дружба и верность, смелость и ответственность, честность и эмпатия. Цель — помочь детям
+    понять эти идеи через спокойные и воображаемые истории.`,
+
+    p9: `🌍 На каких языках доступен контент?`,
+    p10: `Истории и песни North Dakota Fairytales создаются на многих языках, включая: английский, испанский, 
+    французский, арабский, русский, урду, хинди, бенгальский, персидский (фарси), португальский, малайский, 
+    индонезийский, немецкий, каталонский, азербайджанский, армянский, гавайский и татарский.
+    Многоязычные истории помогают детям знакомиться с разными культурами, оставаясь при этом связанными общими 
+    человеческими ценностями.`,
+
+    p11: `👶 Безопасен ли North Dakota Fairytales для детей?`,
+    p12: `Да. Весь контент создаётся с заботой об эмоциональном благополучии детей. Истории: спокойные и ненасильственные,
+    подходят для всей семьи, не содержат шокирующих или чрезмерно стимулирующих элементов. Бренд стремится предложить
+    детям мирную альтернативу быстрому и шумному современному медиа.`,
+
+    p13: `🎶 Где можно познакомиться с контентом North Dakota Fairytales?`,
+    p14: `Истории и песни North Dakota Fairytales доступны через: иллюстрированные книги, музыкальные релизы и цифровые
+    платформы. Официальные ссылки на все платформы можно найти на сайте.`,
+
+    p15: `🧒 Для какого возраста предназначен North Dakota Fairytales?`,
+    p16: `Контент предназначен прежде всего для: маленьких детей и семей, которые любят читать, слушать и рассказывать
+    истории вместе. Родителям рекомендуется делиться этими историями с детьми во время спокойных семейных моментов,
+    например перед сном.`,
+
+    p17: `🌲 Какова миссия North Dakota Fairytales?`,
+    p18: `Миссия проекта — сохранить значимые истории и ценности, которые постепенно забывались из поколения в поколение,
+    и подарить детям настоящее детство, наполненное воображением, теплом и вдумчивыми историями — без избыточной стимуляции.`,
+
+    p19: `🧾 North Dakota Fairytales — это компания или творческий проект?`,
+    p20: `North Dakota Fairytales — это независимый творческий проект. Все истории, музыка, персонажи и адаптации
+    создаются специально для бренда с уважением к культурному наследию и эмоциональному здоровью детей.`,
+
+    p21: `💰 Использует ли North Dakota Fairytales рекламу или быстрые медиа-приёмы?`,
+    p22: `Нет. Бренд избегает агрессивной рекламы, громких визуальных эффектов и резкого монтажа. Основной акцент делается
+    на спокойных историях, мягкой музыке и иллюстрациях, которые создают мирную атмосферу для просмотра и прослушивания.`,
+
+    p23: `🎶 Где можно познакомиться с контентом North Dakota Fairytales?`,
+    p24: `Истории и песни North Dakota Fairytales доступны через: иллюстрированные книги, музыкальные релизы и
+    официальные цифровые платформы, специально отобранные для семей и детей. Все официальные ссылки представлены на
+    сайте, чтобы обеспечить безопасный доступ к контенту.`,
+        
+    p25: `☀️ Будет ли North Dakota Fairytales создавать истории для других сезонов?`,
+    p26: `Нет. Бренд намеренно посвящён исключительно зимним историям. Такой творческий фокус позволяет сохранять единое
+    настроение, визуальный стиль и эмоциональный тон во всех сказках и песнях.`
+},
+
+    ur: {
+    subtitle: "",
+        p1: `❓ North Dakota Fairytales کیا ہے؟`,
+    p2: `North Dakota Fairytales بچوں کے لیے کہانی سنانے اور موسیقی کا
+     ایک آزاد برانڈ ہے جو سردیوں پر مبنی اصل پریوں کی کہانیاں، گیت اور تصویری کہانیاں
+     تخلیق کرتا ہے۔ یہ برانڈ بھولی ہوئی اور روایتی لوک کہانیوں کو بھی احتیاط سے ڈھال کر
+     جدید بچوں کے لیے دوبارہ پیش کرتا ہے جبکہ ان کی اخلاقی اقدار کو محفوظ رکھتا ہے۔`,
+
+    p3: `❄️ تمام کہانیاں سردیوں پر ہی کیوں مبنی ہیں؟`,
+    p4: `سردی اس برانڈ کی شناخت کے مرکز میں
+     ہے۔ برف، خاموش راتیں، شمالی جنگلات اور طویل سردیوں کی شامیں سکون اور غور و فکر کا ایسا ماحول پیدا کرتی ہیں 
+    جو کہانی سنانے کے لیے مثالی ہے۔ North Dakota Fairytales صرف سردیوں پر مبنی کہانیوں اور مناظر کے لیے وقف ہے۔`,
+
+    p5: `📚 کیا کہانیاں اصل ہیں یا لوک کہانیوں پر مبنی؟`,
+    p6: `دونوں۔ برانڈ تخلیق کرتا ہے: اصل پریوں کی کہانیاں
+     اور گیت، اور روایتی اور کم معروف لوک کہانیوں سے متاثر ہو کر بنائی گئی ڈھالی ہوئی کہانیاں۔ تمام کہانیاں نرم
+     اور بچوں کے لیے موزوں انداز میں بیان کی جاتی ہیں اور خوف یا تشدد کے بجائے لازوال اقدار پر توجہ دیتی ہیں۔`,
+
+    p7: `❤️ North Dakota Fairytales کی کہانیاں کون سی اقدار سکھاتی ہیں؟`,
+    p8: `کہانیاں ایسی عالمی موضوعات کو
+     دریافت کرتی ہیں جو نسلوں سے منتقل ہوتے آئے ہیں، جیسے: مہربانی اور ہمدردی، اچھائی اور برائی، دوستی اور وفاداری، 
+    ہمت اور ذمہ داری، دیانت اور احساس۔ مقصد یہ ہے کہ بچے ان خیالات کو پرسکون اور تخیلاتی کہانیوں کے ذریعے سمجھ سکیں۔`,
+
+    p9: `🌍 مواد کن زبانوں میں دستیاب ہے؟`,
+    p10: `North Dakota Fairytales کی کہانیاں اور گیت متعدد زبانوں میں تیار کیے جاتے ہیں،
+     جن میں شامل ہیں: انگریزی، ہسپانوی، فرانسیسی، عربی، روسی، اردو، ہندی، بنگالی، فارسی،
+     پرتگالی، مالائی، انڈونیشیائی، جرمن، کاتالان، آذربائیجانی، آرمینیائی، ہوائی اور تاتاری۔
+کثیر لسانی کہانیاں بچوں کو مختلف ثقافتوں کو دریافت کرنے میں مدد دیتی ہیں جبکہ وہ مشترکہ انسانی اقدار سے جڑے رہتے ہیں۔       `,
+
+        p11: `👶 کیا North Dakota Fairytales بچوں کے لیے محفوظ ہے؟`,
+    p12: `جی ہاں۔ تمام مواد بچوں کی جذباتی بھلائی کو مدنظر رکھ کر تخلیق کیا جاتا ہے۔ کہانیاں: پرسکون
+     اور غیر جارحانہ ہیں، خاندان کے لیے موزوں ہیں، اور ان میں چونکا دینے والے یا حد سے زیادہ متحرک عناصر شامل
+     نہیں ہوتے۔ برانڈ کا مقصد بچوں کو تیز اور شور والے جدید میڈیا کے مقابلے میں ایک پُرسکون متبادل فراہم کرنا ہے۔`,
+
+    p13: `🎶 ہم North Dakota Fairytales کا مواد کہاں سے دیکھ یا سن سکتے ہیں؟,`,
+    p14: `North Dakota Fairytales کی کہانیاں اور گیت دستیاب ہیں: تصویری کتابوں، موسیقی کی ریلیزز اور ڈیجیٹل
+     پلیٹ فارمز کے ذریعے۔ تمام پلیٹ فارمز کے سرکاری روابط ویب سائٹ پر دستیاب ہیں۔`,
+
+    p15: `🧒 North Dakota Fairytales کس عمر کے بچوں کے لیے ہے؟`,
+    p16: `یہ مواد بنیادی طور پر ان کے لیے بنایا گیا ہے: چھوٹے بچے
+     اور وہ خاندان جو مل کر پڑھنے، سننے اور کہانیاں سنانے سے لطف اندوز ہوتے ہیں۔ والدین کو حوصلہ دیا جاتا ہے کہ
+     وہ ان کہانیوں کو بچوں کے ساتھ پرسکون لمحات میں شیئر کریں، جیسے سونے سے پہلے یا خاندانی سکون کے وقت۔`,
+
+    p17: `🌲 North Dakota Fairytales کا مشن کیا ہے؟`,
+    p18: `اس منصوبے کا مقصد ایسی بامعنی کہانیوں
+     اور اقدار کو محفوظ کرنا ہے جو نسلوں کے ساتھ آہستہ آہستہ بھلا دی گئی ہیں، اور بچوں کو ایسا حقیقی بچپن دینا
+     ہے جو تخیل، گرمجوشی اور سوچ سمجھ کر سنائی گئی کہانیوں پر مبنی ہو — نہ کہ حد سے زیادہ تحریکی میڈیا پر۔`,
+
+    p19: `🧾 کیا North Dakota Fairytales ایک کمپنی ہے یا تخلیقی منصوبہ؟`,
+    p20: `North Dakota Fairytales ایک آزاد تخلیقی منصوبہ
+     ہے۔ تمام کہانیاں، موسیقی، کردار اور ڈھالی ہوئی کہانیاں خاص طور پر اس برانڈ کے
+     لیے تخلیق کی جاتی ہیں، ثقافتی ورثے اور بچوں کی جذباتی صحت کے احترام کے ساتھ۔`,
+
+    p21: `💰 کیا North Dakota Fairytales اشتہارات یا تیز رفتار میڈیا تکنیکیں استعمال کرتا ہے؟`,
+    p22: `نہیں۔ برانڈ جارحانہ اشتہارات، بلند آواز بصری اثرات اور تیز ایڈیٹنگ کے انداز سے گریز کرتا ہے۔ توجہ پرسکون کہانی
+     سنانے، نرم موسیقی اور ایسی تصویروں پر ہے جو بچوں کے لیے پرامن دیکھنے یا سننے کا تجربہ فراہم کریں۔`,
+
+    p23: `🎶 ہم North Dakota Fairytales کا مواد کہاں سے دیکھ یا سن سکتے ہیں؟`,
+    p24: `North Dakota Fairytales کی کہانیاں اور گیت دستیاب ہیں: تصویری کتابوں، موسیقی کی ریلیزز اور سرکاری ڈیجیٹل پلیٹ فارمز کے
+     ذریعے جو خاص طور پر خاندانوں اور بچوں کے لیے منتخب کیے گئے ہیں۔ محفوظ
+     رسائی کو یقینی بنانے کے لیے تمام سرکاری روابط ویب سائٹ پر فراہم کیے جاتے ہیں۔`,
+
+    p25: `☀️ کیا North Dakota Fairytales کبھی دوسرے موسموں کے لیے بھی کہانیاں بنائے گا؟`,
+    p26: `نہیں۔ یہ برانڈ جان بوجھ کر صرف سردیوں کی کہانیوں کے لیے وقف ہے۔ یہ تخلیقی توجہ North Dakota Fairytales
+     کو تمام کہانیوں اور گیتوں میں ایک مستقل فضا، بصری شناخت اور جذباتی انداز برقرار رکھنے میں مدد دیتی ہے۔`
+},
+
+    hi: {
+        subtitle: "",
+        p1: `❓ North Dakota Fairytales क्या है?`,
+        p2: `North Dakota Fairytales बच्चों के लिए कहानी और संगीत का एक स्वतंत्र ब्रांड है जो सर्दियों पर आधारित मौलिक परियों की कहानियाँ, 
+        गीत और चित्रित कहानियाँ बनाता है। यह ब्रांड भूली हुई और पारंपरिक लोककथाओं को भी सावधानी से आधुनिक बच्चों के लिए फिर से प्रस्तुत करता है, 
+        जबकि उनके नैतिक मूल्यों को सुरक्षित रखता है।`,
+
+        p3: `❄️ सभी कहानियाँ सर्दियों पर ही क्यों आधारित हैं?`,
+        p4: `सर्दी इस ब्रांड की पहचान का केंद्र है। बर्फ, शांत रातें, उत्तरी जंगल और लंबी सर्दियों की शामें एक ऐसा शांत वातावरण बनाती हैं जो कहानी सुनाने के 
+        लिए आदर्श है। North Dakota Fairytales पूरी तरह से सर्दियों की कहानियों और दृश्य संसार के लिए समर्पित है।`,
+
+        p5: `📚 क्या कहानियाँ मौलिक हैं या लोककथाओं पर आधारित हैं?`,
+        p6: `दोनों। यह ब्रांड बनाता है: मौलिक परियों की कहानियाँ और गीत, तथा पारंपरिक और कम प्रसिद्ध लोककथाओं से प्रेरित रूपांतरित कहानियाँ। सभी 
+        रूपांतरण बच्चों के लिए कोमल और सुरक्षित तरीके से सुनाए जाते हैं और डर या हिंसा के बजाय शाश्वत मूल्यों पर ध्यान देते हैं।`,
+
+        p7: `❤️ North Dakota Fairytales की कहानियाँ कौन-से मूल्य सिखाती हैं?`,
+        p8: `इन कहानियों में ऐसे सार्वभौमिक विषय होते हैं जो पीढ़ियों से चले आ रहे हैं, जैसे: दया और करुणा, अच्छाई और बुराई, मित्रता और निष्ठा, साहस 
+        और जिम्मेदारी, ईमानदारी और सहानुभूति। उद्देश्य यह है कि बच्चे इन विचारों को शांत और कल्पनाशील कहानियों के माध्यम से समझ सकें।`,
+
+        p9: `🌍 सामग्री किन भाषाओं में उपलब्ध है?`,
+        p10: `North Dakota Fairytales की कहानियाँ और गीत कई भाषाओं में बनाए जाते हैं, जिनमें शामिल हैं: अंग्रेज़ी, स्पेनिश, फ्रेंच, अरबी, रूसी, उर्दू, 
+        हिंदी, बांग्ला, फ़ारसी, पुर्तगाली, मलय, इंडोनेशियाई, जर्मन, कैटलन, अज़रबैजानी, आर्मेनियाई, हवाईयन और तातार।
+        बहुभाषी कहानी-कथन बच्चों को विभिन्न संस्कृतियों को जानने में मदद करता है, जबकि वे साझा मानवीय मूल्यों से जुड़े रहते हैं।`,
+
+        p11: `👶 क्या North Dakota Fairytales बच्चों के लिए सुरक्षित है?`,
+        p12: `हाँ। सभी सामग्री बच्चों के भावनात्मक स्वास्थ्य को ध्यान में रखकर बनाई जाती है। कहानियाँ: शांत और गैर-आक्रामक होती हैं, पूरे परिवार के लिए 
+        उपयुक्त होती हैं, और इनमें चौंकाने वाले या अत्यधिक उत्तेजक तत्व नहीं होते। इस ब्रांड का उद्देश्य बच्चों को तेज़ और शोर भरे आधुनिक मीडिया का शांत विकल्प
+         देना है।`,
+
+        p13: `🎶 हम North Dakota Fairytales की सामग्री कहाँ देख या सुन सकते हैं?`,
+        p14: `North Dakota Fairytales की कहानियाँ और गीत उपलब्ध हैं: चित्रित पुस्तकों, संगीत रिलीज़ और डिजिटल प्लेटफॉर्म के माध्यम से। सभी 
+        आधिकारिक लिंक वेबसाइट पर उपलब्ध हैं।`,
+
+        p15: `🧒 North Dakota Fairytales किस आयु वर्ग के लिए है?`,
+        p16: `यह सामग्री मुख्य रूप से इन लोगों के लिए बनाई गई है: छोटे बच्चे और वे परिवार जो साथ में पढ़ना, सुनना और कहानियाँ साझा करना पसंद करते 
+        हैं। माता-पिता को प्रोत्साहित किया जाता है कि वे इन कहानियों को बच्चों के साथ शांत क्षणों में साझा करें, जैसे सोने से पहले या परिवार के शांत समय में।`,
+
+        p17: `🌲 North Dakota Fairytales का मिशन क्या है?`,
+        p18: `इस परियोजना का उद्देश्य उन अर्थपूर्ण कहानियों और मूल्यों को सुरक्षित रखना है जो पीढ़ियों के साथ धीरे-धीरे भुला दिए गए हैं, और बच्चों को ऐसा सच्चा 
+        बचपन देना है जो कल्पना, गर्मजोशी और विचारशील कहानी-कथन पर आधारित हो — न कि अत्यधिक उत्तेजना पर।`,
+
+        p19: `🧾 क्या North Dakota Fairytales एक कंपनी है या रचनात्मक परियोजना?`,
+        p20: `North Dakota Fairytales एक स्वतंत्र रचनात्मक परियोजना है। सभी कहानियाँ, संगीत, पात्र और रूपांतरण विशेष रूप से इस ब्रांड के लिए 
+        बनाए जाते हैं, सांस्कृतिक विरासत और बच्चों के भावनात्मक स्वास्थ्य का सम्मान करते हुए।`,
+
+        p21: `💰 क्या North Dakota Fairytales विज्ञापन या तेज़ गति वाले मीडिया तरीकों का उपयोग करता है?`,
+        p22: `नहीं। यह ब्रांड आक्रामक विज्ञापन, तेज़ दृश्य प्रभाव और तेज़ संपादन शैली से बचता है। ध्यान शांत कहानी-कथन, कोमल संगीत और चित्रों पर है जो 
+        बच्चों के लिए एक शांत अनुभव प्रदान करते हैं।`,
+
+        p23: `🎶 हम North Dakota Fairytales की सामग्री कहाँ देख या सुन सकते हैं?`,
+        p24: `North Dakota Fairytales की कहानियाँ और गीत उपलब्ध हैं: चित्रित पुस्तकों, संगीत रिलीज़ और आधिकारिक डिजिटल प्लेटफॉर्म के माध्यम से, 
+        जिन्हें विशेष रूप से परिवारों और बच्चों के लिए चुना गया है। सुरक्षित पहुँच सुनिश्चित करने के लिए सभी आधिकारिक लिंक वेबसाइट पर प्रदान किए गए हैं।`,
+
+        p25: `☀️ क्या North Dakota Fairytales कभी अन्य मौसमों के लिए भी कहानियाँ बनाएगा?`,
+        p26: `नहीं। यह ब्रांड जानबूझकर केवल सर्दियों की कहानियों के लिए समर्पित है। यह रचनात्मक ध्यान North Dakota Fairytales को सभी कहानियों और 
+        गीतों में एक स्थिर वातावरण, दृश्य पहचान और भावनात्मक स्वर बनाए रखने में मदद करता है।`
+},
+
+    bn: {
+        subtitle: "",
+        p1: `❓ North Dakota Fairytales কী?`,
+        p2: `North Dakota Fairytales শিশুদের গল্প বলা এবং সঙ্গীতের একটি স্বাধীন ব্র্যান্ড, যা শীতকালভিত্তিক মৌলিক রূপকথা, গান এবং চিত্রিত 
+        গল্প তৈরি করে। এই ব্র্যান্ড ভুলে যাওয়া এবং ঐতিহ্যবাহী লোককথাকেও নতুনভাবে রূপ দেয়, আধুনিক শিশুদের জন্য সেগুলোকে কোমলভাবে পুনর্কল্পনা 
+        করে এবং তাদের নৈতিক মূল্যবোধ অক্ষুণ্ণ রাখে।`,
+
+        p3: `❄️ সব গল্পই কেন শীতকে কেন্দ্র করে?`,
+        p4: `শীত এই ব্র্যান্ডের পরিচয়ের কেন্দ্রবিন্দু। তুষার, নীরব রাত, উত্তরের বন এবং দীর্ঘ শীতের সন্ধ্যা এমন এক শান্ত পরিবেশ তৈরি করে যা গল্প 
+        বলার জন্য আদর্শ। North Dakota Fairytales শুধুমাত্র শীতভিত্তিক গল্প এবং দৃশ্যের জন্য নিবেদিত।`,
+
+        p5: `📚 গল্পগুলো কি মৌলিক, নাকি লোককথার উপর ভিত্তি করে?`,
+        p6: `দুটোই। ব্র্যান্ডটি তৈরি করে: মৌলিক রূপকথা ও গান, এবং ঐতিহ্যবাহী ও কম পরিচিত লোককথা থেকে অনুপ্রাণিত অভিযোজিত গল্প। সব 
+        অভিযোজন কোমল ও শিশু-বান্ধবভাবে বলা হয় এবং ভয় বা সহিংসতার পরিবর্তে চিরন্তন মূল্যবোধের উপর জোর দেয়।`,
+
+        p7: `❤️ North Dakota Fairytales-এর গল্পগুলো কোন মূল্যবোধ শেখায়?`,
+        p8: `এই গল্পগুলো এমন সার্বজনীন বিষয় তুলে ধরে যা প্রজন্মের পর প্রজন্ম ধরে চলে এসেছে, যেমন: দয়া ও সহমর্মিতা, ভাল ও মন্দ, বন্ধুত্ব 
+        ও বিশ্বস্ততা, সাহস ও দায়িত্ব, সততা ও সহানুভূতি। লক্ষ্য হলো শান্ত ও কল্পনাপ্রবণ গল্পের মাধ্যমে শিশুদের এসব ধারণা বোঝাতে সাহায্য করা।`,
+
+        p9: `🌍 কোন কোন ভাষায় এই কনটেন্ট পাওয়া যায়?`,
+        p10: `North Dakota Fairytales-এর গল্প ও গান বহু ভাষায় তৈরি করা হয়, যার মধ্যে রয়েছে: ইংরেজি, স্প্যানিশ, ফরাসি, আরবি, রুশ, 
+        উর্দু, হিন্দি, বাংলা, ফারসি, পর্তুগিজ, মালয়, ইন্দোনেশীয়, জার্মান, কাতালান, আজারবাইজানি, আর্মেনিয়ান, হাওয়াইয়ান এবং তাতার।
+        বহুভাষিক গল্প বলার মাধ্যমে শিশুরা বিভিন্ন সংস্কৃতি সম্পর্কে জানতে পারে, একই সঙ্গে তারা মানবিক সাধারণ মূল্যবোধের সঙ্গে যুক্ত থাকে।`,
+
+        p11: `👶 North Dakota Fairytales কি শিশুদের জন্য নিরাপদ?`,
+        p12: `হ্যাঁ। সমস্ত কনটেন্ট শিশুদের আবেগিক সুস্থতাকে গুরুত্ব দিয়ে তৈরি করা হয়। গল্পগুলো: শান্ত ও অহিংস, পুরো পরিবারের জন্য উপযোগী, 
+        এবং এতে চমকপ্রদ বা অতিরিক্ত উত্তেজক উপাদান নেই। এই ব্র্যান্ডের লক্ষ্য দ্রুত ও কোলাহলপূর্ণ আধুনিক মিডিয়ার একটি শান্ত বিকল্প প্রদান করা।`,
+
+        p13: `🎶 আমরা কোথায় North Dakota Fairytales-এর কনটেন্ট উপভোগ করতে পারি?`,
+        p14: `North Dakota Fairytales-এর গল্প ও গান পাওয়া যায়: চিত্রিত বই, সঙ্গীত প্রকাশনা এবং ডিজিটাল প্ল্যাটফর্মের মাধ্যমে। সব অফিসিয়াল ল
+        িঙ্ক ওয়েবসাইটে দেওয়া আছে।`,
+
+        p15: `🧒 North Dakota Fairytales কোন বয়সের জন্য তৈরি?`,
+        p16: `এই কনটেন্ট মূলত তৈরি করা হয়েছে: ছোট শিশুদের জন্য এবং সেই পরিবারগুলোর জন্য যারা একসাথে পড়তে, শুনতে এবং গল্প বলতে 
+        ভালোবাসে। বাবা-মায়েদের উৎসাহ দেওয়া হয় শান্ত সময়ে শিশুদের সঙ্গে এই গল্পগুলো ভাগ করে নিতে, যেমন ঘুমের আগে বা পরিবারের নীরব সময়ে।`,
+
+        p17: `🌲 North Dakota Fairytales-এর লক্ষ্য কী?`,
+        p18: `এই প্রকল্পের লক্ষ্য হলো এমন অর্থপূর্ণ গল্প ও মূল্যবোধ সংরক্ষণ করা যা প্রজন্মের পর প্রজন্ম ধরে ধীরে ধীরে হারিয়ে যাচ্ছে, 
+        এবং শিশুদের এমন এক সত্যিকারের শৈশব উপহার দেওয়া যা কল্পনা, উষ্ণতা এবং চিন্তাশীল গল্প বলার উপর ভিত্তি করে — অতিরিক্ত উত্তেজনার উপর নয়।`,
+
+        p19: `🧾 North Dakota Fairytales কি একটি কোম্পানি নাকি একটি সৃজনশীল প্রকল্প?`,
+        p20: `North Dakota Fairytales একটি স্বাধীন সৃজনশীল প্রকল্প। সমস্ত গল্প, সঙ্গীত, চরিত্র এবং অভিযোজন বিশেষভাবে এই ব্র্যান্ডের 
+        জন্য তৈরি করা হয়, সাংস্কৃতিক ঐতিহ্য এবং শিশুদের আবেগিক সুস্থতার প্রতি সম্মান রেখে।`,
+
+        p21: `💰 North Dakota Fairytales কি বিজ্ঞাপন বা দ্রুতগতির মিডিয়া কৌশল ব্যবহার করে?`,
+        p22: `না। এই ব্র্যান্ড আক্রমণাত্মক বিজ্ঞাপন, উচ্চ শব্দের ভিজ্যুয়াল ইফেক্ট এবং দ্রুত সম্পাদনার কৌশল এড়িয়ে চলে। মূল লক্ষ্য হলো শান্ত গল্প বলা,
+         কোমল সঙ্গীত এবং এমন চিত্র যা শিশুদের জন্য একটি প্রশান্ত অভিজ্ঞতা তৈরি করে।`,
+
+        p23: `🎶 আমরা কোথায় North Dakota Fairytales-এর কনটেন্ট উপভোগ করতে পারি?`,
+        p24: `North Dakota Fairytales-এর গল্প ও গান পাওয়া যায়: চিত্রিত বই, সঙ্গীত প্রকাশনা এবং অফিসিয়াল ডিজিটাল প্ল্যাটফর্মের মাধ্যমে,
+         যেগুলো বিশেষভাবে পরিবার ও শিশুদের জন্য বেছে নেওয়া হয়েছে। নিরাপদ প্রবেশ নিশ্চিত করতে সব অফিসিয়াল লিঙ্ক ওয়েবসাইটে দেওয়া আছে।`,
+
+        p25: `☀️ ভবিষ্যতে কি North Dakota Fairytales অন্য ঋতু নিয়েও গল্প তৈরি করবে?`,
+        p26: `না। এই ব্র্যান্ড ইচ্ছাকৃতভাবে শুধুমাত্র শীতভিত্তিক গল্প বলার জন্য নিবেদিত। এই সৃজনশীল মনোযোগ North Dakota Fairytales-কে সব 
+        গল্প ও গানে একটি স্থির পরিবেশ, ভিজ্যুয়াল পরিচয় এবং আবেগিক সুর বজায় রাখতে সাহায্য করে।`
+},
+
+    fa: {
+        subtitle: "",
+        p1: `❓ North Dakota Fairytales چیست؟`,
+        p2: `North Dakota Fairytales یک برند مستقل داستان‌گویی و موسیقی
+         برای کودکان است که افسانه‌ها، ترانه‌ها و داستان‌های تصویری اصیل با موضوع زمستان
+         خلق می‌کند. این برند همچنین داستان‌های فولکلور فراموش‌شده و سنتی را با دقت بازآفرینی
+         می‌کند تا برای کودکان امروزی مناسب باشند، در حالی که ارزش‌های اخلاقی آن‌ها حفظ می‌شود.`,
+
+        p3: `❄️ چرا همه داستان‌ها با موضوع زمستان هستند؟`,
+        p4: `زمستان در قلب هویت این برند
+         قرار دارد. برف، شب‌های آرام، جنگل‌های شمالی و عصرهای طولانی زمستانی فضایی از آرامش و تأمل ایجاد می‌کنند که برای
+         روایت داستان‌ها ایده‌آل است. North Dakota Fairytales کاملاً به داستان‌ها و تصاویر با موضوع زمستان اختصاص دارد.`,
+
+        p5: `📚 آیا داستان‌ها اصیل هستند یا بر اساس فولکلور ساخته شده‌اند؟`,
+        p6: `هر دو. این برند خلق می‌کند: افسانه‌ها
+         و ترانه‌های اصیل، و داستان‌های اقتباس‌شده که از فولکلور سنتی و کمتر شناخته‌شده الهام گرفته‌اند. همه اقتباس‌ها
+         به شکلی ملایم و مناسب برای کودکان روایت می‌شوند و بر ارزش‌های جاودانه تمرکز دارند، نه بر ترس یا خشونت.`,
+
+        p7: `❤️ داستان‌های North Dakota Fairytales چه ارزش‌هایی را آموزش می‌دهند؟`,
+        p8: `این داستان‌ها موضوعات جهانی را بررسی می‌کنند که نسل‌ها
+         آن‌ها را منتقل کرده‌اند، از جمله: مهربانی و همدلی، خوبی و بدی، دوستی و وفاداری، شجاعت و مسئولیت‌پذیری،
+         صداقت و درک دیگران. هدف این است که کودکان از طریق داستان‌های آرام و خیال‌انگیز این مفاهیم را درک کنند.`,
+
+        p9: `🌍 این محتوا به چه زبان‌هایی در دسترس است؟`,
+        p10: `داستان‌ها و ترانه‌های North Dakota Fairytales به چندین زبان تولید می‌شوند، از جمله: انگلیسی، اسپانیایی، فرانسوی، عربی، روسی،
+             اردو، هندی، بنگالی، فارسی، پرتغالی، مالایی، اندونزیایی، آلمانی، کاتالان، آذربایجانی، ارمنی، هاوایی و تاتاری.
+            داستان‌گویی چندزبانه
+             به کودکان کمک می‌کند فرهنگ‌های مختلف را بشناسند، در حالی که همچنان به ارزش‌های مشترک انسانی متصل باقی می‌مانند.`,
+
+        p11: `👶 آیا North Dakota Fairytales برای کودکان امن است؟`,
+        p12: `بله. تمام محتوا با در نظر گرفتن سلامت عاطفی
+         کودکان ایجاد می‌شود. داستان‌ها: آرام و غیرتهاجمی هستند، برای تمام خانواده مناسب‌اند، و فاقد عناصر شوک‌آور یا
+         بیش از حد تحریک‌کننده هستند. هدف این برند ارائه جایگزینی آرام برای رسانه‌های سریع و پر سر و صدای امروزی است.`,
+
+        p13: `🎶 کجا می‌توان محتوای North Dakota Fairytales را دید یا شنید؟`,
+        p14: `داستان‌ها و ترانه‌های North Dakota Fairytales از طریق این موارد در دسترس هستند:
+         کتاب‌های تصویری، انتشارهای موسیقی و پلتفرم‌های دیجیتال. لینک‌های رسمی تمام پلتفرم‌ها در وب‌سایت موجود است.`,
+
+        p15: `🧒 North Dakota Fairytales برای چه گروه سنی مناسب است؟`,
+        p16: `این محتوا در درجه اول برای این گروه‌ها طراحی شده است: کودکان
+         خردسال و خانواده‌هایی که از خواندن، گوش دادن و روایت داستان با یکدیگر لذت می‌برند. والدین تشویق می‌شوند
+         این داستان‌ها را در زمان‌های آرام مانند قبل از خواب یا لحظات خانوادگی آرام با کودکان به اشتراک بگذارند.`,
+
+        p17: `🌲 مأموریت North Dakota Fairytales چیست؟`,
+        p18: `مأموریت این پروژه حفظ داستان‌ها و ارزش‌های معناداری است که در طول نسل‌ها کم‌کم فراموش شده‌اند، و بخشیدن کودکی واقعی
+         به کودکان — کودکی‌ای ریشه‌گرفته در تخیل، گرما و داستان‌گویی اندیشمندانه، نه در تحریک بیش از حد رسانه‌ها.`,
+
+        p19: `🧾 آیا North Dakota Fairytales یک شرکت است یا یک پروژه خلاقانه؟`,
+        p20: `North Dakota Fairytales یک پروژه خلاقانه مستقل است. تمام داستان‌ها، موسیقی، شخصیت‌ها و اقتباس‌ها
+         به طور ویژه برای این برند خلق می‌شوند، با احترام به میراث فرهنگی و سلامت عاطفی کودکان.`,
+
+         p21: `💰 آیا North Dakota Fairytales از تبلیغات یا تکنیک‌های سریع رسانه‌ای استفاده می‌کند؟`,
+        p22: `خیر. این برند از تبلیغات تهاجمی، جلوه‌های بصری پر سر و صدا و سبک تدوین سریع اجتناب می‌کند. تمرکز بر
+         داستان‌گویی آرام، موسیقی ملایم و تصویرسازی‌هایی است که تجربه‌ای آرام و دلنشین برای کودکان فراهم می‌کنند.`,
+
+        p23: `🎶 کجا می‌توان محتوای North Dakota Fairytales را دید یا شنید؟`,
+        p24: `داستان‌ها و ترانه‌های North Dakota Fairytales از طریق این موارد
+         در دسترس هستند: کتاب‌های تصویری، انتشارهای موسیقی و پلتفرم‌های دیجیتال رسمی که به طور ویژه برای خانواده‌ها
+         و کودکان انتخاب شده‌اند. تمام لینک‌های رسمی در وب‌سایت قرار داده شده‌اند تا دسترسی ایمن به محتوا فراهم شود.`,
+
+        p25: `☀️ آیا North Dakota Fairytales در آینده داستان‌هایی برای فصل‌های دیگر نیز خواهد ساخت؟`,
+        p26: `خیر. این برند عمداً تنها به داستان‌گویی با موضوع زمستان اختصاص دارد. این تمرکز خلاقانه به North Dakota Fairytales
+         اجازه می‌دهد در تمام داستان‌ها و ترانه‌ها فضایی یکپارچه، هویت بصری ثابت و لحن احساسی مشخصی را حفظ کند.`
+},
+
+    pt: {
+        subtitle: "",
+        p1: `❓ O que é North Dakota Fairytales?`,
+        p2: `North Dakota Fairytales é uma marca independente de histórias e música infantil que cria contos de fadas, 
+        canções e histórias ilustradas originais com tema de inverno. A marca também adapta contos folclóricos esquecidos 
+        e tradicionais, reinterpretando-os cuidadosamente para as crianças modernas enquanto preserva seus valores morais.`,
+
+        p3: `❄️ Por que todas as histórias têm tema de inverno?`,
+        p4: `O inverno está no coração da identidade da marca. A neve, as noites silenciosas, as florestas do norte e 
+        as longas noites de inverno criam uma sensação de calma e reflexão que é ideal para contar histórias. North Dakota 
+        Fairytales é dedicado exclusivamente a histórias e imagens com tema de inverno.`,
+
+        p5: `📚 As histórias são originais ou baseadas em contos populares?`,
+        p6: `Ambos. A marca cria: contos de fadas e canções originais, além de histórias adaptadas inspiradas em contos 
+        folclóricos tradicionais e menos conhecidos. Todas as adaptações são contadas de forma gentil e apropriada para 
+        crianças, focando em valores atemporais em vez de medo ou violência.`,
+
+        p7: `❤️ Quais valores as histórias de North Dakota Fairytales ensinam?`,
+        p8: `As histórias exploram temas universais que foram transmitidos por gerações, incluindo: bondade e compaixão, 
+        bem e mal, amizade e lealdade, coragem e responsabilidade, honestidade e empatia. O objetivo é ajudar as crianças 
+        a compreender essas ideias através de histórias calmas e cheias de imaginação.`,
+
+        p9: `🌍 Em quais idiomas o conteúdo está disponível?`,
+        p10: `As histórias e canções de North Dakota Fairytales são produzidas em vários idiomas, incluindo: inglês, 
+        espanhol, francês, árabe, russo, urdu, hindi, bengali, persa, português, malaio, indonésio, alemão, catalão, 
+        azerbaijano, armênio, havaiano e tártaro.
+        A narrativa multilíngue ajuda as crianças a descobrir diferentes culturas enquanto permanecem conectadas por 
+        valores humanos compartilhados.`,
+
+        p11: `👶 North Dakota Fairytales é seguro para crianças?`,
+        p12: `Sim. Todo o conteúdo é criado pensando no bem-estar emocional das crianças. As histórias são: calmas e 
+        não agressivas, adequadas para toda a família e livres de elementos chocantes ou excessivamente estimulantes. 
+        A marca busca oferecer às crianças uma alternativa tranquila à mídia moderna rápida e barulhenta.`,
+
+        p13: `🎶 Onde podemos aproveitar o conteúdo de North Dakota Fairytales?`,
+        p14: `As histórias e canções de North Dakota Fairytales estão disponíveis através de: livros ilustrados, 
+        lançamentos musicais e plataformas digitais. Links oficiais para todas as plataformas estão disponíveis no site.`,
+
+        p15: `🧒 Para qual faixa etária é North Dakota Fairytales?`,
+        p16: `O conteúdo foi criado principalmente para: crianças pequenas e famílias que gostam de ler, ouvir e 
+        compartilhar histórias juntas. Os pais são incentivados a compartilhar essas histórias com as crianças durante
+         momentos tranquilos, como antes de dormir ou durante o tempo calmo em família.`,
+
+        p17: `🌲 Qual é a missão de North Dakota Fairytales?`,
+        p18: `A missão é preservar histórias e valores significativos que foram gradualmente esquecidos ao longo das 
+        gerações e oferecer às crianças uma verdadeira infância baseada em imaginação, acolhimento e narrativa cuidadosa 
+        — e não em excesso de estímulos.`,
+
+        p19: `🧾 North Dakota Fairytales é uma empresa ou um projeto criativo?`,
+        p20: `North Dakota Fairytales é um projeto criativo independente. Todas as histórias, músicas, personagens e 
+        adaptações são criados especificamente para a marca, com respeito pelo patrimônio cultural e pelo bem-estar 
+        emocional das crianças.`,
+
+        p21: `💰 North Dakota Fairytales usa publicidade ou técnicas de mídia acelerada?`,
+        p22: `Não. A marca evita publicidade agressiva, efeitos visuais barulhentos e estilos de edição rápidos. O foco 
+        está em contar histórias com calma, música suave e ilustrações que proporcionam uma experiência tranquila para crianças.`,
+
+        p23: `🎶 Onde podemos aproveitar o conteúdo de North Dakota Fairytales?`,
+        p24: `As histórias e canções de North Dakota Fairytales estão disponíveis através de: livros ilustrados, 
+        lançamentos musicais e plataformas digitais oficiais selecionadas especialmente para famílias e crianças. 
+        Todos os links oficiais são fornecidos no site para garantir acesso seguro ao conteúdo.`,
+
+        p25: `☀️ North Dakota Fairytales criará histórias para outras estações no futuro?`,
+        p26: `Não. A marca é intencionalmente dedicada apenas a histórias com tema de inverno. Esse foco criativo permite 
+        que North Dakota Fairytales mantenha uma atmosfera consistente, identidade visual e tom emocional em todas as 
+        histórias e canções.`
+},
+
+    ms: {
+        subtitle: "",
+        p1: `❓ Apakah North Dakota Fairytales?`,
+        p2: `North Dakota Fairytales ialah jenama penceritaan dan muzik kanak-kanak yang bebas, yang mencipta cerita 
+        dongeng, lagu dan kisah bergambar asli bertemakan musim sejuk. Jenama ini juga menyesuaikan cerita rakyat 
+        tradisional yang jarang dikenali atau hampir dilupakan, dengan membayangkannya semula secara lembut untuk 
+        kanak-kanak moden sambil mengekalkan nilai moralnya.`,
+
+        p3: `❄️ Mengapa semua cerita bertemakan musim sejuk?`,
+        p4: `Musim sejuk berada di tengah identiti jenama ini. Salji, malam yang tenang, hutan utara dan malam musim 
+        sejuk yang panjang mewujudkan suasana damai dan refleksi yang sesuai untuk penceritaan. North Dakota Fairytales 
+        didedikasikan sepenuhnya kepada cerita dan visual bertemakan musim sejuk.`,
+
+        p5: `📚 Adakah cerita ini asli atau berdasarkan cerita rakyat?`,
+        p6: `Kedua-duanya. Jenama ini menghasilkan: cerita dongeng dan lagu asli, serta cerita yang diadaptasi daripada 
+        cerita rakyat tradisional dan kurang dikenali. Semua adaptasi diceritakan dengan cara yang lembut dan mesra 
+        kanak-kanak, memberi tumpuan kepada nilai-nilai abadi dan bukan kepada ketakutan atau keganasan.`,
+
+        p7: `❤️ Nilai apa yang diajarkan oleh cerita North Dakota Fairytales?`,
+        p8: `Cerita-cerita ini meneroka tema universal yang diwariskan dari generasi ke generasi, termasuk: kebaikan 
+        dan belas kasihan, baik dan jahat, persahabatan dan kesetiaan, keberanian dan tanggungjawab, kejujuran dan empati. 
+        Tujuannya ialah membantu kanak-kanak memahami idea ini melalui penceritaan yang tenang dan penuh imaginasi.`,
+
+        p9: `🌍 Dalam bahasa apa kandungan ini tersedia?`,
+        p10: `Cerita dan lagu North Dakota Fairytales dihasilkan dalam pelbagai bahasa termasuk: Inggeris, Sepanyol, 
+        Perancis, Arab, Rusia, Urdu, Hindi, Bengali, Parsi, Portugis, Melayu, Indonesia, Jerman, Catalan, Azerbaijan, 
+        Armenia, Hawaii dan Tatar.
+        Penceritaan pelbagai bahasa membantu kanak-kanak mengenali budaya yang berbeza sambil kekal terhubung melalui 
+        nilai kemanusiaan yang dikongsi bersama.`,
+
+        p11: `👶 Adakah North Dakota Fairytales selamat untuk kanak-kanak?`,
+        p12: `Ya. Semua kandungan dicipta dengan mengambil kira kesejahteraan emosi kanak-kanak. Ceritanya: tenang dan 
+        tidak agresif, sesuai untuk seluruh keluarga, dan bebas daripada unsur kejutan atau rangsangan berlebihan. 
+        Jenama ini bertujuan menyediakan alternatif yang damai kepada media moden yang pantas dan bising.`,
+
+        p13: `🎶 Di manakah kita boleh menikmati kandungan North Dakota Fairytales?`,
+        p14: `Cerita dan lagu North Dakota Fairytales tersedia melalui: buku bergambar, keluaran muzik, dan platform 
+        digital. Pautan rasmi ke semua platform boleh didapati di laman web.`,
+
+        p15: `🧒 Untuk kumpulan umur manakah North Dakota Fairytales sesuai?`,
+        p16: `Kandungan ini direka terutamanya untuk: kanak-kanak kecil dan keluarga yang menikmati membaca, mendengar 
+        dan berkongsi cerita bersama. Ibu bapa digalakkan berkongsi cerita ini dengan anak-anak semasa waktu tenang 
+        seperti sebelum tidur atau masa santai bersama keluarga.`,
+
+        p17: `🌲 Apakah misi North Dakota Fairytales?`,
+        p18: `Misinya ialah untuk memelihara cerita dan nilai bermakna yang semakin dilupakan dari generasi ke generasi,
+        serta memberikan kanak-kanak pengalaman zaman kanak-kanak yang sebenar yang berasaskan imaginasi, kehangatan 
+        dan penceritaan yang penuh perhatian — bukan rangsangan berlebihan.`,
+
+        p19: `🧾 Adakah North Dakota Fairytales sebuah syarikat atau projek kreatif?`,
+        p20: `North Dakota Fairytales ialah projek kreatif bebas. Semua cerita, muzik, watak dan adaptasi dicipta 
+        khusus untuk jenama ini dengan menghormati warisan budaya dan kesejahteraan emosi kanak-kanak.`,
+
+        p21: `💰 Adakah North Dakota Fairytales menggunakan pengiklanan atau teknik media yang pantas?`,
+        p22: `Tidak. Jenama ini mengelakkan pengiklanan agresif, kesan visual yang bising dan gaya penyuntingan pantas.
+        Tumpuan diberikan kepada penceritaan yang tenang, muzik lembut dan ilustrasi yang menyokong pengalaman yang 
+        damai untuk kanak-kanak.`,
+
+        p23: `🎶 Di manakah kita boleh menikmati kandungan North Dakota Fairytales?`,
+        p24: `Cerita dan lagu North Dakota Fairytales tersedia melalui: buku bergambar, keluaran muzik dan platform 
+        digital rasmi yang dipilih khusus untuk keluarga dan kanak-kanak. Semua pautan rasmi disediakan di laman web 
+        untuk memastikan akses yang selamat kepada kandungan.`,
+
+        p25: `☀️ Adakah North Dakota Fairytales akan mencipta cerita untuk musim lain pada masa depan?`,
+        p26: `Tidak. Jenama ini secara sengaja didedikasikan hanya kepada penceritaan bertemakan musim sejuk. 
+        Fokus kreatif ini membolehkan North Dakota Fairytales mengekalkan suasana, identiti visual dan nada emosi 
+        yang konsisten dalam semua cerita dan lagu.`
+},
+
+    id: {
+        subtitle: "",
+        p1: `❓ Apa itu North Dakota Fairytales?`,
+        p2: `North Dakota Fairytales adalah merek independen untuk cerita dan musik anak-anak yang menciptakan dongeng, 
+        lagu, dan cerita bergambar asli bertema musim dingin. Merek ini juga mengadaptasi cerita rakyat tradisional 
+        yang jarang dikenal atau terlupakan, dengan menafsirkannya kembali secara lembut untuk anak-anak masa kini sambil 
+        tetap menjaga nilai moralnya.`,
+
+        p3: `❄️ Mengapa semua cerita bertema musim dingin?`,
+        p4: `Musim dingin berada di pusat identitas merek ini. Salju, malam yang sunyi, hutan utara, dan malam musim 
+        dingin yang panjang menciptakan suasana tenang dan reflektif yang sangat cocok untuk bercerita. North Dakota 
+        Fairytales didedikasikan sepenuhnya untuk cerita dan visual bertema musim dingin.`,
+
+        p5: `📚 Apakah cerita-ceritanya asli atau berdasarkan cerita rakyat?`,
+        p6: `Keduanya. Merek ini menciptakan: dongeng dan lagu asli, serta cerita yang diadaptasi dari kisah rakyat 
+        tradisional dan yang kurang dikenal. Semua adaptasi diceritakan dengan cara yang lembut dan ramah anak, dengan
+         fokus pada nilai-nilai abadi, bukan pada rasa takut atau kekerasan.`,
+
+        p7: `❤️ Nilai apa yang diajarkan oleh cerita North Dakota Fairytales?`,
+        p8: `Cerita-cerita ini mengeksplorasi tema-tema universal yang telah diwariskan dari generasi ke generasi, 
+        termasuk: kebaikan dan kasih sayang, baik dan jahat, persahabatan dan kesetiaan, keberanian dan tanggung jawab, 
+        kejujuran dan empati. Tujuannya adalah membantu anak-anak memahami gagasan ini melalui cerita yang tenang dan 
+        penuh imajinasi.`,
+
+        p9: `🌍 Dalam bahasa apa saja konten ini tersedia?`,
+        p10: `Cerita dan lagu North Dakota Fairytales diproduksi dalam berbagai bahasa termasuk: Inggris, Spanyol,
+         Prancis, Arab, Rusia, Urdu, Hindi, Bengali, Persia, Portugis, Melayu, Indonesia, Jerman, Catalan, Azerbaijan, 
+         Armenia, Hawaii, dan Tatar.
+        Penceritaan multibahasa membantu anak-anak mengenal berbagai budaya sambil tetap terhubung melalui nilai-nilai
+         kemanusiaan yang sama.`,
+
+        p11: `👶 Apakah North Dakota Fairytales aman untuk anak-anak?`,
+        p12: `Ya. Semua konten dibuat dengan mempertimbangkan kesejahteraan emosional anak-anak. Ceritanya: tenang dan 
+        tidak agresif, ramah keluarga, serta bebas dari elemen yang mengejutkan atau terlalu merangsang. Merek ini 
+        bertujuan memberikan alternatif yang damai bagi media modern yang cepat dan bising.`,
+
+        p13: `🎶 Di mana kita bisa menikmati konten North Dakota Fairytales?`,
+        p14: `Cerita dan lagu North Dakota Fairytales tersedia melalui: buku bergambar, rilis musik, dan platform 
+        digital. Tautan resmi ke semua platform tersedia di situs web.`,
+
+        p15: `🧒 Untuk kelompok usia berapa North Dakota Fairytales dibuat?`,
+        p16: `Konten ini terutama dirancang untuk: anak-anak kecil dan keluarga yang menikmati membaca, mendengarkan, 
+        dan berbagi cerita bersama. Orang tua dianjurkan untuk membagikan cerita ini kepada anak-anak pada waktu yang 
+        tenang, seperti sebelum tidur atau saat waktu keluarga yang santai.`,
+
+        p17: `🌲 Apa misi dari North Dakota Fairytales?`,
+        p18: `Misi proyek ini adalah melestarikan cerita dan nilai bermakna yang perlahan terlupakan dari generasi ke 
+        generasi, serta memberikan anak-anak masa kecil yang sejati yang berakar pada imajinasi, kehangatan, dan 
+        penceritaan yang penuh perhatian — bukan rangsangan berlebihan.`,
+
+        p19: `🧾 Apakah North Dakota Fairytales sebuah perusahaan atau proyek kreatif?`,
+        p20: `North Dakota Fairytales adalah proyek kreatif independen. Semua cerita, musik, karakter, dan adaptasi 
+        diciptakan khusus untuk merek ini dengan menghormati warisan budaya dan kesehatan emosional anak-anak.`,
+
+        p21: `💰 Apakah North Dakota Fairytales menggunakan iklan atau teknik media yang cepat?`,
+        p22: `Tidak. Merek ini menghindari iklan agresif, efek visual yang keras, dan gaya pengeditan cepat. Fokusnya 
+        adalah pada penceritaan yang tenang, musik lembut, dan ilustrasi yang menciptakan pengalaman yang damai bagi 
+        anak-anak.`,
+
+        p23: `🎶 Di mana kita bisa menikmati konten North Dakota Fairytales?`,
+        p24: `Cerita dan lagu North Dakota Fairytales tersedia melalui: buku bergambar, rilis musik, dan platform 
+        digital resmi yang dipilih khusus untuk keluarga dan anak-anak. Semua tautan resmi disediakan di situs web 
+        untuk memastikan akses yang aman ke konten.`,
+
+        p25: `☀️ Apakah North Dakota Fairytales akan membuat cerita untuk musim lain di masa depan?`,
+        p26: `Tidak. Merek ini dengan sengaja didedikasikan hanya untuk penceritaan bertema musim dingin. Fokus kreatif 
+        ini memungkinkan North Dakota Fairytales mempertahankan suasana, identitas visual, dan nada emosional yang 
+        konsisten di semua cerita dan lagu.`
+},
+
+    de: {
+        subtitle: "",
+        p1: `❓ Was ist North Dakota Fairytales?`,
+        p2: `North Dakota Fairytales ist eine unabhängige Marke für Kinder-Geschichten und Musik, die originale 
+        winterliche Märchen, Lieder und illustrierte Geschichten erschafft. Die Marke adaptiert auch vergessene und 
+        traditionelle Volksmärchen und erzählt sie behutsam neu für moderne Kinder, während ihre moralischen Werte 
+        erhalten bleiben.`,
+
+        p3: `❄️ Warum haben alle Geschichten ein Winterthema?`,
+        p4: `Der Winter steht im Mittelpunkt der Identität dieser Marke. Schnee, stille Nächte, nördliche Wälder und 
+        lange Winterabende schaffen eine ruhige und nachdenkliche Atmosphäre, die ideal zum Erzählen von Geschichten 
+        ist. North Dakota Fairytales ist ausschließlich winterlichen Geschichten und Bildern gewidmet.`,
+
+        p5: `📚 Sind die Geschichten original oder basieren sie auf Volksmärchen?`,
+        p6: `Beides. Die Marke erschafft: originale Märchen und Lieder sowie adaptierte Geschichten, die von 
+        traditionellen und weniger bekannten Volksmärchen inspiriert sind. Alle Adaptionen werden sanft und 
+        kinderfreundlich erzählt und konzentrieren sich auf zeitlose Werte statt auf Angst oder Gewalt.`,
+
+        p7: `❤️ Welche Werte vermitteln die Geschichten von North Dakota Fairytales?`,
+        p8: `Die Geschichten behandeln universelle Themen, die über Generationen weitergegeben wurden, darunter: 
+        Freundlichkeit und Mitgefühl, Gut und Böse, Freundschaft und Loyalität, Mut und Verantwortung, Ehrlichkeit 
+        und Empathie. Ziel ist es, Kindern diese Ideen durch ruhige und fantasievolle Geschichten näherzubringen.`,
+
+        p9: `🌍 In welchen Sprachen ist der Inhalt verfügbar?`,
+        p10: `Die Geschichten und Lieder von North Dakota Fairytales werden in mehreren Sprachen produziert, darunter: 
+        Englisch, Spanisch, Französisch, Arabisch, Russisch, Urdu, Hindi, Bengalisch, Persisch, Portugiesisch, Malaiisch, 
+        Indonesisch, Deutsch, Katalanisch, Aserbaidschanisch, Armenisch, Hawaiianisch und Tatarisch.
+        Mehrsprachiges Erzählen hilft Kindern, verschiedene Kulturen kennenzulernen, während sie gleichzeitig durch 
+        gemeinsame menschliche Werte verbunden bleiben.`,
+
+        p11: `👶 Ist North Dakota Fairytales sicher für Kinder?`,
+        p12: `Ja. Alle Inhalte werden mit Blick auf das emotionale Wohlbefinden von Kindern geschaffen. Die 
+        Geschichten sind: ruhig und nicht aggressiv, familienfreundlich und frei von schockierenden oder 
+        überstimulierenden Elementen. Die Marke möchte Kindern eine friedliche Alternative zu schneller und lauter 
+        moderner Medien bieten.`,
+
+        p13: `🎶 Wo kann man Inhalte von North Dakota Fairytales genießen?`,
+        p14: `Die Geschichten und Lieder von North Dakota Fairytales sind verfügbar über: illustrierte Bücher, 
+        Musikveröffentlichungen und digitale Plattformen. Offizielle Links zu allen Plattformen sind auf der Website 
+        verfügbar.`,
+
+        p15: `🧒 Für welche Altersgruppe ist North Dakota Fairytales gedacht?`,
+        p16: `Der Inhalt ist hauptsächlich für folgende Zielgruppen gedacht: junge Kinder und Familien, die gerne 
+        gemeinsam lesen, zuhören und Geschichten teilen. Eltern werden ermutigt, diese Geschichten in ruhigen Momenten 
+        mit ihren Kindern zu teilen, zum Beispiel vor dem Schlafengehen oder während einer entspannten Familienzeit.`,
+
+        p17: `🌲 Was ist die Mission von North Dakota Fairytales?`,
+        p18: `Die Mission des Projekts ist es, bedeutungsvolle Geschichten und Werte zu bewahren, die im Laufe der 
+        Generationen langsam in Vergessenheit geraten sind, und Kindern eine echte Kindheit zu schenken – eine 
+        Kindheit, die auf Fantasie, Wärme und achtsames Erzählen basiert und nicht auf Überstimulation.`,
+
+        p19: `🧾 Ist North Dakota Fairytales ein Unternehmen oder ein kreatives Projekt?`,
+        p20: `North Dakota Fairytales ist ein unabhängiges kreatives Projekt. Alle Geschichten, Musikstücke, 
+        Figuren und Adaptionen werden speziell für diese Marke geschaffen, mit Respekt vor kulturellem Erbe und 
+        dem emotionalen Wohlbefinden von Kindern.`,
+
+        p21: `💰 Nutzt North Dakota Fairytales Werbung oder schnelle Medien-Techniken?`,
+        p22: `Nein. Die Marke vermeidet aggressive Werbung, laute visuelle Effekte und schnelle Schnittstile. 
+        Der Fokus liegt auf ruhigem Erzählen, sanfter Musik und Illustrationen, die ein friedliches Erlebnis für Kinder 
+        schaffen.`,
+
+        p23: `🎶 Wo kann man Inhalte von North Dakota Fairytales genießen?`,
+        p24: `Die Geschichten und Lieder von North Dakota Fairytales sind verfügbar über: illustrierte Bücher, 
+        Musikveröffentlichungen und offizielle digitale Plattformen, die speziell für Familien und Kinder ausgewählt 
+        wurden. Alle offiziellen Links werden auf der Website bereitgestellt, um einen sicheren Zugang zu den Inhalten 
+        zu gewährleisten.`,
+
+        p25: `☀️ Wird North Dakota Fairytales in Zukunft auch Geschichten für andere Jahreszeiten erstellen?`,
+        p26: `Nein. Die Marke ist bewusst ausschließlich dem Erzählen von Wintergeschichten gewidmet. Dieser kreative 
+        Fokus ermöglicht es North Dakota Fairytales, eine konsistente Atmosphäre, visuelle Identität und emotionale 
+        Stimmung in allen Geschichten und Liedern zu bewahren.`
+},
+
+ca: {
+    subtitle: "",
+        p1: `❓ Què és North Dakota Fairytales?`,
+        p2: `North Dakota Fairytales és una marca independent de narració i música per a nens que crea contes de fades,
+         cançons i històries il·lustrades originals amb temàtica d’hivern. La marca també adapta contes populars 
+         tradicionals i oblidats, reinterpretant-los amb cura per als nens d’avui mentre preserva els seus valors morals.`,
+
+        p3: `❄️ Per què totes les històries tenen temàtica d’hivern?`,
+        p4: `L’hivern és al centre de la identitat de la marca. La neu, les nits tranquil·les, els boscos del nord i 
+        les llargues vetllades d’hivern creen una atmosfera de calma i reflexió ideal per explicar històries. 
+        North Dakota Fairytales està dedicat exclusivament a històries i imatges amb temàtica d’hivern.`,
+
+        p5: `📚 Les històries són originals o es basen en contes populars?`,
+        p6: `Ambdues coses. La marca crea: contes de fades i cançons originals, així com històries adaptades inspirades 
+        en contes populars tradicionals i menys coneguts. Totes les adaptacions s’expliquen d’una manera suau i adequada 
+        per als nens, centrant-se en valors atemporals en lloc de la por o la violència.`,
+
+        p7: `❤️ Quins valors ensenyen les històries de North Dakota Fairytales?`,
+        p8: `Les històries exploren temes universals que han estat transmesos de generació en generació, com ara: 
+        bondat i compassió, el bé i el mal, amistat i lleialtat, coratge i responsabilitat, honestedat i empatia. 
+        L’objectiu és ajudar els nens a comprendre aquestes idees a través d’històries tranquil·les i plenes d’imaginació.`,
+
+        p9: `🌍 En quins idiomes està disponible el contingut?`,
+        p10: `Les històries i cançons de North Dakota Fairytales es produeixen en diverses llengües, incloent-hi: anglès, 
+        espanyol, francès, àrab, rus, urdú, hindi, bengalí, persa, portuguès, malai, indonesi, alemany, català, 
+        azerbaidjanès, armeni, hawaià i tàtar.
+        La narració multilingüe ajuda els nens a descobrir diferents cultures mentre continuen connectats a través de 
+        valors humans compartits.`,
+
+        p11: `👶 North Dakota Fairytales és segur per als nens?`,
+        p12: `Sí. Tot el contingut es crea pensant en el benestar emocional dels nens. Les històries són: tranquil·les 
+        i no agressives, adequades per a tota la família i lliures d’elements impactants o excessivament estimulants. 
+        La marca pretén oferir als nens una alternativa pacífica als mitjans moderns ràpids i sorollosos.`,
+
+        p13: `🎶 On podem gaudir del contingut de North Dakota Fairytales?`,
+        p14: `Les històries i cançons de North Dakota Fairytales estan disponibles a través de: llibres il·lustrats, 
+        publicacions musicals i plataformes digitals. Els enllaços oficials a totes les plataformes estan disponibles
+         al lloc web.`,
+
+        p15: `🧒 Per a quin grup d’edat està pensat North Dakota Fairytales?`,
+        p16: `El contingut està dissenyat principalment per a: nens petits i famílies que gaudeixen llegint, escoltant 
+        i compartint històries junts. Es recomana als pares compartir aquestes històries amb els seus fills en moments 
+        tranquils, com abans d’anar a dormir o durant el temps familiar relaxat.`,
+
+        p17: `🌲 Quina és la missió de North Dakota Fairytales?`,
+        p18: `La missió del projecte és preservar històries i valors significatius que s’han anat perdent amb 
+        el pas de les generacions, i oferir als nens una infància autèntica basada en la imaginació, la calidesa 
+        i una narració reflexiva — no en l’excés d’estimulació.`,
+
+        p19: `🧾 North Dakota Fairytales és una empresa o un projecte creatiu?`,
+        p20: `North Dakota Fairytales és un projecte creatiu independent. Totes les històries, la música, els 
+        personatges i les adaptacions es creen específicament per a la marca amb respecte pel patrimoni cultural 
+        i el benestar emocional dels nens.`,
+
+        p21: `💰 North Dakota Fairytales utilitza publicitat o tècniques de mitjans accelerats?`,
+        p22: `No. La marca evita la publicitat agressiva, els efectes visuals sorollosos i els estils d’edició ràpids.
+        El focus és la narració tranquil·la, la música suau i les il·lustracions que ofereixen una experiència calmada per 
+        als nens.`,
+
+        p23: `🎶 On podem gaudir del contingut de North Dakota Fairytales?`,
+        p24: `Les històries i cançons de North Dakota Fairytales estan disponibles a través de: llibres il·lustrats, 
+        publicacions musicals i plataformes digitals oficials seleccionades especialment per a famílies i nens. 
+        Tots els enllaços oficials es proporcionen al lloc web per garantir un accés segur al contingut.`,
+
+        p25: `☀️ North Dakota Fairytales crearà històries per a altres estacions en el futur?`,
+        p26: `No. La marca està intencionadament dedicada només a la narració amb temàtica d’hivern. Aquest enfocament 
+        creatiu permet a North Dakota Fairytales mantenir una atmosfera, identitat visual i to emocional coherents en 
+        totes les històries i cançons.`
+},
+
+az: {
+    subtitle: "",
+        p1: `❓ North Dakota Fairytales nədir?`,
+        p2: `North Dakota Fairytales uşaqlar üçün nağıl danışma və musiqi brendidir. Bu layihə qış mövzusunda orijinal 
+        nağıllar, mahnılar və illüstrasiyalı hekayələr yaradır. Brend həmçinin unudulmuş və ənənəvi xalq nağıllarını 
+        diqqətlə yenidən uyğunlaşdırır və onların mənəvi dəyərlərini qoruyaraq müasir uşaqlar üçün yumşaq və mehriban 
+        şəkildə təqdim edir.`,
+
+        p3: `❄️ Niyə bütün hekayələr qış mövzusundadır?`,
+        p4: `Qış bu brendin əsas kimliyinin mərkəzində dayanır. Qar, sakit gecələr, şimal meşələri və uzun qış axşamları
+         hekayə danışmaq üçün ideal olan sakit və düşüncəli bir atmosfer yaradır. North Dakota Fairytales yalnız qış 
+         mövzulu hekayələrə və vizual dünyaya həsr olunmuşdur.`,
+
+        p5: `📚 Hekayələr orijinaldır, yoxsa xalq nağıllarına əsaslanır?`,
+        p6: `Hər ikisi. Brend yaradır: orijinal nağıllar və mahnılar, həmçinin ənənəvi və az tanınan xalq hekayələrindən
+         ilhamlanan uyğunlaşdırılmış hekayələr. Bütün uyğunlaşdırmalar uşaqlar üçün uyğun, yumşaq və mehriban şəkildə
+          təqdim olunur və qorxu və ya zorakılıqdan çox əbədi dəyərlərə diqqət yetirir.`,
+
+        p7: `❤️ North Dakota Fairytales hekayələri hansı dəyərləri öyrədir?`,
+        p8: `Bu hekayələr nəsildən-nəslə ötürülmüş universal mövzuları araşdırır, o cümlədən: xeyirxahlıq və mərhəmət, 
+        yaxşılıq və pislik, dostluq və sədaqət, cəsarət və məsuliyyət, dürüstlük və empatiya. Məqsəd uşaqlara bu 
+        fikirləri sakit və xəyal gücü ilə zəngin hekayələr vasitəsilə anlamağa kömək etməkdir.`,
+
+        p9: `🌍 Məzmun hansı dillərdə mövcuddur?`,
+        p10: `North Dakota Fairytales hekayələri və mahnıları bir çox dillərdə hazırlanır, o cümlədən: ingilis, ispan, 
+        fransız, ərəb, rus, urdu, hindi, benqal, fars, portuqal, malay, indoneziya, alman, katalan, azərbaycan, erməni, 
+        havay və tatar dillərində.
+        Çoxdilli hekayə danışmaq uşaqlara müxtəlif mədəniyyətləri kəşf etməyə kömək edir və eyni zamanda onları ortaq 
+        insan dəyərləri ilə birləşdirir.`,
+
+        p11: `👶 North Dakota Fairytales uşaqlar üçün təhlükəsizdirmi?`,
+        p12: `Bəli. Bütün məzmun uşaqların emosional rifahı nəzərə alınaraq yaradılır. Hekayələr: sakit və aqressiv 
+        olmayan, ailə üçün uyğun və şok yaradan və ya həddindən artıq stimullaşdırıcı elementlərdən uzaqdır. Brend 
+        sürətli və səs-küylü müasir mediaya alternativ olaraq uşaqlar üçün sakit bir məkan yaratmağı hədəfləyir.`,
+
+        p13: `🎶 North Dakota Fairytales məzmununu harada izləmək və ya dinləmək olar?`,
+        p14: `North Dakota Fairytales hekayələri və mahnıları aşağıdakı vasitələrlə mövcuddur: illüstrasiyalı kitablar, 
+        musiqi buraxılışları və rəqəmsal platformalar. Bütün rəsmi keçidlər vebsaytda mövcuddur.`,
+
+        p15: `🧒 North Dakota Fairytales hansı yaş qrupu üçün nəzərdə tutulub?`,
+        p16: `Məzmun əsasən aşağıdakılar üçün hazırlanmışdır: kiçik uşaqlar və birlikdə oxumağı, dinləməyi və hekayə 
+        paylaşmağı sevən ailələr. Valideynlərə tövsiyə olunur ki, bu hekayələri uşaqlarla sakit anlarda — məsələn, 
+        yatmazdan əvvəl və ya ailə ilə rahat vaxtda paylaşsınlar.`,
+
+        p17: `🌲 North Dakota Fairytales layihəsinin missiyası nədir?`,
+        p18: `Layihənin məqsədi nəsillər boyu tədricən unudulan mənalı hekayələri və dəyərləri qorumaq və uşaqlara 
+        xəyal gücü, istilik və düşüncəli hekayə danışmağa əsaslanan həqiqi bir uşaqlıq təcrübəsi təqdim etməkdir — 
+        həddindən artıq stimullaşdırıcı mediaya deyil.`,
+
+        p19: `🧾 North Dakota Fairytales şirkətdirmi, yoxsa yaradıcı layihə?`,
+        p20: `North Dakota Fairytales müstəqil yaradıcı layihədir. Bütün hekayələr, musiqi, personajlar və 
+        uyğunlaşdırmalar bu brend üçün xüsusi olaraq yaradılır və mədəni irsə və uşaqların emosional sağlamlığına 
+        hörmətlə hazırlanır.`,
+
+        p21: `💰 North Dakota Fairytales reklam və ya sürətli media texnikalarından istifadə edirmi?`,
+        p22: `Xeyr. Brend aqressiv reklamdan, səs-küylü vizual effektlərdən və sürətli montaj üslubundan qaçır. 
+        Diqqət sakit hekayə danışmağa, yumşaq musiqiyə və uşaqlar üçün rahat və sakit təcrübə yaradan illüstrasiyalara 
+        yönəlib.`,
+
+        p23: `🎶 North Dakota Fairytales məzmununu harada izləmək və ya dinləmək olar?`,
+        p24: `North Dakota Fairytales hekayələri və mahnıları aşağıdakı vasitələrlə mövcuddur: illüstrasiyalı kitablar, 
+        musiqi buraxılışları və ailələr və uşaqlar üçün xüsusi seçilmiş rəsmi rəqəmsal platformalar. Təhlükəsiz giriş 
+        üçün bütün rəsmi keçidlər vebsaytda təqdim olunur.`,
+
+        p25: `☀️ North Dakota Fairytales gələcəkdə digər fəsillər üçün də hekayələr yaradacaqmı?`,
+        p26: `Xeyr. Brend qəsdən yalnız qış mövzulu hekayələrə həsr olunub. Bu yaradıcı fokus North Dakota 
+        Fairytales-ə bütün hekayə və mahnılarda sabit atmosferi, vizual üslubu və emosional tonu qorumağa imkan verir.`
+},
+
+hy: {
+    subtitle: "",
+        p1: `❓ Ի՞նչ է North Dakota Fairytales-ը`,
+        p2: `North Dakota Fairytales-ը անկախ մանկական պատմությունների և երաժշտության նախագիծ է, որը ստեղծում է ձմեռային 
+        թեմայով բնօրինակ հեքիաթներ, երգեր և նկարազարդ պատմություններ։ Նախագիծը նաև զգուշությամբ վերապատմում է մոռացված 
+        և ավանդական ժողովրդական հեքիաթները՝ դրանք հարմարեցնելով ժամանակակից երեխաների համար՝ պահպանելով դրանց բարոյական 
+        արժեքները։`,
+
+        p3: `❄️ Ինչո՞ւ են բոլոր պատմությունները ձմռան մասին`,
+        p4: `Ձմեռը այս նախագծի ինքնության կենտրոնում է։ Ձյունը, լուռ գիշերները, հյուսիսային անտառները և երկար ձմեռային 
+        երեկոները ստեղծում են խաղաղ և մտածող մթնոլորտ, որը իդեալական է պատմություններ պատմելու համար։ North Dakota 
+        Fairytales-ը ամբողջությամբ նվիրված է ձմեռային պատմություններին և պատկերային աշխարհին։`,
+
+        p5: `📚 Պատմությունները բնօրինա՞կ են, թե՞ հիմնված են ժողովրդական հեքիաթների վրա`,
+        p6: `Երկուսն էլ։ Նախագիծը ստեղծում է՝ բնօրինակ հեքիաթներ և երգեր, ինչպես նաև հարմարեցված պատմություններ, որոնք 
+        ներշնչված են ավանդական և քիչ հայտնի ժողովրդական հեքիաթներից։ Բոլոր հարմարեցումները պատմվում են մեղմ և երեխաների
+         համար բարեկամական ձևով՝ կենտրոնանալով հավերժական արժեքների վրա, ոչ թե վախի կամ բռնության։`,
+
+        p7: `❤️ Ի՞նչ արժեքներ են փոխանցում North Dakota Fairytales-ի պատմությունները`,
+        p8: `Պատմությունները անդրադառնում են համամարդկային թեմաների, որոնք փոխանցվել են սերունդների ընթացքում, 
+        ներառյալ՝ բարություն և կարեկցանք, լավը և վատը, ընկերություն և հավատարմություն, քաջություն և պատասխանատվություն, 
+        ազնվություն և համակրանք։ Նպատակն է օգնել երեխաներին հասկանալ այս գաղափարները խաղաղ և երևակայությամբ լի 
+        պատմությունների միջոցով։`,
+
+        p9: `🌍 Ո՞ր լեզուներով է հասանելի բովանդակությունը`,
+        p10: `North Dakota Fairytales-ի պատմություններն ու երգերը ստեղծվում են բազմաթիվ լեզուներով, այդ թվում՝ 
+        անգլերեն, իսպաներեն, ֆրանսերեն, արաբերեն, ռուսերեն, ուրդու, հինդի, բենգալերեն, պարսկերեն, պորտուգալերեն, 
+        մալայերեն, ինդոնեզերեն, գերմաներեն, կատալոներեն, ադրբեջաներեն, հայերեն, հավայերեն և թաթարերեն։
+        Բազմալեզու պատմությունները օգնում են երեխաներին բացահայտել տարբեր մշակույթներ՝ միաժամանակ պահպանելով կապը 
+        ընդհանուր մարդկային արժեքների հետ։`,
+
+        p11: `👶 Արդյո՞ք North Dakota Fairytales-ը անվտանգ է երեխաների համար`,
+        p12: `Այո։ Բոլոր բովանդակությունները ստեղծվում են երեխաների զգացմունքային բարեկեցությունը հաշվի առնելով։ 
+        Պատմությունները՝ հանգիստ և ոչ ագրեսիվ են, հարմար են ամբողջ ընտանիքի համար և զերծ են վախեցնող կամ չափազանց 
+        խթանող տարրերից։ Նախագծի նպատակն է առաջարկել խաղաղ այլընտրանք ժամանակակից արագ և աղմկոտ մեդիային։`,
+
+        p13: `🎶 Որտե՞ղ կարող ենք վայելել North Dakota Fairytales-ի բովանդակությունը`,
+        p14: `North Dakota Fairytales-ի պատմություններն ու երգերը հասանելի են՝ նկարազարդ գրքերի, երաժշտական 
+        թողարկումների և թվային հարթակների միջոցով։ Բոլոր պաշտոնական հղումները հասանելի են կայքում։`,
+
+        p15: `🧒 Ո՞ր տարիքային խմբի համար է նախատեսված North Dakota Fairytales-ը`,
+        p16: `Բովանդակությունը հիմնականում նախատեսված է՝ փոքր երեխաների և այն ընտանիքների համար, որոնք սիրում են միասին 
+        կարդալ, լսել և պատմություններ պատմել։ Ծնողներին խրախուսվում է այս պատմությունները կիսել երեխաների հետ հանգիստ 
+        պահերին, օրինակ՝ քնելուց առաջ կամ ընտանեկան խաղաղ ժամանակի ընթացքում։`,
+
+        p17: `🌲 Ի՞նչ է North Dakota Fairytales-ի առաքելությունը`,
+        p18: `Նախագծի առաքելությունն է պահպանել այն կարևոր պատմություններն ու արժեքները, որոնք սերունդների 
+        ընթացքում աստիճանաբար մոռացվել են, և երեխաներին նվիրել իսկական մանկություն՝ հիմնված երևակայության, 
+        ջերմության և մտածված պատմությունների վրա, ոչ թե չափազանց խթանող մեդիայի վրա։`,
+
+        p19: `🧾 North Dakota Fairytales-ը ընկերությո՞ւն է, թե՞ ստեղծագործական նախագիծ`,
+        p20: `North Dakota Fairytales-ը անկախ ստեղծագործական նախագիծ է։ Բոլոր պատմությունները, երաժշտությունը, 
+        կերպարները և հարմարեցումները ստեղծվում են հատուկ այս նախագծի համար՝ հարգելով մշակութային ժառանգությունը և 
+        երեխաների զգացմունքային առողջությունը։`,
+
+        p21: `💰 Արդյո՞ք North Dakota Fairytales-ը օգտագործում է գովազդ կամ արագ մեդիա տեխնիկաներ`,
+        p22: `Ոչ։ Նախագիծը խուսափում է ագրեսիվ գովազդից, բարձր ձայնային տեսողական ազդեցություններից և արագ մոնտաժի 
+        ոճից։ Կենտրոնացումը խաղաղ պատմությունների, մեղմ երաժշտության և նկարազարդումների վրա է, որոնք ստեղծում են 
+        հանգիստ փորձ երեխաների համար։`,
+
+        p23: `🎶 Որտե՞ղ կարող ենք վայելել North Dakota Fairytales-ի բովանդակությունը`,
+        p24: `North Dakota Fairytales-ի պատմություններն ու երգերը հասանելի են՝ նկարազարդ գրքերի, երաժշտական 
+        թողարկումների և պաշտոնական թվային հարթակների միջոցով, որոնք հատուկ ընտրված են ընտանիքների և երեխաների համար։ 
+        Բոլոր պաշտոնական հղումները տրամադրվում են կայքում՝ ապահով մուտք ապահովելու համար։`,
+
+        p25: `☀️ Արդյո՞ք North Dakota Fairytales-ը ապագայում կստեղծի պատմություններ այլ եղանակների մասին`,
+        p26: `Ոչ։ Նախագիծը գիտակցաբար նվիրված է միայն ձմեռային թեմայով պատմություններին։ Այս ստեղծագործական 
+        կենտրոնացումը թույլ է տալիս North Dakota Fairytales-ին պահպանել միատեսակ մթնոլորտ, տեսողական ինքնություն 
+        և զգացմունքային տոն բոլոր պատմություններում և երգերում։`
+},
+
+haw: {
+    subtitle: "",
+        p1: `❓ He aha ʻo North Dakota Fairytales?`,
+        p2: `He papahana kūʻokoʻa ʻo North Dakota Fairytales no nā moʻolelo a me nā mele no nā keiki. Hana kēia 
+        papahana i nā moʻolelo kupanaha, nā mele, a me nā moʻolelo kiʻi i hoʻoulu ʻia e ka hoʻoilo. Hoʻololi pū 
+        ka papahana i kekahi mau moʻolelo kahiko a me nā moʻolelo kuʻuna i poina ʻia, me ka mālama ʻana i ko 
+        lākou mau waiwai maikaʻi no nā keiki o kēia wā.`,
+
+        p3: `❄️ No ke aha he kumuhana hoʻoilo nā moʻolelo a pau?`,
+        p4: `Aia ka hoʻoilo ma ke kikowaena o ka ʻike o kēia papahana. ʻO ka hau, nā pō mālie, nā ululāʻau o ka ʻākau, 
+        a me nā ahiahi lōʻihi o ka hoʻoilo e hana i kahi ʻano mālie kūpono loa no ka haʻi moʻolelo. Hoʻolaʻa ʻia ʻo North 
+        Dakota Fairytales i nā moʻolelo a me nā kiʻi e pili ana i ka hoʻoilo.`,
+
+        p5: `📚 He moʻolelo hou anei nā moʻolelo a i ʻole ua hoʻokumu ʻia ma nā moʻolelo kuʻuna?`,
+        p6: `ʻElua. Hana ka papahana i: nā moʻolelo kupanaha a me nā mele hou, a me nā moʻolelo i hoʻololi ʻia mai 
+        nā moʻolelo kuʻuna kahiko a me nā moʻolelo i ʻike ʻole nui ʻia. Hōʻike ʻia nā moʻolelo a pau ma ke ʻano mālie 
+        a kūpono no nā keiki, me ka nānā ʻana i nā waiwai mau loa ma mua o ka makaʻu a i ʻole ka hana ʻino.`,
+
+        p7: `❤️ He aha nā waiwai e aʻo ʻia e nā moʻolelo o North Dakota Fairytales?`,
+        p8: `ʻImi kēia mau moʻolelo i nā kumuhana honua i hoʻoili ʻia mai kekahi hanauna i kekahi, e like me: ka 
+        lokomaikaʻi a me ke aloha, ka maikaʻi a me ka ʻino, ka hoaloha a me ka kūpaʻa, ka koa a me ke kuleana, 
+        ka ʻoiaʻiʻo a me ka ʻike aloha. ʻO ka pahuhopu ka kōkua ʻana i nā keiki e hoʻomaopopo i kēia mau manaʻo ma o 
+        nā moʻolelo mālie a piha i ka noʻonoʻo.`,
+
+        p9: `🌍 I nā ʻōlelo hea ka ʻike i loaʻa ai?`,
+        p10: `Hana ʻia nā moʻolelo a me nā mele o North Dakota Fairytales i nā ʻōlelo he nui, e like me: English, 
+        Spanish, French, Arabic, Russian, Urdu, Hindi, Bengali, Persian, Portuguese, Malay, Indonesian, German, Catalan, 
+        Azerbaijani, Armenian, Hawaiian, a me Tatar.
+        Kōkua ka haʻi moʻolelo ma nā ʻōlelo he nui i nā keiki e ʻike i nā moʻomeheu like ʻole me ka noho pili mau i nā 
+        waiwai kanaka like.`,
+
+        p11: `👶 He palekana anei ʻo North Dakota Fairytales no nā keiki?`,
+        p12: `ʻAe. Hana ʻia nā ʻike a pau me ka nānā ʻana i ke olakino manaʻo o nā keiki. ʻO nā moʻolelo: mālie a ʻaʻohe 
+        hana ʻino, kūpono no ka ʻohana holoʻokoʻa, a ʻaʻohe mea e hoʻoweliweli ai a i ʻole e hoʻoikaika nui i ka manaʻo. 
+        ʻO ka pahuhopu o ka papahana ke hāʻawi i kahi koho mālie i nā pāpaho wikiwiki a walaʻau o kēia au.`,
+
+        p13: `🎶 Ma hea e hiki ai ke nānā a hoʻolohe i nā mea o North Dakota Fairytales?`,
+        p14: `Hiki ke loaʻa nā moʻolelo a me nā mele o North Dakota Fairytales ma o: nā puke kiʻi, nā hoʻokuʻu mele, 
+        a me nā paepae kikohoʻe. Aia nā loulou kūhelu āpau ma ka pūnaewele.`,
+
+        p15: `🧒 No wai ka makahiki kūpono o North Dakota Fairytales?`,
+        p16: `Hoʻolālā ʻia ka ʻike no: nā keiki ʻōpio a me nā ʻohana e makemake ana e heluhelu, hoʻolohe, a kaʻana 
+        like i nā moʻolelo pū. Paipai ʻia nā mākua e kaʻana like i kēia mau moʻolelo me nā keiki i nā manawa mālie 
+        e like me ka wā hiamoe a i ʻole ka wā ʻohana.`,
+
+        p17: `🌲 He aha ka pahuhopu o North Dakota Fairytales?`,
+        p18: `ʻO ka pahuhopu o ka papahana ke mālama i nā moʻolelo a me nā waiwai koʻikoʻi i poina mālie i loko o 
+        nā hanauna, a hāʻawi i nā keiki i kahi wā kamaliʻi maoli i hoʻokumu ʻia ma ka noʻonoʻo, ka mahana, a me ka 
+        haʻi moʻolelo me ka manaʻo — ʻaʻole ma ka hoʻoikaika nui o nā pāpaho.`,
+
+        p19: `🧾 He ʻoihana anei ʻo North Dakota Fairytales a i ʻole he papahana hana noʻeau?`,
+        p20: `He papahana hana noʻeau kūʻokoʻa ʻo North Dakota Fairytales. Hana ʻia nā moʻolelo, nā mele, nā ʻano 
+        kanaka, a me nā hoʻololi āpau no kēia papahana me ka mahalo i ka moʻomeheu a me ke olakino manaʻo o nā keiki.`,
+
+        p21: `💰 Hoʻohana anei ʻo North Dakota Fairytales i ka hoʻolaha a i ʻole nā ʻano pāpaho wikiwiki?`,
+        p22: `ʻAʻole. Pale ka papahana i ka hoʻolaha ikaika, nā hopena kiʻi walaʻau, a me nā ʻano ʻoki wikiwiki.
+        Aia ka nānā ma ka haʻi moʻolelo mālie, nā mele mālie, a me nā kiʻi e kākoʻo ana i kahi ʻike mālie no nā keiki.`,
+
+        p23: `🎶 Ma hea e hiki ai ke nānā a hoʻolohe i nā mea o North Dakota Fairytales?`,
+        p24: `Hiki ke loaʻa nā moʻolelo a me nā mele o North Dakota Fairytales ma o: nā puke kiʻi, nā hoʻokuʻu mele, 
+        a me nā paepae kikohoʻe kūhelu i koho kūikawā ʻia no nā ʻohana a me nā keiki. Hāʻawi ʻia nā loulou kūhelu 
+        āpau ma ka pūnaewele e hōʻoia i ka loaʻa palekana o ka ʻike.`,
+
+        p25: `☀️ E hana anei ʻo North Dakota Fairytales i nā moʻolelo no nā kau ʻē aʻe i ka wā e hiki mai ana?`,
+        p26: `ʻAʻole. Hoʻolaʻa ʻia ka papahana i nā moʻolelo me ke kumuhana hoʻoilo wale nō. ʻAe kēia nānā hana noʻeau
+         iā North Dakota Fairytales e mālama i kahi ʻano like, ʻike kiʻi paʻa, a me ke kani manaʻo like i nā moʻolelo a
+          me nā mele a pau.`
+},
+
+tt: {
+    subtitle: "",
+        p1: `❓ North Dakota Fairytales нәрсә ул?`,
+        p2: `North Dakota Fairytales — балалар өчен әкиятләр һәм музыка тудыручы мөстәкыйль иҗади проект. Проект
+         кыш темасына багышланган оригиналь әкиятләр, җырлар һәм рәсемле хикәяләр иҗат итә. Шулай ук ул онытылган 
+         һәм традицион халык әкиятләрен сак кына яңадан сөйләп, аларны хәзерге балалар өчен аңлаешлы итеп тәкъдим итә, 
+         шул ук вакытта әхлакый кыйммәтләрен саклап кала.`,
+
+        p3: `❄️ Ни өчен барлык хикәяләр дә кыш темасына багышланган?`,
+        p4: `Кыш — бу проектның төп рухы. Кар, тыныч төннәр, төньяк урманнары һәм озын кышкы кичләр әкият сөйләү 
+        өчен бик тыныч һәм уйланучан мохит тудыра. North Dakota Fairytales бары тик кыш темасына багышланган хикәяләр 
+        һәм образлар дөньясын тәкъдим итә.`,
+
+        p5: `📚 Хикәяләр оригинальме, әллә халык әкиятләренә нигезләнгәнме?`,
+        p6: `Икесе дә. Проект иҗат итә: оригиналь әкиятләр һәм җырлар, шулай ук традицион һәм сирәк билгеле булган халык
+         әкиятләреннән илһам алып эшләнгән хикәяләр. Барлык адаптацияләр дә балаларга дус, йомшак стильдә сөйләнә һәм 
+         курку яки көч куллану урынына мәңгелек кыйммәтләргә игътибар итә.`,
+
+        p7: `❤️ North Dakota Fairytales хикәяләре нинди кыйммәтләр өйрәтә?`,
+        p8: `Бу хикәяләр буыннан-буынга тапшырылып килгән универсаль темаларны ача, мәсәлән: игелек һәм мәрхәмәт, 
+        яхшылык һәм явызлык, дуслык һәм тугрылык, батырлык һәм җаваплылык, намус һәм кешелеклелек. Максат — балаларга 
+        бу фикерләрне тыныч һәм хыялга бай әкиятләр аша аңларга ярдәм итү.`,
+
+        p9: `🌍 Контент нинди телләрдә бар?`,
+        p10: `North Dakota Fairytales әкиятләре һәм җырлары күп телләрдә чыгарыла, шул исәптән: инглиз, испан, француз, 
+        гарәп, рус, урду, һинди, бенгаль, фарсы, португал, малай, индонезия, алман, каталон, азәрбайҗан, әрмән, гавай 
+        һәм татар телләрендә.
+        Күптелле әкият сөйләү балаларга төрле мәдәниятләр белән танышырга ярдәм итә, шул ук вакытта уртак кешелек 
+        кыйммәтләре белән бәйләнеш саклана.`,
+
+        p11: `👶 North Dakota Fairytales балалар өчен куркынычсызмы?`,
+        p12: `Әйе. Барлык контент балаларның эмоциональ хәлен истә тотып иҗат ителә. Хикәяләр: тыныч һәм агрессиясез, 
+        гаилә өчен уңайлы, һәм куркытучы яки артык көчле тәэсир ясаучы элементларсыз. Проект балалар өчен заманча
+         шау-шулы медиадан тыныч альтернатива тәкъдим итәргә омтыла.`,
+
+        p13: `🎶 North Dakota Fairytales контентын кайда карарга яки тыңларга мөмкин?`,
+        p14: `North Dakota Fairytales әкиятләре һәм җырлары түбәндәге форматларда бар: рәсемле китаплар, музыка 
+        чыгышлары һәм цифрлы платформалар. Барлык рәсми сылтамалар сайтта күрсәтелгән.`,
+
+        p15: `🧒 North Dakota Fairytales нинди яшьтәге балалар өчен?`,
+        p16: `Контент нигездә түбәндәгеләр өчен эшләнгән: кечкенә балалар һәм бергәләп уку, тыңлау һәм әкиятләр 
+        белән уртаклашуны яратучы гаиләләр. Әти-әниләргә бу хикәяләрне балалар белән тыныч вакытта — мәсәлән, 
+        йоклар алдыннан яки гаилә белән ял иткәндә — уртаклашу киңәш ителә.`,
+
+        p17: `🌲 North Dakota Fairytales проектының миссиясе нинди?`,
+        p18: `Проектның максаты — буыннар дәвамында онытылып барган әһәмиятле әкиятләрне һәм кыйммәтләрне саклау, 
+        һәм балаларга хыял, җылылык һәм уйланып сөйләнгән әкиятләргә нигезләнгән чын балачак бүләк итү — артык 
+        стимуллаштыручы медиадан түгел.`,
+
+        p19: `🧾 North Dakota Fairytales компанияме, әллә иҗади проектмы?`,
+        p20: `North Dakota Fairytales — мөстәкыйль иҗади проект. Барлык хикәяләр, музыка, персонажлар һәм адаптацияләр 
+        бу бренд өчен махсус эшләнә һәм мәдәни мирас белән балаларның эмоциональ иминлеген хөрмәт итеп иҗат ителә.`,
+
+        p21: `💰 North Dakota Fairytales реклама яки тиз темплы медиа алымнарын кулланамы?`,
+        p22: `Юк. Проект агрессив реклама, шау-шулы визуаль эффектлар һәм тиз монтаж стиленнән кача. Игътибар тыныч 
+        әкият сөйләүгә, йомшак музыкага һәм балалар өчен тыныч мохит тудыручы иллюстрацияләргә юнәлтелгән.`,
+
+        p23: `🎶 North Dakota Fairytales контентын кайда карарга яки тыңларга мөмкин?`,
+        p24: `North Dakota Fairytales әкиятләре һәм җырлары түбәндәге форматларда бар: рәсемле китаплар, музыка 
+        чыгышлары һәм гаиләләр һәм балалар өчен махсус сайланган рәсми цифрлы платформалар. Барлык рәсми сылтамалар 
+        сайтта куркынычсыз керү өчен тәкъдим ителә.`,
+
+        p25: `☀️ North Dakota Fairytales киләчәктә башка ел фасыллары турында да хикәяләр ясармы?`,
+        p26: `Юк. Проект аңлы рәвештә бары тик кыш темасына багышланган. Бу иҗади юнәлеш North Dakota Fairytales-ка 
+        барлык хикәяләрдә һәм җырларда бердәм атмосфераны, визуаль стильне һәм эмоциональ тонны сакларга ярдәм итә.`
+},
+};
+
+
+const t = text[lang] || text.en;
+---
+
+<BaseLayout lang={lang}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+        <p>{t.p7}</p>
+        <p>{t.p8}</p>
+        <p>{t.p9}</p>
+        <p>{t.p10}</p>
+        <p>{t.p11}</p>
+        <p>{t.p12}</p>
+        <p>{t.p13}</p>
+        <p>{t.p14}</p>
+        <p>{t.p15}</p>
+        <p>{t.p16}</p>
+        <p>{t.p17}</p>
+        <p>{t.p18}</p>
+        <p>{t.p19}</p>
+        <p>{t.p20}</p>
+        <p>{t.p21}</p>
+        <p>{t.p22}</p>
+        <p>{t.p23}</p>
+        <p>{t.p24}</p>
+        <p>{t.p25}</p>
+        <p>{t.p26}</p>
+
+
+
+</div>
+
+</BaseLayout>

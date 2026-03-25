@@ -1,0 +1,519 @@
+---
+const currentLang = Astro.url.pathname.split("/")[1] || "en";
+
+const brandNames = {
+    en: "North Dakota Fairytales",
+    es: "Cuentos de Hadas de North Dakota",
+    fr: "Contes de fées du Dakota du Nord",
+    ar: "حكايات داكوتا الشمالية الخيالية",
+
+    ru: "Сказки Северной Дакоты",
+    ur: "نارتھ ڈکوٹا فیری ٹیلز",
+    hi: "नॉर्थ डकोटा फेयरीटेल्स",
+    bn: "নর্থ ডাকোটা ফেয়ারিটেলস",
+    fa: "افسانه‌های داکوتای شمالی",
+    pt: "Contos de Fadas de Dakota do Norte",
+
+    ms: "Kisah Dongeng Dakota Utara",
+    id: "Dongeng Dakota Utara",
+
+    de: "North Dakota Märchen",
+    ca: "Contes de Dakota del Nord",
+
+    az: "Şimali Dakota Nağılları",
+    hy: "Հյուսիսային Դակոտայի հեքիաթներ",
+
+    haw: "Nā Moʻolelo o Dakota ʻĀkau",
+    tt: "Төньяк Дакота әкиятләре"
+};
+
+
+const translations = {
+    en: {
+        brand: "North Dakota Fairytales",
+        subtitle: "Snowy tales & cozy songs from the magical North.",
+        menuBtn: "Menu",
+        about: "About",
+        creator: "About the Creator",
+        faq: "FAQ",
+        mission: "Mission",
+        manifesto: "Manifesto",
+        privacy: "Privacy",
+        vision: "Project Vision",
+        contact: "Contact",
+        ariaLabel: "Open menu"
+    },
+
+    es: {
+        brand: "Cuentos de Dakota del Norte",
+        subtitle: "Cuentos nevados y canciones acogedoras del mágico Norte.",
+        menuBtn: "Menú",
+        about: "Sobre nosotros",
+        creator: "Sobre el creador",
+        faq: "Preguntas frecuentes",
+        mission: "Misión",
+        manifesto: "Manifiesto",
+        privacy: "Privacidad",
+        vision: "Visión del proyecto",
+        contact: "Contáctanos",
+        ariaLabel: "Abrir menú"
+    },
+
+    fr: {
+        brand: "Contes du Dakota du Nord",
+        subtitle: "Contes enneigés et chansons chaleureuses du Nord magique.",
+        menuBtn: "Menu",
+        about: "À propos",
+        creator: "À propos du créateur",
+        faq: "FAQ",
+        mission: "Mission",
+        manifesto: "Manifeste",
+        privacy: "Confidentialité",
+        vision: "Vision du projet",
+        contact: "Nous contacter",
+        ariaLabel: "Ouvrir le menu"
+    },
+
+    ar: {
+        brand: "حكايات داكوتا الشمالية",
+        subtitle: "حكايات ثلجية وأغانٍ دافئة من الشمال السحري",
+        menuBtn: "القائمة",
+        about: "حول",
+        creator: "حول المبدع",
+        faq: "الأسئلة الشائعة",
+        mission: "المهمة",
+        manifesto: "بيان",
+        privacy: "الخصوصية",
+        vision: "رؤية المشروع",
+        contact: "تواصل معنا",
+        ariaLabel: "افتح القائمة"
+    },
+
+    ru: {
+        brand: "Сказки Северной Дакоты",
+        subtitle: "Снежные истории и уютные песни с волшебного Севера.",
+        menuBtn: "Меню",
+        about: "О проекте",
+        creator: "Об авторе",
+        faq: "Вопросы",
+        mission: "Миссия",
+        manifesto: "Манифест",
+        privacy: "Конфиденциальность",
+        vision: "Видение проекта",
+        contact: "Связаться с нами",
+        ariaLabel: "Открыть меню"
+    },
+
+    ur: {
+        brand: "نارتھ ڈکوٹا فیری ٹیلز",
+        subtitle: "برفانی کہانیاں اور جادوئی شمال سے دلکش گیت۔",
+        menuBtn: "مینو",
+        about: "تعارف",
+        creator: "خالق کے بارے میں",
+        faq: "اکثر پوچھے گئے سوالات",
+        mission: "مقصد",
+        manifesto: "منشور",
+        privacy: "رازداری",
+        vision: "منصوبے کا وژن",
+        contact: "ہم سے رابطہ کریں",
+        ariaLabel: "مینو کھولیں"
+    },
+
+    hi: {
+        brand: "नॉर्थ डकोटा फेयरीटेल्स",
+        subtitle: "जादुई उत्तर से बर्फीली कहानियाँ और सुकूनभरे गीत।",
+        menuBtn: "मेनू",
+        about: "परिचय",
+        creator: "निर्माता के बारे में",
+        faq: "सामान्य प्रश्न",
+        mission: "मिशन",
+        manifesto: "घोषणापत्र",
+        privacy: "गोपनीयता",
+        vision: "परियोजना दृष्टि",
+        contact: "हमसे संपर्क करें",
+        ariaLabel: "मेनू खोलें"
+    },
+
+    bn: {
+        brand: "নর্থ ডাকোটা ফেয়ারিটেলস",
+        subtitle: "জাদুকরী উত্তরের তুষারময় গল্প ও মধুর গান।",
+        menuBtn: "মেনু",
+        about: "সম্পর্কে",
+        creator: "স্রষ্টা সম্পর্কে",
+        faq: "প্রশ্নোত্তর",
+        mission: "মিশন",
+        manifesto: "ঘোষণাপত্র",
+        privacy: "গোপনীয়তা",
+        vision: "প্রকল্পের দৃষ্টিভঙ্গি",
+        contact: "যোগাযোগ করুন",
+        ariaLabel: "মেনু খুলুন"
+    },
+
+    fa: {
+        brand: "افسانه‌های داکوتای شمالی",
+        subtitle: "داستان‌های برفی و ترانه‌های آرام از شمال جادویی.",
+        menuBtn: "منو",
+        about: "درباره",
+        creator: "درباره خالق",
+        faq: "سؤالات متداول",
+        mission: "ماموریت",
+        manifesto: "بیانیه",
+        privacy: "حریم خصوصی",
+        vision: "چشم‌انداز پروژه",
+        contact: "تماس با ما",
+        ariaLabel: "باز کردن منو"
+    },
+
+    pt: {
+        brand: "Contos de Dakota do Norte",
+        subtitle: "Histórias nevadas e músicas aconchegantes do norte mágico.",
+        menuBtn: "Menu",
+        about: "Sobre",
+        creator: "Sobre o criador",
+        faq: "Perguntas frequentes",
+        mission: "Missão",
+        manifesto: "Manifesto",
+        privacy: "Privacidade",
+        vision: "Visão do projeto",
+        contact:  "Fale conosco",
+        ariaLabel: "Abrir menu"
+    },
+
+    ms: {
+        brand: "Kisah Dakota Utara",
+        subtitle: "Cerita bersalji dan lagu hangat dari utara yang magis.",
+        menuBtn: "Menu",
+        about: "Tentang",
+        creator: "Tentang pencipta",
+        faq: "Soalan lazim",
+        mission: "Misi",
+        manifesto: "Manifesto",
+        privacy: "Privasi",
+        vision: "Visi projek",
+        contact: "Hubungi kami",
+        ariaLabel: "Buka menu"
+    },
+
+    id: {
+        brand: "Dongeng Dakota Utara",
+        subtitle: "Cerita bersalju dan lagu hangat dari utara yang magis.",
+        menuBtn: "Menu",
+        about: "Tentang",
+        creator: "Tentang pembuat",
+        faq: "FAQ",
+        mission: "Misi",
+        manifesto: "Manifesto",
+        privacy: "Privasi",
+        vision: "Visi proyek",
+        contact:  "Hubungi kami",
+        ariaLabel: "Buka menu"
+    },
+
+    de: {
+        brand: "North Dakota Märchen",
+        subtitle: "Verschneite Geschichten und warme Lieder aus dem magischen Norden.",
+        menuBtn: "Menü",
+        about: "Über",
+        creator: "Über den Autor",
+        faq: "FAQ",
+        mission: "Mission",
+        manifesto: "Manifest",
+        privacy: "Datenschutz",
+        vision: "Projektvision",
+        contact: "Kontakt aufnehmen",
+        ariaLabel: "Menü öffnen"
+    },
+
+    ca: {
+        brand: "Contes de Dakota del Nord",
+        subtitle: "Contes nevats i cançons acollidores del nord màgic.",
+        menuBtn: "Menú",
+        about: "Sobre",
+        creator: "Sobre el creador",
+        faq: "Preguntes freqüents",
+        mission: "Missió",
+        manifesto: "Manifest",
+        privacy: "Privadesa",
+        vision: "Visió del projecte",
+        contact: "Contacta amb nosaltres",
+        ariaLabel: "Obrir el menú"
+    },
+
+    az: {
+        brand: "Şimali Dakota Nağılları",
+        subtitle: "Sehrli şimaldan qarlı hekayələr və isti mahnılar.",
+        menuBtn: "Menyu",
+        about: "Haqqında",
+        creator: "Yaradıcı haqqında",
+        faq: "Tez-tez verilən suallar",
+        mission: "Missiya",
+        manifesto: "Manifest",
+        privacy: "Məxfilik",
+        vision: "Layihənin vizyonu",
+        contact: "Bizimlə əlaqə",
+        ariaLabel: "Menyunu aç"
+    },
+
+    hy: {
+        brand: "Հյուսիսային Դակոտայի հեքիաթներ",
+        subtitle: "Ձյունապատ պատմություններ և ջերմ երգեր կախարդական հյուսիսից։",
+        menuBtn: "Մենյու",
+        about: "Մեր մասին",
+        creator: "Հեղինակի մասին",
+        faq: "Հաճախակի հարցեր",
+        mission: "Առաքելություն",
+        manifesto: "Մանիֆեստ",
+        privacy: "Գաղտնիություն",
+        vision: "Նախագծի տեսլական",
+        contact: "Կապ մեզ հետ",
+        ariaLabel: "Բացել մենյուն"
+    },
+
+    haw: {
+        brand: "Nā Moʻolelo o Dakota ʻĀkau",
+        subtitle: "Nā moʻolelo hau a me nā mele mālie mai ke ʻākau kupanaha.",
+        menuBtn: "Papa kuhikuhi",
+        about: "No mākou",
+        creator: "No ka mea haku",
+        faq: "Nā nīnau pinepine",
+        mission: "Misiona",
+        manifesto: "Manifeso",
+        privacy: "Kulekele pilikino",
+        vision: "Hihiʻo papahana",
+        contact: "Kāhea mai iā mākou",
+        ariaLabel: "Wehe i ka papa kuhikuhi"
+    },
+
+    tt: {
+        brand: "Төньяк Дакота әкиятләре",
+        subtitle: "Тылсымлы төньяктан карлы әкиятләр һәм җылы җырлар.",
+        menuBtn: "Меню",
+        about: "Турында",
+        creator: "Автор турында",
+        faq: "Сораулар",
+        mission: "Миссия",
+        manifesto: "Манифест",
+        privacy: "Хосусыйлык",
+        vision: "Проект карашы",
+        contact: "Безнең белән элемтә",
+        ariaLabel: "Менюны ачу"
+    }
+};
+
+const t = translations[currentLang as keyof typeof translations] || translations.en;
+const brand = brandNames[currentLang as keyof typeof translations] || "North Dakota Fairytales";
+---
+
+<header class="ndf-header">
+    <div class="absolute inset-0 pointer-events-none snow-gradient"></div>
+
+    <div class="ndf-header-container">
+        <div class="ndf-spacer"></div>
+
+        <div class="ndf-brand-box text-white">
+            <h1 class="brand-title">{brand}</h1>
+            <p class="subtitle">{t.subtitle}</p>
+        </div>
+
+        <div class="ndf-menu-wrapper">
+            <button id="ndfMenuBtn" class="ndf-menu-btn" aria-label={t.ariaLabel} aria-expanded="false">
+                <span class="ndf-snowflake">❄️</span>
+                <span class="ndf-menu-label">{t.menuBtn}</span>
+            </button>
+
+            <nav id="ndfMenuDD" class="ndf-menu-dd" aria-hidden="true">
+                <a href={`/${currentLang}/about`}>{t.about}</a>
+                <a href={`/${currentLang}/about_the_creator`}>{t.creator}</a>
+                <a href={`/${currentLang}/faq`}>{t.faq}</a>
+                <a href={`/${currentLang}/mission`}>{t.mission}</a>
+                <a href={`/${currentLang}/manifesto`}>{t.manifesto}</a>
+                <div class="ndf-sep"></div>
+                <a href="mailto:contact@northdakotafairytales.org">
+                    {t.contact}
+                </a>
+                <div class="ndf-sep"></div>
+                <a href={`/${currentLang}/privacy`}>{t.privacy}</a>
+                <a href={`/${currentLang}/project_vision`}>{t.vision}</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<style>
+    .ndf-header {
+        position: relative;
+        padding: 20px 0;
+        overflow: visible;
+        z-index: 50;
+    }
+
+    .ndf-header-container {
+        display: flex;
+        align-items: center; /* Центрируем по вертикали */
+        justify-content: flex-end; /* Прижимаем всё содержимое (кнопку) к правому краю */
+        position: relative; /* Важно для привязки заголовка */
+        min-height: 80px; /* Укажите примерную высоту вашего хедера */
+        padding: 0 24px;
+    }
+
+    .ndf-spacer {
+        width: 130px;
+        display: none;
+    }
+    @media (min-width: 768px) { .ndf-spacer { display: block; } }
+
+    .ndf-brand-box {
+        text-align: center;
+        flex: 1;
+    }
+
+    .brand-title {
+        font-size: clamp(60px, 7vw, 120px); /* Адаптивный размер вместо фиксированного 80px */
+        font-weight: 900;
+        color: royalblue;
+        text-shadow: 0 0 20px rgba(65, 105, 225, 0.5);
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        font-size: clamp(2rem, 2vw, 2rem);
+        color: lightblue;
+        margin-top: 10px;
+    }
+
+    .ndf-menu-wrapper {
+        position: absolute;
+        top: 20px;     /* отступ сверху */
+        //right: 20px;   /* отступ справа */
+        width: auto;   /* убираем жесткую ширину 130px, если она мешает */
+        z-index: 100;  /* чтобы кнопка была поверх других элементов */
+    }
+
+    /* Если у родителя (html) стоит dir="rtl", флекс-контейнер сам развернет детей */
+    :global([dir="rtl"]) .ndf-menu-wrapper {
+        flex-direction: row-reverse;
+    }
+
+    .ndf-menu-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(25, 45, 70, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px 40px;
+        border-radius: 99px;
+        color: white;
+        font-weight: 700;
+        font-size: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-inline-start: auto;
+    }
+
+    .ndf-menu-label{
+        font-size:25px;
+    }
+
+    /* ❄️ Snowflake Animation */
+    .ndf-snowflake {
+        font-size: 35px;
+        animation: sparkle 3s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% {
+            opacity: 0.9;
+            transform: rotate(0deg) scale(1);
+            color: #ffffff;
+            text-shadow: 0 0 6px #dbeafe;
+        }
+        50% {
+            opacity: 1;
+            transform: rotate(18deg) scale(1.25);
+            color: #b3e5fc;
+            text-shadow: 0 0 14px #b3e5fc;
+        }
+    }
+
+    .ndf-menu-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+    }
+
+    .ndf-menu-dd {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px); /* Смещение ровно под кнопку */
+        right: 0;
+        z-index: 1000;
+        width: 240px;
+        background: rgba(15, 25, 45, 0.95);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        flex-direction: column;
+    }
+
+    .ndf-menu-dd.open {
+        display: flex;
+    }
+
+    .ndf-menu-dd a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background 0.2s;
+        text-align: right;
+    }
+
+    .ndf-menu-dd a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #818cf8;
+    }
+
+    .ndf-sep {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 8px 0;
+    }
+
+    .snow-gradient {
+        background: radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+    }
+
+    /* Поддержка RTL */
+    :global(html[dir="rtl"]) .ndf-menu-dd {
+        right: auto;
+        left: 0;
+    }
+
+</style>
+
+<script is:inline>
+    (function() {
+        const btn = document.getElementById("ndfMenuBtn");
+        const menu = document.getElementById("ndfMenuDD");
+
+        if (btn && menu) {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.toggle("open");
+                btn.setAttribute("aria-expanded", isOpen);
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!menu.contains(e.target) && e.target !== btn) {
+                    menu.classList.remove("open");
+                    btn.setAttribute("aria-expanded", "false");
+                }
+            });
+        }
+    })();
+</script>
