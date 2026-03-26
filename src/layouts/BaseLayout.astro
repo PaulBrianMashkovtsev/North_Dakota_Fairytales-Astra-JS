@@ -100,6 +100,9 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
                         "name": "North Dakota Fairytales",
                         "description": "A winter-themed children’s brand creating calm stories and songs.",
                         "inLanguage": lang,
+                        "about": {
+                            "@id": "https://northdakotafairytales.org/#person"
+                        },
                         "publisher": {
                             "@id": "https://northdakotafairytales.org/#organization"
                         }
@@ -109,9 +112,12 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
                         "@id": "https://northdakotafairytales.org/#organization",
                         "name": "North Dakota Fairytales",
                         "url": "https://northdakotafairytales.org/",
+                        "founder": {
+                            "@id": "https://northdakotafairytales.org/#person"
+                        },
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://northdakotafairytales.org/favicon.ico"
+                            "url": "https://northdakotafairytales.org/favicon.ico",
                         },
                         "inLanguage": lang,
                         "sameAs": [
@@ -119,6 +125,26 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
                             "https://rumble.com/user/NorthDakotaFairytales"
                         ],
                         "description": "A winter-themed children’s brand creating calm stories, songs, and educational content inspired by the snowy landscapes of North Dakota."
+                    },
+                    {
+                        "@type": "Person",
+                        "@id": "https://northdakotafairytales.org/#person",
+                        "name": "Paul Brian Mashkovtsev",
+                        "url": "https://northdakotafairytales.org/about_creator",
+                        "jobTitle": "Author, Songwriter, Creator",
+                        "worksFor": {
+                            "@id": "https://northdakotafairytales.org/#organization"
+                        },
+                        "sameAs": [
+                            "https://www.youtube.com/@NorthDakotaFairytales",
+                            "https://rumble.com/user/NorthDakotaFairytales"
+                        ],
+                        "knowsAbout": [
+                            "children's songs",
+                            "children's books",
+                            "winter stories",
+                            "social emotional learning"
+                        ]
                     }
                 ]
             })}
