@@ -1,0 +1,104 @@
+---
+// src/components/Schema.astro
+const {
+    title = "North Dakota Fairytales",
+    description = "A winter-themed children’s brand creating calm stories, songs, and educational content inspired by North Dakota.",
+    lang = "en",
+    isAuthorPage = false
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://northdakotafairytales.org");
+
+// Единый список всех соцсетей и платформ (используется для Organization и Person)
+const sameAsLinks = [
+    "https://www.youtube.com/@NorthDakotaFairytales",
+    "https://www.youtube.com/@north_dakota_fairytales_spanis",
+    "https://www.youtube.com/@NorthDakotaFairytalesFrench",
+    "https://www.youtube.com/@NorthDakotaFairytalesArabic",
+    "https://rumble.com/user/NorthDakotaFairytales",
+    "https://www.dailymotion.com/northdakotafairytales",
+    "https://www.dailymotion.com/northdakotafairytalesspanish",
+    "https://www.dailymotion.com/northdakotafairytalesarabic",
+    "https://www.dailymotion.com/northdakotafairytalesfrench",
+    "https://music.apple.com/gb/artist/north-dakota-fairytales/1831801227",
+    "https://music.apple.com/us/artist/north-dakota-fairytales-spanish/1831890906",
+    "https://music.apple.com/ie/artist/north-dakota-fairytales-arabic/1832063964",
+    "https://music.apple.com/us/artist/north-dakota-fairytales-french/1832369557",
+    "https://open.spotify.com/artist/55XaHR09Tq6FGgSGa1datk?si=8JlOgqgQRo69Ol8zdLnUSw",
+    "https://open.spotify.com/artist/4uJ8p8LN5H8bx5gL8hczRI?si=YCCFWQo9RnuMVnomlCPbvw",
+    "https://open.spotify.com/artist/09pUhxJdrDbMN9pISTElQu?si=__849b3TTSqEKVDPJAOQgQ",
+    "https://open.spotify.com/artist/1xubeMUM2846nqtELgD8OW?si=X9Y-Lec4SimIXY1hYDk2pw",
+    "https://music.amazon.com/artists/B0FX9Z9MLT/north-dakota-fairytales?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
+    "https://music.amazon.com/artists/B0FLPSR11R/north-dakota-fairytales-spanish?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
+    "https://music.amazon.com.au/artists/B0G2THKG7B/north-dakota-fairytales-arabic?marketplaceId=A39IBJ37TRP1C6&musicTerritory=AU",
+    "https://music.amazon.com/artists/B0FLX92K1T/north-dakota-fairytales-french?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
+    "https://www.pinterest.com/northdakotafairytales/"
+];
+
+// 1. Organization
+const organization = {
+    "@type": "Organization",
+    "@id": "https://northdakotafairytales.org/#organization",
+    "name": "North Dakota Fairytales",
+    "url": "https://northdakotafairytales.org/",
+    "logo": {
+        "@type": "ImageObject",
+        "@id": "https://northdakotafairytales.org/#logo",
+        "url": "https://northdakotafairytales.org/favicon.ico",
+        "contentUrl": "https://northdakotafairytales.org/favicon.ico",
+        "caption": "North Dakota Fairytales"
+    },
+    "image": { "@id": "https://northdakotafairytales.org/#logo" },
+    "sameAs": sameAsLinks,
+    "description": description
+};
+
+// 2. WebSite
+const website = {
+    "@type": "WebSite",
+    "@id": "https://northdakotafairytales.org/#website",
+    "url": "https://northdakotafairytales.org/",
+    "name": "North Dakota Fairytales",
+    "publisher": { "@id": "https://northdakotafairytales.org/#organization" },
+    "inLanguage": lang
+};
+
+// 3. WebPage
+const webpage = {
+    "@type": "WebPage",
+    "@id": canonicalURL.href + "#webpage",
+    "url": canonicalURL.href,
+    "name": title,
+    "isPartOf": { "@id": "https://northdakotafairytales.org/#website" },
+    "about": { "@id": "https://northdakotafairytales.org/#organization" },
+    "description": description,
+    "inLanguage": lang
+};
+
+// Собираем граф
+const graph: any [] = [organization, website, webpage];
+
+// 4. Добавляем Person (автора) только если нужно
+if (isAuthorPage) {
+    graph.push({
+        "@type": "Person",
+        "@id": "https://northdakotafairytales.org/#person",
+        "name": "Paul Brian Mashkovtsev",
+        "url": "https://northdakotafairytales.org/en/about_the_creator/",
+        "jobTitle": "Author, Songwriter, Creator",
+        "worksFor": { "@id": "https://northdakotafairytales.org/#organization" },
+        "sameAs": sameAsLinks, // Автор связан с теми же каналами
+        "knowsAbout": [
+            "children's songs",
+            "children's books",
+            "winter stories",
+            "social emotional learning"
+        ]
+    });
+}
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": graph
+})} />

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Schema from "../components/Schema.astro";
 
 
 
@@ -55,15 +56,11 @@ const currentLang = lang || 'en';
     <link rel="alternate" hreflang="haw" href="https://northdakotafairytales.org/haw/" />
     <link rel="alternate" hreflang="tt" href="https://northdakotafairytales.org/tt/" />
 
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "@id": "https://northdakotafairytales.org/#homepage",
-        "url": "https://northdakotafairytales.org/",
-        "name": "North Dakota Fairytales",
-        "description": "Choose your language to explore calm winter stories and songs for children.",
-        "inLanguage": "en"
-    })} />
+    <Schema
+            title={title}
+            lang={currentLang}
+            description="Choose your language to explore calm winter stories and songs for children from North Dakota Fairytales."
+    />
 
     <!--<title>{title}</title>-->
 </head>
