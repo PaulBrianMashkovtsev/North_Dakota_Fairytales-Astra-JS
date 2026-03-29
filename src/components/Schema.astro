@@ -1,20 +1,125 @@
 ---
 // src/components/Schema.astro
+
+interface Props {
+    title?: string;
+    description?: string;
+    lang?: string;
+}
+
 const {
     title = "North Dakota Fairytales",
-    description = "A winter-themed children’s brand creating calm stories, songs, and educational content inspired by North Dakota.",
-    lang = "en",
-    isAuthorPage = false
+    description,
+    lang = "en"
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://northdakotafairytales.org");
+// 🌍 Полный словарь (сохраняем силу проекта)
+const l10n: Record<string, { name: string; desc: string; tags: string[] }> = {
+    en: {
+        name: "North Dakota Fairytales",
+        desc: "Winter children's stories, songs, games, color metaphors and encyclopedia for calm emotional learning.",
+        tags: ["songs", "fairytales", "games", "color metaphors", "encyclopedia"]
+    },
+    es: {
+        name: "North Dakota Fairytales",
+        desc: "Cuentos, canciones, juegos y metáforas de colores para el aprendizaje emocional.",
+        tags: ["canciones", "cuentos", "juegos", "metáforas de colores", "enciclopedia"]
+    },
+    fr: {
+        name: "North Dakota Fairytales",
+        desc: "Histoires, chansons, jeux et métaphores des couleurs pour l’apprentissage émotionnel.",
+        tags: ["chansons", "contes", "jeux", "métaphores des couleurs", "encyclopédie"]
+    },
+    ar: {
+        name: "North Dakota Fairytales",
+        desc: "قصص وأغاني وألعاب واستعارات الألوان للتعلم العاطفي.",
+        tags: ["أغاني", "قصص", "ألعاب", "استعارات الألوان", "موسوعة"]
+    },
+    ru: {
+        name: "North Dakota Fairytales",
+        desc: "Сказки, песни, игры и цветовые метафоры для эмоционального развития.",
+        tags: ["песни", "сказки", "игры", "цветовые метафоры", "энциклопедия"]
+    },
+    ur: {
+        name: "North Dakota Fairytales",
+        desc: "کہانیاں، گانے، کھیل اور رنگوں کے استعارے جذباتی سیکھنے کے لیے۔",
+        tags: ["گانے", "کہانیاں", "کھیل", "رنگوں کے استعارے", "انسائیکلوپیڈیا"]
+    },
+    hi: {
+        name: "North Dakota Fairytales",
+        desc: "कहानियां, गाने, खेल और रंग रूपक भावनात्मक सीखने के लिए।",
+        tags: ["गाने", "कहानियां", "खेल", "रंग रूपक", "विश्वकोश"]
+    },
+    bn: {
+        name: "North Dakota Fairytales",
+        desc: "গল্প, গান, খেলা এবং রঙের রূপক আবেগীয় শেখার জন্য।",
+        tags: ["গান", "গল্প", "খেলা", "রঙের রূপক", "বিশ্বকোষ"]
+    },
+    fa: {
+        name: "North Dakota Fairytales",
+        desc: "داستان‌ها، آهنگ‌ها، بازی‌ها و استعاره‌های رنگی برای یادگیری عاطفی.",
+        tags: ["آهنگ", "داستان", "بازی", "استعاره‌های رنگی", "دانشنامه"]
+    },
+    pt: {
+        name: "North Dakota Fairytales",
+        desc: "Histórias, músicas, jogos e metáforas de cores para aprendizado emocional.",
+        tags: ["canções", "histórias", "jogos", "metáforas", "enciclopédia"]
+    },
+    ms: {
+        name: "North Dakota Fairytales",
+        desc: "Cerita, lagu, permainan dan metafora warna untuk pembelajaran emosi.",
+        tags: ["lagu", "cerita", "permainan", "metafora warna", "ensiklopedia"]
+    },
+    id: {
+        name: "North Dakota Fairytales",
+        desc: "Cerita, lagu, permainan dan metafora warna untuk pembelajaran emosional.",
+        tags: ["lagu", "cerita", "permainan", "metafora warna", "ensiklopedia"]
+    },
+    de: {
+        name: "North Dakota Fairytales",
+        desc: "Geschichten, Lieder, Spiele und Farbmetaphern für emotionales Lernen.",
+        tags: ["Lieder", "Geschichten", "Spiele", "Farbenmetaphern", "Enzyklopädie"]
+    },
+    ca: {
+        name: "North Dakota Fairytales",
+        desc: "Contes, cançons, jocs i metàfores de colors per a l’aprenentatge emocional.",
+        tags: ["cançons", "contes", "jocs", "metàfores", "enciclopèdia"]
+    },
+    az: {
+        name: "North Dakota Fairytales",
+        desc: "Nağıllar, mahnılar, oyunlar və rəng metaforaları emosional inkişaf üçün.",
+        tags: ["mahnılar", "nağıllar", "oyunlar", "rəng metaforaları", "ensiklopediya"]
+    },
+    hy: {
+        name: "North Dakota Fairytales",
+        desc: "Հեքիաթներ, երգեր, խաղեր և գույների փոխաբերություններ հուզական զարգացման համար.",
+        tags: ["երգեր", "հեքիաթներ", "խաղեր", "գույներ", "հանրագիտարան"]
+    },
+    haw: {
+        name: "North Dakota Fairytales",
+        desc: "Nā moʻolelo, nā mele, nā pāʻani a me nā hoʻohālikelike waihoʻoluʻu no ke aʻo ʻana.",
+        tags: ["mele", "moʻolelo", "pāʻani", "hoʻohālikelike", "papa kuhikuhi"]
+    },
+    tt: {
+        name: "North Dakota Fairytales",
+        desc: "Әкиятләр, җырлар, уеннар һәм төс метафоралары эмоциональ үсеш өчен.",
+        tags: ["җырлар", "әкиятләр", "уеннар", "төс метафоралары", "энциклопедия"]
+    }
+};
 
-// Единый список всех соцсетей и платформ (используется для Organization и Person)
+const currentL10n = l10n[lang] || l10n.en;
+
+const siteTitle = title || currentL10n.name;
+const siteDesc = description || currentL10n.desc;
+
+const canonicalURL = Astro.url;
+
+// 🔗 ВСЕ платформы (оставляем силу бренда)
 const sameAsLinks = [
     "https://www.youtube.com/@NorthDakotaFairytales",
-    "https://www.youtube.com/@north_dakota_fairytales_spanis",
-    "https://www.youtube.com/@NorthDakotaFairytalesFrench",
-    "https://www.youtube.com/@NorthDakotaFairytalesArabic",
+    "https://www.youtube.com/@NorthDakotaFairytalesES",
+    "https://www.youtube.com/@NorthDakotaFairytalesFR",
+    "https://www.youtube.com/@NorthDakotaFairytalesAR",
     "https://rumble.com/user/NorthDakotaFairytales",
     "https://www.dailymotion.com/northdakotafairytales",
     "https://www.dailymotion.com/northdakotafairytalesspanish",
@@ -24,81 +129,70 @@ const sameAsLinks = [
     "https://music.apple.com/us/artist/north-dakota-fairytales-spanish/1831890906",
     "https://music.apple.com/ie/artist/north-dakota-fairytales-arabic/1832063964",
     "https://music.apple.com/us/artist/north-dakota-fairytales-french/1832369557",
-    "https://open.spotify.com/artist/55XaHR09Tq6FGgSGa1datk?si=8JlOgqgQRo69Ol8zdLnUSw",
-    "https://open.spotify.com/artist/4uJ8p8LN5H8bx5gL8hczRI?si=YCCFWQo9RnuMVnomlCPbvw",
-    "https://open.spotify.com/artist/09pUhxJdrDbMN9pISTElQu?si=__849b3TTSqEKVDPJAOQgQ",
-    "https://open.spotify.com/artist/1xubeMUM2846nqtELgD8OW?si=X9Y-Lec4SimIXY1hYDk2pw",
-    "https://music.amazon.com/artists/B0FX9Z9MLT/north-dakota-fairytales?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
-    "https://music.amazon.com/artists/B0FLPSR11R/north-dakota-fairytales-spanish?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
-    "https://music.amazon.com.au/artists/B0G2THKG7B/north-dakota-fairytales-arabic?marketplaceId=A39IBJ37TRP1C6&musicTerritory=AU",
-    "https://music.amazon.com/artists/B0FLX92K1T/north-dakota-fairytales-french?marketplaceId=ATVPDKIKX0DER&musicTerritory=US",
+    "https://open.spotify.com/artist/55XaHR09Tq6FgSgSa1datk",
     "https://www.pinterest.com/northdakotafairytales/"
 ];
 
-// 1. Organization
-const organization = {
-    "@type": "Organization",
-    "@id": "https://northdakotafairytales.org/#organization",
-    "name": "North Dakota Fairytales",
-    "url": "https://northdakotafairytales.org/",
-    "logo": {
-        "@type": "ImageObject",
-        "@id": "https://northdakotafairytales.org/#logo",
-        "url": "https://northdakotafairytales.org/favicon.ico",
-        "contentUrl": "https://northdakotafairytales.org/favicon.ico",
-        "caption": "North Dakota Fairytales"
+const schemaGraph = [
+    {
+        "@type": "Organization",
+        "@id": "https://northdakotafairytales.org/#organization",
+        "name": "North Dakota Fairytales",
+        "url": "https://northdakotafairytales.org/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://northdakotafairytales.org/favicon.ico"
+        },
+        "sameAs": sameAsLinks,
+        "description": siteDesc
     },
-    "image": { "@id": "https://northdakotafairytales.org/#logo" },
-    "sameAs": sameAsLinks,
-    "description": description
-};
 
-// 2. WebSite
-const website = {
-    "@type": "WebSite",
-    "@id": "https://northdakotafairytales.org/#website",
-    "url": "https://northdakotafairytales.org/",
-    "name": "North Dakota Fairytales",
-    "publisher": { "@id": "https://northdakotafairytales.org/#organization" },
-    "inLanguage": lang
-};
+    {
+        "@type": "WebSite",
+        "@id": "https://northdakotafairytales.org/#website",
+        "url": "https://northdakotafairytales.org/",
+        "name": "North Dakota Fairytales",
+        "publisher": {
+            "@id": "https://northdakotafairytales.org/#organization"
+        },
+        "inLanguage": lang
+    },
 
-// 3. WebPage
-const webpage = {
-    "@type": "WebPage",
-    "@id": canonicalURL.href + "#webpage",
-    "url": canonicalURL.href,
-    "name": title,
-    "isPartOf": { "@id": "https://northdakotafairytales.org/#website" },
-    "about": { "@id": "https://northdakotafairytales.org/#organization" },
-    "description": description,
-    "inLanguage": lang
-};
+    {
+        "@type": "WebPage",
+        "@id": canonicalURL.href + "#webpage",
+        "url": canonicalURL.href,
+        "name": siteTitle,
+        "description": siteDesc,
+        "inLanguage": lang,
+        "isPartOf": {
+            "@id": "https://northdakotafairytales.org/#website"
+        },
+        "about": {
+            "@id": "https://northdakotafairytales.org/#organization"
+        }
+    },
 
-// Собираем граф
-const graph: any [] = [organization, website, webpage];
-
-// 4. Добавляем Person (автора) только если нужно
-if (isAuthorPage) {
-    graph.push({
+    {
         "@type": "Person",
         "@id": "https://northdakotafairytales.org/#person",
         "name": "Paul Brian Mashkovtsev",
-        "url": "https://northdakotafairytales.org/en/about_the_creator/",
-        "jobTitle": "Author, Songwriter, Creator",
-        "worksFor": { "@id": "https://northdakotafairytales.org/#organization" },
-        "sameAs": sameAsLinks, // Автор связан с теми же каналами
-        "knowsAbout": [
-            "children's songs",
-            "children's books",
-            "winter stories",
-            "social emotional learning"
-        ]
-    });
+        "url": "https://northdakotafairytales.org/${lang}/about_the_creator/",
+"jobTitle": "Author, Songwriter, Creator",
+    "worksFor": {
+    "@id": "https://northdakotafairytales.org/#organization"
+},
+"sameAs": sameAsLinks,
+    "knowsAbout": currentL10n.tags
 }
+];
 ---
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": graph
-})} />
+<script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": schemaGraph
+        })}
+/>
