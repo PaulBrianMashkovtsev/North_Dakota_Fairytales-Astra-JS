@@ -133,8 +133,47 @@ const sameAsLinks = [
     "https://www.pinterest.com/northdakotafairytales/"
 ];
 
+
+// ... твои импорты и другие константы (l10n и т.д.)
+
+const domain = "https://northdakotafairytales.org";
+const currentPath = Astro.url.pathname;
+const segments = currentPath.split('/').filter(Boolean);
+
+
+const formatName = (str: string) =>
+    str
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+
+const breadcrumbElements = [
+{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": `${domain}/`
+    }
+];
+
+segments.forEach((segment, index) => {
+    const path = segments.slice(0, index + 1).join('/');
+    breadcrumbElements.push({
+        "@type": "ListItem",
+        "position": index + 2,
+        "name": formatName(segment),
+        "item": `${domain}/${path}/`
+    });
+    });
+
+// Теперь собираем всё в один массив Graph
 const schemaGraph = [
-    {
+{
+    "@type": "BreadcrumbList",
+    "@id": `${domain}${currentPath}#breadcrumb`,
+    "itemListElement": breadcrumbElements
+    },
+
+{
         "@type": "Organization",
         "@id": "https://northdakotafairytales.org/#organization",
         "name": "North Dakota Fairytales",
@@ -145,7 +184,7 @@ const schemaGraph = [
         },
         "sameAs": sameAsLinks,
         "description": siteDesc
-    },
+},
 
     {
         "@type": "WebSite",
@@ -168,6 +207,7 @@ const schemaGraph = [
         "isPartOf": {
             "@id": "https://northdakotafairytales.org/#website"
         },
+        "breadcrumb": { "@id": `${domain}${currentPath}#breadcrumb` },
         "about": {
             "@id": "https://northdakotafairytales.org/#organization"
         }
@@ -177,7 +217,7 @@ const schemaGraph = [
         "@type": "Person",
         "@id": "https://northdakotafairytales.org/#person",
         "name": "Paul Brian Mashkovtsev",
-        "url": "https://northdakotafairytales.org/${lang}/about_the_creator/",
+        "url": `${domain}/${lang}/about_the_creator/`,
 "jobTitle": "Author, Songwriter, Creator",
     "worksFor": {
     "@id": "https://northdakotafairytales.org/#organization"
