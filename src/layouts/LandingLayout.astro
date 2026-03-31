@@ -1,13 +1,16 @@
 ---
 import "../styles/global.css";
-import Schema from "../components/Schema.astro";
-
+import Schema, {l10n} from "../components/Schema.astro";
 
 
 // Достаем пропсы, которые передаются в Layout (например, из index.astro)
-const { lang, title = "North Dakota Fairytales" } = Astro.props;
+const { lang, title = "North Dakota Fairytales" , description} = Astro.props;
 
-// Логика определения языка на сервере
+
+const currentL10n = l10n[lang] || l10n.en;
+
+// 2. Создаем единую переменную для описания (Пункт 11)
+const siteDesc = description || currentL10n.desc;
 const currentLang = lang || 'en';
 ---
 
@@ -19,18 +22,17 @@ const currentLang = lang || 'en';
 
     <title>North Dakota Fairytales | Choose Language</title>
 
-    <meta name="description" content="Choose your language to explore calm winter stories and songs for
-    children from North Dakota Fairytales." />
+    <meta name="description" content={siteDesc} />
+    <meta property="og:description" content={siteDesc} />
+    <meta name="twitter:description" content={siteDesc} />
 
     <meta property="og:title" content="North Dakota Fairytales" />
-    <meta property="og:description" content="Choose your language to explore calm winter stories and songs for children." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://northdakotafairytales.org/" />
     <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="North Dakota Fairytales" />
-    <meta name="twitter:description" content="Choose your language to explore calm winter stories and songs for children." />
     <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
 
     <link rel="canonical" href="https://northdakotafairytales.org/" />
@@ -59,7 +61,7 @@ const currentLang = lang || 'en';
     <Schema
             title={title}
             lang={currentLang}
-            description="Choose your language to explore calm winter stories and songs for children from North Dakota Fairytales."
+            description= {siteDesc}
     />
 
     <!--<title>{title}</title>-->

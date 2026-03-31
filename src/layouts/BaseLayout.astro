@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import {l10n} from "../components/Schema.astro";
 
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -8,8 +9,13 @@ import Schema from "../components/Schema.astro";
 
 const { title, description, lang = "en" } = Astro.props;
 
-// Используем lang, который уже пришел из Astro.props выше
+// Импорт словаря (убедись, что путь верный, обычно он уже есть выше)
+// import { l10n } from "../конкретный_путь_к_вашему_файлу/l10n";
+
+const currentL10n = l10n[lang] || l10n.en;
+const siteDesc = description || currentL10n.desc;
 const currentLang = lang || 'en';
+
 
 const homeLabels = {
     en: "Home",
@@ -42,20 +48,24 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
 ---
 <!DOCTYPE html>
 <html lang={lang} dir={["ar","fa","ur"].includes(lang) ? "rtl" : "ltr"}>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${Astro.site}${Astro.url.pathname}`} />
-    <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="twitter:title" content={title} />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
+        <meta name="description" content={siteDesc} />
+        <meta property="og:description" content={siteDesc} />
+        <meta name="twitter:description" content={siteDesc} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${Astro.site}${Astro.url.pathname}`} />
+        <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
+
 
 
     <link rel="canonical" href={`${Astro.site}${Astro.url.pathname}`} />
