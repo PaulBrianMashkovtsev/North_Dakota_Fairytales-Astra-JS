@@ -14,7 +14,8 @@ const {
 } = Astro.props;
 
 // 🌍 Полный словарь (сохраняем силу проекта)
-export const l10n: Record<string, { name: string; desc: string; tags: string[] }> = {
+type L10nMap = { [key: string]: { name: string; desc: string; tags: string[] } };
+export const l10n: L10nMap = {
     en: {
         name: "North Dakota Fairytales",
         desc: "Winter children's stories, songs, games, color metaphors and encyclopedia for calm emotional learning.",
