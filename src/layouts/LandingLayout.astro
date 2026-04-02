@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Schema, {l10n} from "../components/Schema.astro";
+import { buildHreflangNetwork } from "../lib/hreflang";
 
 
 // Достаем пропсы, которые передаются в Layout (например, из index.astro)
@@ -12,6 +13,8 @@ const currentL10n = (l10n && l10n[lang]) ? l10n[lang] : l10n.en;
 // 2. Создаем единую переменную для описания (Пункт 11)
 const siteDesc = description || currentL10n.desc;
 const currentLang = lang || 'en';
+
+const hreflangNetwork = buildHreflangNetwork(Astro.site, Astro.url.pathname);
 ---
 
 <!DOCTYPE html>
@@ -36,28 +39,12 @@ const currentLang = lang || 'en';
     <meta name="twitter:title" content="North Dakota Fairytales" />
     <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
 
-    <link rel="canonical" href="https://northdakotafairytales.org/" />
+    <link rel="canonical" href={`${Astro.site}${Astro.url.pathname}`} />
 
-    <link rel="alternate" hreflang="x-default" href="https://northdakotafairytales.org/" />
-
-    <link rel="alternate" hreflang="en" href="https://northdakotafairytales.org/en/" />
-    <link rel="alternate" hreflang="es" href="https://northdakotafairytales.org/es/" />
-    <link rel="alternate" hreflang="fr" href="https://northdakotafairytales.org/fr/" />
-    <link rel="alternate" hreflang="ar" href="https://northdakotafairytales.org/ar/" />
-    <link rel="alternate" hreflang="ru" href="https://northdakotafairytales.org/ru/" />
-    <link rel="alternate" hreflang="ur" href="https://northdakotafairytales.org/ur/" />
-    <link rel="alternate" hreflang="hi" href="https://northdakotafairytales.org/hi/" />
-    <link rel="alternate" hreflang="bn" href="https://northdakotafairytales.org/bn/" />
-    <link rel="alternate" hreflang="fa" href="https://northdakotafairytales.org/fa/" />
-    <link rel="alternate" hreflang="pt" href="https://northdakotafairytales.org/pt/" />
-    <link rel="alternate" hreflang="ms" href="https://northdakotafairytales.org/ms/" />
-    <link rel="alternate" hreflang="id" href="https://northdakotafairytales.org/id/" />
-    <link rel="alternate" hreflang="de" href="https://northdakotafairytales.org/de/" />
-    <link rel="alternate" hreflang="ca" href="https://northdakotafairytales.org/ca/" />
-    <link rel="alternate" hreflang="az" href="https://northdakotafairytales.org/az/" />
-    <link rel="alternate" hreflang="hy" href="https://northdakotafairytales.org/hy/" />
-    <link rel="alternate" hreflang="haw" href="https://northdakotafairytales.org/haw/" />
-    <link rel="alternate" hreflang="tt" href="https://northdakotafairytales.org/tt/" />
+    <link rel="alternate" hreflang="x-default" href={hreflangNetwork.xDefault} />
+    {hreflangNetwork.alternates.map(({ hreflang, href }) => (
+        <link rel="alternate" hreflang={hreflang} href={href} />
+    ))}
 
     <Schema
             title={title}
