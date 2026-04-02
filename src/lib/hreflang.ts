@@ -70,6 +70,7 @@ export const buildHreflangNetwork = (site: unknown, pathname: string) => {
   });
 
   return {
+    // Per requirements, `x-default` always points to the root language hub.
     xDefault: `${normalizedSite}/`,
     alternates,
   };
