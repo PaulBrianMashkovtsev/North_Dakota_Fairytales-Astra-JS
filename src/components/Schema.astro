@@ -229,9 +229,10 @@ const schemaGraph = [
 ];
 ---
 
-<script type="application/ld+json" is:inline>
-    {JSON.stringify({
+<script
+    type="application/ld+json"
+    set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@graph": schemaGraph
     })}
-</script>
+/>
