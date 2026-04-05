@@ -2,30 +2,79 @@
 const currentLang = Astro.url.pathname.split("/")[1] || "en";
 
 const brandNames = {
-    en: "North Dakota Fairytales",
-    es: "Cuentos de Hadas de North Dakota",
-    fr: "Contes de fées du Dakota du Nord",
-    ar: "حكايات داكوتا الشمالية الخيالية",
-
-    ru: "Сказки Северной Дакоты",
-    ur: "نارتھ ڈکوٹا فیری ٹیلز",
-    hi: "नॉर्थ डकोटा फेयरीटेल्स",
-    bn: "নর্থ ডাকোটা ফেয়ারিটেলস",
-    fa: "افسانه‌های داکوتای شمالی",
-    pt: "Contos de Fadas de Dakota do Norte",
-
-    ms: "Kisah Dongeng Dakota Utara",
-    id: "Dongeng Dakota Utara",
-
-    de: "North Dakota Märchen",
-    ca: "Contes de Dakota del Nord",
-
-    az: "Şimali Dakota Nağılları",
-    hy: "Հյուսիսային Դակոտայի հեքիաթներ",
-
-    haw: "Nā Moʻolelo o Dakota ʻĀkau",
-    tt: "Төньяк Дакота әкиятләре"
-};
+    en: {
+        display: "North Dakota Fairytales",
+        search: "North Dakota Fairytales English"
+    },
+    es: {
+        display: "Cuentos de Hadas de North Dakota",
+        search: "North Dakota Fairytales Spanish"
+    },
+    fr: {
+        display: "Contes de fées du Dakota du Nord",
+        search: "North Dakota Fairytales French"
+    },
+    ar: {
+        display: "حكايات داكوتا الشمالية الخيالية",
+        search: "North Dakota Fairytales Arabic"
+    },
+    ru: {
+        display: "Сказки Северной Дакоты",
+        search: "North Dakota Fairytales Russian"
+    },
+    ur: {
+        display: "نارتھ ڈکوٹا فیری ٹیلز",
+        search: "North Dakota Fairytales Urdu"
+    },
+    hi: {
+        display: "नॉर्थ डकोटा फेयरीटेल्स",
+        search: "North Dakota Fairytales Hindi"
+    },
+    bn: {
+        display: "নর্থ ডাকোটা ফেয়ারিটেলস",
+        search: "North Dakota Fairytales Bengali"
+    },
+    fa: {
+        display: "افسانه‌های داکوتای شمالی",
+        search: "North Dakota Fairytales Persian"
+    },
+    pt: {
+        display: "Contos de Fadas de Dakota do Norte",
+        search: "North Dakota Fairytales Portuguese"
+    },
+    ms: {
+        display: "Kisah Dongeng Dakota Utara",
+        search: "North Dakota Fairytales Malay"
+    },
+    id: {
+        display: "Dongeng Dakota Utara",
+        search: "North Dakota Fairytales Indonesian"
+    },
+    de: {
+        display: "North Dakota Märchen",
+        search: "North Dakota Fairytales German"
+    },
+    ca: {
+        display: "Contes de Dakota del Nord",
+        search: "North Dakota Fairytales Catalan"
+    },
+    az: {
+        display: "Şimali Dakota Nağılları",
+        search: "North Dakota Fairytales Azerbaijani"
+    },
+    hy: {
+        display: "Հյուսիսային Դակոտայի հեքիաթներ",
+        search: "North Dakota Fairytales Armenian"
+    },
+    haw: {
+        display: "Nā Moʻolelo o Dakota ʻĀkau",
+        search: "North Dakota Fairytales Hawaiian"
+    },
+    tt: {
+        display: "Төньяк Дакота әкиятләре",
+        search: "North Dakota Fairytales Tatar"
+    }
+} as const;
 
 
 const translations = {
@@ -301,7 +350,9 @@ const translations = {
 };
 
 const t = translations[currentLang as keyof typeof translations] || translations.en;
-const brand = brandNames[currentLang as keyof typeof translations] || "North Dakota Fairytales";
+const brand =
+    brandNames[currentLang as keyof typeof brandNames] ?? brandNames.en;
+const brandAriaLabel = `${brand.display} - ${brand.search}`;
 ---
 
 <header class="ndf-header">
@@ -311,7 +362,16 @@ const brand = brandNames[currentLang as keyof typeof translations] || "North Dak
         <div class="ndf-spacer"></div>
 
         <div class="ndf-brand-box text-white">
-            <h1 class="brand-title">{brand}</h1>
+            <h1 class="brand-title">
+                <a
+                    class="ndf-brand-link"
+                    href={`/${currentLang}/`}
+                    aria-label={brandAriaLabel}
+                >
+                    {brand.display}
+                    <span class="sr-only"> - {brand.search}</span>
+                </a>
+            </h1>
             <p class="subtitle">{t.subtitle}</p>
         </div>
 
@@ -374,6 +434,28 @@ const brand = brandNames[currentLang as keyof typeof translations] || "North Dak
         text-shadow: 0 0 20px rgba(65, 105, 225, 0.5);
         margin: 0;
         line-height: 1.1;
+    }
+
+    .ndf-brand-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .ndf-brand-link:hover,
+    .ndf-brand-link:focus-visible {
+        text-decoration: underline;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .subtitle {
