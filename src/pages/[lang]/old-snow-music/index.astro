@@ -1,0 +1,283 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } }
+        // Добавьте сюда другие языки, которые у вас есть
+    ];
+}
+
+const lang = Astro.params.lang;
+
+const navLabels = {
+    en: { animals: "Animals", famous: "Is North Dakota Famous?" },
+    es: { animals: "Animales", famous: "¿Es North Dakota Famoso?" },
+    fr: { animals: "Animaux", famous: "Est-ce que North Dakota est célèbre ?" },
+    ar: { animals: "حيوانات", famous: "هل نورث داكوتا مشهورة\u061F" }
+};
+const nav = navLabels[lang as keyof typeof navLabels] ?? navLabels.en;
+const animalsHref = `/${lang}/old-snow-music/animals`;
+const famousHref = `/${lang}/old-snow-music/is-north-dakota-famous`;
+
+const text = {
+    en: {
+        title: "",
+        p0: "",
+        subtitle: "", // Здесь нужна запятая
+        p1: `🌨 North Dakota for Kids`, // Нужна запятая
+
+        p2: `North Dakota Fairytales is an original winter-themed children’s storytelling brand created by Paul Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `The project features original characters, songs, and stories inspired by the winter landscapes and atmosphere 
+        of North Dakota. It focuses on calm, cozy, and safe storytelling for children and does not retell Native American 
+        legends or historical folklore.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales was created by an independent author and storyteller with a deep interest in cultural 
+        heritage, childhood imagination, and thoughtful storytelling.`,
+
+        p5: `The creator works across writing, music, and visual concepts, focusing on calm, winter-themed stories 
+        designed to support children’s emotional well-being. Each project element — stories, songs, and illustrations — 
+        is developed with careful attention to atmosphere, language, and emotional tone.`,
+
+        p6: `North Dakota Fairytales is a long-term creative project guided by a consistent artistic vision and a belief 
+        in gentle storytelling as an important part of childhood.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+
+    es: {
+        title: "",
+        p0: "",
+        subtitle: "", // Здесь нужна запятая
+        p1: `Sobre el Creador`, // Нужна запятая
+
+        p2: `North Dakota Fairytales es una marca original de narración infantil con temática invernal, creada por Paul 
+        Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `El proyecto presenta personajes, canciones e historias originales inspiradas en los paisajes invernales y 
+        la atmósfera de Dakota del Norte. Se centra en una narración tranquila, acogedora y segura para niños, y no
+         reinterpreta leyendas nativas americanas ni folclore histórico.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales fue creado por un autor y narrador independiente con un profundo interés en el 
+        patrimonio cultural, la imaginación infantil y la narración reflexiva.`,
+
+        p5: `El creador trabaja en escritura, música y conceptos visuales, centrándose en historias invernales calmadas 
+        diseñadas para apoyar el bienestar emocional de los niños. Cada elemento del proyecto — historias, canciones e 
+        ilustraciones — se desarrolla con especial atención a la atmósfera, el lenguaje y el tono emocional.`,
+
+        p6: `North Dakota Fairytales es un proyecto creativo a largo plazo, guiado por una visión artística coherente y 
+        por la convicción de que la narración suave es una parte esencial de la infancia.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+
+    fr: {
+        title: "",
+        p0: "",
+        subtitle: "", // Здесь нужна запятая
+        p1: `À propos du Créateur`, // Нужна запятая
+
+        p2: `North Dakota Fairytales est une marque originale de récits pour enfants sur le thème de l’hiver, créée par 
+        Paul Brian Mashkovtsev.`, // Нужна запятая
+
+        p3: `Le projet propose des personnages, des chansons et des histoires originales inspirés des paysages hivernaux
+         et de l’atmosphère du Dakota du Nord. Il met l’accent sur une narration calme, chaleureuse et sûre pour les 
+         enfants, et ne reprend pas les légendes amérindiennes ni le folklore historique.`, // Нужна запятая
+
+        p4: `North Dakota Fairytales a été créé par un auteur et conteur indépendant, animé par un intérêt profond pour 
+        le patrimoine culturel, l’imaginaire de l’enfance et la narration réfléchie.`,
+
+        p5: `Le créateur travaille à travers l’écriture, la musique et les concepts visuels, en se concentrant sur des 
+        histoires hivernales calmes conçues pour soutenir le bien-être émotionnel des enfants. Chaque élément du projet — 
+        histoires, chansons et illustrations — est développé avec une attention particulière portée à l’atmosphère, au 
+        langage et à la tonalité émotionnelle.`,
+
+        p6: `North Dakota Fairytales est un projet créatif à long terme, guidé par une vision artistique cohérente et 
+        par la conviction que la narration douce est une composante essentielle de l’enfance.`
+    }, // Запятая перед следующим языком (если он есть ниже)
+
+    ar: {
+        title: "",
+        p0: "",
+        subtitle: "", // Здесь нужна запятая
+        p1: `عن المُنشئ`,
+        p2: `نورث داكوتا فيري تايلز 
+        (North Dakota Fairytales) هي علامة أصلية لسرد قصص الأطفال ذات الطابع الشتوي، أنشأها بول براين ماشكوفتسيف.`,
+        p3: `يضم المشروع شخصيات وأغاني وقصصًا أصلية مستوحاة من المناظر الطبيعية الشتوية وأجواء ولاية نورث داكوتا. 
+        ويركّز على سرد هادئ ودافئ وآمن للأطفال، ولا يعيد رواية أساطير السكان الأصليين أو الحكايات التاريخية الشعبية.`,
+        p4: `تم إنشاء North Dakota Fairytales على يد مؤلف وراوٍ مستقل يهتم بالتراث الثقافي، وخيال الطفولة، والسرد القصصي المتوازن.`,
+        p5: `يعمل المُنشئ في مجالات
+         الكتابة والموسيقى والتصميم البصري، مع التركيز على قصص شتوية هادئة تهدف إلى دعم السلامة العاطفية للأطفال. يتم
+         تطوير كل عنصر من عناصر المشروع — القصص والأغاني والرسومات — بعناية خاصة للأجواء واللغة والنبرة العاطفية.`,
+        p6: `يُعد North Dakota Fairytales
+         مشروعًا إبداعيًا طويل المدى، يستند إلى رؤية فنية متسقة وإيمان بأهمية السرد الهادئ كجزء أساسي من تجربة الطفولة.`
+    } // Запятая перед следующим языком (если он есть ниже)
+};
+
+const t = text[lang as keyof typeof text] || text.en;
+---
+
+<BaseLayout lang={lang}
+    isAuthorPage={true}>
+
+    <h1>{t.title}</h1>
+    <h2>{t.subtitle}</h2>
+
+    <div class="intro-card">
+        <p>{t.p0}</p>
+
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <div class="old-snow-album-row" dir="ltr">
+            <div class="old-snow-album-side old-snow-album-side--left">
+                <a href={animalsHref} class="animals-btn">
+                    {nav.animals}
+                </a>
+            </div>
+            <div class="old-snow-album-center">
+                <img
+                    src="/images/nd_animals_old.png"
+                    alt="Cute winter animals playing in the snow in North Dakota | Animales de invierno jugando en la nieve en Dakota del Norte | Animaux d’hiver jouant dans la neige dans le Dakota du Nord | حيوانات شتوية لطيفة تلعب في الثلج في نورث داكوتا"
+                    class="nd-image old-snow-album-img"
+                />
+            </div>
+            <div class="old-snow-album-side old-snow-album-side--right">
+                <a href={famousHref} class="famous-btn">
+                    {nav.famous}
+                </a>
+            </div>
+        </div>
+        <p>{t.p4}</p>
+        <img 
+          src="/images/nd_old.png" 
+          alt="Winter farm in North Dakota with northern lights and snow landscape | Granja invernal en Dakota del Norte con auroras y nieve | Ferme hivernale dans le Dakota du Nord avec aurores boréales et neige | مزرعة شتوية في نورث داكوتا مع الشفق القطبي والثلج"
+          class="nd-image"
+        />
+        <p>{t.p5}</p>
+        <p>{t.p6}</p>
+
+
+
+</div>
+</BaseLayout>
+
+<style>
+  .nd-image {
+    width: 100%;
+    max-width: 650px;
+    display: block;
+    margin: 30px auto;
+    border-radius: 14px;
+  }
+
+  /* Equal-width side tracks (flex: 1 1 0) keep the image column in the true horizontal center */
+  .old-snow-album-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin: 30px auto;
+    box-sizing: border-box;
+  }
+
+  .old-snow-album-side {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .old-snow-album-side--left {
+    justify-content: flex-end;
+    padding-right: 75px;
+  }
+
+  .old-snow-album-side--right {
+    justify-content: flex-start;
+    padding-left: 75px;
+  }
+
+  .old-snow-album-center {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .old-snow-album-row .old-snow-album-img {
+    margin: 0;
+    width: min(100%, 650px);
+    max-width: 650px;
+  }
+
+  @media (max-width: 1100px) {
+    .old-snow-album-row {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 75px;
+    }
+
+    .old-snow-album-side {
+      flex: 1 1 100%;
+      justify-content: center !important;
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .old-snow-album-side--left {
+      order: 2;
+    }
+
+    .old-snow-album-center {
+      order: 1;
+      flex: 1 1 100%;
+    }
+
+    .old-snow-album-side--right {
+      order: 3;
+    }
+  }
+
+  /* Same capsule metrics as global .ndf-home-btn (BaseLayout.astro): padding, radius, shadow, transition */
+  .animals-btn,
+  .famous-btn {
+    flex: 0 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    width: min(100%, 440px);
+    padding: 12px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(206, 196, 222, 0.4);
+    text-decoration: none;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    background-color: rgba(181, 168, 203, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .animals-btn:hover,
+  .famous-btn:hover {
+    background-color: rgba(181, 168, 203, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    border-color: rgba(220, 212, 232, 0.55);
+  }
+
+  .animals-btn:focus-visible,
+  .famous-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 3px;
+  }
+</style>

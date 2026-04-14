@@ -1,5 +1,5 @@
-/* Если у тега html стоит dir="rtl", меняем поведение флекс-контейнеров */
-[dir="rtl"] .ndf-menu-wrapper {
+/* RTL: порядок кнопки «Зимняя магия» и кнопки меню */
+[dir="rtl"] .ndf-menu-cluster {
     flex-direction: row-reverse;
 }
 

@@ -1,0 +1,108 @@
+---
+import BaseLayout from "/src/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } }
+    ];
+}
+
+const lang = Astro.params.lang;
+
+const text = {
+    en: {
+        p1: "❄️ Is North Dakota Famous for Anything?",
+        p2: "A Quiet Winter View for Kids\n\nYes — North Dakota is known for many things.\nBut not in a loud or crowded way.\n\nIt is a place of wide skies, deep winters, and quiet natural strength. For children, it can feel like a calm and magical world.",
+        p3: "🦬 Home of the Great Bison\n\nNorth Dakota is often called the home of the great bison.\n\nHere, you can imagine powerful herds moving across snowy plains — slow, steady, and strong. Some stories even give them names, like Dakota Thunder, a symbol of strength and quiet confidence.\n\nThe state is also home to some of the world's largest animal statues, including giant bison and cows — something that always amazes children and sparks curiosity.",
+        p4: "🏔 Badlands and Rainbow Rocks\n\nOne of the most unique places in North Dakota is the Badlands, including Painted Canyon inside Theodore Roosevelt National Park.\n\nThese lands are often called Rainbow Rocks, because the hills and cliffs show soft layers of many colors. For children, it feels like walking through a natural painting shaped by time.",
+        p5: "🌲 The Petrified Forest — Magic of Stone\n\nNorth Dakota is also home to the Petrified Forest, where ancient trees have turned into stone.\n\nThis place is often described as the Magic of Stone — something that once lived, now resting quietly for thousands of years. It feels calm, mysterious, and perfect for imagination.",
+        p6: "🌌 Northern Lights — Sky Dancers\n\nThe Northern Lights can often be seen in North Dakota during the winter.\n\nMany people call them the Sky Dancers, because the lights move gently across the night sky — green, blue, and sometimes violet. For children, it feels like the sky is alive, softly telling a story.",
+        p7: "🥁 Powwow — Color and Rhythm\n\nNorth Dakota is also known for powwow gatherings, where traditional dances, music, and clothing bring together color, rhythm, and movement.\n\nFeathers, drums, and bright patterns create a strong visual experience that children easily remember.",
+        p8: "❄️ Legendary Winter\n\nNorth Dakota is famous for its long and snowy winters.\n\nFrozen lakes, endless snow, and quiet nights create a powerful but peaceful world. This legendary winter is the heart of North Dakota Fairytales — a place where stories and songs grow slowly and naturally.",
+        p9: "🌨 A Different Kind of Fame\n\nSo, is North Dakota famous for anything?\n\nYes — for its nature, its winter, its silence, and its quiet magic.\n\nAnd for children, it becomes something even more special:\na place where stories, songs, and imagination can grow safely and gently.",
+    },
+    es: {
+        p1: "❄️ ¿Es famosa Dakota del Norte por algo?",
+        p2: "Una visión tranquila de invierno para niños\n\nSí — Dakota del Norte es conocida por muchas cosas.\nPero no de una manera ruidosa ni concurrida.\n\nEs un lugar de cielos abiertos, inviernos profundos y una tranquila fuerza natural.\nPara los niños, puede sentirse como un mundo sereno y mágico.",
+        p3: "🦬 Hogar del gran bisonte\n\nDakota del Norte es conocida como el hogar del gran bisonte.\n\nAquí, los niños pueden imaginar poderosas manadas moviéndose por llanuras nevadas — lentas, constantes y fuertes. Algunas historias incluso les dan nombres, como Dakota Thunder, un símbolo de fuerza y confianza tranquila.\n\nEl estado también es famoso por sus enormes estatuas de animales, incluidos bisontes y vacas gigantes — algo que siempre sorprende a los niños y despierta su curiosidad.",
+        p4: "🏔 Badlands y las Rocas Arcoíris\n\nUno de los lugares más únicos de Dakota del Norte son los Badlands, incluyendo el Painted Canyon dentro del Parque Nacional Theodore Roosevelt.\n\nEstas tierras a menudo se llaman Rocas Arcoíris, porque sus colinas y acantilados muestran suaves capas de muchos colores.\nPara los niños, es como caminar dentro de una pintura natural formada con el tiempo.",
+        p5: "🌲 El Bosque Petrificado — Magia de Piedra\n\nDakota del Norte también alberga el Bosque Petrificado, donde antiguos árboles se han convertido en piedra.\n\nEste lugar se describe como la Magia de Piedra — algo que una vez estuvo vivo y ahora descansa en calma durante miles de años.\nSe siente tranquilo, misterioso y perfecto para la imaginación infantil.",
+        p6: "🌌 Auroras Boreales — Danzantes del Cielo\n\nLas auroras boreales pueden verse con frecuencia en Dakota del Norte durante el invierno.\n\nMuchas personas las llaman Danzantes del Cielo, porque las luces se mueven suavemente por el cielo nocturno — verdes, azules y a veces violetas.\nPara los niños, es como si el cielo estuviera vivo, contando una historia en silencio.",
+        p7: "🥁 Powwow — Color y Ritmo\n\nDakota del Norte también es conocida por los encuentros powwow, donde danzas tradicionales, música y vestimenta crean una experiencia llena de color, ritmo y movimiento.\n\nPlumas, tambores y patrones brillantes forman una imagen fuerte y memorable que los niños recuerdan fácilmente.",
+        p8: "❄️ Invierno legendario\n\nDakota del Norte es famosa por sus largos y nevados inviernos.\n\nLagos congelados, nieve infinita y noches silenciosas crean un mundo poderoso pero tranquilo.\nEste invierno legendario es el corazón de North Dakota Fairytales — un lugar donde las historias y canciones crecen despacio y de forma natural.",
+        p9: "🌨 Un tipo diferente de fama\n\nEntonces, ¿Dakota del Norte es famosa por algo?\n\nSí — por su naturaleza, su invierno, su silencio y su magia tranquila.\n\nY para los niños, se convierte en algo aún más especial:\nun lugar donde las historias, las canciones y la imaginación pueden crecer de forma segura y suave.",
+    },
+    fr: {
+        p1: "❄️ Le Dakota du Nord est-il connu pour quelque chose ?",
+        p2: "Une vision hivernale calme pour les enfants\n\nOui — le Dakota du Nord est connu pour beaucoup de choses.\nMais pas de manière bruyante ni animée.\n\nC'est un lieu de grands ciels ouverts, d'hivers profonds et d'une force naturelle paisible.\nPour les enfants, cela peut ressembler à un monde doux et magique.",
+        p3: "🦬 Terre des grands bisons\n\nLe Dakota du Nord est souvent appelé la terre des grands bisons.\n\nIci, les enfants peuvent imaginer de puissants troupeaux traversant les plaines enneigées — lents, réguliers et forts. Certaines histoires leur donnent même des noms, comme Dakota Thunder, symbole de force et de confiance tranquille.\n\nL'État est aussi connu pour ses immenses statues d'animaux, notamment de bisons et de vaches — quelque chose qui émerveille toujours les enfants et éveille leur curiosité.",
+        p4: "🏔 Les Badlands et les Roches Arc-en-ciel\n\nL'un des endroits les plus uniques du Dakota du Nord est la région des Badlands, incluant le Painted Canyon dans le parc national Theodore Roosevelt.\n\nCes terres sont souvent appelées Roches Arc-en-ciel, car les collines et falaises révèlent de douces couches de nombreuses couleurs.\nPour les enfants, c'est comme marcher dans une peinture naturelle façonnée par le temps.",
+        p5: "🌲 La Forêt Pétrifiée — Magie de la pierre\n\nLe Dakota du Nord abrite également la Forêt Pétrifiée, où d'anciens arbres se sont transformés en pierre.\n\nCe lieu est souvent décrit comme une Magie de la pierre — quelque chose qui a vécu autrefois et qui repose maintenant calmement depuis des milliers d'années.\nL'atmosphère est paisible, mystérieuse et parfaite pour l'imagination des enfants.",
+        p6: "🌌 Aurores boréales — Danse du ciel\n\nLes aurores boréales peuvent souvent être observées dans le Dakota du Nord pendant l'hiver.\n\nBeaucoup les appellent les Danseuses du ciel, car les lumières se déplacent doucement dans le ciel nocturne — vertes, bleues et parfois violettes.\nPour les enfants, c'est comme si le ciel était vivant et racontait une histoire en douceur.",
+        p7: "🥁 Pow-wow — Couleurs et rythme\n\nLe Dakota du Nord est aussi connu pour les rassemblements pow-wow, où danses traditionnelles, musique et vêtements créent une expérience riche en couleurs, en rythme et en mouvement.\n\nPlumes, tambours et motifs lumineux forment une image forte que les enfants retiennent facilement.",
+        p8: "❄️ Un hiver légendaire\n\nLe Dakota du Nord est célèbre pour ses longs hivers enneigés.\n\nLacs gelés, neige infinie et nuits calmes créent un monde puissant mais paisible.\nCet hiver légendaire est au cœur de North Dakota Fairytales — un lieu où les histoires et les chansons grandissent lentement et naturellement.",
+        p9: "🌨 Une autre forme de célébrité\n\nAlors, le Dakota du Nord est-il connu pour quelque chose ?\n\nOui — pour sa nature, son hiver, son silence et sa magie tranquille.\n\nEt pour les enfants, cela devient encore plus spécial :\nun endroit où les histoires, les chansons et l'imagination peuvent grandir en toute sécurité et en douceur.",
+    },
+    ar: {
+        p1: "❄️ هل ولاية داكوتا الشمالية مشهورة بشيء؟",
+        p2: "رؤية شتوية هادئة للأطفال\n\nنعم — ولاية داكوتا الشمالية معروفة بأشياء كثيرة،\nلكن ليس بطريقة صاخبة أو مزدحمة.\n\nإنها مكان يتميز بسماء واسعة، وشتاء عميق، وقوة طبيعية هادئة.\nوبالنسبة للأطفال، يمكن أن يبدو كعالم لطيف وسحري.",
+        p3: "🦬 موطن البيسون العظيم\n\nتُعرف ولاية داكوتا الشمالية بأنها موطن البيسون العظيم.\n\nهنا، يمكن للأطفال أن يتخيلوا قطعانًا قوية تتحرك عبر السهول المغطاة بالثلوج — ببطء وثبات وقوة.\nوتمنح بعض القصص لهذه القطعان أسماء، مثل \"داكوتا ثاندر\"، رمز القوة والثقة الهادئة.\n\nكما تشتهر الولاية بتماثيلها الضخمة للحيوانات، بما في ذلك البيسون والأبقار الكبيرة — وهو أمر يدهش الأطفال دائمًا ويثير فضولهم.",
+        p4: "🏔 الأراضي الوعرة وصخور قوس قزح\n\nمن أكثر الأماكن تميزًا في داكوتا الشمالية منطقة الأراضي الوعرة، بما في ذلك وادي Painted Canyon داخل متنزه ثيودور روزفلت الوطني.\n\nغالبًا ما تُسمى هذه الأراضي \"صخور قوس قزح\"، لأن التلال والمنحدرات تظهر طبقات ناعمة من ألوان متعددة.\nوبالنسبة للأطفال، يبدو الأمر وكأنهم يسيرون داخل لوحة طبيعية شكّلها الزمن.",
+        p5: "🌲 الغابة المتحجرة — سحر الحجر\n\nتضم ولاية داكوتا الشمالية أيضًا الغابة المتحجرة، حيث تحولت الأشجار القديمة إلى حجر.\n\nيوصف هذا المكان غالبًا بأنه \"سحر الحجر\" — شيء كان حيًا في الماضي، ويستريح الآن بهدوء منذ آلاف السنين.\nالأجواء هادئة وغامضة ومثالية لخيال الأطفال.",
+        p6: "🌌 الشفق القطبي — راقصات السماء\n\nيمكن رؤية الشفق القطبي كثيرًا في داكوتا الشمالية خلال فصل الشتاء.\n\nيسميه الكثيرون \"راقصات السماء\"، لأن الأضواء تتحرك بلطف عبر السماء الليلية — خضراء وزرقاء وأحيانًا بنفسجية.\nوبالنسبة للأطفال، يبدو وكأن السماء حية وتروي قصة بهدوء.",
+        p7: "🥁 الباو واو — اللون والإيقاع\n\nتُعرف داكوتا الشمالية أيضًا بتجمعات الباو واو، حيث تلتقي الرقصات التقليدية والموسيقى والملابس لتشكل تجربة مليئة بالألوان والإيقاع والحركة.\n\nالريش والطبول والأنماط الزاهية تخلق تجربة بصرية قوية تبقى في ذاكرة الأطفال بسهولة.",
+        p8: "❄️ شتاء أسطوري\n\nتشتهر داكوتا الشمالية بشتائها الطويل والمليء بالثلوج.\n\nالبحيرات المتجمدة، والثلوج الممتدة، والليالي الهادئة تخلق عالمًا قويًا ولكنه مريح.\nهذا الشتاء الأسطوري هو قلب North Dakota Fairytales — مكان تنمو فيه القصص والأغاني ببطء وبشكل طبيعي.",
+        p9: "🌨 نوع مختلف من الشهرة\n\nإذًا، هل ولاية داكوتا الشمالية مشهورة بشيء؟\n\nنعم — بطبيعتها، وشتائها، وصمتها، وسحرها الهادئ.\n\nوبالنسبة للأطفال، تصبح شيئًا أكثر تميزًا:\nمكانًا يمكن أن تنمو فيه القصص والأغاني والخيال بأمان وهدوء.",
+    },
+};
+
+const t = text[lang as keyof typeof text] || text.en;
+---
+
+<BaseLayout lang={lang}>
+    <div class="intro-card">
+        <p>{t.p1}</p>
+        <p>{t.p2}</p>
+        <p>{t.p3}</p>
+        <p>{t.p4}</p>
+        <div class="nd-image">
+            <img
+                src="/old-snow-music/pictures/canyon_old.png"
+                alt="North Dakota Badlands winter landscape with layered canyon hills and northern lights"
+            />
+        </div>
+        <p>{t.p5}</p>
+        <div class="nd-image">
+            <img
+                src="/old-snow-music/pictures/stone_canyon_old.png"
+                alt="Petrified forest in North Dakota with ancient stone tree in snowy Badlands landscape for kids"
+            />
+        </div>
+        <p>{t.p6}</p>
+        <p>{t.p7}</p>
+        <p>{t.p8}</p>
+        <p>{t.p9}</p>
+    </div>
+</BaseLayout>
+
+<style>
+    .nd-image {
+        width: 100%;
+        max-width: 420px;
+        display: block;
+        margin: 25px auto;
+        border-radius: 14px;
+        opacity: 0.95;
+    }
+
+    .nd-image img {
+        width: 700px;
+        max-width: 90vw;
+        height: auto;
+        border-radius: 16px;
+        opacity: 0.95;
+    }
+</style>
