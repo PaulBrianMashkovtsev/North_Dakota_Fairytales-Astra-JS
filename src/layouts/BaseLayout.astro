@@ -69,6 +69,8 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
 
+        <slot name="head" />
+
 
 
     <link rel="canonical" href={`${Astro.site}${Astro.url.pathname}`} />

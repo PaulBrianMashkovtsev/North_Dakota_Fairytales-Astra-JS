@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Video from "@components/Video.astro";
 
 export function getStaticPaths() {
     return [
@@ -12,6 +13,116 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang;
+const videoLinks = {
+    en: "https://youtu.be/FOh0xXJZ-cs?feature=shared",
+    es: "https://youtu.be/47PwQCKjt0w?feature=shared",
+    fr: "https://youtu.be/FMvs4fPK-zQ?feature=shared",
+    ar: "https://youtu.be/7FfDpUyt884?feature=shared"
+};
+const currentVideoId = videoLinks[lang as keyof typeof videoLinks] || videoLinks.en;
+const currentVideoEmbedUrl = currentVideoId.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0];
+const currentVideoThumbUrl = `https://img.youtube.com/vi/${currentVideoEmbedUrl.split("/").pop()}/hqdefault.jpg`;
+const lyricsToggleLabels = {
+    en: "Show Lyrics",
+    es: "Mostrar letra",
+    fr: "Afficher les paroles",
+    ar: "عرض كلمات الأغنية"
+};
+const lyricsToggleText = lyricsToggleLabels[lang as keyof typeof lyricsToggleLabels] || lyricsToggleLabels.en;
+const lyricsByLang = {
+    en: {
+        title: "North Dakota for Kids | Calm Winter Stories & Songs",
+        sections: [
+            { label: "Intro", lines: ["Hello, dear children…", "Welcome to North Dakota.", "A quiet winter place,", "full of kind animals and gentle stories."] },
+            { label: "Verse 1 — Bison", lines: ["I am a bison, strong and slow,", "I walk where winter winds softly blow.", "Through the Badlands, wide and grand,", "Snowy dreams across this land."] },
+            { label: "Verse 2 — Fox", lines: ["I am a fox with a tail so bright,", "I dance on snow in the soft moonlight.", "North Dakota is calm and true,", "A winter home for me and you."] },
+            { label: "Chorus — All Animals Together", lines: ["North Dakota for kids,", "Calm winter stories and songs.", "Safe and gentle, warm and slow,", "This is where little dreams grow strong.", "", "North Dakota for kids,", "Snowy days and cozy nights.", "We’re happy you are here with us,", "Everything here feels just right."] },
+            { label: "Verse 3 — Deer", lines: ["I am a deer, gentle and kind,", "Quiet thoughts rest in my mind.", "In North Dakota, forests are deep,", "A peaceful place where children sleep."] },
+            { label: "Verse 4 — Bunny", lines: ["I am a bunny, small and warm,", "Safe from every winter storm.", "North Dakota for kids is bright and slow,", "With gentle snow and soft warm glow."] },
+            { label: "Chorus — All Animals Together", lines: ["North Dakota for kids,", "Calm winter stories and songs.", "Safe and gentle, warm and slow,", "This is where little dreams grow strong.", "", "North Dakota for kids,", "Snowy days and cozy nights.", "We’re happy you are here with us,", "Everything here feels just right."] },
+            { label: "Verse 5 — Bear Cub", lines: ["I am a bear cub, cozy and small,", "I rest and dream through winter’s call.", "In North Dakota, nights are calm,", "Wrapped in snow so soft and warm."] },
+            { label: "Verse 6 — Owl", lines: ["I am an owl with quiet eyes,", "I watch the stars in northern skies.", "North Dakota is still and clear,", "A peaceful place for every year."] },
+            { label: "Chorus — All Animals Together", lines: ["North Dakota for kids,", "Calm winter stories and songs.", "Safe and gentle, warm and slow,", "This is where little dreams grow strong.", "", "North Dakota for kids,", "Snowy days and cozy nights.", "We’re happy you are here with us,", "Everything here feels just right."] },
+            { label: "Verse 7 — Coyote", lines: ["I am a coyote, kind and wise,", "With a friendly smile and gentle eyes.", "In North Dakota, stories are told,", "Soft and safe, never loud or bold."] },
+            { label: "Verse 8 — Squirrel", lines: ["I am a squirrel, quick but sweet,", "Tiny tracks beneath my feet.", "North Dakota for kids is fun and light,", "Snowy days and cozy nights."] },
+            { label: "Verse 9 — Little Mouse", lines: ["I am a mouse, so very small,", "But I feel safe when winter calls.", "In North Dakota, big and white,", "Even little hearts feel just right."] },
+            { label: "Verse 10 — Pheasant", lines: ["I am a pheasant, colors bright,", "Resting calm in snow so white.", "North Dakota shines so clear,", "A winter home we all hold dear."] },
+            { label: "Final Chorus — All Animals Together", lines: ["North Dakota for kids,", "Calm winter stories and songs.", "Safe and gentle, warm and slow,", "This is where little dreams grow strong.", "", "North Dakota for kids,", "Snowy days and cozy nights.", "We’re happy you are here with us,", "Everything here feels just right."] },
+            { label: "Outro", lines: ["Good night, dear children…", "North Dakota is watching over you.", "Sleep calm. Sleep warm.", "We’ll see you in another story."] }
+        ]
+    },
+    es: {
+        title: "El Bisonte Camina Suave en la Nieve – Sentirse seguro | Cuentos de Dakota del Norte",
+        sections: [
+            { label: "Verse 1", lines: ["Soy un bisonte, grande y lento,", "Camino en nieve con suave viento.", "Blanco y tranquilo todo está,", "Mi corazón en paz está."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] },
+            { label: "Verse 2", lines: ["Soy un zorro bajo la luna,", "Juego en la nieve, calma y bruma.", "Mi hogar es suave y fiel,", "También es tuyo, ven con él."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] },
+            { label: "Verse 3", lines: ["Soy un ciervo, dulce y quieto,", "Guardo sueños en secreto.", "Bosque hondo, suave hogar,", "Donde puedes descansar."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] },
+            { label: "Verse 4", lines: ["Soy conejito, cálido y pequeño,", "Nieve suave cuida mi sueño.", "Tormenta ya no da temor,", "Estoy seguro con amor."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] },
+            { label: "Verse 5", lines: ["Soy osito, voy a soñar,", "Invierno me viene a abrazar.", "Noche calma, nieve fiel,", "Todo suave como miel."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] },
+            { label: "Verse 6", lines: ["Soy un búho en cielo frío,", "Miro estrellas en silencio mío.", "Todo claro, todo en paz,", "Siempre seguro estarás."] },
+            { label: "Chorus", lines: ["Dakota del Norte para ti,", "Cuentos suaves para dormir.", "Todo es lento, todo es paz,", "Sueños crecen sin temor.", "", "Dakota del Norte para ti,", "Noches tibias junto a mí.", "Qué alegría que estés aquí,", "Todo está bien para ti."] }
+        ]
+    },
+    fr: {
+        title: "Le Bison Marche Doucement dans la Neige – Sentir calme | Contes du Dakota du Nord",
+        sections: [
+            { label: "Verse 1", lines: ["Je suis bison, lent et doux,", "Dans la neige je marche tout doux.", "Le vent chante calmement,", "Je me sens bien doucement."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] },
+            { label: "Verse 2", lines: ["Je suis renard sous la lune,", "Je joue dans la neige blanche.", "Mon foyer est calme et vrai,", "Viens avec moi, reste en paix."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] },
+            { label: "Verse 3", lines: ["Je suis cerf, doux et gentil,", "Mes pensées sont calmes aussi.", "La forêt est un doux lit,", "Pour rêver toute la nuit."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] },
+            { label: "Verse 4", lines: ["Je suis lapin, chaud et petit,", "La neige me garde la nuit.", "Pas de peur dans le vent froid,", "Je suis en sécurité là."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] },
+            { label: "Verse 5", lines: ["Je suis ourson, je dors bien,", "L’hiver me prend dans ses mains.", "La nuit calme me berce fort,", "Je rêve encore et encore."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] },
+            { label: "Verse 6", lines: ["Je suis hibou dans la nuit,", "Je vois les étoiles qui brillent.", "Tout est calme, tout est clair,", "Tu es en paix sur la terre."] },
+            { label: "Chorus", lines: ["Dakota du Nord pour toi,", "Histoires douces, reste là.", "Tout est calme, tout est lent,", "Les rêves grandissent doucement.", "", "Dakota du Nord pour toi,", "Nuits chaudes près de moi.", "On est heureux avec toi,", "Tout est bien ici pour toi."] }
+        ]
+    },
+    ar: {
+        title: "البيسون يمشي بهدوء في الثلج – الشعور بالأمان | حكايات داكوتا الشمالية",
+        sections: [
+            { label: "Verse 1", lines: ["أنا بيسون، قوي وهادئ،", "أمشي في الثلج بهدوء دافئ.", "الريح تغني بلطف خفيف،", "وقلبي يشعر بالراحة."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] },
+            { label: "Verse 2", lines: ["أنا ثعلب تحت القمر،", "ألعب في الثلج دون خطر.", "بيتي هادئ وآمن لي،", "تعال وابقَ هنا معي."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] },
+            { label: "Verse 3", lines: ["أنا غزال لطيف وطيب،", "أفكاري هادئة كالحليب.", "الغابة عميقة وحنون،", "مكان للنوم بسكون."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] },
+            { label: "Verse 4", lines: ["أنا أرنب صغير ودافئ،", "الثلج يحضنني بلطف هادئ.", "لا خوف من برد أو ريح،", "أنا بأمان وصوتي مريح."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] },
+            { label: "Verse 5", lines: ["أنا دب صغير أنام،", "في الشتاء أحلم بسلام.", "الليل هادئ مثل اليد،", "يحتويني دون جهد."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] },
+            { label: "Verse 6", lines: ["أنا بومة في السماء،", "أرى النجوم في الصفاء.", "كل شيء صامت وجميل،", "والأمان في كل ليل."] },
+            { label: "Chorus", lines: ["داكوتا للأطفال هنا،", "حكايات دافئة في السنا.", "كل شيء هادئ وبطيء،", "تنمو الأحلام في دفء وضيء.", "", "داكوتا للأطفال هنا،", "ليالٍ دافئة بيننا.", "نحن سعداء بوجودك،", "كل شيء جميل حولك."] }
+        ]
+    }
+};
+const lyricsContent = lyricsByLang[lang as keyof typeof lyricsByLang] || lyricsByLang.en;
+const schemaByLang = {
+    en: {
+        name: "Welcome to North Dakota | North Dakota for Kids",
+        description: "Calm winter stories and songs for children in English."
+    },
+    es: {
+        name: "Dakota del Norte para niños | Cuentos y canciones de invierno",
+        description: "Cuentos y canciones tranquilas de invierno para niños en español."
+    },
+    fr: {
+        name: "Dakota du Nord pour enfants | Histoires et chansons d'hiver",
+        description: "Histoires et chansons d'hiver calmes pour les enfants en français."
+    },
+    ar: {
+        name: "داكوتا الشمالية للأطفال | حكايات وأغاني الشتاء",
+        description: "حكايات وأغاني شتوية هادئة للأطفال باللغة العربية."
+    }
+};
+const currentSchema = schemaByLang[lang as keyof typeof schemaByLang] || schemaByLang.en;
 
 const navLabels = {
     en: { animals: "Animals", famous: "Is North Dakota Famous?" },
@@ -100,9 +211,9 @@ const text = {
     }, // Запятая перед следующим языком (если он есть ниже)
 
     ar: {
-        title: "",
-        p0: "",
-        subtitle: "", // Здесь нужна запятая
+        title: "🌨 نورث داكوتا للأطفال",
+        p0: `🌨 نورث داكوتا للأطفال`,
+        subtitle: "🌨 نورث داكوتا للأطفال", // Здесь нужна запятая
         p1: `عن المُنشئ`,
         p2: `نورث داكوتا فيري تايلز 
         (North Dakota Fairytales) هي علامة أصلية لسرد قصص الأطفال ذات الطابع الشتوي، أنشأها بول براين ماشكوفتسيف.`,
@@ -121,15 +232,55 @@ const t = text[lang as keyof typeof text] || text.en;
 ---
 
 <BaseLayout lang={lang}
+    title="Welcome to North Dakota | North Dakota for Kids | Calm Winter Stories & Songs"
     isAuthorPage={true}>
 
-    <h1>{t.title}</h1>
+    <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: currentSchema.name,
+        description: currentSchema.description,
+        embedUrl: currentVideoEmbedUrl,
+        contentUrl: currentVideoId,
+        thumbnailUrl: currentVideoThumbUrl,
+        inLanguage: lang
+    })}></script>
+
     <h2>{t.subtitle}</h2>
 
     <div class="intro-card">
         <p>{t.p0}</p>
 
         <p>{t.p1}</p>
+        <div class="song-video-container">
+            <Video
+                src={currentVideoId}
+                title="Welcome to North Dakota song"
+                class="song-video-frame"
+            />
+        </div>
+        <div class="song-lyrics-toggle-wrap">
+            <button
+                type="button"
+                class="song-lyrics-toggle-btn"
+                aria-expanded="false"
+                aria-controls="song-lyrics-content"
+                data-lyrics-toggle
+            >
+                {lyricsToggleText}
+            </button>
+        </div>
+        <section id="song-lyrics-content" class="song-lyrics-content" hidden>
+            <h3 class="song-lyrics-title">{lyricsContent.title}</h3>
+            {lyricsContent.sections.map((section) => (
+                <article class="song-lyrics-section">
+                    <h4>{section.label}</h4>
+                    {section.lines.map((line) => (
+                        line ? <p>{line}</p> : <div class="song-lyrics-break" aria-hidden="true"></div>
+                    ))}
+                </article>
+            ))}
+        </section>
         <p>{t.p2}</p>
         <p>{t.p3}</p>
         <div class="old-snow-album-row" dir="ltr">
@@ -163,9 +314,115 @@ const t = text[lang as keyof typeof text] || text.en;
 
 
 </div>
+
+<script>
+  const lyricsToggleButton = document.querySelector("[data-lyrics-toggle]");
+  const lyricsContent = document.getElementById("song-lyrics-content");
+
+  if (lyricsToggleButton && lyricsContent) {
+    lyricsToggleButton.addEventListener("click", () => {
+      const isExpanded = lyricsToggleButton.getAttribute("aria-expanded") === "true";
+      lyricsToggleButton.setAttribute("aria-expanded", String(!isExpanded));
+      lyricsContent.hidden = isExpanded;
+    });
+  }
+</script>
 </BaseLayout>
 
 <style>
+  .song-video-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto;
+  }
+
+  .song-video-frame {
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(10, 22, 38, 0.35);
+    overflow: hidden;
+  }
+
+  .song-lyrics-toggle-wrap {
+    max-width: 900px;
+    margin: 1rem auto 1.75rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .song-lyrics-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 16px;
+    border: 1px solid rgba(206, 196, 222, 0.45);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #f5f8ff;
+    background: linear-gradient(180deg, rgba(128, 145, 173, 0.4), rgba(104, 121, 150, 0.33));
+    box-shadow: 0 8px 20px rgba(10, 22, 38, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .song-lyrics-toggle-btn:hover {
+    background-color: rgba(90, 108, 140, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(10, 22, 38, 0.25);
+  }
+
+  .song-lyrics-toggle-btn:focus-visible {
+    outline: 2px solid rgba(236, 244, 255, 0.9);
+    outline-offset: 3px;
+  }
+
+  .song-lyrics-content {
+    max-width: 900px;
+    margin: 0 auto 2.2rem auto;
+    color: #dce4f1;
+  }
+
+  .song-lyrics-title {
+    margin: 0 0 1.6rem 0;
+    text-align: center;
+    font-size: 1.55rem;
+    color: #ecf2fc;
+  }
+
+  .song-lyrics-section {
+    margin: 0 0 2rem 0;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    background-color: rgba(47, 64, 93, 0.2);
+  }
+
+  .song-lyrics-section h4 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1.15rem;
+    color: #f3f7ff;
+  }
+
+  .song-lyrics-section p {
+    margin: 0.2rem 0;
+    color: #d9e2f2;
+  }
+
+  .song-lyrics-break {
+    height: 0.7rem;
+  }
+
+  [dir="rtl"] .intro-card,
+  [dir="rtl"] .intro-card p,
+  [dir="rtl"] .song-lyrics-content,
+  [dir="rtl"] .song-lyrics-section,
+  [dir="rtl"] .song-lyrics-section p {
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: plaintext;
+  }
+
   .nd-image {
     width: 100%;
     max-width: 650px;
