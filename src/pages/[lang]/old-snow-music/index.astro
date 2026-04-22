@@ -2,14 +2,13 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Video from "@components/Video.astro";
 
-export function getStaticPaths() {
-    return [
-        { params: { lang: "en" } },
-        { params: { lang: "es" } },
-        { params: { lang: "fr" } },
-        { params: { lang: "ar" } }
-        // Добавьте сюда другие языки, которые у вас есть
-    ];
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'fr' } },
+    { params: { lang: 'ar' } },
+  ];
 }
 
 const lang = Astro.params.lang;

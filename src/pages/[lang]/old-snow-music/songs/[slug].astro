@@ -1,0 +1,14 @@
+---
+export async function getStaticPaths() {
+  const langs = ['en', 'es', 'fr', 'ar'];
+  const slugs = ['index'];
+
+  return langs.flatMap((lang) =>
+    slugs.map((slug) => ({
+      params: { lang, slug },
+    })),
+  );
+}
+
+const { lang, slug } = Astro.params;
+---
