@@ -1,4 +1,27 @@
 ---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { translations } from "../../../lib/i18n";
+
+import farmEnIcon from "../../../components/icons_search_buttons/farm_en.png";
+import farmEsIcon from "../../../components/icons_search_buttons/farm_es.png";
+import farmFrIcon from "../../../components/icons_search_buttons/farm_fr.png";
+import farmArIcon from "../../../components/icons_search_buttons/farm_ar.png";
+
+import guestsEnIcon from "../../../components/icons_search_buttons/guests_en.png";
+import guestsEsIcon from "../../../components/icons_search_buttons/guests_es.png";
+import guestsFrIcon from "../../../components/icons_search_buttons/guests_fr.png";
+import guestsArIcon from "../../../components/icons_search_buttons/guests_ar.png";
+
+import holidayEnIcon from "../../../components/icons_search_buttons/holiday_en.png";
+import holidayEsIcon from "../../../components/icons_search_buttons/holiday_es.png";
+import holidayFrIcon from "../../../components/icons_search_buttons/holiday_fr.png";
+import holidayArIcon from "../../../components/icons_search_buttons/holiday_ar.png";
+
+import ndEnIcon from "../../../components/icons_search_buttons/ND_en.png";
+import ndEsIcon from "../../../components/icons_search_buttons/ND_es.png";
+import ndFrIcon from "../../../components/icons_search_buttons/ND_fr.png";
+import ndArIcon from "../../../components/icons_search_buttons/ND_ar.png";
+
 export async function getStaticPaths() {
   return [
     { params: { lang: 'en' } },
@@ -9,4 +32,84 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const isRTL = lang === "ar";
+const currentLang = ["en", "es", "fr", "ar"].includes(lang ?? "") ? (lang as "en" | "es" | "fr" | "ar") : "en";
+
+const categoryLabels = {
+  en: { farm: "Farm", guests: "Guests", holiday: "Holiday", nd: "North Dakota" },
+  es: { farm: "Granja", guests: "Invitados", holiday: "Fiesta", nd: "Dakota del Norte" },
+  fr: { farm: "Ferme", guests: "Invites", holiday: "Fetes", nd: "Dakota du Nord" },
+  ar: { farm: "المزرعة", guests: "الضيوف", holiday: "العطلة", nd: "داكوتا الشمالية" },
+} as const;
+
+const labels = categoryLabels[currentLang];
+const t = translations[currentLang] || translations.en;
+
+const iconByLang = {
+  farm: { en: farmEnIcon, es: farmEsIcon, fr: farmFrIcon, ar: farmArIcon },
+  guests: { en: guestsEnIcon, es: guestsEsIcon, fr: guestsFrIcon, ar: guestsArIcon },
+  holiday: { en: holidayEnIcon, es: holidayEsIcon, fr: holidayFrIcon, ar: holidayArIcon },
+  nd: { en: ndEnIcon, es: ndEsIcon, fr: ndFrIcon, ar: ndArIcon },
+} as const;
+
+const buttonItems = [
+  {
+    key: "farm",
+    label: labels.farm,
+    href: `/${currentLang}/category/farm`,
+    iconSrc: iconByLang.farm[currentLang].src,
+    altText: t.alt_farm,
+  },
+  {
+    key: "guests",
+    label: labels.guests,
+    href: `/${currentLang}/category/guests`,
+    iconSrc: iconByLang.guests[currentLang].src,
+    altText: t.alt_guests,
+  },
+  {
+    key: "holiday",
+    label: labels.holiday,
+    href: `/${currentLang}/category/holiday`,
+    iconSrc: iconByLang.holiday[currentLang].src,
+    altText: t.alt_holiday,
+  },
+  {
+    key: "nd",
+    label: labels.nd,
+    href: `/${currentLang}/category/nd`,
+    iconSrc: iconByLang.nd[currentLang].src,
+    altText: t.alt_nd_map,
+  },
+] as const;
 ---
+
+<BaseLayout
+  lang={currentLang}
+  title={t.search_index_meta_title}
+  description={t.search_index_meta_desc}
+  isAuthorPage={true}
+>
+  <section dir={isRTL ? "rtl" : "ltr"} class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="mb-8 text-center" style="text-align: center !important;">
+      <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl" style="text-align: center !important;">{t.search_index_h1}</h1>
+      <p class="mt-2 text-sm text-slate-200 sm:text-base" style="text-align: center !important;">{t.search_index_sub}</p>
+    </div>
+
+    <div class="grid grid-cols-2 justify-items-center gap-6 md:grid-cols-3 lg:grid-cols-5">
+      {buttonItems.map((item) => (
+        <a
+          href={item.href}
+          class="group flex w-[130px] flex-col items-center justify-center rounded-2xl border border-slate-300/30 bg-slate-700/30 p-3 text-center shadow-md backdrop-blur transition hover:-translate-y-0.5 hover:bg-slate-600/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <img
+            src={item.iconSrc}
+            alt={item.altText}
+            class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
+            loading="lazy"
+          />
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

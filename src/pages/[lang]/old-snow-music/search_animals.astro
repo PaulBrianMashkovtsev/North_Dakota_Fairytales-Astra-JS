@@ -1,12 +1,112 @@
 ---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { ANIMAL_SLUGS, animalLabels, type AnimalSlug } from "../../../data/searchAnimals";
+import { translations } from "../../../lib/i18n";
+
+import bearIcon from "../../../components/icons_search_buttons/bear.png";
+import beaverIcon from "../../../components/icons_search_buttons/beaver.png";
+import buffaloIcon from "../../../components/icons_search_buttons/buffolo.png";
+import bunnyIcon from "../../../components/icons_search_buttons/bunny.png";
+import canadaGooseIcon from "../../../components/icons_search_buttons/canada_goose.png";
+import coyoteIcon from "../../../components/icons_search_buttons/coyote.png";
+import deerIcon from "../../../components/icons_search_buttons/deer.png";
+import foxIcon from "../../../components/icons_search_buttons/fox.png";
+import frogIcon from "../../../components/icons_search_buttons/frog.png";
+import hareIcon from "../../../components/icons_search_buttons/hare.png";
+import mouseIcon from "../../../components/icons_search_buttons/mouse.png";
+import owlIcon from "../../../components/icons_search_buttons/owl.png";
+import pheasantIcon from "../../../components/icons_search_buttons/pheasant.png";
+import raccoonIcon from "../../../components/icons_search_buttons/raccoon.png";
+import squirrelIcon from "../../../components/icons_search_buttons/squirrel.png";
+import wolfIcon from "../../../components/icons_search_buttons/wolf.png";
+
 export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-    { params: { lang: 'fr' } },
-    { params: { lang: 'ar' } },
-  ];
+    return [
+        { params: { lang: "en" } },
+        { params: { lang: "es" } },
+        { params: { lang: "fr" } },
+        { params: { lang: "ar" } },
+    ];
 }
 
 const { lang } = Astro.params;
+const isRTL = lang === "ar";
+const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "") ? lang : "en") as "en" | "es" | "fr" | "ar";
+
+const t = translations[currentLang] || translations.en;
+const labels = animalLabels[currentLang];
+
+const iconBySlug = {
+    bear: bearIcon,
+    beaver: beaverIcon,
+    buffalo: buffaloIcon,
+    bunny: bunnyIcon,
+    canada_goose: canadaGooseIcon,
+    coyote: coyoteIcon,
+    deer: deerIcon,
+    fox: foxIcon,
+    frog: frogIcon,
+    hare: hareIcon,
+    mouse: mouseIcon,
+    owl: owlIcon,
+    pheasant: pheasantIcon,
+    raccoon: raccoonIcon,
+    squirrel: squirrelIcon,
+    wolf: wolfIcon,
+} satisfies Record<AnimalSlug, typeof bearIcon>;
+
+const buttonItems = ANIMAL_SLUGS.map((slug) => ({
+    slug,
+    label: labels[slug],
+    href: `/${currentLang}/category/${slug}`,
+    iconSrc: iconBySlug[slug].src,
+    altText: {
+        bear: (t as any).alt_bear,
+        beaver: (t as any).alt_beaver,
+        buffalo: (t as any).alt_buffalo,
+        bunny: (t as any).alt_rabbit,
+        canada_goose: (t as any).alt_goose,
+        coyote: (t as any).alt_coyote,
+        deer: (t as any).alt_deer,
+        fox: (t as any).alt_fox,
+        frog: (t as any).alt_frog,
+        hare: (t as any).alt_hare,
+        mouse: (t as any).alt_mouse,
+        owl: (t as any).alt_owl,
+        pheasant: (t as any).alt_pheasant,
+        raccoon: (t as any).alt_raccoon,
+        squirrel: (t as any).alt_squirrel,
+        wolf: (t as any).alt_wolf,
+    }[slug],
+}));
 ---
+
+<BaseLayout
+    lang={currentLang}
+    title={t.search_animals_meta_title}
+    description={t.search_animals_meta_desc}
+    isAuthorPage={true}
+>
+    <section dir={isRTL ? "rtl" : "ltr"} class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+        <div class="mb-8 text-center" style="text-align: center !important;">
+            <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl" style="text-align: center !important;">{t.search_index_h1}</h1>
+            <p class="mt-2 text-sm text-slate-200 sm:text-base" style="text-align: center !important;">{t.search_index_sub}</p>
+        </div>
+
+        <div class="grid grid-cols-2 justify-items-center gap-6 md:grid-cols-3 lg:grid-cols-5">
+            {buttonItems.map((item) => (
+                <a
+                    href={item.href}
+                    class="group flex w-[130px] flex-col items-center justify-center rounded-2xl border border-slate-300/30 bg-slate-700/30 p-3 text-center shadow-md backdrop-blur transition hover:-translate-y-0.5 hover:bg-slate-600/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                    <img
+                        src={item.iconSrc}
+                        alt={item.altText}
+                        class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
+                        loading="lazy"
+                    />
+                </a>
+            ))}
+        </div>
+    </section>
+</BaseLayout>

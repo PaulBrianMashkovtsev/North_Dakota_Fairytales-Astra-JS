@@ -1,5 +1,7 @@
 ---
-import BaseLayout from "/src/layouts/BaseLayout.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
+import { translations } from "../../../lib/i18n";
 
 export function getStaticPaths() {
     return [
@@ -11,6 +13,23 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang;
+const i18nText = translations[lang as keyof typeof translations] || translations.en;
+const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
+const searchAnimalsHref = `/${lang}/old-snow-music/search_animals`;
+const searchLabelByLang = {
+    en: "Search",
+    es: "Buscar",
+    fr: "Recherche",
+    ar: "بحث"
+};
+const searchLabel = searchLabelByLang[lang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
+const snowyMusicLabelByLang = {
+    en: "Snowy Music",
+    es: "Música Nevada",
+    fr: "Musique de Neige",
+    ar: "موسيقى ثلجية"
+};
+const snowyMusicLabel = snowyMusicLabelByLang[lang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
 
 const text = {
     en: {
@@ -67,12 +86,36 @@ const t = text[lang as keyof typeof text] || text.en;
         <p>{t.p1}</p>
         <p>{t.p2}</p>
         <p>{t.p3BeforeFox}</p>
-        <div class="nd-image">
-            <img
-                src="/old-snow-music/pictures/fox_old.png"
-                alt="Cute red fox sitting on a tree stump in snowy North Dakota winter forest for kids"
-                loading="lazy"
-            />
+        <div class="song-video-container relative mx-auto w-fit">
+            <div class="nd-image nd-image--with-search">
+                <img
+                    src="/old-snow-music/pictures/fox_old.png"
+                    alt="Cute red fox sitting on a tree stump in snowy North Dakota winter forest for kids"
+                    loading="lazy"
+                />
+            </div>
+            <a
+                href={searchAnimalsHref}
+                aria-label={searchLabel}
+                title={searchLabel}
+                class="search-video-btn"
+                style="width: 150px !important; height: 150px !important;"
+            >
+                <img
+                    src={musicIcon.src}
+                    alt={snowyMusicAlt}
+                    class="w-[150px] h-[150px] object-contain search-video-icon"
+                    style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
+                    loading="lazy"
+                />
+                <span
+                    class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
+                    style="color: #b3e5fc !important;"
+                    dir={lang === "ar" ? "rtl" : "ltr"}
+                >
+                    {snowyMusicLabel}
+                </span>
+            </a>
         </div>
         <p>{t.p3AfterFoxBeforeOwl}</p>
         <div class="nd-image">
@@ -98,6 +141,48 @@ const t = text[lang as keyof typeof text] || text.en;
 </BaseLayout>
 
 <style>
+    .song-video-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 2rem auto;
+    }
+
+    .song-video-container .nd-image--with-search {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .song-video-container .nd-image--with-search img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .search-video-btn {
+        position: absolute;
+        right: -235px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+        z-index: 50;
+        text-decoration: none;
+    }
+
+    .search-video-icon {
+        display: block;
+    }
+
+    .search-video-label {
+        position: absolute;
+        top: calc(100% + 14px);
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: max-content;
+    }
+
     .nd-image {
         width: 100%;
         max-width: 420px;

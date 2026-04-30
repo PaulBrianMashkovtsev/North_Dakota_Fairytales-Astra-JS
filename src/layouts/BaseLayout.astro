@@ -6,9 +6,20 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Schema from "../components/Schema.astro";
 import { buildHreflangNetwork } from "../lib/hreflang";
+import { resolveSongPageSeo } from "../lib/seoOldSnowSongs";
 
 
-const { title, description, lang = "en" } = Astro.props;
+const {
+    title,
+    description,
+    lang = "en",
+    hreflangExcludeLangs = [],
+    videoObject,
+    mainContentClass = "",
+} = Astro.props;
+const hreflangSkip = new Set(
+    Array.isArray(hreflangExcludeLangs) ? hreflangExcludeLangs : [],
+);
 
 // Импорт словаря (убедись, что путь верный, обычно он уже есть выше)
 // import { l10n } from "../конкретный_путь_к_вашему_файлу/l10n";
@@ -16,8 +27,43 @@ const { title, description, lang = "en" } = Astro.props;
 const currentL10n = l10n[lang] || l10n.en;
 const siteDesc = description || currentL10n.desc;
 const currentLang = lang || 'en';
+const baseOrigin = "https://northdakotafairytales.org";
+const pathname = Astro.url.pathname;
 
 const hreflangNetwork = buildHreflangNetwork(Astro.site, Astro.url.pathname);
+const siteOrigin = String(Astro.site ?? baseOrigin).replace(/\/$/, "") || baseOrigin;
+
+/** New + legacy /song/ — canonical always https://…/[lang]/old-snow-music/songs/[slug] */
+const songPageSeo = resolveSongPageSeo(pathname, siteOrigin);
+
+const oldSnowMatch = pathname.match(/^\/(en|es|fr|ar)\/old-snow-music(?:\/(.*))?\/?$/);
+const isOldSnowMusicPage = Boolean(oldSnowMatch) && !songPageSeo;
+const oldSnowSuffix = oldSnowMatch?.[2] ? `/${oldSnowMatch[2]}` : "";
+
+const oldSnowAlternates = isOldSnowMusicPage
+    ? (["en", "es", "fr", "ar"] as const).map((altLang) => ({
+          hreflang: altLang,
+          href: `${baseOrigin}/${altLang}/old-snow-music${oldSnowSuffix}`,
+      }))
+    : [];
+
+const canonicalHref = songPageSeo
+    ? songPageSeo.canonicalHref
+    : isOldSnowMusicPage
+      ? `${baseOrigin}/${currentLang}/old-snow-music${oldSnowSuffix}`
+      : `${Astro.site}${pathname}`;
+
+const xDefaultHref = songPageSeo
+    ? songPageSeo.xDefaultHref
+    : isOldSnowMusicPage
+      ? `${baseOrigin}/en/old-snow-music${oldSnowSuffix}`
+      : hreflangNetwork.xDefault;
+
+const hreflangAlternates = songPageSeo
+    ? songPageSeo.hreflangAlternates
+    : isOldSnowMusicPage
+      ? oldSnowAlternates
+      : hreflangNetwork.alternates;
 
 
 const homeLabels = {
@@ -64,7 +110,7 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         <meta name="twitter:description" content={siteDesc} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${Astro.site}${Astro.url.pathname}`} />
+        <meta property="og:url" content={canonicalHref} />
         <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
@@ -73,11 +119,33 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
 
 
 
-    <link rel="canonical" href={`${Astro.site}${Astro.url.pathname}`} />
-    <link rel="alternate" hreflang="x-default" href={hreflangNetwork.xDefault} />
-    {hreflangNetwork.alternates.map(({ hreflang, href }) => (
-        <link rel="alternate" hreflang={hreflang} href={href} />
-    ))}
+    <link rel="canonical" href={canonicalHref} />
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+    {hreflangAlternates
+        .filter(({ hreflang }) => !hreflangSkip.has(hreflang))
+        .map(({ hreflang, href }) => (
+            <link rel="alternate" hreflang={hreflang} href={href} />
+        ))}
+
+    {videoObject && (
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                name: videoObject.name,
+                description: videoObject.description,
+                thumbnailUrl: videoObject.thumbnailUrl,
+                embedUrl: videoObject.embedUrl,
+                contentUrl: videoObject.contentUrl,
+                uploadDate: videoObject.uploadDate,
+                inLanguage: currentLang,
+                publisher: {
+                    "@id": "https://northdakotafairytales.org/#organization",
+                },
+            })}
+        />
+    )}
 
 
     <Schema
@@ -136,7 +204,7 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
 
 <Header />
 
-<main class="main-content">
+<main class:list={["main-content", mainContentClass].filter(Boolean)}>
     <slot />
 </main>
 
@@ -200,6 +268,14 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         background: none; /* Чуть темнее фон для лучшей читаемости rgba(0, 0, 0, 0.4) */
         border-radius: 20px; /* Скругляем углы контентной области */
 
+    }
+
+    /* Song page: edge-to-edge video (no side padding / max-width on main) */
+    .main-content.main-content--song {
+        max-width: none;
+        padding-left: 0;
+        padding-right: 0;
+        border-radius: 0;
     }
 
 

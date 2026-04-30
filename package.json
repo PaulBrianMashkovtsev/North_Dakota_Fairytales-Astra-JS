@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "content:blog": "node scripts/generate-blog-songs.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",

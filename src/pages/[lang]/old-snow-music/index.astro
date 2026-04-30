@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Video from "@components/Video.astro";
+import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
+import { translations } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   return [
@@ -12,15 +14,19 @@ export async function getStaticPaths() {
 }
 
 const lang = Astro.params.lang;
+const i18nText = translations[lang as keyof typeof translations] || translations.en;
+const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
 const videoLinks = {
-    en: "https://youtu.be/FOh0xXJZ-cs?feature=shared",
-    es: "https://youtu.be/47PwQCKjt0w?feature=shared",
-    fr: "https://youtu.be/FMvs4fPK-zQ?feature=shared",
-    ar: "https://youtu.be/7FfDpUyt884?feature=shared"
+    en: "https://youtu.be/FOh0xXJZ-cs",
+    es: "https://youtu.be/47PwQCKjt0w",
+    fr: "https://youtu.be/FMvs4fPK-zQ",
+    ar: "https://youtu.be/7FfDpUyt884",
 };
-const currentVideoId = videoLinks[lang as keyof typeof videoLinks] || videoLinks.en;
-const currentVideoEmbedUrl = currentVideoId.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0];
-const currentVideoThumbUrl = `https://img.youtube.com/vi/${currentVideoEmbedUrl.split("/").pop()}/hqdefault.jpg`;
+const currentVideoUrl = videoLinks[lang as keyof typeof videoLinks] || videoLinks.en;
+const currentVideoId = currentVideoUrl.split("youtu.be/")[1]?.split("?")[0] ?? "";
+const currentVideoEmbedUrl = `https://www.youtube.com/embed/${currentVideoId}`;
+const currentVideoContentUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+const currentVideoThumbUrl = `https://img.youtube.com/vi/${currentVideoId}/maxresdefault.jpg`;
 const lyricsToggleLabels = {
     en: "Show Lyrics",
     es: "Mostrar letra",
@@ -132,6 +138,21 @@ const navLabels = {
 const nav = navLabels[lang as keyof typeof navLabels] ?? navLabels.en;
 const animalsHref = `/${lang}/old-snow-music/animals`;
 const famousHref = `/${lang}/old-snow-music/is-north-dakota-famous`;
+const searchHref = `/${lang}/old-snow-music/search_index`;
+const searchLabelByLang = {
+    en: "Search",
+    es: "Buscar",
+    fr: "Recherche",
+    ar: "بحث"
+};
+const searchLabel = searchLabelByLang[lang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
+const snowyMusicLabelByLang = {
+    en: "Snowy Music",
+    es: "Música Nevada",
+    fr: "Musique de Neige",
+    ar: "موسيقى ثلجية"
+};
+const snowyMusicLabel = snowyMusicLabelByLang[lang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
 
 const text = {
     en: {
@@ -211,7 +232,7 @@ const text = {
 
     ar: {
         title: "🌨 نورث داكوتا للأطفال",
-        p0: `🌨 نورث داكوتا للأطفال`,
+        p0: ``,
         subtitle: "🌨 نورث داكوتا للأطفال", // Здесь нужна запятая
         p1: `داكوتا الشمالية للأطفال`,
         p2: `نورث داكوتا فيري تايلز 
@@ -232,19 +253,15 @@ const t = text[lang as keyof typeof text] || text.en;
 
 <BaseLayout lang={lang}
     title="Welcome to North Dakota | North Dakota for Kids | Calm Winter Stories & Songs"
-    isAuthorPage={true}>
-
-    <script slot="head" type="application/ld+json" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
+    videoObject={{
         name: currentSchema.name,
         description: currentSchema.description,
-        embedUrl: currentVideoEmbedUrl,
-        contentUrl: currentVideoId,
         thumbnailUrl: currentVideoThumbUrl,
+        embedUrl: currentVideoEmbedUrl,
+        contentUrl: currentVideoContentUrl,
         uploadDate: "2026-04-19",
-        inLanguage: lang
-    })}></script>
+    }}
+    isAuthorPage={true}>
 
     <h2>{t.subtitle}</h2>
 
@@ -252,12 +269,34 @@ const t = text[lang as keyof typeof text] || text.en;
         <p>{t.p0}</p>
 
         <p>{t.p1}</p>
-        <div class="song-video-container">
+        <div class="song-video-container relative mx-auto w-fit">
             <Video
-                src={currentVideoId}
+                src={currentVideoUrl}
                 title="Welcome to North Dakota song"
                 class="song-video-frame"
             />
+            <a
+                href={searchHref}
+                aria-label={searchLabel}
+                title={searchLabel}
+                class="search-video-btn"
+                style="width: 150px !important; height: 150px !important;"
+            >
+                <img
+                    src={musicIcon.src}
+                    alt={snowyMusicAlt}
+                    class="w-[150px] h-[150px] object-contain search-video-icon"
+                    style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
+                    loading="lazy"
+                />
+                <span
+                    class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
+                    style="color: #b3e5fc !important;"
+                    dir={lang === "ar" ? "rtl" : "ltr"}
+                >
+                    {snowyMusicLabel}
+                </span>
+            </a>
         </div>
         <div class="song-lyrics-toggle-wrap">
             <button
@@ -331,16 +370,42 @@ const t = text[lang as keyof typeof text] || text.en;
 
 <style>
   .song-video-container {
+    position: relative;
     width: 100%;
     max-width: 900px;
     margin: 2rem auto;
   }
 
   .song-video-frame {
+    width: 100%;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(10, 22, 38, 0.35);
     overflow: hidden;
   }
+
+  .search-video-btn {
+    position: absolute;
+    right: -235px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    z-index: 50;
+    text-decoration: none;
+  }
+
+  .search-video-icon {
+    display: block;
+  }
+
+  .search-video-label {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: max-content;
+  }
+
 
   .song-lyrics-toggle-wrap {
     max-width: 900px;

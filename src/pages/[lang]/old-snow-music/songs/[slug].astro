@@ -1,14 +1,443 @@
 ---
-export async function getStaticPaths() {
-  const langs = ['en', 'es', 'fr', 'ar'];
-  const slugs = ['index'];
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import { ANIMAL_SLUGS, animalLabels, type AnimalSlug } from "../../../../data/searchAnimals";
+import { translations } from "../../../../lib/i18n";
+import {
+    songs,
+    extractYouTubeId,
+    songIsPublishedInLang,
+} from "../../../../data/songs";
+import { oldSnowSongHref } from "../../../../lib/songPaths";
 
-  return langs.flatMap((lang) =>
-    slugs.map((slug) => ({
-      params: { lang, slug },
-    })),
-  );
+const MORE_LABEL = {
+    en: "Watch more",
+    es: "Ver más",
+    fr: "Regarder plus",
+    ar: "مشاهدة المزيد",
+} as const;
+
+function slugFromBlogId(id: string): string {
+    const tail = id.split("/").pop() ?? "";
+    return tail.replace(/\.md$/i, "");
+}
+
+function shufflePick<T>(items: T[], count: number): T[] {
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.slice(0, Math.min(count, arr.length));
+}
+
+const iconModules = import.meta.glob<{ default: { src?: string } | string }>(
+    "../../../../components/icons_search_buttons/*.png",
+    { eager: true, import: "default" },
+);
+
+function resolveIconSrc(icon?: string, image?: string): string | undefined {
+    const file = (image || icon)?.trim();
+    if (!file) return undefined;
+    const hit = Object.keys(iconModules).find((p) => p.endsWith("/" + file));
+    if (!hit) return undefined;
+    const mod = iconModules[hit];
+    if (typeof mod === "string") return mod;
+    if (mod && typeof mod === "object" && "src" in mod && mod.src)
+        return mod.src as string;
+    return undefined;
+}
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog", (entry) =>
+        entry.id.includes("/old-snow-music/songs/"),
+    );
+
+    const blogPathsAll = blogEntries
+        .map((entry) => {
+            const m = entry.id.match(
+                /^(en|es|fr|ar)\/old-snow-music\/songs\/([^/]+)$/,
+            );
+            if (!m) return null;
+            const slugClean = m[2].replace(/\.md$/i, "");
+            return { params: { lang: m[1], slug: slugClean } };
+        })
+        .filter((x): x is { params: { lang: string; slug: string } } => x != null);
+
+    const langs = ["en", "es", "fr", "ar"] as const;
+    const slugs = ["index", ...ANIMAL_SLUGS] as const;
+    const animalPaths = langs.flatMap((lang) =>
+        slugs.map((slug) => ({ params: { lang, slug } })),
+    );
+
+    return [...blogPathsAll, ...animalPaths];
 }
 
 const { lang, slug } = Astro.params;
+const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "")
+    ? lang
+    : "en") as keyof typeof MORE_LABEL;
+const isRTL = currentLang === "ar";
+
+const t = (translations[currentLang] || translations.en) as Record<string, string>;
+const pageH2 = t.song_h2_winter_tales ?? "";
+const moreLabel = MORE_LABEL[currentLang] ?? MORE_LABEL.en;
+
+const blogEntriesForLang = await getCollection(
+    "blog",
+    (entry) =>
+        typeof entry.id === "string" &&
+        entry.id.startsWith(`${currentLang}/old-snow-music/songs/`),
+);
+
+const currentBlog: CollectionEntry<"blog"> | undefined = blogEntriesForLang.find(
+    (e) => slugFromBlogId(e.id) === slug,
+);
+
+const isAnimal = ANIMAL_SLUGS.includes(slug as AnimalSlug);
+const animalTitle = isAnimal ? animalLabels[currentLang][slug as AnimalSlug] : null;
+
+let recommendationEntries: CollectionEntry<"blog">[] = [];
+let song: (typeof songs)[number] | undefined;
+let songText: { title: string; description?: string } | null = null;
+let youtubeId = "";
+let videoObject:
+    | {
+          name: string;
+          description: string;
+          thumbnailUrl: string;
+          embedUrl: string;
+          contentUrl: string;
+          uploadDate: string;
+      }
+    | undefined;
+
+if (currentBlog) {
+    song = songs.find((s) => s.slug === currentBlog.data.songSlug);
+    songText = song
+        ? song.translations[currentLang] || song.translations.en
+        : null;
+    const youtubeUrl = song
+        ? song.youtubeByLang?.[currentLang] || song.youtubeByLang?.en || ""
+        : "";
+    youtubeId = extractYouTubeId(youtubeUrl);
+
+    const uploadDate =
+        (song as { uploadDate?: string } | undefined)?.uploadDate?.trim() ||
+        "2026-01-01";
+
+    if (song && songText && youtubeId) {
+        videoObject = {
+            name: songText.title,
+            description: (songText.description || "").trim() || songText.title,
+            thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+            embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+            contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
+            uploadDate,
+        };
+    }
+
+    const others = blogEntriesForLang.filter(
+        (e) => slugFromBlogId(e.id) !== slug,
+    );
+    recommendationEntries = shufflePick(others, 3);
+}
+
+const hreflangExcludeLangs =
+    song && !songIsPublishedInLang(song, "fr") ? (["fr"] as const) : [];
 ---
+
+{
+    currentBlog && song && songText ? (
+        <BaseLayout
+            lang={currentLang}
+            title={songText.title}
+            description={songText.description || songText.title}
+            isAuthorPage={true}
+            hreflangExcludeLangs={hreflangExcludeLangs}
+            videoObject={videoObject}
+            mainContentClass={youtubeId ? "main-content--song" : ""}
+        >
+            <section
+                dir={isRTL ? "rtl" : "ltr"}
+                class:list={{
+                    "song-page": true,
+                    "song-page--with-video": Boolean(youtubeId),
+                    "osm-song": true,
+                }}
+            >
+                <div class="song-page__intro">
+                    <h1 class="song-page__h1">{songText.title}</h1>
+                    <h2 class="song-page__h2">{pageH2}</h2>
+                    {!youtubeId ? (
+                        <p class="song-page__empty">{t.song_not_found}</p>
+                    ) : null}
+                </div>
+
+                {youtubeId ? (
+                    <div
+                        class="song-page__video-bleed"
+                        aria-label={songText.title}
+                    >
+                        <div class="song-page__video-fit">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${youtubeId}`}
+                                title={songText.title}
+                                loading="eager"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                                allowfullscreen
+                            />
+                        </div>
+                    </div>
+                ) : null}
+
+                {recommendationEntries.length > 0 ? (
+                    <aside class="osm-rec" aria-labelledby="osm-rec-heading">
+                        <h2 id="osm-rec-heading" class="osm-rec__title">
+                            {moreLabel}
+                        </h2>
+                        <ul class="osm-rec__list">
+                            {recommendationEntries.map((entry) => {
+                                const recSlug = slugFromBlogId(entry.id);
+                                const imgSrc = resolveIconSrc(
+                                    entry.data.icon,
+                                    entry.data.image,
+                                );
+                                return (
+                                    <li class="osm-rec__item">
+                                        <a
+                                            class="osm-rec__link"
+                                            href={oldSnowSongHref(
+                                                currentLang,
+                                                recSlug,
+                                            )}
+                                        >
+                                            {imgSrc ? (
+                                                <span class="osm-rec__icon-wrap">
+                                                    <img
+                                                        class="osm-rec__icon"
+                                                        src={imgSrc}
+                                                        alt=""
+                                                        width="72"
+                                                        height="72"
+                                                        loading="lazy"
+                                                        decoding="async"
+                                                    />
+                                                </span>
+                                            ) : (
+                                                <span
+                                                    class="osm-rec__icon-wrap osm-rec__icon-wrap--empty"
+                                                    aria-hidden="true"
+                                                >
+                                                    ♪
+                                                </span>
+                                            )}
+                                            <span class="osm-rec__label">
+                                                {entry.data.title}
+                                            </span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </aside>
+                ) : null}
+            </section>
+        </BaseLayout>
+    ) : isAnimal && animalTitle ? (
+        <BaseLayout lang={currentLang} title={animalTitle} isAuthorPage={true}>
+            <section
+                dir={currentLang === "ar" ? "rtl" : "ltr"}
+                class="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8"
+            >
+                <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+                    {animalTitle}
+                </h1>
+                <p class="mt-4 text-slate-200">
+                    <a
+                        href={`/${currentLang}/old-snow-music/search_animals`}
+                        class="font-semibold text-sky-200 underline decoration-sky-300/80 underline-offset-4 hover:text-white"
+                    >
+                        {currentLang === "en"
+                            ? "Back to animal search"
+                            : currentLang === "es"
+                              ? "Volver a búsqueda de animales"
+                              : currentLang === "fr"
+                                ? "Retour à la recherche d'animaux"
+                                : "العودة إلى بحث الحيوانات"}
+                    </a>
+                </p>
+            </section>
+        </BaseLayout>
+    ) : (
+        <BaseLayout
+            lang={currentLang}
+            title={t.song_not_found ?? "Not found"}
+            isAuthorPage={true}
+        >
+            <p class="song-page__empty">{t.song_not_found}</p>
+        </BaseLayout>
+    )
+}
+
+<style>
+    .song-page {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 1.75rem 1rem 2.5rem;
+    }
+    .song-page--with-video {
+        max-width: none;
+        padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+    }
+    .song-page__intro {
+        text-align: center;
+        margin-top: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+        max-width: 42rem;
+        margin-inline: auto;
+    }
+    .song-page--with-video .song-page__intro {
+        max-width: min(96vw, 72rem);
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .song-page__h1 {
+        margin: 0 !important;
+        font-size: clamp(1.15rem, 2.75vw, 2rem) !important;
+        font-weight: 800 !important;
+        color: #fff;
+        line-height: 1.2 !important;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    .song-page__h2 {
+        margin: 0.5rem 0 0 !important;
+        font-size: clamp(0.9rem, 2.2vw, 1.1rem) !important;
+        font-weight: 400 !important;
+        color: #e2e8f0;
+        line-height: 1.35 !important;
+    }
+    .song-page__empty {
+        text-align: center;
+        color: #e2e8f0;
+    }
+    .song-page__video-bleed {
+        --song-vh: calc((100vh - 140px) * 0.62);
+        --song-vh: calc((100dvh - 140px) * 0.62);
+        width: fit-content;
+        max-width: 100%;
+        margin-inline: auto;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.35rem;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+    }
+    .song-page__video-fit {
+        position: relative;
+        width: min(52rem, calc(var(--song-vh) * 16 / 9));
+        max-width: 100%;
+        max-height: var(--song-vh);
+        aspect-ratio: 16 / 9;
+        background: #000;
+    }
+    .song-page__video-fit iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+    }
+
+    .osm-rec {
+        margin-top: 2rem;
+        margin-inline: auto;
+        max-width: min(96vw, 52rem);
+        padding-bottom: 1rem;
+    }
+    .osm-rec__title {
+        margin: 0 0 1rem;
+        font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+    }
+    .osm-rec__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 0.85rem;
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) {
+        .osm-rec__list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    .osm-rec__link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 0.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(203, 213, 225, 0.35);
+        background: rgba(30, 41, 59, 0.45);
+        text-decoration: none;
+        color: #e2e8f0;
+        transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            transform 0.15s ease;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    .osm-rec__link:hover {
+        border-color: rgba(226, 232, 240, 0.45);
+        background: rgba(51, 65, 85, 0.5);
+        transform: translateY(-2px);
+    }
+    .osm-rec__icon-wrap {
+        width: 72px;
+        height: 72px;
+        border-radius: 12px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: rgba(15, 23, 42, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .osm-rec__icon-wrap--empty {
+        font-size: 1.75rem;
+        color: #94a3b8;
+    }
+    .osm-rec__icon {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+        display: block;
+    }
+    .osm-rec__label {
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.35;
+        color: #bae6fd;
+    }
+    .osm-rec__link:hover .osm-rec__label {
+        color: #fff;
+    }
+</style>

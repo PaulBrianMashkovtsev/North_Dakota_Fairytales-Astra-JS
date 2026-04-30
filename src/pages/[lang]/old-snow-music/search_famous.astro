@@ -1,4 +1,17 @@
 ---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { translations } from "../../../lib/i18n";
+
+import northernLightsEn from "../../../components/icons_search_buttons/northern_lights_en.png";
+import northernLightsEs from "../../../components/icons_search_buttons/northern_lights_es.png";
+import northernLightsFr from "../../../components/icons_search_buttons/northern_lights_fr.png";
+import northernLightsAr from "../../../components/icons_search_buttons/northern_lights_ar.png";
+
+import rooseveltEn from "../../../components/icons_search_buttons/roosevelt_en.png";
+import rooseveltEs from "../../../components/icons_search_buttons/roosevelt_es.png";
+import rooseveltFr from "../../../components/icons_search_buttons/roosevelt_fr.png";
+import rooseveltAr from "../../../components/icons_search_buttons/roosevelt_ar.png";
+
 export async function getStaticPaths() {
   return [
     { params: { lang: 'en' } },
@@ -9,4 +22,78 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "") ? lang : "en") as "en" | "es" | "fr" | "ar";
+
+const labels = {
+  en: { northernLights: "Northern Lights", roosevelt: "Roosevelt" },
+  es: { northernLights: "Auroras Boreales", roosevelt: "Roosevelt" },
+  fr: { northernLights: "Aurores Boreales", roosevelt: "Roosevelt" },
+  ar: { northernLights: "الشفق القطبي", roosevelt: "روزفلت" },
+} as const;
+
+const iconByLang = {
+  northernLights: {
+    en: northernLightsEn,
+    es: northernLightsEs,
+    fr: northernLightsFr,
+    ar: northernLightsAr,
+  },
+  roosevelt: {
+    en: rooseveltEn,
+    es: rooseveltEs,
+    fr: rooseveltFr,
+    ar: rooseveltAr,
+  },
+} as const;
+
+const northernLightsHref = `/${currentLang}/category/northern_lights`;
+const rooseveltHref = `/${currentLang}/category/roosevelt`;
+const t = labels[currentLang];
+const pageT = translations[currentLang] || translations.en;
 ---
+
+<BaseLayout
+  lang={currentLang}
+  title={pageT.search_famous_meta_title}
+  description={pageT.search_famous_meta_desc}
+  isAuthorPage={true}
+>
+  <section
+    dir={currentLang === "ar" ? "rtl" : "ltr"}
+    class="mx-auto flex min-h-[55vh] w-full max-w-5xl flex-col px-4 py-10"
+  >
+    <div class="mb-8 w-full text-center" style="text-align: center !important;">
+      <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl" style="text-align: center !important;">{pageT.search_index_h1}</h1>
+      <p class="mt-2 text-sm text-slate-200 sm:text-base" style="text-align: center !important;">{pageT.search_index_sub}</p>
+    </div>
+    <div class="flex flex-row flex-wrap items-center justify-center gap-8 sm:gap-12">
+      <a
+        href={northernLightsHref}
+        class="group flex w-[130px] flex-col items-center justify-center rounded-2xl border border-slate-300/30 bg-slate-700/30 p-3 text-center shadow-md backdrop-blur transition hover:-translate-y-0.5 hover:bg-slate-600/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        aria-label={t.northernLights}
+        title={t.northernLights}
+      >
+        <img
+          src={iconByLang.northernLights[currentLang].src}
+          alt={pageT.alt_northern_lights}
+          class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
+          loading="lazy"
+        />
+      </a>
+
+      <a
+        href={rooseveltHref}
+        class="group flex w-[130px] flex-col items-center justify-center rounded-2xl border border-slate-300/30 bg-slate-700/30 p-3 text-center shadow-md backdrop-blur transition hover:-translate-y-0.5 hover:bg-slate-600/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        aria-label={t.roosevelt}
+        title={t.roosevelt}
+      >
+        <img
+          src={iconByLang.roosevelt[currentLang].src}
+          alt={pageT.alt_roosevelt}
+          class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
+          loading="lazy"
+        />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { translations } from "../../../lib/i18n";
+import { songs, SUPPORTED_LANGS, extractYouTubeId, songIsPublishedInLang } from "../../../data/songs";
+
+export async function getStaticPaths() {
+    return songs.flatMap((song) =>
+        SUPPORTED_LANGS.filter((lang) => songIsPublishedInLang(song, lang)).map((lang) => ({
+            params: { lang, slug: song.slug },
+        })),
+    );
+}
+
+const { lang, slug } = Astro.params;
+const currentLang = SUPPORTED_LANGS.includes(lang ?? "") ? (lang as "en" | "es" | "fr" | "ar") : "en";
+const isRTL = currentLang === "ar";
+
+const t = (translations[currentLang] || translations.en) as any;
+const song = songs.find((item) => item.slug === slug);
+const songText = song ? song.translations[currentLang] || song.translations.en : null;
+const pageH2 = t.song_h2_winter_tales;
+const youtubeUrl = song ? (song.youtubeByLang?.[currentLang] || song.youtubeByLang?.en || "") : "";
+const youtubeId = extractYouTubeId(youtubeUrl);
+const hreflangExcludeLangs =
+    song && !songIsPublishedInLang(song, "fr") ? (["fr"] as const) : [];
+
+/**
+ * Per-song metadata lives in `src/data/songs.js` (single source of truth).
+ * This page’s frontmatter maps that data into BaseLayout + VideoObject—same
+ * fields you would set in a dedicated .astro per song.
+ */
+const uploadDate =
+    (song as { uploadDate?: string } | null)?.uploadDate?.trim() || "2026-01-01";
+const videoObject =
+    song && songText && youtubeId
+        ? {
+                name: songText.title,
+                description:
+                    (songText.description || "").trim() || songText.title,
+                thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+                embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+                contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
+                uploadDate,
+            }
+        : undefined;
+---
+
+<BaseLayout
+    lang={currentLang}
+    title={songText ? songText.title : t.song_not_found}
+    description={songText ? songText.description : t.song_not_found}
+    isAuthorPage={true}
+    hreflangExcludeLangs={hreflangExcludeLangs}
+    videoObject={videoObject}
+    mainContentClass={song && songText && youtubeId ? "main-content--song" : ""}
+>
+    <section
+        dir={isRTL ? "rtl" : "ltr"}
+        class:list={{
+            "song-page": true,
+            "song-page--with-video": Boolean(song && songText && youtubeId),
+        }}
+    >
+        {song && songText ? (
+            <>
+                <div class="song-page__intro">
+                    <h1 class="song-page__h1">{songText.title}</h1>
+                    <h2 class="song-page__h2">{pageH2}</h2>
+                    {!youtubeId ? <p class="song-page__empty">{t.song_not_found}</p> : null}
+                </div>
+
+                {youtubeId ? (
+                    <div class="song-page__video-bleed" aria-label={songText.title}>
+                        <div class="song-page__video-fit">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${youtubeId}`}
+                                title={songText.title}
+                                loading="eager"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                                allowfullscreen
+                            />
+                        </div>
+                    </div>
+                ) : null}
+            </>
+        ) : (
+            <p class="song-page__empty">{t.song_not_found}</p>
+        )}
+    </section>
+</BaseLayout>
+
+<style>
+    .song-page {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 1.75rem 1rem 2.5rem;
+    }
+    .song-page--with-video {
+        max-width: none;
+        padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+    }
+    .song-page__intro {
+        text-align: center;
+        margin-top: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+        max-width: 42rem;
+        margin-inline: auto;
+    }
+    .song-page--with-video .song-page__intro {
+        max-width: min(96vw, 72rem);
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Override BaseLayout global h1 (6.5rem) so the title can stay one line when widened */
+    .song-page__h1 {
+        margin: 0 !important;
+        font-size: clamp(1.15rem, 2.75vw, 2rem) !important;
+        font-weight: 800 !important;
+        color: #fff;
+        line-height: 1.2 !important;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    .song-page__h2 {
+        margin: 0.5rem 0 0 !important;
+        font-size: clamp(0.9rem, 2.2vw, 1.1rem) !important;
+        font-weight: 400 !important;
+        color: #e2e8f0;
+        line-height: 1.35 !important;
+    }
+    .song-page__empty {
+        text-align: center;
+        color: #e2e8f0;
+    }
+    /* Black frame only around the player (not full viewport width) */
+    .song-page__video-bleed {
+        --song-vh: calc((100vh - 140px) * 0.62);
+        --song-vh: calc((100dvh - 140px) * 0.62);
+        width: fit-content;
+        max-width: 100%;
+        margin-inline: auto;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.35rem;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+    }
+    .song-page__video-fit {
+        position: relative;
+        width: min(52rem, calc(var(--song-vh) * 16 / 9));
+        max-width: 100%;
+        max-height: var(--song-vh);
+        aspect-ratio: 16 / 9;
+        background: #000;
+    }
+    .song-page__video-fit iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+    }
+</style>
