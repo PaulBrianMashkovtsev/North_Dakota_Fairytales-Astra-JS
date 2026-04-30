@@ -1,5 +1,6 @@
 ---
 title: "The Frog Woke Up in the Middle of Winter!"
 songSlug: "the-frog-woke-up-in-the-middle-of-winter"
+uploadDate: "2024-01-01T00:00:00+00:00"
 icon: "frog.png"
 ---

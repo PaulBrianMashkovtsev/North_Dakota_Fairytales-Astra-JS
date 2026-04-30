@@ -14,6 +14,8 @@ const blog = defineCollection({
     schema: z.object({
         title: z.string(),
         songSlug: z.string(),
+        /** ISO 8601 with timezone; default if frontmatter missing (dev / partial regen) */
+        uploadDate: z.string().default("2024-01-01T00:00:00+00:00"),
         icon: z.string().optional(),
         image: z.string().optional(),
     }),

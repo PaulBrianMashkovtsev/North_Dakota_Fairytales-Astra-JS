@@ -12,6 +12,26 @@ const root = path.resolve(__dirname, "..");
 const songsModuleUrl = pathToFileURL(path.join(root, "src/data/songs.js")).href;
 const { songs, songIsPublishedInLang, SUPPORTED_LANGS } = await import(songsModuleUrl);
 
+const FALLBACK_UPLOAD = "2024-01-01T00:00:00+00:00";
+
+/** VideoObject: ISO 8601 with timezone (same rules as src/lib/videoUploadDate.ts) */
+function normalizeUploadDate(raw) {
+    const s = (raw ?? "").trim();
+    if (!s) return FALLBACK_UPLOAD;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return `${s}T00:00:00+00:00`;
+    if (s.includes("T") && s.endsWith("Z")) return s.replace(/Z$/, "+00:00");
+    if (/[+-]\d{2}:\d{2}$/.test(s)) return s;
+    const noMs = s.replace(/\.\d{3,}$/, "");
+    const m = noMs.match(
+        /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})([+-]\d{2}:\d{2})?$/,
+    );
+    if (m) {
+        if (m[2]) return noMs;
+        return `${m[1]}+00:00`;
+    }
+    return FALLBACK_UPLOAD;
+}
+
 const LANG_ICON_CATS = new Set([
     "farm",
     "guests",
@@ -60,9 +80,14 @@ for (const song of songs) {
             song.translations?.en?.title ||
             song.slug;
 
+        const uploadDate = normalizeUploadDate(
+            /** @type {{ uploadDate?: string } | undefined} */ (song).uploadDate,
+        );
+
         const fmObj = {
             title,
             songSlug: song.slug,
+            uploadDate,
             icon: iconFileForSong(song, lang),
         };
 

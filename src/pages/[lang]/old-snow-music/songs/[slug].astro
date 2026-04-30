@@ -10,6 +10,8 @@ import {
     songIsPublishedInLang,
 } from "../../../../data/songs";
 import { oldSnowSongHref } from "../../../../lib/songPaths";
+import { normalizeContentEntryId } from "../../../../lib/contentId";
+import { normalizeVideoUploadDate } from "../../../../lib/videoUploadDate";
 
 const MORE_LABEL = {
     en: "Watch more",
@@ -19,7 +21,7 @@ const MORE_LABEL = {
 } as const;
 
 function slugFromBlogId(id: string): string {
-    const tail = id.split("/").pop() ?? "";
+    const tail = normalizeContentEntryId(id).split("/").pop() ?? "";
     return tail.replace(/\.md$/i, "");
 }
 
@@ -51,12 +53,13 @@ function resolveIconSrc(icon?: string, image?: string): string | undefined {
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection("blog", (entry) =>
-        entry.id.includes("/old-snow-music/songs/"),
+        normalizeContentEntryId(entry.id).includes("/old-snow-music/songs/"),
     );
 
     const blogPathsAll = blogEntries
         .map((entry) => {
-            const m = entry.id.match(
+            const id = normalizeContentEntryId(entry.id);
+            const m = id.match(
                 /^(en|es|fr|ar)\/old-snow-music\/songs\/([^/]+)$/,
             );
             if (!m) return null;
@@ -88,7 +91,9 @@ const blogEntriesForLang = await getCollection(
     "blog",
     (entry) =>
         typeof entry.id === "string" &&
-        entry.id.startsWith(`${currentLang}/old-snow-music/songs/`),
+        normalizeContentEntryId(entry.id).startsWith(
+            `${currentLang}/old-snow-music/songs/`,
+        ),
 );
 
 const currentBlog: CollectionEntry<"blog"> | undefined = blogEntriesForLang.find(
@@ -123,9 +128,9 @@ if (currentBlog) {
         : "";
     youtubeId = extractYouTubeId(youtubeUrl);
 
-    const uploadDate =
-        (song as { uploadDate?: string } | undefined)?.uploadDate?.trim() ||
-        "2026-01-01";
+    const uploadDateRaw =
+        currentBlog.data.uploadDate ||
+        (song as { uploadDate?: string } | undefined)?.uploadDate;
 
     if (song && songText && youtubeId) {
         videoObject = {
@@ -134,7 +139,7 @@ if (currentBlog) {
             thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
             embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
             contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
-            uploadDate,
+            uploadDate: normalizeVideoUploadDate(uploadDateRaw),
         };
     }
 

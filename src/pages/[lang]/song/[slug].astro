@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { translations } from "../../../lib/i18n";
 import { songs, SUPPORTED_LANGS, extractYouTubeId, songIsPublishedInLang } from "../../../data/songs";
+import { normalizeVideoUploadDate } from "../../../lib/videoUploadDate";
 
 export async function getStaticPaths() {
     return songs.flatMap((song) =>
@@ -29,8 +30,6 @@ const hreflangExcludeLangs =
  * This page’s frontmatter maps that data into BaseLayout + VideoObject—same
  * fields you would set in a dedicated .astro per song.
  */
-const uploadDate =
-    (song as { uploadDate?: string } | null)?.uploadDate?.trim() || "2026-01-01";
 const videoObject =
     song && songText && youtubeId
         ? {
@@ -40,7 +39,9 @@ const videoObject =
                 thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
                 embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
                 contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
-                uploadDate,
+                uploadDate: normalizeVideoUploadDate(
+                    (song as { uploadDate?: string } | null)?.uploadDate,
+                ),
             }
         : undefined;
 ---

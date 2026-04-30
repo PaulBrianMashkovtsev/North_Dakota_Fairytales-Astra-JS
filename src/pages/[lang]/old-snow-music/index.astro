@@ -3,6 +3,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Video from "@components/Video.astro";
 import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
 import { translations } from "../../../lib/i18n";
+import { normalizeVideoUploadDate } from "../../../lib/videoUploadDate";
 
 export async function getStaticPaths() {
   return [
@@ -259,7 +260,7 @@ const t = text[lang as keyof typeof text] || text.en;
         thumbnailUrl: currentVideoThumbUrl,
         embedUrl: currentVideoEmbedUrl,
         contentUrl: currentVideoContentUrl,
-        uploadDate: "2026-04-19",
+        uploadDate: normalizeVideoUploadDate("2026-04-19"),
     }}
     isAuthorPage={true}>
 

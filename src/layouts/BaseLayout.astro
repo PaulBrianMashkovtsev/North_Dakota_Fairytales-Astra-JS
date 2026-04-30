@@ -7,6 +7,7 @@ import Footer from "../components/Footer.astro";
 import Schema from "../components/Schema.astro";
 import { buildHreflangNetwork } from "../lib/hreflang";
 import { resolveSongPageSeo } from "../lib/seoOldSnowSongs";
+import { normalizeVideoUploadDate } from "../lib/videoUploadDate";
 
 
 const {
@@ -138,7 +139,7 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
                 thumbnailUrl: videoObject.thumbnailUrl,
                 embedUrl: videoObject.embedUrl,
                 contentUrl: videoObject.contentUrl,
-                uploadDate: videoObject.uploadDate,
+                uploadDate: normalizeVideoUploadDate(videoObject.uploadDate),
                 inLanguage: currentLang,
                 publisher: {
                     "@id": "https://northdakotafairytales.org/#organization",
