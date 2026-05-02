@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { ANIMAL_SLUGS, animalLabels, type AnimalSlug } from "../../../data/searchAnimals";
 import { translations } from "../../../lib/i18n";
+import { oldSnowContentLang, oldSnowSearchPagesStaticPaths } from "../../../lib/oldSnowMusicHubLangs";
 
 import bearIcon from "../../../components/icons_search_buttons/bear.png";
 import beaverIcon from "../../../components/icons_search_buttons/beaver.png";
@@ -21,20 +22,16 @@ import squirrelIcon from "../../../components/icons_search_buttons/squirrel.png"
 import wolfIcon from "../../../components/icons_search_buttons/wolf.png";
 
 export async function getStaticPaths() {
-    return [
-        { params: { lang: "en" } },
-        { params: { lang: "es" } },
-        { params: { lang: "fr" } },
-        { params: { lang: "ar" } },
-    ];
+    return oldSnowSearchPagesStaticPaths();
 }
 
 const { lang } = Astro.params;
-const isRTL = lang === "ar";
-const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "") ? lang : "en") as "en" | "es" | "fr" | "ar";
+const pageLang = lang ?? "en";
+const isRTL = ["ar", "fa", "ur"].includes(pageLang);
+const contentLang = oldSnowContentLang(pageLang);
 
-const t = translations[currentLang] || translations.en;
-const labels = animalLabels[currentLang];
+const t = translations[pageLang as keyof typeof translations] || translations.en;
+const labels = animalLabels[contentLang];
 
 const iconBySlug = {
     bear: bearIcon,
@@ -58,7 +55,7 @@ const iconBySlug = {
 const buttonItems = ANIMAL_SLUGS.map((slug) => ({
     slug,
     label: labels[slug],
-    href: `/${currentLang}/category/${slug}`,
+    href: `/${pageLang}/category/${slug}`,
     iconSrc: iconBySlug[slug].src,
     altText: {
         bear: (t as any).alt_bear,
@@ -82,7 +79,7 @@ const buttonItems = ANIMAL_SLUGS.map((slug) => ({
 ---
 
 <BaseLayout
-    lang={currentLang}
+    lang={pageLang}
     title={t.search_animals_meta_title}
     description={t.search_animals_meta_desc}
     isAuthorPage={true}

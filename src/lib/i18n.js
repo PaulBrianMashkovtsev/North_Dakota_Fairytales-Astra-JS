@@ -36,7 +36,13 @@ export const translations = {
         alt_wolf: "Grey wolf of North Dakota, friendly winter character",
         search_index_meta_desc: "Explore a magical collection of winter and snow songs for children. Select a category to start your journey.",
         search_animals_meta_desc: "Discover winter songs about polar bears, penguins, and snowy nature for kids.",
-        search_famous_meta_desc: "Listen to legendary winter tales and songs about famous characters from North Dakota."
+        search_famous_meta_desc: "Listen to legendary winter tales and songs about famous characters from North Dakota.",
+        old_snow_animals_meta_title: "North Dakota Winter Animals for Kids — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Gentle winter wildlife of North Dakota — fox, bison, owl — in calm stories and songs for children.",
+        old_snow_famous_meta_title: "What Is North Dakota Famous For? Kids’ Winter Guide — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "A calm winter look at North Dakota — bison, Badlands, Northern Lights, powwow — in stories and songs for children.",
+        old_snow_hub_meta_title: "Welcome to North Dakota | North Dakota for Kids | Calm Winter Stories & Songs",
+        old_snow_hub_meta_desc: "Calm winter stories, songs, and gentle North Dakota nature themes for children — original tales and music from North Dakota Fairytales."
         ,
         category_winter_songs_suffix: "Winter Songs",
         category_h2_discover_magical: "Discover magical winter tales",
@@ -82,7 +88,13 @@ export const translations = {
         alt_wolf: "Lobo gris de Dakota del Norte, personaje amistoso",
         search_index_meta_desc: "Explora una colección mágica de canciones de invierno y nieve para niños. Elige una categoría.",
         search_animals_meta_desc: "Descubre canciones infantiles sobre animales del invierno y la naturaleza nevada.",
-        search_famous_meta_desc: "Escucha leyendas y canciones sobre personajes famosos de invierno en Dakota del Norte."
+        search_famous_meta_desc: "Escucha leyendas y canciones sobre personajes famosos de invierno en Dakota del Norte.",
+        old_snow_animals_meta_title: "Animales de invierno de Dakota del Norte para niños — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Vida silvestre invernal amable de Dakota del Norte en cuentos y canciones tranquilas para niños.",
+        old_snow_famous_meta_title: "¿Por qué es famosa Dakota del Norte? Guía para niños — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Una mirada tranquila al invierno en Dakota del Norte: bisontes, Badlands, auroras y powwow en historias para niños.",
+        old_snow_hub_meta_title: "Bienvenidos a Dakota del Norte | Para niños | Cuentos y canciones de invierno — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Cuentos y canciones invernales tranquilas sobre Dakota del Norte para niños — relatos y música originales de North Dakota Fairytales."
         ,
         category_winter_songs_suffix: "Canciones de invierno",
         category_h2_discover_magical: "Descubre cuentos mágicos de invierno",
@@ -129,7 +141,13 @@ export const translations = {
         alt_wolf: "Loup gris du Dakota du Nord, personnage amical",
         search_index_meta_desc: "Explorez une collection magique de chansons d'hiver pour enfants. Choisissez une catégorie.",
         search_animals_meta_desc: "Découvrez des chansons d'hiver sur les ours polaires, les manchots et la nature enneigée.",
-        search_famous_meta_desc: "Écoutez des contes et chansons sur les personnages célèbres de l'hiver du Dakota du Nord."
+        search_famous_meta_desc: "Écoutez des contes et chansons sur les personnages célèbres de l'hiver du Dakota du Nord.",
+        old_snow_animals_meta_title: "Animaux d’hiver du Dakota du Nord pour enfants — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Faune hivernale douce du Dakota du Nord dans des histoires et chansons calmes pour enfants.",
+        old_snow_famous_meta_title: "Pourquoi le Dakota du Nord est-il connu ? Guide pour enfants — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Un regard hivernal calme sur le Dakota du Nord — bisons, Badlands, aurores, pow-wow — pour les histoires d’enfants.",
+        old_snow_hub_meta_title: "Bienvenue au Dakota du Nord | Pour enfants | Contes et chansons d’hiver — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Contes et chansons d’hiver douces sur le Dakota du Nord pour enfants — histoires et musique originales de North Dakota Fairytales."
         ,
         category_winter_songs_suffix: "Chansons d'hiver",
         category_h2_discover_magical: "Découvrez des contes d'hiver magiques",
@@ -176,7 +194,13 @@ export const translations = {
         alt_wolf: "ذئب رمادي من داكوتا الشمالية، شخصية ودودة",
         search_index_meta_desc: "استكشف مجموعة سحرية من أغاني الشتاء والثلج للأطفال. اختر فئة لبدء رحلتك.",
         search_animals_meta_desc: "اكتشف أغاني الشتاء عن الدببة القطبية والبطاريق وطبيعة الثلج للأطفال.",
-        search_famous_meta_desc: "استمع إلى حكايات وأغاني شتوية أسطورية عن شخصيات مشهورة من داكوتا الشمالية."
+        search_famous_meta_desc: "استمع إلى حكايات وأغاني شتوية أسطورية عن شخصيات مشهورة من داكوتا الشمالية.",
+        old_snow_animals_meta_title: "حيوانات داكوتا الشمالية الشتوية للأطفال — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "حياة برية شتوية هادئة في داكوتا الشمالية — ثعلب، بيسون، بومة — في حكايات وأغاني هادئة للأطفال.",
+        old_snow_famous_meta_title: "بماذا تشتهر داكوتا الشمالية؟ دليل شتوي للأطفال — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "نظرة شتوية هادئة إلى داكوتا الشمالية — البيسون، الأراضي الوعرة، الشفق، الباو واو — في حكايات وأغاني للأطفال.",
+        old_snow_hub_meta_title: "مرحبًا بكم في داكوتا الشمالية | للأطفال | حكايات وأغاني شتوية هادئة — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "حكايات وأغاني شتوية هادئة عن طبيعة داكوتا الشمالية للأطفال — قصص وموسيقى أصلية من North Dakota Fairytales."
         ,
         category_winter_songs_suffix: "أغاني الشتاء",
         category_h2_discover_magical: "اكتشف حكايات شتوية سحرية",
@@ -192,8 +216,13 @@ export const translations = {
         home_text: "Тихий зимний мир сказок и песен для детей.",
         about_title: "О North Dakota Fairytales",
         about_text: "North Dakota Fairytales — это волшебный проект зимних сказок.",
-        footerRights: "Все права защищены."
-
+        footerRights: "Все права защищены.",
+        old_snow_animals_meta_title: "Животные Северной Дакоты для детей — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Тихие зимние обитатели Северной Дакоты — лиса, бизон, сова — в спокойных историях и песнях для детей.",
+        old_snow_famous_meta_title: "Чем знаменита Северная Дакота? Для детей — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Спокойный зимний взгляд на Северную Дакоту — бизоны, Бэдлендс, сияние, пау-вау — в историях и песнях для детей.",
+        old_snow_hub_meta_title: "Добро пожаловать в Северную Дакоту | Для детей | Спокойные зимние истории и песни — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Тихие зимние истории, песни и природа Северной Дакоты для детей — оригинальные сказки и музыка North Dakota Fairytales."
     },
 
     ur: {
@@ -201,8 +230,13 @@ export const translations = {
         home_text: "بچوں کے لیے کہانیوں اور گیتوں کی ایک پُرسکون برفانی دنیا۔",
         about_title: "نارتھ ڈکوٹا فیری ٹیلز کے بارے میں",
         about_text: "یہ ایک جادوئی سردیوں کی کہانیوں کا منصوبہ ہے۔",
-        footerRights: "جملہ حقوق محفوظ ہیں۔"
-
+        footerRights: "جملہ حقوق محفوظ ہیں۔",
+        old_snow_animals_meta_title: "نارتھ ڈکوٹا کے سردیوں کے جانور بچوں کے لیے — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "نارتھ ڈکوٹا کی نرم سردیوں کی جنگلی زندگی — لومڑی، بائسن، اُلو — بچوں کے لیے پرسکون کہانیوں اور گانوں میں۔",
+        old_snow_famous_meta_title: "نارتھ ڈکوٹا کس لیے مشہور ہے؟ بچوں کا سردیوں کا گائیڈ — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "نارتھ ڈکوٹا پر ایک پرسکون سردیوں کا نظارہ — بائسن، بیڈ لینڈز، ناردرن لائٹس، پاو واو — بچوں کی کہانیوں اور گانوں میں۔",
+        old_snow_hub_meta_title: "نارتھ ڈکوٹا میں خوش آمدید | بچوں کے لیے | پرسکون سردیوں کی کہانیاں اور گانے — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "بچوں کے لیے نارتھ ڈکوٹا کی فطرت اور پرسکون سردیوں کی کہانیاں و گانے — North Dakota Fairytales کی اصل کہانیاں اور موسیقی۔"
     },
 
     hi: {
@@ -210,8 +244,13 @@ export const translations = {
         home_text: "बच्चों के लिए कहानियों और गीतों की एक शांत सर्दियों की दुनिया।",
         about_title: "नॉर्थ डकोटा फेयरीटेल्स के बारे में",
         about_text: "यह सर्दियों की जादुई कहानियों का एक प्रोजेक्ट है।",
-        footerRights: "सर्वाधिकार सुरक्षित।"
-
+        footerRights: "सर्वाधिकार सुरक्षित।",
+        old_snow_animals_meta_title: "नॉर्थ डकोटा के सर्दियों के जानवर बच्चों के लिए — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "नॉर्थ डकोटा की कोमल सर्दियों की वन्यजीवन — लोमड़ी, बाइसन, उल्लू — बच्चों की शांत कहानियों और गीतों में।",
+        old_snow_famous_meta_title: "नॉर्थ डकोटा किस लिए प्रसिद्ध है? बच्चों की सर्दी गाइड — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "नॉर्थ डकोटा पर शांत सर्दी का नज़ारा — बाइसन, बैडलैंड्स, नॉर्दर्न लाइट्स, पॉववॉव — बच्चों की कहानियों और गीतों में।",
+        old_snow_hub_meta_title: "नॉर्थ डकोटा में आपका स्वागत है | बच्चों के लिए | शांत सर्दियों की कहानियाँ और गीत — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "बच्चों के लिए नॉर्थ डकोटा की प्रकृति और शांत सर्दियों की कहानियाँ व गीत — North Dakota Fairytales की मौलिक कहानियाँ और संगीत।"
     },
 
     bn: {
@@ -219,8 +258,13 @@ export const translations = {
         home_text: "শিশুদের জন্য গল্প ও গানের এক শান্ত শীতের জগৎ।",
         about_title: "নর্থ ডাকোটা ফেয়ারিটেলস সম্পর্কে",
         about_text: "এটি একটি জাদুকরী শীতকালীন গল্পের প্রকল্প।",
-        footerRights: "সর্বস্বত্ব সংরক্ষিত।"
-
+        footerRights: "সর্বস্বত্ব সংরক্ষিত।",
+        old_snow_animals_meta_title: "নর্থ ডাকোটার শীতের প্রাণী শিশুদের জন্য — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "নর্থ ডাকোটার কোমল শীতের বন্যপ্রাণ — শিয়াল, বাইসন, পেঁচা — শিশুদের শান্ত গল্প ও গানে।",
+        old_snow_famous_meta_title: "নর্থ ডাকোটা কীসের জন্য বিখ্যাত? শিশুদের শীত গাইড — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "নর্থ ডাকোটার প্রতি এক শান্ত শীতের দৃষ্টি — বাইসন, ব্যাডল্যান্ডস, নর্দার্ন লাইটস, পাওওয়াও — শিশুদের গল্প ও গানে।",
+        old_snow_hub_meta_title: "নর্থ ডাকোটায় স্বাগতম | শিশুদের জন্য | শান্ত শীতের গল্প ও গান — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "শিশুদের জন্য নর্থ ডাকোটার প্রকৃতি ও শান্ত শীতের গল্প ও গান — North Dakota Fairytales-এর মৌলিক গল্প ও সঙ্গীত।"
     },
 
     fa: {
@@ -228,8 +272,13 @@ export const translations = {
         home_text: "دنیایی آرام و زمستانی از داستان‌ها و ترانه‌ها برای کودکان.",
         about_title: "درباره افسانه‌های داکوتای شمالی",
         about_text: "یک پروژه جادویی از داستان‌های زمستانی برای کودکان.",
-        footerRights: "تمامی حقوق محفوظ است."
-
+        footerRights: "تمامی حقوق محفوظ است.",
+        old_snow_animals_meta_title: "حیوانات زمستانی داکوتای شمالی برای کودکان — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "حیات وحش آرام زمستان داکوتای شمالی — روباه، بایسون، جغد — در داستان‌ها و ترانه‌های ملایم برای کودکان.",
+        old_snow_famous_meta_title: "داکوتای شمالی به چه چیزی معروف است؟ راهنمای زمستانی کودکان — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "نگاهی آرام به زمستان داکوتای شمالی — بایسون، بدلندز، شفق قطبی، پاوواو — در داستان‌ها و ترانه‌های کودکان.",
+        old_snow_hub_meta_title: "به داکوتای شمالی خوش آمدید | برای کودکان | داستان‌ها و ترانه‌های زمستانی آرام — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "داستان‌ها و ترانه‌های زمستانی آرام دربارهٔ طبیعت داکوتای شمالی برای کودکان — قصه‌ها و موسیقی اصلی از North Dakota Fairytales."
     },
 
     pt: {
@@ -237,8 +286,13 @@ export const translations = {
         home_text: "Um mundo de inverno tranquilo com histórias e músicas para crianças.",
         about_title: "Sobre North Dakota Fairytales",
         about_text: "Um projeto mágico de histórias de inverno.",
-        footerRights: "Todos os direitos reservados."
-
+        footerRights: "Todos os direitos reservados.",
+        old_snow_animals_meta_title: "Animais de inverno de Dakota do Norte para crianças — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Vida selvagem gentil do inverno em Dakota do Norte — raposa, bisão, coruja — em histórias e canções calmas para crianças.",
+        old_snow_famous_meta_title: "Pelo que Dakota do Norte é famosa? Guia de inverno para crianças — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Um olhar calmo sobre o inverno em Dakota do Norte — bisões, Badlands, aurora, powwow — em histórias e canções infantis.",
+        old_snow_hub_meta_title: "Bem-vindo a Dakota do Norte | Para crianças | Histórias e canções de inverno calmas — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Histórias, canções e temas gentis da natureza de Dakota do Norte no inverno para crianças — contos e música originais de North Dakota Fairytales."
     },
 
     ms: {
@@ -246,8 +300,13 @@ export const translations = {
         home_text: "Dunia musim sejuk yang tenang dengan cerita dan lagu untuk kanak-kanak.",
         about_title: "Tentang North Dakota Fairytales",
         about_text: "Projek cerita musim sejuk yang penuh magis.",
-        footerRights: "Hak cipta terpelihara."
-
+        footerRights: "Hak cipta terpelihara.",
+        old_snow_animals_meta_title: "Haiwan musim sejuk North Dakota untuk kanak-kanak — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Alam liar musim sejuk yang lembut di North Dakota — rubah, bison, burung hantu — dalam cerita dan lagu tenang untuk kanak-kanak.",
+        old_snow_famous_meta_title: "Apa yang menjadikan North Dakota terkenal? Panduan musim sejuk kanak-kanak — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Pandangan musim sejuk yang tenang ke North Dakota — bison, Badlands, Cahaya Utara, powwow — dalam cerita dan lagu kanak-kanak.",
+        old_snow_hub_meta_title: "Selamat datang ke North Dakota | Untuk kanak-kanak | Cerita dan lagu musim sejuk yang tenang — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Cerita, lagu dan tema alam semula jadi North Dakota yang lembut pada musim sejuk untuk kanak-kanak — cerita dan muzik asli daripada North Dakota Fairytales."
     },
 
     id: {
@@ -255,8 +314,13 @@ export const translations = {
         home_text: "Dunia musim dingin yang tenang berisi cerita dan lagu untuk anak-anak.",
         about_title: "Tentang North Dakota Fairytales",
         about_text: "Proyek dongeng musim dingin yang penuh keajaiban.",
-        footerRights: "Hak cipta dilindungi."
-
+        footerRights: "Hak cipta dilindungi.",
+        old_snow_animals_meta_title: "Hewan musim dingin North Dakota untuk anak-anak — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Satwa liar musim dingin yang lembut di North Dakota — rubah, bison, burung hantu — dalam cerita dan lagu tenang untuk anak-anak.",
+        old_snow_famous_meta_title: "Apa yang membuat North Dakota terkenal? Panduan musim dingin anak — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Pandangan musim dingin yang tenang ke North Dakota — bison, Badlands, aurora, powwow — dalam cerita dan lagu anak-anak.",
+        old_snow_hub_meta_title: "Selamat datang di North Dakota | Untuk anak-anak | Cerita dan lagu musim dingin yang tenang — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Cerita, lagu, dan tema alam North Dakota yang lembut di musim dingin untuk anak-anak — dongeng dan musik asli dari North Dakota Fairytales."
     },
 
     de: {
@@ -264,8 +328,13 @@ export const translations = {
         home_text: "Eine ruhige Winterwelt voller Geschichten und Lieder für Kinder.",
         about_title: "Über North Dakota Fairytales",
         about_text: "Ein magisches Wintergeschichten-Projekt für Kinder.",
-        footerRights: "Alle Rechte vorbehalten."
-
+        footerRights: "Alle Rechte vorbehalten.",
+        old_snow_animals_meta_title: "Wintertiere in North Dakota für Kinder — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Sanfte Winterwildnis in North Dakota — Fuchs, Bison, Eule — in ruhigen Geschichten und Liedern für Kinder.",
+        old_snow_famous_meta_title: "Wofür ist North Dakota bekannt? Winterführer für Kinder — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Ein ruhiger Winterblick auf North Dakota — Bisons, Badlands, Polarlichter, Powwow — in Geschichten und Liedern für Kinder.",
+        old_snow_hub_meta_title: "Willkommen in North Dakota | Für Kinder | Ruhige Wintergeschichten und Lieder — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Ruhige Wintergeschichten, Lieder und sanfte Naturthemen von North Dakota für Kinder — originelle Geschichten und Musik von North Dakota Fairytales."
     },
 
     ca: {
@@ -273,8 +342,13 @@ export const translations = {
         home_text: "Un món d’hivern tranquil de contes i cançons per a infants.",
         about_title: "Sobre North Dakota Fairytales",
         about_text: "Un projecte màgic de contes d’hivern.",
-        footerRights: "Tots els drets reservats."
-
+        footerRights: "Tots els drets reservats.",
+        old_snow_animals_meta_title: "Animals d’hivern de Dakota del Nord per a infants — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Fauna hivernal suau de Dakota del Nord — guineu, bisó, mussol — en històries i cançons tranquil·les per a infants.",
+        old_snow_famous_meta_title: "Per què és famosa Dakota del Nord? Guia hivernal infantil — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Una mirada hivernal tranquil·la a Dakota del Nord — bisons, Badlands, aurora, powwow — en històries i cançons per a infants.",
+        old_snow_hub_meta_title: "Benvinguts a Dakota del Nord | Per a infants | Contes i cançons d'hivern tranquils — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Contes, cançons i temes suaus de la natura de Dakota del Nord a l'hivern per a infants — històries i música originals de North Dakota Fairytales."
     },
 
     az: {
@@ -282,8 +356,13 @@ export const translations = {
         home_text: "Uşaqlar üçün hekayələr və mahnılarla dolu sakit qış dünyası.",
         about_title: "North Dakota Fairytales haqqında",
         about_text: "Sehrli qış nağılları layihəsi.",
-        footerRights: "Bütün hüquqlar qorunur."
-
+        footerRights: "Bütün hüquqlar qorunur.",
+        old_snow_animals_meta_title: "North Dakota qış heyvanları uşaqlar üçün — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "North Dakota-nın yumşaq qış təbiəti — tülkü, bizon, bayquş — uşaqlar üçün sakit hekayə və mahnılarda.",
+        old_snow_famous_meta_title: "North Dakota nə ilə məşhurdur? Uşaqlar üçün qış bələdçisi — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "North Dakota-ya sakit qış baxışı — bizonlar, Badlands, şimal işıqları, powwow — uşaqların hekayə və mahnılarında.",
+        old_snow_hub_meta_title: "North Dakota-ya xoş gəlmisiniz | Uşaqlar üçün | Sakit qış hekayələri və mahnıları — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Uşaqlar üçün North Dakota-nın təbiəti və sakit qış hekayələri və mahnıları — North Dakota Fairytales layihəsinin orijinal hekayələri və musiqisi."
     },
 
     hy: {
@@ -291,8 +370,13 @@ export const translations = {
         home_text: "Խաղաղ ձմեռային աշխարհ՝ պատմություններով և երգերով երեխաների համար։",
         about_title: "North Dakota Fairytales-ի մասին",
         about_text: "Ձմեռային հեքիաթների կախարդական նախագիծ։",
-        footerRights: "Բոլոր իրավունքները պաշտպանված են։"
-
+        footerRights: "Բոլոր իրավունքները պաշտպանված են։",
+        old_snow_animals_meta_title: "Հյուսիսային Դակոտայի ձմեռային կենդանիները երեխաների համար — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Հյուսիսային Դակոտայի մեղմ ձմեռային բնություն — աղվես, բիզոն, բու — երեխաների համար հանգիստ պատմություններում և երգերում։",
+        old_snow_famous_meta_title: "Ինչո՞վ է հայտնի Հյուսիսային Դակոտան. ձմեռային ուղեցույց երեխաների — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Հանգիստ ձմեռային հայացք Հյուսիսային Դակոտայի վրա — բիզոններ, Բեդլենդս, հյուսիսային լույսեր, powwow — երեխաների պատմություններում և երգերում։",
+        old_snow_hub_meta_title: "Բարի գալուստ Հյուսիսային Դակոտա | Երեխաների համար | Հանգիստ ձմեռային պատմություններ և երգեր — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Երեխաների համար Հյուսիսային Դակոտայի բնության և հանգիստ ձմեռային պատմությունների ու երգերի մասին — North Dakota Fairytales-ի ինքնատիպ պատմություններ և երաժշտություն։"
     },
 
     haw: {
@@ -300,8 +384,13 @@ export const translations = {
         home_text: "He ao hoʻoilo mālie o nā moʻolelo a me nā mele no nā keiki.",
         about_title: "No North Dakota Fairytales",
         about_text: "He papahana moʻolelo hoʻoilo kupanaha.",
-        footerRights: "Mālama ʻia nā kuleana a pau."
-
+        footerRights: "Mālama ʻia nā kuleana a pau.",
+        old_snow_animals_meta_title: "Nā holoholona hoʻoilo o North Dakota no nā keiki — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Ka lehulehu hoʻoilo mālie o North Dakota — ʻīlioholoikauaua, bison, pueo — ma nā moʻolelo a me nā mele mālie no nā keiki.",
+        old_snow_famous_meta_title: "He aha kā North Dakota kaulana ai? ʻO ka hōʻailona hoʻoilo no nā keiki — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "He nānā hoʻoilo mālie iā North Dakota — bison, Badlands, nā kukui ʻākau, powwow — ma nā moʻolelo a me nā mele no nā keiki.",
+        old_snow_hub_meta_title: "Aloha mai ʻoe iā North Dakota | No nā keiki | Nā moʻolelo hoʻoilo mālie a me nā mele — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Nā moʻolelo hoʻoilo mālie, nā mele, a me nā kumuhana ʻāina mālie o North Dakota no nā keiki — nā moʻolelo kūʻokoʻa a me ka mele o North Dakota Fairytales."
     },
 
     tt: {
@@ -309,8 +398,13 @@ export const translations = {
         home_text: "Балалар өчен әкиятләр һәм җырлар белән тулы тыныч кышкы дөнья.",
         about_title: "North Dakota Fairytales турында",
         about_text: "Кышкы әкиятләрнең тылсымлы проекты.",
-        footerRights: "Барлык хокуклар якланган."
-
+        footerRights: "Барлык хокуклар якланган.",
+        old_snow_animals_meta_title: "Төньяк Дакота кышкы хайваннары балалар өчен — North Dakota Fairytales",
+        old_snow_animals_meta_desc: "Төньяк Дакотаның йомшак кышкы табигате — төлке, бизон, ябалак — балалар өчен тыныч әкиятләр һәм җырларда.",
+        old_snow_famous_meta_title: "Төньяк Дакота нәрсә белән данлыклы? Балалар өчен кыш кулланмасы — North Dakota Fairytales",
+        old_snow_famous_meta_desc: "Төньяк Дакотага тыныч кышкы караш — бизоннар, Бэдлендс, төньяк балкышы, powwow — балалар әкиятләрендә һәм җырларында.",
+        old_snow_hub_meta_title: "Төньяк Дакотага рәхмәт итеп керегез | Балалар өчен | Тыныч кышкы әкиятләр һәм җырлар — North Dakota Fairytales",
+        old_snow_hub_meta_desc: "Балалар өчен Төньяк Дакотаның табигате һәм тыныч кышкы әкиятләр һәм җырлар — North Dakota Fairytales проектының оригиналь әкиятләре һәм музыкасы."
     },
 
 };

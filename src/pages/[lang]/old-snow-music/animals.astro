@@ -2,17 +2,20 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
 import { translations } from "../../../lib/i18n";
+import {
+    oldSnowContentLang,
+    oldSnowHasFullSongHub,
+    oldSnowHubStaticPaths,
+    oldSnowWinterProgramJsonLd,
+} from "../../../lib/oldSnowMusicHubLangs";
 
 export function getStaticPaths() {
-    return [
-        { params: { lang: "en" } },
-        { params: { lang: "es" } },
-        { params: { lang: "fr" } },
-        { params: { lang: "ar" } }
-    ];
+    return oldSnowHubStaticPaths();
 }
 
 const lang = Astro.params.lang;
+const contentLang = oldSnowContentLang(lang);
+const showOldSnowSongSearch = oldSnowHasFullSongHub(lang);
 const i18nText = translations[lang as keyof typeof translations] || translations.en;
 const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
 const searchAnimalsHref = `/${lang}/old-snow-music/search_animals`;
@@ -22,14 +25,14 @@ const searchLabelByLang = {
     fr: "Recherche",
     ar: "بحث"
 };
-const searchLabel = searchLabelByLang[lang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
+const searchLabel = searchLabelByLang[contentLang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
 const snowyMusicLabelByLang = {
     en: "Snowy Music",
     es: "Música Nevada",
     fr: "Musique de Neige",
     ar: "موسيقى ثلجية"
 };
-const snowyMusicLabel = snowyMusicLabelByLang[lang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
+const snowyMusicLabel = snowyMusicLabelByLang[contentLang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
 
 const text = {
     en: {
@@ -76,12 +79,219 @@ const text = {
         p6: "🌲 طريقة مختلفة لرؤية الحيوانات\n\nبدلًا من المحتوى السريع أو الصاخب، يقدم North Dakota Fairytales منظورًا أكثر هدوءًا.\n\nالحيوانات ليست فقط شيئًا للتعلم — بل شيئًا يمكن الشعور به وملاحظته وفهمه مع الوقت.\n\nكما يقدم بلطف أفكارًا مثل كيفية بقاء الحيوانات في الشتاء للأطفال — كيف تحافظ على الدفء، وتجد المأوى، وتتحرك في البرد بطريقة طبيعية وهادئة.",
         p7: "❄️ اكتشف عالم حيوانات داكوتا الشمالية\n\nاستكشف الأغاني والقصص حيث تنبض الحيوانات الشتوية بالحياة — ببطء وهدوء وبطريقة يمكن للأطفال أن يرتبطوا بها حقًا.",
     },
+    ru: {
+        p1: "🐾 Животные Северной Дакоты",
+        p2: "Мягкий мир зимних существ\n\nСеверная Дакота — дом для множества животных, которые спокойно живут на её равнинах, в лесах и заснеженных полях. Для детей эти животные — не просто часть природы, а герои историй, песен и тихих зимних моментов среди природы Великих равнин.",
+        p3BeforeFox:
+            "❄️ Живой зимний пейзаж\n\nВ Северной Дакоте животные движутся в спокойном и постоянно меняющемся мире снега, ветра и света. Дети могут представить: рыжих лис, легко идущих по свежему снегу,\n",
+        p3AfterFoxBeforeOwl:
+            "белохвостых и чернохвостых оленей, спокойно стоящих под зимним небом, снежных сов, наблюдающих с тихих деревьев,\n",
+        p3AfterOwl:
+            "уток и снежных гусей у замёрзших озёр, кроликов, мышей и белок, мягко передвигающихся в холоде, бобров у ледяной воды, койотов, тихо перекликающихся на равнинах, луговых собачек — которых иногда называют «лающими белками» — выглядывающих из земли, фазанов, переходящих заснеженные поля, и великих бизонов, медленно идущих вдали.\n\nЭтот природный мир ощущается живым, но никогда не перегружает — он устойчивый, тихий и понятный.",
+        p4: "🌨 Животные в сказках и песнях\n\nВ North Dakota Fairytales эти животные появляются в зимних песнях и историях для детей как дружелюбные и простые персонажи. Они двигаются медленно, наблюдают и помогают детям понимать мир через небольшие, но важные моменты.\nЛиса может символизировать тепло.\nСова — ясность.\nБизон — силу и спокойствие.",
+        p5: "🐾 Спокойная связь с природой\n\nИменно это делает животных Северной Дакоты особенными для детей. Они являются частью мирной среды открытых земель, включая Национальные травяные равнины, где животные живут в гармонии со снегом, небом и сезонами.\nЧерез этих животных дети получают:\n\nмягкие истории\nэмоциональную связь\nпростое и понятное обучение\nспокойный взгляд на природу",
+        p6: "🌲 Другой взгляд на животных\n\nВместо быстрого и шумного контента North Dakota Fairytales предлагает более мягкую перспективу. Животные — это не только то, о чём нужно узнавать, но и то, что можно чувствовать, наблюдать и постепенно понимать.\nТакже мягко вводится тема выживания зимой для детей — как животные сохраняют тепло, находят укрытие и живут в холоде естественно и спокойно.",
+        p7: "❄️ Откройте мир животных Северной Дакоты\n\nИсследуйте песни и истории, где зимние животные оживают — медленно, мягко и так, чтобы дети могли по-настоящему почувствовать с ними связь.",
+    },
+    ur: {
+        p1: "🐾 نارتھ ڈکوٹا کے جانور",
+        p2: "سردیوں کی مخلوقات کی نرم دنیا\n\nNorth Dakota بہت سے جانوروں کا گھر ہے جو اس کی میدانوں، جنگلات اور برف سے ڈھکے کھیتوں میں خاموشی سے رہتے ہیں۔ بچوں کے لیے یہ جانور صرف فطرت کا حصہ نہیں ہوتے بلکہ کہانیوں، گانوں اور نرم سردیوں کے لمحات کے کردار بن جاتے ہیں۔",
+        p3BeforeFox:
+            "❄️ زندہ سردیوں کا منظر\n\nنارتھ ڈکوٹا میں جانور برف، ہوا اور روشنی کی ایک پرسکون اور بدلتی ہوئی دنیا میں حرکت کرتے ہیں۔ بچے تصور کر سکتے ہیں: سرخ لومڑیاں جو تازہ برف پر ہلکے قدموں سے چلتی ہیں،\n",
+        p3AfterFoxBeforeOwl:
+            "سفید دم والے اور مول ہرن جو خاموشی سے سرد آسمان کے نیچے کھڑے ہیں، برفیلی اُلو جو خاموش درختوں سے دیکھ رہے ہیں،\n",
+        p3AfterOwl:
+            "بطخیں اور برفیلی ہنس جو جمے ہوئے جھیلوں کے پاس آرام کر رہے ہیں، خرگوش، چوہے اور گلہریاں جو نرمی سے سردی میں حرکت کرتی ہیں، بیور جو برفیلے پانی کے پاس گھر بناتے ہیں، کویوٹے جو میدانوں میں آہستہ آواز دیتے ہیں، پریری ڈاگز — جنہیں کبھی کبھی \"بھونکنے والی گلہریاں\" کہا جاتا ہے — زمین سے جھانکتے ہیں، تیتر برفیلے میدانوں کو عبور کرتے ہیں، اور عظیم بائسن جو دور آہستہ چلتے ہیں۔\n\nیہ قدرتی دنیا زندہ محسوس ہوتی ہے مگر کبھی بھاری نہیں لگتی — یہ متوازن، خاموش اور آسانی سے سمجھ آنے والی ہے۔",
+        p4: "🌨 کہانیوں اور گانوں میں جانور\n\nNorth Dakota Fairytales میں یہ جانور بچوں کے لیے سردیوں کے گانوں اور کہانیوں میں دوستانہ اور سادہ کرداروں کے طور پر ظاہر ہوتے ہیں۔ وہ آہستہ چلتے ہیں، مشاہدہ کرتے ہیں اور بچوں کو چھوٹے مگر معنی خیز لمحات کے ذریعے دنیا کو سمجھنے میں مدد دیتے ہیں۔\nلومڑی گرمی کی علامت ہو سکتی ہے۔\nاُلو وضاحت کی علامت ہے۔\nبائسن طاقت اور سکون کی علامت ہے۔",
+        p5: "🐾 فطرت سے پُرسکون تعلق\n\nیہی چیز نارتھ ڈکوٹا کے جانوروں کو بچوں کے لیے خاص بناتی ہے۔ وہ ایک پُرامن ماحول کا حصہ ہیں جو کھلی زمینوں اور نیشنل گراس لینڈز جیسے مقامات پر مشتمل ہے، جہاں جانور برف، آسمان اور موسموں کے ساتھ توازن میں رہتے ہیں۔\nان جانوروں کے ذریعے بچے حاصل کرتے ہیں:\n\nنرم کہانیاں\nجذباتی تعلق\nسادہ اور واضح سیکھنا\nفطرت کا پُرسکون منظر",
+        p6: "🌲 جانوروں کو دیکھنے کا ایک مختلف طریقہ\n\nتیز یا شور والے مواد کے بجائے، North Dakota Fairytales ایک نرم نقطۂ نظر پیش کرتا ہے۔ جانور صرف سیکھنے کی چیز نہیں بلکہ محسوس کرنے، دیکھنے اور وقت کے ساتھ سمجھنے کی چیز ہیں۔\nیہ بچوں کو نرمی سے یہ بھی سکھاتا ہے کہ سردیوں میں جانور کیسے زندہ رہتے ہیں — کیسے وہ خود کو گرم رکھتے ہیں، پناہ ڈھونڈتے ہیں اور قدرتی انداز میں سردی میں حرکت کرتے ہیں۔",
+        p7: "❄️ نارتھ ڈکوٹا کے جانوروں کی دنیا دریافت کریں\n\nان گانوں اور کہانیوں کو دریافت کریں جہاں سردیوں کے جانور زندگی پاتے ہیں — آہستہ، نرمی سے، اور ایسے انداز میں جس سے بچے واقعی جُڑ سکیں۔",
+    },
+    hi: {
+        p1: "🐾 नॉर्थ डकोटा के जानवर",
+        p2: "सर्दियों के जीवों की एक शांत दुनिया\n\nNorth Dakota कई जानवरों का घर है, जो इसके मैदानों, जंगलों और बर्फ से ढके खेतों में शांति से रहते हैं। बच्चों के लिए ये जानवर केवल प्रकृति का हिस्सा नहीं हैं — वे कहानियों, गीतों और कोमल सर्दियों के पलों के पात्र बन जाते हैं।",
+        p3BeforeFox:
+            "❄️ जीवित सर्दियों का दृश्य\n\nनॉर्थ डकोटा में जानवर बर्फ, हवा और रोशनी की शांत और बदलती दुनिया में चलते हैं। बच्चे कल्पना कर सकते हैं: लाल लोमड़ियाँ जो ताज़ी बर्फ पर हल्के कदमों से चलती हैं,\n",
+        p3AfterFoxBeforeOwl:
+            "सफेद-पूंछ वाले और म्यूल हिरण जो सर्द आकाश के नीचे शांत खड़े हैं, बर्फीले उल्लू जो शांत पेड़ों से देख रहे हैं,\n",
+        p3AfterOwl:
+            "बतख और बर्फीले हंस जो जमी हुई झीलों के पास आराम कर रहे हैं, खरगोश, चूहे और गिलहरियाँ जो धीरे-धीरे ठंड में चलती हैं, बीवर जो बर्फीले पानी के पास घर बनाते हैं, कोयोट जो मैदानों में धीमी आवाज़ में पुकारते हैं, प्रेयरी डॉग — जिन्हें कभी-कभी \"भौंकने वाली गिलहरियाँ\" कहा जाता है — ज़मीन से झांकते हैं, तीतर जो बर्फीले खेतों को पार करते हैं, और महान बाइसन जो दूर धीरे-धीरे चलते हैं।\n\nयह प्राकृतिक दुनिया जीवित महसूस होती है, लेकिन कभी भारी नहीं लगती — यह स्थिर, शांत और समझने में आसान है।",
+        p4: "🌨 कहानियों और गीतों में जानवर\n\nNorth Dakota Fairytales में ये जानवर बच्चों के लिए सर्दियों के गीतों और कहानियों में दोस्ताना और सरल पात्रों के रूप में दिखाई देते हैं। वे धीरे चलते हैं, देखते हैं और बच्चों को छोटे लेकिन अर्थपूर्ण पलों के माध्यम से दुनिया को समझने में मदद करते हैं।\nलोमड़ी गर्माहट का प्रतीक हो सकती है।\nउल्लू स्पष्टता का प्रतीक है।\nबाइसन ताकत और शांति का प्रतीक है।",
+        p5: "🐾 प्रकृति से एक शांत संबंध\n\nयही कारण है कि नॉर्थ डकोटा के जानवर बच्चों के लिए खास हैं। वे खुले मैदानों और नेशनल ग्रासलैंड्स जैसे स्थानों के शांत वातावरण का हिस्सा हैं, जहाँ जानवर बर्फ, आकाश और मौसमों के साथ संतुलन में रहते हैं।\nइन जानवरों के माध्यम से बच्चे अनुभव करते हैं:\n\nकोमल कहानी कहना\nभावनात्मक जुड़ाव\nसरल और स्पष्ट सीखना\nप्रकृति का शांत दृष्टिकोण",
+        p6: "🌲 जानवरों को देखने का एक अलग तरीका\n\nतेज़ या शोर वाले कंटेंट के बजाय, North Dakota Fairytales एक नरम दृष्टिकोण प्रदान करता है। जानवर केवल सीखने की चीज़ नहीं हैं — वे महसूस करने, देखने और समय के साथ समझने की चीज़ हैं।\nयह बच्चों को धीरे-धीरे यह भी सिखाता है कि जानवर सर्दियों में कैसे जीवित रहते हैं — वे कैसे गर्म रहते हैं, आश्रय ढूंढते हैं और ठंड में प्राकृतिक रूप से चलते हैं।",
+        p7: "❄️ नॉर्थ डकोटा के जानवरों की दुनिया खोजें\n\nउन गीतों और कहानियों का अन्वेषण करें जहाँ सर्दियों के जानवर जीवंत हो जाते हैं — धीरे, कोमलता से, और इस तरह कि बच्चे वास्तव में उनसे जुड़ सकें।",
+    },
+    bn: {
+        p1: "🐾 নর্থ ডাকোটার প্রাণী",
+        p2: "শীতের প্রাণীদের একটি কোমল জগৎ\n\nNorth Dakota বহু প্রাণীর আবাসস্থল, যারা এর সমভূমি, বন এবং তুষারে ঢাকা মাঠে শান্তভাবে বসবাস করে। শিশুদের জন্য এই প্রাণীরা শুধু প্রকৃতির অংশ নয় — তারা গল্প, গান এবং নরম শীতের মুহূর্তের চরিত্র হয়ে ওঠে।",
+        p3BeforeFox:
+            "❄️ একটি জীবন্ত শীতের দৃশ্য\n\nনর্থ ডাকোটায় প্রাণীরা তুষার, বাতাস এবং আলোর শান্ত ও পরিবর্তনশীল জগতে চলাফেরা করে। শিশুরা কল্পনা করতে পারে: লাল শিয়াল যারা নতুন তুষারের ওপর হালকা পায়ে হাঁটে,\n",
+        p3AfterFoxBeforeOwl:
+            "সাদা-লেজ এবং মিউল হরিণ যারা শীতের আকাশের নিচে শান্তভাবে দাঁড়িয়ে থাকে, তুষার পেঁচা যারা নীরব গাছ থেকে দেখছে,\n",
+        p3AfterOwl:
+            "হাঁস এবং তুষার রাজহাঁস যারা জমাট বাঁধা হ্রদের পাশে বিশ্রাম নিচ্ছে, খরগোশ, ইঁদুর এবং কাঠবিড়ালি যারা ঠান্ডায় ধীরে ধীরে চলাফেরা করে, বিবার যারা বরফের জলের কাছে ঘর বানায়, কায়োট যারা সমভূমিতে আস্তে ডাকে, প্রেইরি ডগ — যাদের কখনও \"ঘেউ-ঘেউ করা কাঠবিড়ালি\" বলা হয় — মাটি থেকে উঁকি দেয়, ফেজান্ট যারা তুষার ঢাকা মাঠ পার হয়, এবং দূরে ধীরে চলা বিশাল বাইসন।\n\nএই প্রাকৃতিক জগৎ জীবন্ত মনে হয়, কিন্তু কখনোই ভারী নয় — এটি স্থির, শান্ত এবং সহজে বোঝা যায়।",
+        p4: "🌨 গল্প ও গানে প্রাণীরা\n\nNorth Dakota Fairytales-এ এই প্রাণীরা শিশুদের জন্য শীতের গান ও গল্পে বন্ধুসুলভ এবং সহজ চরিত্র হিসেবে উপস্থিত হয়। তারা ধীরে চলে, পর্যবেক্ষণ করে এবং ছোট কিন্তু অর্থপূর্ণ মুহূর্তের মাধ্যমে শিশুদের পৃথিবী বুঝতে সাহায্য করে।\nশিয়াল উষ্ণতার প্রতীক হতে পারে।\nপেঁচা স্বচ্ছতার প্রতীক।\nবাইসন শক্তি ও শান্তির প্রতীক।",
+        p5: "🐾 প্রকৃতির সঙ্গে শান্ত সংযোগ\n\nএই কারণেই নর্থ ডাকোটার প্রাণীরা শিশুদের জন্য বিশেষ। তারা খোলা ভূমি এবং ন্যাশনাল গ্রাসল্যান্ডসের মতো স্থানের শান্ত পরিবেশের অংশ, যেখানে প্রাণীরা তুষার, আকাশ এবং ঋতুর সঙ্গে ভারসাম্যে থাকে।\nএই প্রাণীদের মাধ্যমে শিশুরা পায়:\n\nকোমল গল্প বলা\nআবেগের সংযোগ\nসহজ ও পরিষ্কার শেখা\nপ্রকৃতির শান্ত দৃষ্টিভঙ্গি",
+        p6: "🌲 প্রাণীদের দেখার একটি ভিন্ন উপায়\n\nদ্রুত বা শব্দপূর্ণ কন্টেন্টের পরিবর্তে, North Dakota Fairytales একটি নরম দৃষ্টিভঙ্গি দেয়। প্রাণীরা শুধু শেখার বিষয় নয় — তারা অনুভব করার, দেখার এবং সময়ের সঙ্গে বোঝার বিষয়।\nএটি শিশুদের ধীরে ধীরে শেখায় শীতে প্রাণীরা কীভাবে বেঁচে থাকে — কীভাবে তারা উষ্ণ থাকে, আশ্রয় খুঁজে পায় এবং ঠান্ডায় স্বাভাবিকভাবে চলে।",
+        p7: "❄️ নর্থ ডাকোটার প্রাণীদের জগৎ আবিষ্কার করুন\n\nসেই গান ও গল্পগুলো অন্বেষণ করুন যেখানে শীতের প্রাণীরা জীবন্ত হয়ে ওঠে — ধীরে, কোমলভাবে, এবং এমনভাবে যাতে শিশুরা সত্যিই তাদের সঙ্গে সংযোগ করতে পারে।",
+    },
+    fa: {
+        p1: "🐾 حیوانات داکوتای شمالی",
+        p2: "دنیایی آرام از موجودات زمستانی\n\nNorth Dakota خانه‌ی بسیاری از حیوانات است که در دشت‌ها، جنگل‌ها و زمین‌های پوشیده از برف آن به‌آرامی زندگی می‌کنند. برای کودکان، این حیوانات فقط بخشی از طبیعت نیستند — بلکه به شخصیت‌های داستان‌ها، ترانه‌ها و لحظات آرام زمستانی تبدیل می‌شوند.",
+        p3BeforeFox:
+            "❄️ چشم‌انداز زنده‌ی زمستانی\n\nدر داکوتای شمالی، حیوانات در دنیایی آرام و در حال تغییر از برف، باد و نور حرکت می‌کنند. کودکان می‌توانند تصور کنند: روباه‌های سرخ که به‌آرامی روی برف تازه راه می‌روند،\n",
+        p3AfterFoxBeforeOwl:
+            "گوزن‌های دم‌سفید و مول که زیر آسمان زمستانی بی‌صدا ایستاده‌اند، جغدهای برفی که از درختان ساکت نظاره می‌کنند،\n",
+        p3AfterOwl:
+            "اردک‌ها و غازهای برفی که کنار دریاچه‌های یخ‌زده استراحت می‌کنند، خرگوش‌ها، موش‌ها و سنجاب‌ها که به‌آرامی در سرما حرکت می‌کنند، بیورها که کنار آب یخی خانه می‌سازند، کایوت‌ها که در دشت‌ها آرام صدا می‌زنند، سگ‌های دشتی — که گاهی «سنجاب‌های پارس‌کننده» نامیده می‌شوند — از زمین سرک می‌کشند، قرقاول‌ها که از میان مزارع برفی عبور می‌کنند، و بایسون‌های بزرگ که در دوردست آهسته حرکت می‌کنند.\n\nاین دنیای طبیعی زنده به نظر می‌رسد، اما هرگز سنگین یا شلوغ نیست — آرام، پایدار و قابل درک است.",
+        p4: "🌨 حیوانات در داستان‌ها و ترانه‌ها\n\nدر North Dakota Fairytales این حیوانات در ترانه‌ها و داستان‌های زمستانی برای کودکان به‌عنوان شخصیت‌های ساده و دوستانه ظاهر می‌شوند. آن‌ها آرام حرکت می‌کنند، مشاهده می‌کنند و به کودکان کمک می‌کنند جهان را از طریق لحظات کوچک اما معنادار درک کنند.\nروباه می‌تواند نماد گرما باشد.\nجغد نماد وضوح است.\nبایسون نماد قدرت و آرامش است.",
+        p5: "🐾 ارتباطی آرام با طبیعت\n\nاین همان چیزی است که حیوانات داکوتای شمالی را برای کودکان خاص می‌کند. آن‌ها بخشی از محیطی آرام در سرزمین‌های باز و مکان‌هایی مانند چمنزارهای ملی هستند، جایی که حیوانات در تعادل با برف، آسمان و فصل‌ها زندگی می‌کنند.\nاز طریق این حیوانات، کودکان تجربه می‌کنند:\n\nداستان‌گویی ملایم\nارتباط احساسی\nیادگیری ساده و روشن\nنگاه آرام به طبیعت",
+        p6: "🌲 نگاهی متفاوت به حیوانات\n\nبه‌جای محتوای سریع و پرسر و صدا، North Dakota Fairytales دیدگاهی نرم‌تر ارائه می‌دهد. حیوانات فقط چیزی برای یاد گرفتن نیستند — بلکه چیزی برای احساس کردن، مشاهده و درک تدریجی هستند.\nهمچنین به‌آرامی مفاهیمی مانند بقا در زمستان را معرفی می‌کند — اینکه حیوانات چگونه گرم می‌مانند، پناه پیدا می‌کنند و به‌طور طبیعی در سرما حرکت می‌کنند.",
+        p7: "❄️ دنیای حیوانات داکوتای شمالی را کشف کنید\n\nترانه‌ها و داستان‌هایی را کشف کنید که در آن‌ها حیوانات زمستانی زنده می‌شوند — آرام، ملایم و به شکلی که کودکان واقعاً با آن‌ها ارتباط برقرار کنند.",
+    },
+    pt: {
+        p1: "🐾 Animais de Dakota do Norte",
+        p2: "Um mundo gentil de criaturas de inverno\n\nNorth Dakota é o lar de muitos animais que vivem tranquilamente em suas planícies, florestas e campos cobertos de neve. Para as crianças, esses animais não são apenas parte da natureza — eles se tornam personagens de histórias, canções e momentos suaves de inverno.",
+        p3BeforeFox:
+            "❄️ Uma paisagem de inverno viva\n\nEm Dakota do Norte, os animais se movem em um mundo calmo e em constante mudança de neve, vento e luz. As crianças podem imaginar: raposas vermelhas caminhando suavemente sobre a neve fresca,\n",
+        p3AfterFoxBeforeOwl:
+            "veados-de-cauda-branca e veados-mula parados em silêncio sob o céu de inverno, corujas-das-neves observando de árvores silenciosas,\n",
+        p3AfterOwl:
+            "patos e gansos-da-neve descansando perto de lagos congelados, coelhos, ratos e esquilos movendo-se gentilmente no frio, castores construindo perto de águas geladas, coiotes chamando suavemente pelas planícies, cães-da-pradaria — às vezes chamados de \"esquilos que latem\" — espiando para fora da terra, faisões atravessando campos nevados e os grandes bisões movendo-se lentamente ao longe.\n\nEsse mundo natural parece vivo, mas nunca é excessivo — é estável, silencioso e fácil de acompanhar.",
+        p4: "🌨 Animais em histórias e canções\n\nEm North Dakota Fairytales, esses animais aparecem em canções e histórias de inverno para crianças como personagens amigáveis e simples. Eles se movem devagar, observam e ajudam as crianças a entender o mundo por meio de pequenos momentos significativos.\nA raposa pode representar calor.\nA coruja pode representar clareza.\nO bisão pode representar força e calma.",
+        p5: "🐾 Uma conexão tranquila com a natureza\n\nÉ isso que torna os animais de Dakota do Norte especiais para as crianças. Eles fazem parte de um ambiente pacífico de terras abertas e lugares como as pradarias nacionais, onde vivem em equilíbrio com a neve, o céu e as estações.\nPor meio desses animais, as crianças experimentam:\n\nnarrativas suaves\nconexão emocional\naprendizado simples e claro\numa visão tranquila da natureza",
+        p6: "🌲 Uma forma diferente de ver os animais\n\nEm vez de conteúdo rápido e barulhento, North Dakota Fairytales oferece uma perspectiva mais suave. Os animais não são apenas algo para aprender — são algo para sentir, observar e entender com o tempo.\nTambém introduz gentilmente ideias como a sobrevivência no inverno — como os animais se mantêm aquecidos, encontram abrigo e se movem no frio de maneira natural.",
+        p7: "❄️ Descubra o mundo dos animais de Dakota do Norte\n\nExplore canções e histórias onde os animais de inverno ganham vida — devagar, gentilmente, e de uma forma que as crianças possam realmente se conectar.",
+    },
+    ms: {
+        p1: "🐾 Haiwan di North Dakota",
+        p2: "Dunia lembut makhluk musim sejuk\n\nNorth Dakota adalah rumah kepada banyak haiwan yang hidup dengan tenang di padang rumput, hutan, dan kawasan bersalji. Bagi kanak-kanak, haiwan ini bukan sekadar sebahagian daripada alam — mereka menjadi watak dalam cerita, lagu, dan detik musim sejuk yang lembut.",
+        p3BeforeFox:
+            "❄️ Landskap musim sejuk yang hidup\n\nDi North Dakota, haiwan bergerak dalam dunia salji, angin dan cahaya yang tenang dan sentiasa berubah. Kanak-kanak boleh membayangkan: rubah merah berjalan perlahan di atas salji segar,\n",
+        p3AfterFoxBeforeOwl:
+            "rusa ekor putih dan rusa mule berdiri dengan tenang di bawah langit musim sejuk, burung hantu salji memerhati dari pokok yang sunyi,\n",
+        p3AfterOwl:
+            "itik dan angsa salji berehat berhampiran tasik beku, arnab, tikus dan tupai bergerak perlahan dalam kesejukan, memerang membina di tepi air berais, koyot memanggil dengan lembut di padang, anjing prairie — kadang-kadang dipanggil \"tupai menyalak\" — mengintai dari tanah, burung pegar melintasi padang bersalji, dan bison besar bergerak perlahan di kejauhan.\n\nDunia semula jadi ini terasa hidup, tetapi tidak pernah membebankan — stabil, tenang dan mudah diikuti.",
+        p4: "🌨 Haiwan dalam cerita dan lagu\n\nDalam North Dakota Fairytales, haiwan ini muncul dalam lagu dan cerita musim sejuk untuk kanak-kanak sebagai watak yang mesra dan ringkas. Mereka bergerak perlahan, memerhati, dan membantu kanak-kanak memahami dunia melalui detik kecil yang bermakna.\nRubah melambangkan kehangatan.\nBurung hantu melambangkan kejelasan.\nBison melambangkan kekuatan dan ketenangan.",
+        p5: "🐾 Hubungan tenang dengan alam\n\nInilah yang menjadikan haiwan di North Dakota istimewa untuk kanak-kanak. Mereka adalah sebahagian daripada persekitaran yang damai di tanah terbuka dan kawasan seperti padang rumput nasional, di mana haiwan hidup seimbang dengan salji, langit dan musim.\nMelalui haiwan ini, kanak-kanak mengalami:\n\ncerita yang lembut\nhubungan emosi\npembelajaran yang mudah dan jelas\npandangan alam yang tenang",
+        p6: "🌲 Cara berbeza melihat haiwan\n\nBerbanding kandungan yang laju dan bising, North Dakota Fairytales menawarkan perspektif yang lebih lembut. Haiwan bukan sekadar untuk dipelajari — tetapi untuk dirasai, diperhatikan dan difahami dari masa ke masa.\nIa juga memperkenalkan secara lembut idea seperti kelangsungan hidup musim sejuk — bagaimana haiwan kekal hangat, mencari perlindungan dan bergerak dalam kesejukan secara semula jadi.",
+        p7: "❄️ Terokai dunia haiwan North Dakota\n\nTerokai lagu dan cerita di mana haiwan musim sejuk menjadi hidup — perlahan, lembut, dan dengan cara yang benar-benar dekat dengan kanak-kanak.",
+    },
+    id: {
+        p1: "🐾 Hewan di North Dakota",
+        p2: "Dunia lembut makhluk musim dingin\n\nNorth Dakota adalah rumah bagi banyak hewan yang hidup dengan tenang di padang rumput, hutan, dan wilayah bersalju. Bagi anak-anak, hewan-hewan ini bukan sekadar bagian dari alam — mereka menjadi tokoh dalam cerita, lagu, dan momen musim dingin yang lembut.",
+        p3BeforeFox:
+            "❄️ Lanskap musim dingin yang hidup\n\nDi North Dakota, hewan bergerak dalam dunia salju, angin, dan cahaya yang tenang dan terus berubah. Anak-anak dapat membayangkan: rubah merah berjalan ringan di atas salju segar,\n",
+        p3AfterFoxBeforeOwl:
+            "rusa ekor putih dan rusa mule berdiri tenang di bawah langit musim dingin, burung hantu salju mengamati dari pohon yang sunyi,\n",
+        p3AfterOwl:
+            "bebek dan angsa salju beristirahat di dekat danau beku, kelinci, tikus, dan tupai bergerak perlahan dalam dingin, berang-berang membangun di dekat air es, koyote bersuara lembut di padang, anjing prairie — kadang disebut \"tupai menggonggong\" — mengintip dari tanah, burung pegar melintasi ladang bersalju, dan bison besar bergerak perlahan di kejauhan.\n\nDunia alam ini terasa hidup, namun tidak pernah berlebihan — stabil, tenang, dan mudah dipahami.",
+        p4: "🌨 Hewan dalam cerita dan lagu\n\nDalam North Dakota Fairytales, hewan-hewan ini muncul dalam lagu dan cerita musim dingin sebagai karakter yang ramah dan sederhana. Mereka bergerak perlahan, mengamati, dan membantu anak-anak memahami dunia melalui momen kecil yang bermakna.\nRubah melambangkan kehangatan.\nBurung hantu melambangkan kejernihan.\nBison melambangkan kekuatan dan ketenangan.",
+        p5: "🐾 Koneksi tenang dengan alam\n\nInilah yang membuat hewan di North Dakota istimewa bagi anak-anak. Mereka adalah bagian dari lingkungan damai di tanah terbuka dan padang rumput nasional, tempat hewan hidup seimbang dengan salju, langit, dan musim.\nMelalui hewan-hewan ini, anak-anak merasakan:\n\ncerita yang lembut\nhubungan emosional\npembelajaran yang sederhana dan jelas\npandangan alam yang tenang",
+        p6: "🌲 Cara berbeda melihat hewan\n\nAlih-alih konten yang cepat dan bising, North Dakota Fairytales menawarkan perspektif yang lebih lembut. Hewan bukan hanya untuk dipelajari — tetapi untuk dirasakan, diamati, dan dipahami seiring waktu.\nIni juga memperkenalkan secara lembut konsep bertahan hidup di musim dingin — bagaimana hewan tetap hangat, menemukan perlindungan, dan bergerak dalam dingin secara alami.",
+        p7: "❄️ Temukan dunia hewan North Dakota\n\nJelajahi lagu dan cerita di mana hewan musim dingin menjadi hidup — perlahan, lembut, dan dengan cara yang benar-benar dapat dirasakan oleh anak-anak.",
+    },
+    de: {
+        p1: "🐾 Tiere in North Dakota",
+        p2: "Eine sanfte Welt winterlicher Tiere\n\nNorth Dakota ist die Heimat vieler Tiere, die ruhig über seine Ebenen, Wälder und schneebedeckten Felder leben. Für Kinder sind diese Tiere nicht nur ein Teil der Natur — sie werden zu Figuren in Geschichten, Liedern und sanften Wintermomenten.",
+        p3BeforeFox:
+            "❄️ Eine lebendige Winterlandschaft\n\nIn North Dakota bewegen sich die Tiere in einer ruhigen und sich ständig verändernden Welt aus Schnee, Wind und Licht. Kinder können sich vorstellen: rote Füchse, die leicht über frischen Schnee laufen,\n",
+        p3AfterFoxBeforeOwl:
+            "Weißwedelhirsche und Maultierhirsche, die ruhig unter dem Winterhimmel stehen, Schnee-Eulen, die von stillen Bäumen aus beobachten,\n",
+        p3AfterOwl:
+            "Enten und Schneegänse, die an gefrorenen Seen ruhen, Kaninchen, Mäuse und Eichhörnchen, die sich sanft durch die Kälte bewegen, Biber, die nahe eisigem Wasser bauen, Kojoten, die leise über die Ebenen rufen, Präriehunde — manchmal \"bellende Eichhörnchen\" genannt — die aus dem Boden schauen, Fasane, die verschneite Felder überqueren, und große Bisons, die sich langsam in der Ferne bewegen.\n\nDiese natürliche Welt wirkt lebendig, aber niemals überwältigend — ruhig, beständig und leicht zu verstehen.",
+        p4: "🌨 Tiere in Geschichten und Liedern\n\nIn North Dakota Fairytales erscheinen diese Tiere in Winterliedern und Geschichten für Kinder als freundliche und einfache Figuren. Sie bewegen sich langsam, beobachten und helfen Kindern, die Welt durch kleine, bedeutungsvolle Momente zu verstehen.\nDer Fuchs steht für Wärme.\nDie Eule steht für Klarheit.\nDer Bison steht für Stärke und Ruhe.",
+        p5: "🐾 Eine ruhige Verbindung zur Natur\n\nDas macht die Tiere in North Dakota besonders für Kinder. Sie sind Teil einer friedlichen Umgebung mit offenen Landschaften und Nationalgrasländern, in denen Tiere im Gleichgewicht mit Schnee, Himmel und Jahreszeiten leben.\nDurch diese Tiere erleben Kinder:\n\nsanftes Erzählen\nemotionale Verbindung\neinfaches und klares Lernen\neine ruhige Sicht auf die Natur",
+        p6: "🌲 Eine andere Sicht auf Tiere\n\nStatt schneller und lauter Inhalte bietet North Dakota Fairytales eine sanftere Perspektive. Tiere sind nicht nur etwas zum Lernen — sondern etwas zum Fühlen, Beobachten und Verstehen mit der Zeit.\nEs führt auch behutsam in Themen wie das Überleben im Winter ein — wie Tiere warm bleiben, Schutz finden und sich natürlich durch die Kälte bewegen.",
+        p7: "❄️ Entdecke die Welt der Tiere in North Dakota\n\nEntdecke Lieder und Geschichten, in denen Wintertiere lebendig werden — langsam, sanft und so, dass Kinder sich wirklich mit ihnen verbinden können.",
+    },
+    ca: {
+        p1: "🐾 Animals de North Dakota",
+        p2: "Un món suau de criatures d'hivern\n\nNorth Dakota és la llar de molts animals que viuen tranquil·lament a les seves planes, boscos i camps coberts de neu. Per als infants, aquests animals no són només part de la natura — es converteixen en personatges de contes, cançons i moments suaus d'hivern.",
+        p3BeforeFox:
+            "❄️ Un paisatge hivernal viu\n\nA North Dakota, els animals es mouen en un món tranquil i canviant de neu, vent i llum. Els infants poden imaginar: guineus roges caminant lleugerament sobre la neu fresca,\n",
+        p3AfterFoxBeforeOwl:
+            "cérvols de cua blanca i cérvols mule quiets sota el cel d'hivern, mussols de neu observant des d'arbres silenciosos,\n",
+        p3AfterOwl:
+            "ànecs i oques de neu descansant prop de llacs gelats, conills, ratolins i esquirols movent-se suaument en el fred, castors construint prop d'aigua gelada, coiots cridant suaument a les planes, gossos de la praderia — de vegades anomenats \"esquirols que borden\" — traient el cap de la terra, faisans travessant camps nevats, i grans bisons movent-se lentament a la distància.\n\nAquest món natural se sent viu, però mai aclaparador — estable, tranquil i fàcil de seguir.",
+        p4: "🌨 Animals en contes i cançons\n\nA North Dakota Fairytales, aquests animals apareixen en cançons i contes d'hivern com a personatges amables i senzills. Es mouen lentament, observen i ajuden els infants a entendre el món a través de petits moments significatius.\nLa guineu pot representar la calidesa.\nEl mussol pot representar la claredat.\nEl bisó pot representar la força i la calma.",
+        p5: "🐾 Una connexió tranquil·la amb la natura\n\nAixò és el que fa especials els animals de North Dakota per als infants. Formen part d'un entorn pacífic de terres obertes i praderies nacionals, on viuen en equilibri amb la neu, el cel i les estacions.\nA través d'aquests animals, els infants experimenten:\n\nnarració suau\nconnexió emocional\naprenentatge simple i clar\nuna visió tranquil·la de la natura",
+        p6: "🌲 Una manera diferent de veure els animals\n\nEn lloc de contingut ràpid i sorollós, North Dakota Fairytales ofereix una perspectiva més suau. Els animals no són només per aprendre — sinó per sentir, observar i entendre amb el temps.\nTambé introdueix suaument idees com la supervivència a l'hivern — com els animals es mantenen calents, troben refugi i es mouen en el fred de manera natural.",
+        p7: "❄️ Descobreix el món dels animals de North Dakota\n\nExplora cançons i contes on els animals d'hivern cobren vida — lentament, suaument i d'una manera que els infants poden sentir de veritat.",
+    },
+    az: {
+        p1: "🐾 North Dakota-da heyvanlar",
+        p2: "Qış canlılarının yumşaq dünyası\n\nNorth Dakota bir çox heyvanın sakit şəkildə yaşadığı geniş çöllər, meşələr və qarlı sahələrdən ibarətdir. Uşaqlar üçün bu heyvanlar sadəcə təbiətin bir hissəsi deyil — onlar nağılların, mahnıların və sakit qış anlarının qəhrəmanlarına çevrilirlər.",
+        p3BeforeFox:
+            "❄️ Canlı qış mənzərəsi\n\nNorth Dakota-da heyvanlar qar, külək və işıqdan ibarət sakit və dəyişən bir dünyada hərəkət edirlər. Uşaqlar təsəvvür edə bilər: təzə qar üzərində yüngül addımlarla gəzən qırmızı tülkülər,\n",
+        p3AfterFoxBeforeOwl:
+            "ağquyruq və mule marallarının qış səması altında sakit dayanması, səssiz ağaclardan baxan qartal bayquşlar,\n",
+        p3AfterOwl:
+            "donmuş göllər yaxınlığında dincələn ördəklər və qar qazları, soyuqda yavaş hərəkət edən dovşanlar, siçanlar və sincablar, buzlu su kənarında yuva quran qunduzlar, düzənliklərdə sakit səslənən koyotlar, \"hürən sincablar\" adlandırılan preriya itləri, qarlı sahələri keçən qırqovullar və uzaqda yavaş hərəkət edən böyük bizonlar.\n\nBu təbii dünya canlı hiss olunur, amma heç vaxt ağır deyil — sabit, sakit və asan başa düşüləndir.",
+        p4: "🌨 Nağıllarda və mahnılarda heyvanlar\n\nNorth Dakota Fairytales dünyasında bu heyvanlar uşaqlar üçün qış mahnıları və hekayələrində dost və sadə obrazlar kimi görünür. Onlar yavaş hərəkət edir, müşahidə edir və uşaqlara dünyanı kiçik, amma mənalı anlarla anlamağa kömək edir.\nTülkü istiliyi təmsil edir.\nBayquş aydınlığı təmsil edir.\nBizon güc və sakitliyi təmsil edir.",
+        p5: "🐾 Təbiətlə sakit bağ\n\nBu da North Dakota heyvanlarını uşaqlar üçün xüsusi edir. Onlar açıq torpaqlarda və milli çəmənliklərdə yerləşən sakit mühitin bir hissəsidir, burada heyvanlar qar, səma və fəsillərlə tarazlıqda yaşayırlar.\nBu heyvanlar vasitəsilə uşaqlar:\n\nyumşaq hekayələr\nemosional bağ\nsadə və aydın öyrənmə\ntəbiətə sakit baxış əldə edirlər",
+        p6: "🌲 Heyvanlara fərqli baxış\n\nSürətli və səs-küylü məzmun əvəzinə, North Dakota Fairytales daha yumşaq baxış təqdim edir. Heyvanlar sadəcə öyrənmək üçün deyil — hiss etmək, müşahidə etmək və zamanla anlamaq üçündür.\nBu yanaşma həm də uşaqlara qışda sağ qalmağı yumşaq şəkildə izah edir — heyvanlar necə isinirlər, sığınacaq tapırlar və soyuqda təbii şəkildə hərəkət edirlər.",
+        p7: "❄️ North Dakota heyvanlarının dünyasını kəşf edin\n\nQış heyvanlarının canlandığı mahnı və hekayələri kəşf edin — yavaş, yumşaq və uşaqların həqiqətən bağ qura biləcəyi şəkildə.",
+    },
+    hy: {
+        p1: "🐾 Հյուսիսային Դակոտայի կենդանիները",
+        p2: "Ձմեռային արարածների մեղմ աշխարհը\n\nNorth Dakota բազմաթիվ կենդանիների տուն է, որոնք հանգիստ ապրում են նրա դաշտերում, անտառներում և ձյունապատ տարածքներում։ Երեխաների համար այս կենդանիները պարզապես բնության մաս չեն — նրանք դառնում են հեքիաթների, երգերի և մեղմ ձմեռային պահերի կերպարներ։",
+        p3BeforeFox:
+            "❄️ Կենդանի ձմեռային բնապատկեր\n\nՀյուսիսային Դակոտայում կենդանիները շարժվում են ձյան, քամու և լույսի խաղաղ ու փոփոխվող աշխարհում։ Երեխաները կարող են պատկերացնել՝ կարմիր աղվեսներ, որոնք թեթև քայլերով անցնում են թարմ ձյան վրա,\n",
+        p3AfterFoxBeforeOwl:
+            "սպիտակապոչ և մուլ եղջերուներ, որոնք հանգիստ կանգնած են ձմեռային երկնքի տակ, ձյունե բուեր, որոնք հետևում են լուռ ծառերից,\n",
+        p3AfterOwl:
+            "բադեր և ձյունե սագեր սառած լճերի մոտ, նապաստակներ, մկներ և սկյուռներ, որոնք մեղմ շարժվում են սառնության մեջ, կուղբեր, որոնք կառուցում են սառցե ջրի մոտ, կոյոտներ, որոնք մեղմ ձայնով կանչում են դաշտերում, պրերի շներ — երբեմն կոչվում են «հաչող սկյուռներ» — որոնք դուրս են նայում հողից, փասիաններ, որոնք անցնում են ձյունապատ դաշտերով, և մեծ բիզոններ, որոնք դանդաղ շարժվում են հեռվում։\n\nԱյս բնական աշխարհը կենդանի է թվում, բայց երբեք ծանր չէ — հանգիստ, կայուն և հեշտ ընկալելի։",
+        p4: "🌨 Կենդանիները հեքիաթներում և երգերում\n\nNorth Dakota Fairytales-ում այս կենդանիները հայտնվում են որպես ընկերական և պարզ կերպարներ։ Նրանք շարժվում են դանդաղ, դիտում են և օգնում երեխաներին հասկանալ աշխարհը փոքր, բայց կարևոր պահերի միջոցով։\nԱղվեսը կարող է խորհրդանշել ջերմություն։\nԲուն՝ հստակություն։\nԲիզոնը՝ ուժ և հանգստություն։",
+        p5: "🐾 Խաղաղ կապ բնության հետ\n\nՍա է պատճառը, որ Հյուսիսային Դակոտայի կենդանիները հատուկ են երեխաների համար։ Նրանք խաղաղ միջավայրի մի մասն են՝ բաց տարածքներում և ազգային խոտածածկ տարածքներում, որտեղ կենդանիները ապրում են հավասարակշռության մեջ ձյան, երկնքի և եղանակների հետ։\nԱյս կենդանիների միջոցով երեխաները ստանում են՝\n\nմեղմ պատմություններ\nհուզական կապ\nպարզ և հստակ ուսուցում\nբնության խաղաղ ընկալում",
+        p6: "🌲 Կենդանիներին տեսնելու այլ ձև\n\nԱրագ և աղմկոտ բովանդակության փոխարեն, North Dakota Fairytales-ը առաջարկում է ավելի մեղմ տեսանկյուն։ Կենդանիները պարզապես սովորելու առարկա չեն — դրանք զգալու, դիտելու և ժամանակի ընթացքում հասկանալու բան են։\nԱյն նաև մեղմորեն ներկայացնում է ձմեռային գոյատևման գաղափարները — ինչպես կենդանիները տաք են մնում, ապաստան են գտնում և բնական կերպով շարժվում սառնության մեջ։",
+        p7: "❄️ Բացահայտեք Հյուսիսային Դակոտայի կենդանիների աշխարհը\n\nԲացահայտեք երգերն ու պատմությունները, որտեղ ձմեռային կենդանիները կենդանանում են — դանդաղ, մեղմ և երեխաների համար հասկանալի ձևով։",
+    },
+    haw: {
+        p1: "🐾 Nā holoholona o North Dakota",
+        p2: "He ao mālie o nā mea ola o ke kau hoʻoilo\n\nNorth Dakota he wahi e noho mālie ai nā holoholona he nui ma nā pāpū, nā ululāʻau, a me nā ʻāina i uhi ʻia e ka hau. No nā keiki, ʻaʻole wale kēia mau holoholona he ʻāpana o ke kūlohelohe — lilo lākou i mau mea i loko o nā moʻolelo, nā mele, a me nā manawa mālie o ke kau hoʻoilo.",
+        p3BeforeFox:
+            "❄️ He ʻāina hoʻoilo ola\n\nMa North Dakota, neʻe nā holoholona i loko o kahi ao mālie a loli o ka hau, ka makani, a me ka mālamalama. Hiki i nā keiki ke noʻonoʻo: nā ʻīlioholoikauaua ʻulaʻula e hele mālie ana ma luna o ka hau hou,\n",
+        p3AfterFoxBeforeOwl:
+            "nā dia kūʻihi a me nā dia mule e kū mālie ana ma lalo o ke ao hoʻoilo, nā pueo hau e nānā ana mai nā lāʻau mālie,\n",
+        p3AfterOwl:
+            "nā pato a me nā nēnē hau e hoʻomaha ana ma nā loko paʻa, nā lapaki, nā ʻiole, a me nā ʻiole lāʻau e neʻe mālie ana i ka anuanu, nā beaver e kūkulu ana ma kahi kokoke i ka wai hau, nā coyotes e kāhea mālie ana ma nā pāpū, nā prairie dogs e nānā ana mai ka lepo, nā manu pheasant e hele ana ma nā kahua hau, a me nā bison nui e neʻe mālie ana i kahi mamao.\n\nHe ao ola kēia, akā ʻaʻole loa kaumaha — mālie, paʻa, a maʻalahi e hahai.",
+        p4: "🌨 Nā holoholona i loko o nā moʻolelo a me nā mele\n\nI loko o North Dakota Fairytales, ʻike ʻia kēia mau holoholona ma ke ʻano he mau hoa aloha maʻalahi. Hele mālie lākou, nānā, a kōkua i nā keiki e hoʻomaopopo i ke ao ma o nā manawa liʻiliʻi.\nHiki i ka ʻīlioholoikauaua ke hōʻike i ka mehana.\nHiki i ka pueo ke hōʻike i ka mālamalama.\nHiki i ka bison ke hōʻike i ka ikaika a me ka mālie.",
+        p5: "🐾 He pilina mālie me ke kūlohelohe\n\nʻO kēia ka mea e kūikawā ai nā holoholona o North Dakota no nā keiki. He ʻāpana lākou o kahi kaiapuni mālie me nā ʻāina ākea, kahi e noho like ai me ka hau, ke ao, a me nā kau.\nMa o lākou, loaʻa i nā keiki:\n\nnā moʻolelo mālie\nka pilina manaʻo\nke aʻo maʻalahi\nka ʻike mālie i ke kūlohelohe",
+        p6: "🌲 He ala ʻē aʻe e ʻike ai i nā holoholona\n\nMa kahi o ka ʻike wikiwiki a walaʻau, hāʻawi ʻo North Dakota Fairytales i kahi nānā mālie. ʻAʻole wale nā holoholona no ke aʻo ʻana — akā no ka ʻike ʻana, ka nānā ʻana, a me ka hoʻomaopopo ʻana i ka wā.\nHōʻike pū ia i ka manaʻo o ke ola ʻana i ke kau hoʻoilo — pehea lākou e mālama ai i ka mehana a me ka neʻe ʻana i ka anuanu.",
+        p7: "❄️ E ʻike i ka ao o nā holoholona o North Dakota\n\nE ʻimi i nā mele a me nā moʻolelo kahi e ola ai nā holoholona — mālie, palupalu, a kūpono no nā keiki.",
+    },
+    tt: {
+        p1: "🐾 Төньяк Дакота хайваннары",
+        p2: "Кышкы җан ияләренең йомшак дөньясы\n\nNorth Dakota — күп төрле хайваннар яшәгән урын. Алар кырларда, урманнарда һәм карлы җирләрдә тыныч кына яшиләр. Балалар өчен бу хайваннар табигатьнең бер өлеше генә түгел — алар әкиятләрдә, җырларда һәм тыныч кышкы мизгелләрдәге геройларга әйләнәләр.",
+        p3BeforeFox:
+            "❄️ Тере кышкы мохит\n\nТөньяк Дакотада хайваннар кар, җил һәм яктылык белән тулган тыныч һәм үзгәреп торган дөньяда хәрәкәт итәләр. Балалар күз алдына китерә ала: кызыл төлкеләрнең яңа кар өстеннән җиңел генә йөрүен,\n",
+        p3AfterFoxBeforeOwl:
+            "аккойрык һәм mule боланнарның кышкы күк астында тыныч басып торуын, кар ябалагының тын агачлардан күзәтүен,\n",
+        p3AfterOwl:
+            "үрдәкләр һәм кар казларының туңган күлләр янында ял итүен, куяннар, тычканнар һәм тиеннәрнең салкында әкрен генә хәрәкәт итүен, бобрларның бозлы су янында йорт коруын, койотларның кырларда әкрен генә аваз салуын, прерия этләренең — кайчак \"өрүче тиеннәр\" дип аталган — җирдән карап торуын, фазаннарның карлы кырларны кичүен һәм еракта әкрен генә йөргән зур бизоннарны.\n\nБу табигый дөнья тере кебек тоела, ләкин беркайчан да артык түгел — ул тыныч, тотрыклы һәм аңлаешлы.",
+        p4: "🌨 Әкиятләрдә һәм җырларда хайваннар\n\nNorth Dakota Fairytales дөньясында бу хайваннар балалар өчен кышкы җырлар һәм әкиятләрдә дус һәм гади образлар булып күренә. Алар әкрен хәрәкәт итә, күзәтә һәм балаларга дөньяны кечкенә, әмма мәгънәле мизгелләр аша аңларга ярдәм итә.\nТөлке — җылылык символы.\nЯбалак — ачыклык символы.\nБизон — көч һәм тынычлык символы.",
+        p5: "🐾 Табигать белән тыныч бәйләнеш\n\nМенә шуңа күрә Төньяк Дакота хайваннары балалар өчен үзенчәлекле. Алар киң җирләр һәм табигый мохитнең бер өлеше булып тора, анда хайваннар кар, күк һәм ел фасыллары белән тигезлектә яши.\nБу хайваннар аша балалар ала:\n\nйомшак әкиятләр\nхисси бәйләнеш\nгади һәм аңлаешлы өйрәнү\nтабигатькә тыныч караш",
+        p6: "🌲 Хайваннарга башкача караш\n\nТиз һәм шау-шулы контент урынына, North Dakota Fairytales йомшак караш тәкъдим итә. Хайваннар — өйрәнү өчен генә түгел, ә сизү, күзәтү һәм вакыт узу белән аңлау өчен дә.\nБу шулай ук кышта яшәү серләрен дә аңлата — хайваннар ничек җылына, сыену таба һәм салкында табигый рәвештә хәрәкәт итә.",
+        p7: "❄️ Төньяк Дакота хайваннары дөньясын ач\n\nКышкы хайваннар терелә торган җырлар һәм әкиятләрне өйрән — әкрен, йомшак һәм балаларга якын итеп.",
+    },
 };
 
 const t = text[lang as keyof typeof text] || text.en;
+const pageTitle =
+    (i18nText as any).old_snow_animals_meta_title ||
+    "North Dakota Winter Animals for Kids — North Dakota Fairytales";
+const pageDescription =
+    (i18nText as any).old_snow_animals_meta_desc ||
+    "Gentle winter wildlife of North Dakota — fox, bison, owl — in calm stories and songs for children.";
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout
+    lang={lang}
+    title={pageTitle}
+    description={pageDescription}
+    supplementaryLdJson={oldSnowWinterProgramJsonLd()}
+>
     <div class="intro-card">
         <p>{t.p1}</p>
         <p>{t.p2}</p>
@@ -94,28 +304,30 @@ const t = text[lang as keyof typeof text] || text.en;
                     loading="lazy"
                 />
             </div>
-            <a
-                href={searchAnimalsHref}
-                aria-label={searchLabel}
-                title={searchLabel}
-                class="search-video-btn"
-                style="width: 150px !important; height: 150px !important;"
-            >
-                <img
-                    src={musicIcon.src}
-                    alt={snowyMusicAlt}
-                    class="w-[150px] h-[150px] object-contain search-video-icon"
-                    style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
-                    loading="lazy"
-                />
-                <span
-                    class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
-                    style="color: #b3e5fc !important;"
-                    dir={lang === "ar" ? "rtl" : "ltr"}
+            {showOldSnowSongSearch ? (
+                <a
+                    href={searchAnimalsHref}
+                    aria-label={searchLabel}
+                    title={searchLabel}
+                    class="search-video-btn"
+                    style="width: 150px !important; height: 150px !important;"
                 >
-                    {snowyMusicLabel}
-                </span>
-            </a>
+                    <img
+                        src={musicIcon.src}
+                        alt={snowyMusicAlt}
+                        class="w-[150px] h-[150px] object-contain search-video-icon"
+                        style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
+                        loading="lazy"
+                    />
+                    <span
+                        class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
+                        style="color: #b3e5fc !important;"
+                        dir={["ar", "fa", "ur"].includes(lang ?? "") ? "rtl" : "ltr"}
+                    >
+                        {snowyMusicLabel}
+                    </span>
+                </a>
+            ) : null}
         </div>
         <p>{t.p3AfterFoxBeforeOwl}</p>
         <div class="nd-image">

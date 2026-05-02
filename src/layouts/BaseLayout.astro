@@ -6,6 +6,10 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Schema from "../components/Schema.astro";
 import { buildHreflangNetwork } from "../lib/hreflang";
+import {
+    OLD_SNOW_HUB_LANGS_REGEX,
+    oldSnowHubHreflangLangs,
+} from "../lib/oldSnowMusicHubLangs";
 import { resolveSongPageSeo } from "../lib/seoOldSnowSongs";
 import { normalizeVideoUploadDate } from "../lib/videoUploadDate";
 
@@ -17,6 +21,7 @@ const {
     hreflangExcludeLangs = [],
     videoObject,
     mainContentClass = "",
+    supplementaryLdJson = null,
 } = Astro.props;
 const hreflangSkip = new Set(
     Array.isArray(hreflangExcludeLangs) ? hreflangExcludeLangs : [],
@@ -37,13 +42,16 @@ const siteOrigin = String(Astro.site ?? baseOrigin).replace(/\/$/, "") || baseOr
 /** New + legacy /song/ — canonical always https://…/[lang]/old-snow-music/songs/[slug] */
 const songPageSeo = resolveSongPageSeo(pathname, siteOrigin);
 
-const oldSnowMatch = pathname.match(/^\/(en|es|fr|ar)\/old-snow-music(?:\/(.*))?\/?$/);
+const oldSnowMatch = pathname.match(
+    new RegExp(`^\\/(${OLD_SNOW_HUB_LANGS_REGEX})\\/old-snow-music(?:\\/(.*))?\\/?$`),
+);
 const isOldSnowMusicPage = Boolean(oldSnowMatch) && !songPageSeo;
 const oldSnowSuffix = oldSnowMatch?.[2] ? `/${oldSnowMatch[2]}` : "";
 
+const oldSnowHreflangLangs = oldSnowHubHreflangLangs(oldSnowSuffix);
 const oldSnowAlternates = isOldSnowMusicPage
-    ? (["en", "es", "fr", "ar"] as const).map((altLang) => ({
-          hreflang: altLang,
+    ? oldSnowHreflangLangs.map((altLang) => ({
+          hreflang: altLang === "pt" ? "pt-BR" : altLang,
           href: `${baseOrigin}/${altLang}/old-snow-music${oldSnowSuffix}`,
       }))
     : [];
@@ -156,7 +164,9 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
             description="Choose your language to explore calm winter stories and songs for children from North Dakota Fairytales."
     />
 
-
+    {supplementaryLdJson ? (
+        <script type="application/ld+json" set:html={JSON.stringify(supplementaryLdJson)} />
+    ) : null}
 
     <title>{title}</title>
     <meta name="description" content={description} />

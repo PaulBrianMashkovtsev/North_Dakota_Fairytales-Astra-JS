@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { translations } from "../../../lib/i18n";
+import { oldSnowContentLang, oldSnowSearchPagesStaticPaths } from "../../../lib/oldSnowMusicHubLangs";
 
 import farmEnIcon from "../../../components/icons_search_buttons/farm_en.png";
 import farmEsIcon from "../../../components/icons_search_buttons/farm_es.png";
@@ -23,17 +24,13 @@ import ndFrIcon from "../../../components/icons_search_buttons/ND_fr.png";
 import ndArIcon from "../../../components/icons_search_buttons/ND_ar.png";
 
 export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-    { params: { lang: 'fr' } },
-    { params: { lang: 'ar' } },
-  ];
+  return oldSnowSearchPagesStaticPaths();
 }
 
 const { lang } = Astro.params;
-const isRTL = lang === "ar";
-const currentLang = ["en", "es", "fr", "ar"].includes(lang ?? "") ? (lang as "en" | "es" | "fr" | "ar") : "en";
+const pageLang = lang ?? "en";
+const isRTL = ["ar", "fa", "ur"].includes(pageLang);
+const contentLang = oldSnowContentLang(pageLang);
 
 const categoryLabels = {
   en: { farm: "Farm", guests: "Guests", holiday: "Holiday", nd: "North Dakota" },
@@ -42,8 +39,8 @@ const categoryLabels = {
   ar: { farm: "المزرعة", guests: "الضيوف", holiday: "العطلة", nd: "داكوتا الشمالية" },
 } as const;
 
-const labels = categoryLabels[currentLang];
-const t = translations[currentLang] || translations.en;
+const labels = categoryLabels[contentLang];
+const t = translations[pageLang as keyof typeof translations] || translations.en;
 
 const iconByLang = {
   farm: { en: farmEnIcon, es: farmEsIcon, fr: farmFrIcon, ar: farmArIcon },
@@ -56,36 +53,36 @@ const buttonItems = [
   {
     key: "farm",
     label: labels.farm,
-    href: `/${currentLang}/category/farm`,
-    iconSrc: iconByLang.farm[currentLang].src,
+    href: `/${pageLang}/category/farm`,
+    iconSrc: iconByLang.farm[contentLang].src,
     altText: t.alt_farm,
   },
   {
     key: "guests",
     label: labels.guests,
-    href: `/${currentLang}/category/guests`,
-    iconSrc: iconByLang.guests[currentLang].src,
+    href: `/${pageLang}/category/guests`,
+    iconSrc: iconByLang.guests[contentLang].src,
     altText: t.alt_guests,
   },
   {
     key: "holiday",
     label: labels.holiday,
-    href: `/${currentLang}/category/holiday`,
-    iconSrc: iconByLang.holiday[currentLang].src,
+    href: `/${pageLang}/category/holiday`,
+    iconSrc: iconByLang.holiday[contentLang].src,
     altText: t.alt_holiday,
   },
   {
     key: "nd",
     label: labels.nd,
-    href: `/${currentLang}/category/nd`,
-    iconSrc: iconByLang.nd[currentLang].src,
+    href: `/${pageLang}/category/nd`,
+    iconSrc: iconByLang.nd[contentLang].src,
     altText: t.alt_nd_map,
   },
 ] as const;
 ---
 
 <BaseLayout
-  lang={currentLang}
+  lang={pageLang}
   title={t.search_index_meta_title}
   description={t.search_index_meta_desc}
   isAuthorPage={true}

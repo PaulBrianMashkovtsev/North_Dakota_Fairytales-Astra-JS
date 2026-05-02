@@ -3,18 +3,21 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Video from "@components/Video.astro";
 import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
 import { translations } from "../../../lib/i18n";
+import {
+    oldSnowContentLang,
+    oldSnowHasFullSongHub,
+    oldSnowHubStaticPaths,
+    oldSnowWinterProgramJsonLd,
+} from "../../../lib/oldSnowMusicHubLangs";
 import { normalizeVideoUploadDate } from "../../../lib/videoUploadDate";
 
 export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-    { params: { lang: 'fr' } },
-    { params: { lang: 'ar' } },
-  ];
+  return oldSnowHubStaticPaths();
 }
 
 const lang = Astro.params.lang;
+const contentLang = oldSnowContentLang(lang);
+const showOldSnowSongSearch = oldSnowHasFullSongHub(lang);
 const i18nText = translations[lang as keyof typeof translations] || translations.en;
 const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
 const videoLinks = {
@@ -23,7 +26,7 @@ const videoLinks = {
     fr: "https://youtu.be/FMvs4fPK-zQ",
     ar: "https://youtu.be/7FfDpUyt884",
 };
-const currentVideoUrl = videoLinks[lang as keyof typeof videoLinks] || videoLinks.en;
+const currentVideoUrl = videoLinks[contentLang as keyof typeof videoLinks] || videoLinks.en;
 const currentVideoId = currentVideoUrl.split("youtu.be/")[1]?.split("?")[0] ?? "";
 const currentVideoEmbedUrl = `https://www.youtube.com/embed/${currentVideoId}`;
 const currentVideoContentUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
@@ -34,7 +37,7 @@ const lyricsToggleLabels = {
     fr: "Afficher les paroles",
     ar: "عرض كلمات الأغنية"
 };
-const lyricsToggleText = lyricsToggleLabels[lang as keyof typeof lyricsToggleLabels] || lyricsToggleLabels.en;
+const lyricsToggleText = lyricsToggleLabels[contentLang as keyof typeof lyricsToggleLabels] || lyricsToggleLabels.en;
 const lyricsByLang = {
     en: {
         title: "North Dakota for Kids | Calm Winter Stories & Songs",
@@ -109,7 +112,7 @@ const lyricsByLang = {
         ]
     }
 };
-const lyricsContent = lyricsByLang[lang as keyof typeof lyricsByLang] || lyricsByLang.en;
+const lyricsContent = lyricsByLang[contentLang as keyof typeof lyricsByLang] || lyricsByLang.en;
 const schemaByLang = {
     en: {
         name: "Welcome to North Dakota | North Dakota for Kids",
@@ -128,15 +131,61 @@ const schemaByLang = {
         description: "حكايات وأغاني شتوية هادئة للأطفال باللغة العربية."
     }
 };
-const currentSchema = schemaByLang[lang as keyof typeof schemaByLang] || schemaByLang.en;
+const currentSchema = schemaByLang[contentLang as keyof typeof schemaByLang] || schemaByLang.en;
 
-const navLabels = {
-    en: { animals: "Animals", famous: "Is North Dakota Famous?" },
-    es: { animals: "Animales", famous: "¿Es North Dakota Famoso?" },
-    fr: { animals: "Animaux", famous: "Est-ce que North Dakota est célèbre ?" },
-    ar: { animals: "حيوانات", famous: "هل نورث داكوتا مشهورة\u061F" }
+/** Подпись кнопки Animals — по языку URL (в т.ч. ru, ur, …). */
+const animalsNavLabelByLang: Record<string, string> = {
+    en: "Animals",
+    es: "Animales",
+    fr: "Animaux",
+    ar: "حيوانات",
+    ru: "Животные",
+    ur: "جانور",
+    hi: "जानवर",
+    bn: "প্রাণী",
+    fa: "حیوانات",
+    pt: "Animais",
+    ms: "Haiwan",
+    id: "Hewan",
+    de: "Tiere",
+    ca: "Animals",
+    az: "Heyvanlar",
+    hy: "Կենդանիներ",
+    haw: "Nā holoholona",
+    tt: "Хайваннар",
 };
-const nav = navLabels[lang as keyof typeof navLabels] ?? navLabels.en;
+
+const famousNavLabels: Record<string, string> = {
+    en: "Is North Dakota famous for anything?",
+    es: "¿Dakota del Norte es famosa por algo?",
+    fr: "La Dakota du Nord est-elle célèbre pour quelque chose ?",
+    ar: "هل داكوتا الشمالية مشهورة بشيء ما؟",
+    ru: "Северная Дакота чем-нибудь знаменита?",
+    ur: "کیا نارتھ ڈکوٹا کسی چیز کے لیے مشہور ہے؟",
+    hi: "क्या नॉर्थ डकोटा किसी चीज़ के लिए प्रसिद्ध है?",
+    bn: "নর্থ ডাকোটা কি কোনো কিছুর জন্য বিখ্যাত?",
+    fa: "آیا داکوتای شمالی به چیزی معروف است؟",
+    pt: "Dakota do Norte é famosa por alguma coisa?",
+    ms: "Adakah North Dakota terkenal dengan sesuatu?",
+    id: "Apakah North Dakota terkenal karena sesuatu?",
+    de: "Ist North Dakota für etwas bekannt?",
+    ca: "Dakota del Nord és famosa per alguna cosa?",
+    az: "Şimali Dakota nə iləsə məşhurdurmu?",
+    hy: "Արդյո՞ք Հյուսիսային Դակոտան ինչ-որ բանի համար հայտնի է։",
+    haw: "Kaulana anei ʻo North Dakota no kekahi mea?",
+    tt: "Төньяк Дакота нәрсә белән дә булса танылганмы?",
+};
+
+const nav = {
+    animals:
+        animalsNavLabelByLang[lang ?? "en"] ??
+        animalsNavLabelByLang[contentLang] ??
+        animalsNavLabelByLang.en,
+    famous:
+        famousNavLabels[lang ?? "en"] ??
+        famousNavLabels[contentLang] ??
+        famousNavLabels.en,
+};
 const animalsHref = `/${lang}/old-snow-music/animals`;
 const famousHref = `/${lang}/old-snow-music/is-north-dakota-famous`;
 const searchHref = `/${lang}/old-snow-music/search_index`;
@@ -146,14 +195,14 @@ const searchLabelByLang = {
     fr: "Recherche",
     ar: "بحث"
 };
-const searchLabel = searchLabelByLang[lang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
+const searchLabel = searchLabelByLang[contentLang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
 const snowyMusicLabelByLang = {
     en: "Snowy Music",
     es: "Música Nevada",
     fr: "Musique de Neige",
     ar: "موسيقى ثلجية"
 };
-const snowyMusicLabel = snowyMusicLabelByLang[lang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
+const snowyMusicLabel = snowyMusicLabelByLang[contentLang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
 
 const text = {
     en: {
@@ -246,22 +295,186 @@ const text = {
          تطوير كل عنصر من عناصر المشروع — القصص والأغاني والرسومات — بعناية خاصة للأجواء واللغة والنبرة العاطفية.`,
         p6: `يُعد North Dakota Fairytales
          مشروعًا إبداعيًا طويل المدى، يستند إلى رؤية فنية متسقة وإيمان بأهمية السرد الهادئ كجزء أساسي من تجربة الطفولة.`
-    } // Запятая перед следующим языком (если он есть ниже)
+    },
+    ru: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota для детей`,
+        p2: `North Dakota Fairytales — это оригинальный детский проект зимних историй, созданный Полом Брайаном Машковцевым.`,
+        p3: `Проект включает оригинальных персонажей, песни и сказки, вдохновлённые зимними пейзажами и атмосферой Северной Дакоты. Он сосредоточен на спокойном, уютном и безопасном повествовании для детей и не пересказывает легенды коренных народов или исторический фольклор.`,
+        p4: `North Dakota Fairytales был создан независимым автором и рассказчиком, глубоко интересующимся культурным наследием, детским воображением и вдумчивым сторителлингом.`,
+        p5: `Создатель работает с текстами, музыкой и визуальными образами, создавая спокойные зимние истории, поддерживающие эмоциональное благополучие детей. Каждый элемент проекта — сказки, песни и иллюстрации — разрабатывается с вниманием к атмосфере, языку и эмоциональному тону.`,
+        p6: `North Dakota Fairytales — это долгосрочный творческий проект с единым художественным видением и верой в мягкое повествование как важную часть детства.`,
+    },
+    ur: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 بچوں کے لیے North Dakota`,
+        p2: `North Dakota Fairytales ایک اصل بچوں کا برانڈ ہے جس میں سردیوں پر مبنی کہانیاں شامل ہیں، جسے Paul Brian Mashkovtsev نے تخلیق کیا ہے۔`,
+        p3: `یہ منصوبہ اصل کرداروں، گانوں اور کہانیوں پر مشتمل ہے جو North Dakota کے سردیوں کے مناظر اور ماحول سے متاثر ہیں۔ یہ بچوں کے لیے پرسکون، آرام دہ اور محفوظ کہانی سنانے پر توجہ دیتا ہے اور مقامی امریکی روایات یا تاریخی لوک کہانیوں کو دوبارہ بیان نہیں کرتا۔`,
+        p4: `North Dakota Fairytales ایک آزاد مصنف اور کہانی سنانے والے نے تخلیق کیا ہے جسے ثقافتی ورثے، بچوں کے تخیل اور بامعنی کہانی سنانے میں گہری دلچسپی ہے۔`,
+        p5: `تخلیق کار تحریر، موسیقی اور بصری تصورات پر کام کرتا ہے، اور ایسی کہانیاں بناتا ہے جو بچوں کی جذباتی فلاح و بہبود کی حمایت کرتی ہیں۔ ہر عنصر — کہانیاں، گانے اور تصاویر — کو ماحول، زبان اور جذباتی انداز پر خاص توجہ کے ساتھ تیار کیا جاتا ہے۔`,
+        p6: `North Dakota Fairytales ایک طویل مدتی تخلیقی منصوبہ ہے جو ایک مستقل فنکارانہ وژن اور نرم کہانی سنانے کے یقین پر مبنی ہے۔`,
+    },
+    hi: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 बच्चों के लिए North Dakota`,
+        p2: `North Dakota Fairytales एक मौलिक शीतकालीन बाल कहानी परियोजना है, जिसे Paul Brian Mashkovtsev ने बनाया है।`,
+        p3: `इस परियोजना में मौलिक पात्र, गीत और कहानियाँ शामिल हैं, जो North Dakota के सर्दियों के दृश्य और वातावरण से प्रेरित हैं। यह बच्चों के लिए शांत, आरामदायक और सुरक्षित कहानी कहने पर केंद्रित है और मूल अमेरिकी परंपराओं या ऐतिहासिक लोककथाओं को दोहराता नहीं है।`,
+        p4: `North Dakota Fairytales एक स्वतंत्र लेखक और कहानीकार द्वारा बनाया गया है, जिन्हें सांस्कृतिक विरासत, बाल कल्पना और विचारशील कहानी कहने में गहरी रुचि है।`,
+        p5: `निर्माता लेखन, संगीत और दृश्य अवधारणाओं पर काम करते हैं, और ऐसी शांत कहानियाँ बनाते हैं जो बच्चों के भावनात्मक विकास का समर्थन करती हैं। हर तत्व — कहानियाँ, गीत और चित्र — वातावरण, भाषा और भावनात्मक स्वर पर ध्यान देकर तैयार किया जाता है।`,
+        p6: `North Dakota Fairytales एक दीर्घकालिक रचनात्मक परियोजना है, जो एक स्पष्ट कलात्मक दृष्टि और कोमल कहानी कहने में विश्वास पर आधारित है।`,
+    },
+    bn: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 শিশুদের জন্য North Dakota`,
+        p2: `North Dakota Fairytales একটি মৌলিক শীতকালীন শিশুদের গল্প বলার প্রকল্প, যা Paul Brian Mashkovtsev তৈরি করেছেন।`,
+        p3: `এই প্রকল্পে মৌলিক চরিত্র, গান এবং গল্প রয়েছে, যা North Dakota-এর শীতকালীন প্রকৃতি ও পরিবেশ থেকে অনুপ্রাণিত। এটি শিশুদের জন্য শান্ত, আরামদায়ক এবং নিরাপদ গল্প বলার উপর কেন্দ্রীভূত এবং নেটিভ আমেরিকান কিংবদন্তি বা ঐতিহাসিক লোককথা পুনরায় বলে না।`,
+        p4: `North Dakota Fairytales একটি স্বাধীন লেখক ও গল্পকার দ্বারা তৈরি, যিনি সাংস্কৃতিক ঐতিহ্য, শিশুদের কল্পনা এবং চিন্তাশীল গল্প বলার প্রতি আগ্রহী।`,
+        p5: `স্রষ্টা লেখা, সঙ্গীত এবং ভিজ্যুয়াল ধারণা নিয়ে কাজ করেন এবং এমন গল্প তৈরি করেন যা শিশুদের আবেগগত সুস্থতাকে সমর্থন করে। প্রতিটি অংশ — গল্প, গান এবং চিত্র — যত্নসহকারে তৈরি করা হয়।`,
+        p6: `North Dakota Fairytales একটি দীর্ঘমেয়াদী সৃজনশীল প্রকল্প।`,
+    },
+    fa: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 داکوتای شمالی برای کودکان`,
+        p2: `North Dakota Fairytales یک برند داستان‌گویی کودکانه با تم زمستانی است که توسط Paul Brian Mashkovtsev ایجاد شده است.`,
+        p3: `این پروژه شامل شخصیت‌ها، ترانه‌ها و داستان‌های اصیل است که از مناظر و فضای زمستانی داکوتای شمالی الهام گرفته‌اند. تمرکز آن بر داستان‌گویی آرام، دل‌نشین و امن برای کودکان است و افسانه‌های بومی یا فولکلور تاریخی را بازگو نمی‌کند.`,
+        p4: `این پروژه توسط یک نویسنده و داستان‌گوی مستقل ایجاد شده که به میراث فرهنگی، تخیل کودکان و داستان‌گویی متفکرانه علاقه‌مند است.`,
+        p5: `خالق پروژه در زمینه نوشتن، موسیقی و مفاهیم بصری فعالیت می‌کند و داستان‌هایی آرام برای حمایت از سلامت عاطفی کودکان می‌آفریند.`,
+        p6: `North Dakota Fairytales یک پروژه خلاقانه بلندمدت است.`,
+    },
+    pt: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota para crianças`,
+        p2: `North Dakota Fairytales é um projeto original de histórias infantis com tema de inverno, criado por Paul Brian Mashkovtsev.`,
+        p3: `O projeto apresenta personagens, músicas e histórias originais inspiradas nas paisagens e na atmosfera de inverno de North Dakota. Ele se concentra em uma narrativa calma, aconchegante e segura para crianças e não reconta lendas nativas americanas ou folclore histórico.`,
+        p4: `Foi criado por um autor independente com interesse em cultura, imaginação infantil e narrativa cuidadosa.`,
+        p5: `O criador trabalha com escrita, música e conceitos visuais, desenvolvendo histórias que apoiam o bem-estar emocional das crianças.`,
+        p6: `North Dakota Fairytales é um projeto criativo de longo prazo.`,
+    },
+    ms: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota untuk kanak-kanak`,
+        p2: `North Dakota Fairytales ialah projek penceritaan kanak-kanak bertema musim sejuk yang asli, dicipta oleh Paul Brian Mashkovtsev.`,
+        p3: `Projek ini menampilkan watak, lagu dan cerita asli yang diilhamkan oleh landskap dan suasana musim sejuk di North Dakota. Ia memberi tumpuan kepada penceritaan yang tenang, selesa dan selamat untuk kanak-kanak serta tidak menceritakan semula legenda Orang Asli Amerika atau cerita rakyat sejarah.`,
+        p4: `Projek ini dicipta oleh seorang penulis dan pencerita bebas yang berminat dalam warisan budaya, imaginasi kanak-kanak dan penceritaan yang penuh makna.`,
+        p5: `Pencipta bekerja dalam penulisan, muzik dan konsep visual, menghasilkan cerita yang menyokong kesejahteraan emosi kanak-kanak.`,
+        p6: `North Dakota Fairytales ialah projek kreatif jangka panjang.`,
+    },
+    id: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota untuk anak-anak`,
+        p2: `North Dakota Fairytales adalah proyek cerita anak bertema musim dingin yang orisinal, dibuat oleh Paul Brian Mashkovtsev.`,
+        p3: `Proyek ini menampilkan karakter, lagu, dan cerita asli yang terinspirasi dari lanskap dan suasana musim dingin di North Dakota. Fokusnya adalah pada cerita yang tenang, nyaman, dan aman untuk anak-anak, serta tidak menceritakan ulang legenda penduduk asli Amerika atau cerita rakyat sejarah.`,
+        p4: `Proyek ini dibuat oleh penulis dan pendongeng independen yang memiliki minat pada warisan budaya, imajinasi anak, dan penceritaan yang penuh perhatian.`,
+        p5: `Pencipta bekerja dalam penulisan, musik, dan konsep visual untuk menciptakan cerita yang mendukung kesejahteraan emosional anak.`,
+        p6: `North Dakota Fairytales adalah proyek kreatif jangka panjang.`,
+    },
+    de: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota für Kinder`,
+        p2: `North Dakota Fairytales ist ein originelles Kinderprojekt mit winterlichem Thema, geschaffen von Paul Brian Mashkovtsev.`,
+        p3: `Das Projekt umfasst eigene Figuren, Lieder und Geschichten, inspiriert von den winterlichen Landschaften und der Atmosphäre von North Dakota. Es konzentriert sich auf ruhiges, gemütliches und sicheres Erzählen für Kinder und erzählt keine indianischen Legenden oder historischen Volksmärchen nach.`,
+        p4: `Es wurde von einem unabhängigen Autor und Geschichtenerzähler mit großem Interesse an kulturellem Erbe, kindlicher Fantasie und achtsamem Erzählen geschaffen.`,
+        p5: `Der Autor arbeitet mit Texten, Musik und visuellen Konzepten und entwickelt Geschichten, die das emotionale Wohlbefinden von Kindern unterstützen.`,
+        p6: `North Dakota Fairytales ist ein langfristiges kreatives Projekt.`,
+    },
+    ca: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 Dakota del Nord per a nens`,
+        p2: `North Dakota Fairytales és un projecte original de contes infantils amb temàtica d'hivern, creat per Paul Brian Mashkovtsev.`,
+        p3: `El projecte presenta personatges, cançons i històries originals inspirades en els paisatges i l'atmosfera hivernal de Dakota del Nord. Se centra en una narrativa tranquil·la, acollidora i segura per als nens i no reexplica llegendes natives americanes ni folklore històric.`,
+        p4: `Ha estat creat per un autor independent amb interès en el patrimoni cultural, la imaginació infantil i la narració reflexiva.`,
+        p5: `El creador treballa amb escriptura, música i conceptes visuals per desenvolupar històries que donen suport al benestar emocional dels nens.`,
+        p6: `North Dakota Fairytales és un projecte creatiu a llarg termini.`,
+    },
+    az: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 Uşaqlar üçün North Dakota`,
+        p2: `North Dakota Fairytales Paul Brian Mashkovtsev tərəfindən yaradılmış, qış mövzusunda orijinal uşaq hekayələri layihəsidir.`,
+        p3: `Layihə North Dakota-nın qış mənzərələrindən və atmosferindən ilhamlanan orijinal personajlar, mahnılar və hekayələr təqdim edir. O, uşaqlar üçün sakit, rahat və təhlükəsiz hekayə danışımına yönəlib və yerli amerikalıların əfsanələrini və ya tarixi folkloru təkrar etmir.`,
+        p4: `Layihə mədəni irsə, uşaq təxəyyülünə və düşüncəli hekayə danışımına marağı olan müstəqil müəllif tərəfindən yaradılıb.`,
+        p5: `Yaradıcı yazı, musiqi və vizual konseptlər üzərində işləyərək uşaqların emosional rifahını dəstəkləyən hekayələr hazırlayır.`,
+        p6: `North Dakota Fairytales uzunmüddətli yaradıcı layihədir.`,
+    },
+    hy: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 Հյուսիսային Դակոտա երեխաների համար`,
+        p2: `North Dakota Fairytales-ը ձմեռային թեմայով մանկական պատմությունների ինքնատիպ նախագիծ է, ստեղծված Paul Brian Mashkovtsev-ի կողմից։`,
+        p3: `Նախագիծը ներառում է ինքնատիպ կերպարներ, երգեր և պատմություններ, որոնք ոգեշնչված են Հյուսիսային Դակոտայի ձմեռային բնապատկերներից և մթնոլորտից։ Այն կենտրոնանում է երեխաների համար հանգիստ, հարմարավետ և անվտանգ պատմություններ ներկայացնելու վրա և չի վերապատմում բնիկ ամերիկյան լեգենդներ կամ պատմական ժողովրդական պատմություններ։`,
+        p4: `Նախագիծը ստեղծվել է անկախ հեղինակի և պատմող անձի կողմից, ով հետաքրքրված է մշակութային ժառանգությամբ, մանկական երևակայությամբ և մտածված պատմություններով։`,
+        p5: `Ստեղծողը աշխատում է գրության, երաժշտության և տեսողական գաղափարների վրա՝ ստեղծելով պատմություններ, որոնք աջակցում են երեխաների հուզական բարեկեցությանը։`,
+        p6: `North Dakota Fairytales-ը երկարաժամկետ ստեղծագործական նախագիծ է։`,
+    },
+    haw: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 North Dakota no nā keiki`,
+        p2: `He papahana moʻolelo no nā keiki ʻo North Dakota Fairytales me ke kumuhana hoʻoilo, i hana ʻia e Paul Brian Mashkovtsev.`,
+        p3: `Hōʻike ka papahana i nā ʻano, nā mele, a me nā moʻolelo kūʻokoʻa i hoʻoulu ʻia e nā ʻāina a me ke aniau hoʻoilo o North Dakota. Kū ka papahana ma luna o ka haʻi moʻolelo mālie, ʻoluʻolu a palekana no nā keiki, a ʻaʻole ia e haʻi hou i nā moʻolelo kahiko o nā kānaka ʻōiwi a i ʻole ka moʻomeheu kahiko.`,
+        p4: `Ua hana ʻia kēia papahana e kekahi mea kākau kūʻokoʻa i hoihoi i ka moʻomeheu, ka noʻonoʻo o nā keiki a me ka haʻi moʻolelo noʻonoʻo.`,
+        p5: `Hana ka mea hana i ka kākau, ke mele a me nā manaʻo kiʻi e hana i nā moʻolelo e kōkua ana i ke ola ʻuhane o nā keiki.`,
+        p6: `He papahana lōʻihi kēia.`,
+    },
+    tt: {
+        title: "",
+        p0: "",
+        subtitle: "",
+        p1: `🌨 Балалар өчен North Dakota`,
+        p2: `North Dakota Fairytales — Paul Brian Mashkovtsev тарафыннан булдырылган кыш темасына багышланган балалар өчен оригиналь әкиятләр проекты.`,
+        p3: `Проектка Төньяк Дакотаның кышкы табигате һәм атмосферасы илһамландырган персонажлар, җырлар һәм әкиятләр керә. Ул балалар өчен тыныч, җылы һәм куркынычсыз хикәяләүгә юнәлтелгән һәм тарихи фольклор яки җирле халык риваятьләрен кабатламый.`,
+        p4: `Проект мәдәни мирас, балалар фантазиясе һәм уйланылган хикәяләү белән кызыксынучы мөстәкыйль автор тарафыннан булдырылган.`,
+        p5: `Автор текст, музыка һәм визуаль образлар белән эшли, балаларның эмоциональ халәтен яхшыртуга ярдәм итүче әсәрләр тудыра.`,
+        p6: `North Dakota Fairytales — озак вакытка исәпләнгән иҗади проект.`,
+    },
 };
 
 const t = text[lang as keyof typeof text] || text.en;
+const pageTitle =
+    (i18nText as any).old_snow_hub_meta_title ||
+    "Welcome to North Dakota | North Dakota for Kids | Calm Winter Stories & Songs";
+const pageDescription =
+    (i18nText as any).old_snow_hub_meta_desc ||
+    "Calm winter stories, songs, and gentle North Dakota nature themes for children — original tales and music from North Dakota Fairytales.";
 ---
 
 <BaseLayout lang={lang}
-    title="Welcome to North Dakota | North Dakota for Kids | Calm Winter Stories & Songs"
-    videoObject={{
-        name: currentSchema.name,
-        description: currentSchema.description,
-        thumbnailUrl: currentVideoThumbUrl,
-        embedUrl: currentVideoEmbedUrl,
-        contentUrl: currentVideoContentUrl,
-        uploadDate: normalizeVideoUploadDate("2026-04-19"),
-    }}
+    title={pageTitle}
+    description={pageDescription}
+    supplementaryLdJson={oldSnowWinterProgramJsonLd()}
+    videoObject={showOldSnowSongSearch
+        ? {
+              name: currentSchema.name,
+              description: currentSchema.description,
+              thumbnailUrl: currentVideoThumbUrl,
+              embedUrl: currentVideoEmbedUrl,
+              contentUrl: currentVideoContentUrl,
+              uploadDate: normalizeVideoUploadDate("2026-04-19"),
+          }
+        : undefined}
     isAuthorPage={true}>
 
     <h2>{t.subtitle}</h2>
@@ -270,57 +483,63 @@ const t = text[lang as keyof typeof text] || text.en;
         <p>{t.p0}</p>
 
         <p>{t.p1}</p>
-        <div class="song-video-container relative mx-auto w-fit">
-            <Video
-                src={currentVideoUrl}
-                title="Welcome to North Dakota song"
-                class="song-video-frame"
-            />
-            <a
-                href={searchHref}
-                aria-label={searchLabel}
-                title={searchLabel}
-                class="search-video-btn"
-                style="width: 150px !important; height: 150px !important;"
-            >
-                <img
-                    src={musicIcon.src}
-                    alt={snowyMusicAlt}
-                    class="w-[150px] h-[150px] object-contain search-video-icon"
-                    style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
-                    loading="lazy"
+        {showOldSnowSongSearch ? (
+            <div class="song-video-container relative mx-auto w-fit">
+                <Video
+                    src={currentVideoUrl}
+                    title="Welcome to North Dakota song"
+                    class="song-video-frame"
                 />
-                <span
-                    class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
-                    style="color: #b3e5fc !important;"
-                    dir={lang === "ar" ? "rtl" : "ltr"}
+                <a
+                    href={searchHref}
+                    aria-label={searchLabel}
+                    title={searchLabel}
+                    class="search-video-btn"
+                    style="width: 150px !important; height: 150px !important;"
                 >
-                    {snowyMusicLabel}
-                </span>
-            </a>
-        </div>
-        <div class="song-lyrics-toggle-wrap">
-            <button
-                type="button"
-                class="song-lyrics-toggle-btn"
-                aria-expanded="false"
-                aria-controls="song-lyrics-content"
-                data-lyrics-toggle
-            >
-                {lyricsToggleText}
-            </button>
-        </div>
-        <section id="song-lyrics-content" class="song-lyrics-content" hidden>
-            <h3 class="song-lyrics-title">{lyricsContent.title}</h3>
-            {lyricsContent.sections.map((section) => (
-                <article class="song-lyrics-section">
-                    <h4>{section.label}</h4>
-                    {section.lines.map((line) => (
-                        line ? <p>{line}</p> : <div class="song-lyrics-break" aria-hidden="true"></div>
+                    <img
+                        src={musicIcon.src}
+                        alt={snowyMusicAlt}
+                        class="w-[150px] h-[150px] object-contain search-video-icon"
+                        style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
+                        loading="lazy"
+                    />
+                    <span
+                        class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
+                        style="color: #b3e5fc !important;"
+                        dir={["ar", "fa", "ur"].includes(lang ?? "") ? "rtl" : "ltr"}
+                    >
+                        {snowyMusicLabel}
+                    </span>
+                </a>
+            </div>
+        ) : null}
+        {showOldSnowSongSearch ? (
+            <>
+                <div class="song-lyrics-toggle-wrap">
+                    <button
+                        type="button"
+                        class="song-lyrics-toggle-btn"
+                        aria-expanded="false"
+                        aria-controls="song-lyrics-content"
+                        data-lyrics-toggle
+                    >
+                        {lyricsToggleText}
+                    </button>
+                </div>
+                <section id="song-lyrics-content" class="song-lyrics-content" hidden>
+                    <h3 class="song-lyrics-title">{lyricsContent.title}</h3>
+                    {lyricsContent.sections.map((section) => (
+                        <article class="song-lyrics-section">
+                            <h4>{section.label}</h4>
+                            {section.lines.map((line) => (
+                                line ? <p>{line}</p> : <div class="song-lyrics-break" aria-hidden="true"></div>
+                            ))}
+                        </article>
                     ))}
-                </article>
-            ))}
-        </section>
+                </section>
+            </>
+        ) : null}
         <p>{t.p2}</p>
         <p>{t.p3}</p>
         <div class="old-snow-album-row" dir="ltr">

@@ -1,4 +1,6 @@
 ---
+import { OLD_SNOW_MUSIC_HUB_LANGS } from "../lib/oldSnowMusicHubLangs";
+
 const currentLang = Astro.url.pathname.split("/")[1] || "en";
 
 const brandNames = {
@@ -372,14 +374,28 @@ const brand =
     brandNames[currentLang as keyof typeof brandNames] ?? brandNames.en;
 
 /** Ссылка «Winter Music» в выпадающем меню Winter Magic — только эти языки. */
-const winterMusicHubLangs = new Set(["en", "es", "fr", "ar"]);
+const winterMusicHubLangs = new Set<string>(OLD_SNOW_MUSIC_HUB_LANGS);
 const showWinterMusicHubLink = winterMusicHubLangs.has(currentLang);
 
 const winterMusicHubLabels: Record<string, string> = {
     en: "Winter Music",
     es: "Música de Invierno",
     fr: "Musique d\u2019hiver",
-    ar: "موسيقى الشتاء"
+    ar: "موسيقى الشتاء",
+    ru: "Зимняя музыка",
+    ur: "موسم سرما کی موسیقی",
+    hi: "शीतकालीन संगीत",
+    bn: "শীতের সঙ্গীত",
+    fa: "موسیقی زمستانی",
+    pt: "Música de inverno",
+    ms: "Muzik musim sejuk",
+    id: "Musik musim dingin",
+    de: "Wintermusik",
+    ca: "Música d\u2019hivern",
+    az: "Qış musiqisi",
+    hy: "Ձմեռային երաժշտություն",
+    haw: "Mele ho\u02BBoilo",
+    tt: "Кышкы музыка",
 };
 const winterMusicHubLabel = winterMusicHubLabels[currentLang] ?? "";
 ---

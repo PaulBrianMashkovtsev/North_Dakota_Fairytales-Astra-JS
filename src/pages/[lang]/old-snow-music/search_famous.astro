@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { translations } from "../../../lib/i18n";
+import { oldSnowContentLang, oldSnowSearchPagesStaticPaths } from "../../../lib/oldSnowMusicHubLangs";
 
 import northernLightsEn from "../../../components/icons_search_buttons/northern_lights_en.png";
 import northernLightsEs from "../../../components/icons_search_buttons/northern_lights_es.png";
@@ -13,18 +14,14 @@ import rooseveltFr from "../../../components/icons_search_buttons/roosevelt_fr.p
 import rooseveltAr from "../../../components/icons_search_buttons/roosevelt_ar.png";
 
 export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'es' } },
-    { params: { lang: 'fr' } },
-    { params: { lang: 'ar' } },
-  ];
+  return oldSnowSearchPagesStaticPaths();
 }
 
 const { lang } = Astro.params;
-const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "") ? lang : "en") as "en" | "es" | "fr" | "ar";
+const pageLang = lang ?? "en";
+const contentLang = oldSnowContentLang(pageLang);
 
-const labels = {
+const famousLabels = {
   en: { northernLights: "Northern Lights", roosevelt: "Roosevelt" },
   es: { northernLights: "Auroras Boreales", roosevelt: "Roosevelt" },
   fr: { northernLights: "Aurores Boreales", roosevelt: "Roosevelt" },
@@ -46,20 +43,20 @@ const iconByLang = {
   },
 } as const;
 
-const northernLightsHref = `/${currentLang}/category/northern_lights`;
-const rooseveltHref = `/${currentLang}/category/roosevelt`;
-const t = labels[currentLang];
-const pageT = translations[currentLang] || translations.en;
+const northernLightsHref = `/${pageLang}/category/northern_lights`;
+const rooseveltHref = `/${pageLang}/category/roosevelt`;
+const t = famousLabels[contentLang];
+const pageT = translations[pageLang as keyof typeof translations] || translations.en;
 ---
 
 <BaseLayout
-  lang={currentLang}
+  lang={pageLang}
   title={pageT.search_famous_meta_title}
   description={pageT.search_famous_meta_desc}
   isAuthorPage={true}
 >
   <section
-    dir={currentLang === "ar" ? "rtl" : "ltr"}
+    dir={["ar", "fa", "ur"].includes(pageLang) ? "rtl" : "ltr"}
     class="mx-auto flex min-h-[55vh] w-full max-w-5xl flex-col px-4 py-10"
   >
     <div class="mb-8 w-full text-center" style="text-align: center !important;">
@@ -74,7 +71,7 @@ const pageT = translations[currentLang] || translations.en;
         title={t.northernLights}
       >
         <img
-          src={iconByLang.northernLights[currentLang].src}
+          src={iconByLang.northernLights[contentLang].src}
           alt={pageT.alt_northern_lights}
           class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
           loading="lazy"
@@ -88,7 +85,7 @@ const pageT = translations[currentLang] || translations.en;
         title={t.roosevelt}
       >
         <img
-          src={iconByLang.roosevelt[currentLang].src}
+          src={iconByLang.roosevelt[contentLang].src}
           alt={pageT.alt_roosevelt}
           class="h-[110px] w-[110px] rounded-2xl object-cover shadow-xl transition-transform duration-200 group-hover:scale-105"
           loading="lazy"

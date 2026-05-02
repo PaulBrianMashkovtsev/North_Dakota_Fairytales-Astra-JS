@@ -2,17 +2,20 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
 import { translations } from "../../../lib/i18n";
+import {
+    oldSnowContentLang,
+    oldSnowHasFullSongHub,
+    oldSnowHubStaticPaths,
+    oldSnowWinterProgramJsonLd,
+} from "../../../lib/oldSnowMusicHubLangs";
 
 export function getStaticPaths() {
-    return [
-        { params: { lang: "en" } },
-        { params: { lang: "es" } },
-        { params: { lang: "fr" } },
-        { params: { lang: "ar" } }
-    ];
+    return oldSnowHubStaticPaths();
 }
 
 const lang = Astro.params.lang;
+const contentLang = oldSnowContentLang(lang);
+const showOldSnowSongSearch = oldSnowHasFullSongHub(lang);
 const i18nText = translations[lang as keyof typeof translations] || translations.en;
 const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
 const searchFamousHref = `/${lang}/old-snow-music/search_famous`;
@@ -22,14 +25,14 @@ const searchLabelByLang = {
     fr: "Recherche",
     ar: "بحث"
 };
-const searchLabel = searchLabelByLang[lang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
+const searchLabel = searchLabelByLang[contentLang as keyof typeof searchLabelByLang] ?? searchLabelByLang.en;
 const snowyMusicLabelByLang = {
     en: "Snowy Music",
     es: "Música Nevada",
     fr: "Musique de Neige",
     ar: "موسيقى ثلجية"
 };
-const snowyMusicLabel = snowyMusicLabelByLang[lang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
+const snowyMusicLabel = snowyMusicLabelByLang[contentLang as keyof typeof snowyMusicLabelByLang] ?? snowyMusicLabelByLang.en;
 
 const text = {
     en: {
@@ -76,12 +79,177 @@ const text = {
         p8: "❄️ شتاء أسطوري\n\nتشتهر داكوتا الشمالية بشتائها الطويل والمليء بالثلوج.\n\nالبحيرات المتجمدة، والثلوج الممتدة، والليالي الهادئة تخلق عالمًا قويًا ولكنه مريح.\nهذا الشتاء الأسطوري هو قلب North Dakota Fairytales — مكان تنمو فيه القصص والأغاني ببطء وبشكل طبيعي.",
         p9: "🌨 نوع مختلف من الشهرة\n\nإذًا، هل ولاية داكوتا الشمالية مشهورة بشيء؟\n\nنعم — بطبيعتها، وشتائها، وصمتها، وسحرها الهادئ.\n\nوبالنسبة للأطفال، تصبح شيئًا أكثر تميزًا:\nمكانًا يمكن أن تنمو فيه القصص والأغاني والخيال بأمان وهدوء.",
     },
+    ru: {
+        p1: "❄️ Чем знаменита Северная Дакота?",
+        p2: "Тихий зимний взгляд для детей\n\nДа — Северная Дакота известна многими вещами. Но не громко и не многолюдно.\n\nЭто место широких небес, глубоких зим и спокойной природной силы. Для детей это ощущается как тихий и волшебный мир.",
+        p3: "🦬 Дом великих бизонов\n\nСеверную Дакоту часто называют домом великих бизонов. Здесь можно представить мощные стада, движущиеся по заснеженным равнинам — медленно, уверенно и сильно. В некоторых историях им даже дают имена, например Дакота Гром — символ силы и тихой уверенности.\n\nШтат также является домом для одних из самых больших статуй животных в мире, включая гигантских бизонов и коров — это всегда удивляет детей и пробуждает любопытство.",
+        p4: "🏔 Бэдлендс и Радужные скалы\n\nОдно из самых уникальных мест Северной Дакоты — это Бэдлендс, включая Painted Canyon в национальном парке Теодора Рузвельта.\n\nЭти земли часто называют Радужными скалами, потому что холмы и утёсы показывают мягкие слои разных цветов. Для детей это похоже на прогулку внутри природной картины, созданной временем.",
+        p5: "🌲 Окаменелый лес — магия камня\n\nСеверная Дакота также является домом Окаменелого леса, где древние деревья превратились в камень.\n\nЭто место часто описывают как магию камня — то, что когда-то было живым, теперь спокойно покоится тысячи лет. Здесь тихо, загадочно и идеально для воображения.",
+        p6: "🌌 Северное сияние — танцующее небо\n\nЗимой в Северной Дакоте часто можно увидеть северное сияние.\n\nМногие называют его танцующим небом, потому что огни мягко движутся по ночному небу — зелёные, синие и иногда фиолетовые. Для детей кажется, будто небо оживает и тихо рассказывает историю.",
+        p7: "🥁 Пау-вау — цвет и ритм\n\nСеверная Дакота также известна встречами пау-вау, где традиционные танцы, музыка и одежда объединяют цвет, ритм и движение.\n\nПерья, барабаны и яркие узоры создают сильное визуальное впечатление, которое дети легко запоминают.",
+        p8: "❄️ Легендарная зима\n\nСеверная Дакота знаменита своими длинными и снежными зимами.\n\nЗамёрзшие озёра, бесконечный снег и тихие ночи создают сильный, но спокойный мир. Эта легендарная зима — сердце North Dakota Fairytales, место, где истории и песни рождаются медленно и естественно.",
+        p9: "🌨 Особенная известность\n\nТак знаменита ли Северная Дакота? Да — своей природой, своей зимой, своей тишиной и своей тихой магией.\n\nА для детей это становится ещё более особенным:\nместом, где истории, песни и воображение могут расти спокойно и безопасно.",
+    },
+    ur: {
+        p1: "❄️ کیا نارتھ ڈکوٹا کسی چیز کے لیے مشہور ہے؟",
+        p2: "بچوں کے لیے ایک پُرسکون سردیوں کا منظر\n\nNorth Dakota بہت سی چیزوں کے لیے جانا جاتا ہے۔ مگر شور یا ہجوم کے انداز میں نہیں۔ یہ وسیع آسمانوں، گہری سردیوں اور خاموش قدرتی طاقت کی جگہ ہے۔ بچوں کے لیے یہ ایک پُرسکون اور جادوئی دنیا جیسا محسوس ہوتا ہے۔",
+        p3: "🦬 عظیم بائسن کا گھر\n\nنارتھ ڈکوٹا کو اکثر عظیم بائسن کا گھر کہا جاتا ہے۔ یہاں آپ طاقتور ریوڑوں کو برف سے ڈھکے میدانوں میں آہستہ، مضبوطی اور سکون سے حرکت کرتے ہوئے تصور کر سکتے ہیں۔ کچھ کہانیوں میں انہیں نام بھی دیے جاتے ہیں، جیسے \"ڈکوٹا تھنڈر\"، جو طاقت اور خاموش اعتماد کی علامت ہے۔\n\nیہ ریاست دنیا کے کچھ سب سے بڑے جانوروں کے مجسموں کا گھر بھی ہے، جن میں دیوہیکل بائسن اور گائیں شامل ہیں — جو بچوں کو ہمیشہ حیران کرتے ہیں اور ان کی جستجو کو بڑھاتے ہیں۔",
+        p4: "🏔 بیڈ لینڈز اور رینبو راکس\n\nنارتھ ڈکوٹا کی سب سے منفرد جگہوں میں سے ایک بیڈ لینڈز ہے، جس میں تھیوڈور روزویلٹ نیشنل پارک کے اندر Painted Canyon شامل ہے۔ ان زمینوں کو اکثر \"رینبو راکس\" کہا جاتا ہے کیونکہ ان کی پہاڑیاں اور چٹانیں مختلف رنگوں کی نرم تہیں دکھاتی ہیں۔ بچوں کے لیے یہ ایسے محسوس ہوتا ہے جیسے وہ وقت کی بنائی ہوئی قدرتی پینٹنگ میں چل رہے ہوں۔",
+        p5: "🌲 پتھریلا جنگل — پتھر کی جادوئی دنیا\n\nنارتھ ڈکوٹا میں Petrified Forest بھی موجود ہے، جہاں قدیم درخت پتھر میں تبدیل ہو چکے ہیں۔ اس جگہ کو اکثر \"پتھر کی جادوئی دنیا\" کہا جاتا ہے — کچھ جو کبھی زندہ تھا، اب ہزاروں سال سے خاموشی سے موجود ہے۔ یہ جگہ پُرسکون، پراسرار اور تخیل کے لیے بہترین ہے۔",
+        p6: "🌌 ناردرن لائٹس — آسمانی رقاص\n\nسردیوں میں نارتھ ڈکوٹا میں ناردرن لائٹس اکثر دیکھی جا سکتی ہیں۔\n\nبہت سے لوگ انہیں \"آسمانی رقاص\" کہتے ہیں، کیونکہ یہ روشنیاں آسمان میں نرمی سے حرکت کرتی ہیں — سبز، نیلی اور کبھی جامنی رنگ میں۔ بچوں کے لیے ایسا لگتا ہے جیسے آسمان زندہ ہو اور آہستہ آہستہ کوئی کہانی سنا رہا ہو۔",
+        p7: "🥁 پاو واو — رنگ اور ردھم\n\nنارتھ ڈکوٹا پاو واو تقریبات کے لیے بھی جانا جاتا ہے، جہاں روایتی رقص، موسیقی اور لباس رنگ، ردھم اور حرکت کو یکجا کرتے ہیں۔ پر، ڈھول اور چمکدار نقش و نگار ایک مضبوط بصری تجربہ پیدا کرتے ہیں جسے بچے آسانی سے یاد رکھتے ہیں۔",
+        p8: "❄️ افسانوی سردی\n\nنارتھ ڈکوٹا اپنی طویل اور برفانی سردیوں کے لیے مشہور ہے۔ جمے ہوئے جھیلیں، لامتناہی برف اور خاموش راتیں ایک طاقتور مگر پُرسکون دنیا بناتی ہیں۔ یہی افسانوی سردی North Dakota Fairytales کا دل ہے — ایک ایسی جگہ جہاں کہانیاں اور گانے آہستہ اور قدرتی انداز میں پیدا ہوتے ہیں۔",
+        p9: "🌨 ایک مختلف قسم کی شہرت\n\nتو کیا نارتھ ڈکوٹا کسی چیز کے لیے مشہور ہے؟ ہاں — اپنی فطرت، اپنی سردیوں، اپنی خاموشی اور اپنی نرم جادوئی فضا کے لیے۔\n\nاور بچوں کے لیے یہ اور بھی خاص بن جاتا ہے:\nایک ایسی جگہ جہاں کہانیاں، گانے اور تخیل محفوظ اور نرمی سے بڑھ سکتے ہیں۔",
+    },
+    hi: {
+        p1: "❄️ क्या नॉर्थ डकोटा किसी चीज़ के लिए प्रसिद्ध है?",
+        p2: "बच्चों के लिए एक शांत सर्दियों का दृश्य\n\nNorth Dakota कई चीज़ों के लिए जाना जाता है। लेकिन शोर या भीड़ के तरीके से नहीं। यह खुले आसमान, गहरी सर्दियों और शांत प्राकृतिक शक्ति की जगह है। बच्चों के लिए यह एक शांत और जादुई दुनिया जैसा लगता है।",
+        p3: "🦬 महान बाइसन का घर\n\nनॉर्थ डकोटा को अक्सर महान बाइसन का घर कहा जाता है। यहाँ आप शक्तिशाली झुंडों को बर्फीले मैदानों में धीरे-धीरे चलते हुए कल्पना कर सकते हैं — शांत, स्थिर और मजबूत। कुछ कहानियों में उन्हें नाम भी दिए जाते हैं, जैसे \"डकोटा थंडर\", जो शक्ति और शांत आत्मविश्वास का प्रतीक है।\n\nयह राज्य दुनिया की कुछ सबसे बड़ी जानवरों की मूर्तियों का भी घर है, जिनमें विशाल बाइसन और गायें शामिल हैं — जो बच्चों को हमेशा आश्चर्यचकित करती हैं और जिज्ञासा जगाती हैं।",
+        p4: "🏔 बैडलैंड्स और रेनबो रॉक्स\n\nनॉर्थ डकोटा की सबसे अनोखी जगहों में से एक बैडलैंड्स है, जिसमें थियोडोर रूज़वेल्ट नेशनल पार्क के अंदर Painted Canyon शामिल है। इन भूमि को अक्सर \"रेनबो रॉक्स\" कहा जाता है क्योंकि यहाँ की पहाड़ियाँ और चट्टानें कई रंगों की परतें दिखाती हैं। बच्चों के लिए यह ऐसा लगता है जैसे वे समय द्वारा बनाई गई एक प्राकृतिक पेंटिंग के भीतर चल रहे हों।",
+        p5: "🌲 पत्थर का जंगल — मैजिक ऑफ स्टोन\n\nनॉर्थ डकोटा में Petrified Forest भी है, जहाँ प्राचीन पेड़ पत्थर में बदल गए हैं। इस स्थान को अक्सर \"मैजिक ऑफ स्टोन\" कहा जाता है — जो कभी जीवित था, अब हजारों वर्षों से शांत है। यह जगह शांत, रहस्यमय और कल्पना के लिए उपयुक्त है।",
+        p6: "🌌 नॉर्दर्न लाइट्स — आकाश के नर्तक\n\nसर्दियों में नॉर्थ डकोटा में नॉर्दर्न लाइट्स अक्सर देखी जा सकती हैं।\n\nकई लोग उन्हें \"आकाश के नर्तक\" कहते हैं, क्योंकि रोशनी रात के आकाश में धीरे-धीरे चलती है — हरे, नीले और कभी-कभी बैंगनी रंगों में। बच्चों के लिए ऐसा लगता है जैसे आकाश जीवित है और धीरे-धीरे कहानी सुना रहा है।",
+        p7: "🥁 पॉववॉव — रंग और ताल\n\nनॉर्थ डकोटा पॉववॉव सभाओं के लिए भी जाना जाता है, जहाँ पारंपरिक नृत्य, संगीत और वस्त्र रंग, ताल और गति को एक साथ लाते हैं। पंख, ढोल और चमकीले पैटर्न एक मजबूत दृश्य अनुभव बनाते हैं जिसे बच्चे आसानी से याद रखते हैं।",
+        p8: "❄️ प्रसिद्ध सर्दी\n\nनॉर्थ डकोटा अपनी लंबी और बर्फीली सर्दियों के लिए प्रसिद्ध है। जमी हुई झीलें, अंतहीन बर्फ और शांत रातें एक शक्तिशाली लेकिन शांत दुनिया बनाती हैं। यह प्रसिद्ध सर्दी North Dakota Fairytales का दिल है — एक ऐसी जगह जहाँ कहानियाँ और गीत धीरे-धीरे और स्वाभाविक रूप से विकसित होते हैं।",
+        p9: "🌨 एक अलग तरह की प्रसिद्धि\n\nतो क्या नॉर्थ डकोटा किसी चीज़ के लिए प्रसिद्ध है? हाँ — अपनी प्रकृति, अपनी सर्दी, अपनी शांति और अपनी कोमल जादुई दुनिया के लिए।\n\nऔर बच्चों के लिए यह और भी खास बन जाता है:\nएक ऐसी जगह जहाँ कहानियाँ, गीत और कल्पना सुरक्षित और धीरे-धीरे बढ़ सकती हैं।",
+    },
+    bn: {
+        p1: "❄️ নর্থ ডাকোটা কি কোনো কিছুর জন্য বিখ্যাত?",
+        p2: "শিশুদের জন্য এক শান্ত শীতের দৃষ্টিভঙ্গি\n\nNorth Dakota অনেক কিছুর জন্য পরিচিত। কিন্তু কখনোই কোলাহলপূর্ণ বা ভিড়ভাট্টার মতো নয়। এটি বিশাল আকাশ, গভীর শীত এবং শান্ত প্রাকৃতিক শক্তির একটি স্থান। শিশুদের জন্য এটি এক শান্ত ও জাদুকরী পৃথিবীর মতো অনুভূত হয়।",
+        p3: "🦬 মহান বাইসনের আবাসভূমি\n\nনর্থ ডাকোটাকে প্রায়ই মহান বাইসনের আবাসভূমি বলা হয়। এখানে আপনি কল্পনা করতে পারেন শক্তিশালী পশুর দল বরফে ঢাকা সমভূমি জুড়ে ধীরে, স্থিরভাবে এবং শক্তির সাথে চলেছে। কিছু গল্পে তাদের নামও দেওয়া হয়, যেমন \"ডাকোটা থান্ডার\" — শক্তি এবং নীরব আত্মবিশ্বাসের প্রতীক।\n\nএই রাজ্যে বিশ্বের সবচেয়ে বড় প্রাণীর মূর্তিগুলোর কিছু রয়েছে, যার মধ্যে বিশাল বাইসন এবং গরুর মূর্তি রয়েছে — যা সবসময় শিশুদের বিস্মিত করে এবং তাদের কৌতূহল জাগায়।",
+        p4: "🏔 ব্যাডল্যান্ডস এবং রেইনবো রকস\n\nনর্থ ডাকোটার সবচেয়ে অনন্য স্থানগুলোর একটি হলো ব্যাডল্যান্ডস, যার মধ্যে থিওডোর রুজভেল্ট ন্যাশনাল পার্কের Painted Canyon অন্তর্ভুক্ত। এই ভূমিগুলোকে প্রায়ই \"রেইনবো রকস\" বলা হয়, কারণ এখানকার পাহাড় এবং খাড়া পাথরগুলো বিভিন্ন রঙের কোমল স্তর দেখায়। শিশুদের জন্য এটি এমন অনুভূতি দেয় যেন তারা সময়ের তৈরি একটি প্রাকৃতিক চিত্রের ভেতর দিয়ে হাঁটছে।",
+        p5: "🌲 পাথরে রূপান্তরিত বন — পাথরের জাদু\n\nনর্থ ডাকোটায় Petrified Forest রয়েছে, যেখানে প্রাচীন গাছগুলো পাথরে পরিণত হয়েছে। এই স্থানটিকে প্রায়ই \"পাথরের জাদু\" বলা হয় — যা একসময় জীবিত ছিল, এখন হাজার হাজার বছর ধরে শান্তভাবে স্থির আছে। এটি শান্ত, রহস্যময় এবং কল্পনার জন্য একদম উপযুক্ত।",
+        p6: "🌌 নর্দার্ন লাইটস — আকাশের নৃত্যশিল্পী\n\nশীতকালে নর্থ ডাকোটায় প্রায়ই নর্দার্ন লাইটস দেখা যায়।\n\nঅনেকেই এগুলোকে \"আকাশের নৃত্যশিল্পী\" বলে, কারণ আলো ধীরে ধীরে রাতের আকাশ জুড়ে নড়াচড়া করে — সবুজ, নীল এবং কখনো বেগুনি রঙে। শিশুদের জন্য এটি এমন অনুভূতি দেয় যেন আকাশ জীবন্ত এবং আস্তে আস্তে একটি গল্প বলছে।",
+        p7: "🥁 পাওওয়াও — রঙ এবং তাল\n\nনর্থ ডাকোটা পাওওয়াও সমাবেশের জন্যও পরিচিত, যেখানে ঐতিহ্যবাহী নাচ, সঙ্গীত এবং পোশাক রঙ, তাল এবং গতিকে একত্রিত করে। পালক, ঢোল এবং উজ্জ্বল নকশা একটি শক্তিশালী দৃশ্য তৈরি করে, যা শিশুরা সহজেই মনে রাখে।",
+        p8: "❄️ কিংবদন্তির মতো শীতকাল\n\nনর্থ ডাকোটা তার দীর্ঘ এবং তুষারপূর্ণ শীতের জন্য বিখ্যাত। জমে থাকা হ্রদ, অন্তহীন তুষার এবং শান্ত রাত একটি শক্তিশালী কিন্তু শান্ত পৃথিবী তৈরি করে। এই কিংবদন্তিসম শীতই North Dakota Fairytales-এর হৃদয় — যেখানে গল্প এবং গান ধীরে এবং স্বাভাবিকভাবে জন্ম নেয়।",
+        p9: "🌨 ভিন্ন ধরনের খ্যাতি\n\nতাহলে নর্থ ডাকোটা কি কোনো কিছুর জন্য বিখ্যাত? হ্যাঁ — এর প্রকৃতি, এর শীত, এর নীরবতা এবং এর শান্ত জাদুর জন্য।\n\nআর শিশুদের জন্য এটি আরও বিশেষ হয়ে ওঠে:\nএমন একটি জায়গা যেখানে গল্প, গান এবং কল্পনা নিরাপদে এবং কোমলভাবে বেড়ে উঠতে পারে।",
+    },
+    fa: {
+        p1: "❄️ آیا داکوتای شمالی به چیزی معروف است؟",
+        p2: "نگاهی آرام از زمستان برای کودکان\n\nNorth Dakota به چیزهای زیادی معروف است، اما نه به شکلی پر سر و صدا یا شلوغ. اینجا سرزمین آسمان‌های وسیع، زمستان‌های عمیق و قدرت آرام طبیعت است. برای کودکان، اینجا مانند یک دنیای آرام و جادویی احساس می‌شود.",
+        p3: "🦬 خانه بایسون‌های بزرگ\n\nداکوتای شمالی اغلب به‌عنوان خانه بایسون‌های بزرگ شناخته می‌شود. در اینجا می‌توانید گله‌های قدرتمند را تصور کنید که به‌آرامی، با ثبات و قدرت در دشت‌های برفی حرکت می‌کنند. در برخی داستان‌ها حتی به آن‌ها نام داده می‌شود، مانند «داکوتا تاندر» — نمادی از قدرت و اعتماد آرام.\n\nاین ایالت همچنین خانه برخی از بزرگ‌ترین مجسمه‌های حیوانات در جهان است، از جمله بایسون‌ها و گاوهای عظیم — چیزی که همیشه کودکان را شگفت‌زده می‌کند و کنجکاوی آن‌ها را برمی‌انگیزد.",
+        p4: "🏔 بدلندز و صخره‌های رنگین‌کمانی\n\nیکی از منحصربه‌فردترین مکان‌ها در داکوتای شمالی بدلندز است، از جمله Painted Canyon در پارک ملی تئودور روزولت.\n\nاین سرزمین‌ها اغلب «صخره‌های رنگین‌کمانی» نامیده می‌شوند، زیرا تپه‌ها و صخره‌ها لایه‌های نرم و رنگارنگی را نشان می‌دهند. برای کودکان، این مانند قدم زدن درون یک نقاشی طبیعی است که در طول زمان شکل گرفته است.",
+        p5: "🌲 جنگل سنگی — جادوی سنگ\n\nداکوتای شمالی همچنین خانه جنگل سنگی است، جایی که درختان باستانی به سنگ تبدیل شده‌اند.\n\nاین مکان اغلب به‌عنوان «جادوی سنگ» توصیف می‌شود — چیزی که زمانی زنده بوده، اکنون هزاران سال به‌آرامی استراحت می‌کند. اینجا آرام، رازآلود و برای تخیل بسیار مناسب است.",
+        p6: "🌌 شفق قطبی — رقصندگان آسمان\n\nدر زمستان، شفق قطبی اغلب در داکوتای شمالی دیده می‌شود.\n\nبسیاری آن را «رقصندگان آسمان» می‌نامند، زیرا نورها به‌آرامی در آسمان شب حرکت می‌کنند — سبز، آبی و گاهی بنفش. برای کودکان، این‌گونه به نظر می‌رسد که آسمان زنده است و به نرمی داستانی را روایت می‌کند.",
+        p7: "🥁 پاوواو — رنگ و ریتم\n\nداکوتای شمالی همچنین به‌خاطر گردهمایی‌های پاوواو شناخته می‌شود، جایی که رقص‌های سنتی، موسیقی و پوشاک رنگ، ریتم و حرکت را در کنار هم قرار می‌دهند.\n\nپرها، طبل‌ها و نقش‌های درخشان تجربه‌ای بصری قوی ایجاد می‌کنند که کودکان به‌راحتی به خاطر می‌سپارند.",
+        p8: "❄️ زمستان افسانه‌ای\n\nداکوتای شمالی به زمستان‌های طولانی و برفی خود مشهور است.\n\nدریاچه‌های یخ‌زده، برف بی‌پایان و شب‌های آرام دنیایی قدرتمند اما صلح‌آمیز می‌سازند. این زمستان افسانه‌ای قلب North Dakota Fairytales است — جایی که داستان‌ها و ترانه‌ها به‌آرامی و به‌طور طبیعی رشد می‌کنند.",
+        p9: "🌨 نوعی متفاوت از شهرت\n\nپس آیا داکوتای شمالی به چیزی معروف است؟ بله — به طبیعتش، به زمستانش، به سکوتش و به جادوی آرامش.\n\nو برای کودکان، اینجا حتی خاص‌تر می‌شود:\nمکانی که داستان‌ها، ترانه‌ها و تخیل می‌توانند به‌صورت امن و آرام رشد کنند.",
+    },
+    pt: {
+        p1: "❄️ Dakota do Norte é famoso por alguma coisa?",
+        p2: "Uma visão tranquila de inverno para crianças\n\nNorth Dakota é conhecido por muitas coisas. Mas não de uma forma barulhenta ou cheia de multidões. É um lugar de céus amplos, invernos profundos e uma força natural silenciosa. Para as crianças, pode parecer um mundo calmo e mágico.",
+        p3: "🦬 Lar dos grandes bisões\n\nDakota do Norte é frequentemente chamado de lar dos grandes bisões. Aqui, você pode imaginar rebanhos poderosos se movendo pelas planícies cobertas de neve — devagar, de forma constante e forte. Algumas histórias até lhes dão nomes, como \"Dakota Thunder\", um símbolo de força e confiança tranquila.\n\nO estado também abriga algumas das maiores estátuas de animais do mundo, incluindo bisões e vacas gigantes — algo que sempre impressiona as crianças e desperta curiosidade.",
+        p4: "🏔 Badlands e Rochas Arco-Íris\n\nUm dos lugares mais únicos de Dakota do Norte é o Badlands, incluindo o Painted Canyon dentro do Parque Nacional Theodore Roosevelt.\n\nEssas terras são frequentemente chamadas de Rochas Arco-Íris, porque as colinas e falésias mostram camadas suaves de muitas cores. Para as crianças, é como caminhar dentro de uma pintura natural moldada pelo tempo.",
+        p5: "🌲 A Floresta Petrificada — Magia da Pedra\n\nDakota do Norte também abriga a Floresta Petrificada, onde árvores antigas se transformaram em pedra.\n\nEste lugar é frequentemente descrito como a Magia da Pedra — algo que já foi vivo e agora repousa silenciosamente há milhares de anos. É calmo, misterioso e perfeito para a imaginação.",
+        p6: "🌌 Aurora Boreal — Dançarinas do Céu\n\nA aurora boreal pode ser vista com frequência em Dakota do Norte durante o inverno.\n\nMuitas pessoas a chamam de Dançarinas do Céu, porque as luzes se movem suavemente pelo céu noturno — verdes, azuis e às vezes violetas. Para as crianças, parece que o céu está vivo, contando uma história de forma suave.",
+        p7: "🥁 Powwow — Cor e Ritmo\n\nDakota do Norte também é conhecido pelos encontros powwow, onde danças tradicionais, música e vestimentas unem cor, ritmo e movimento.\n\nPenas, tambores e padrões vibrantes criam uma experiência visual forte que as crianças lembram com facilidade.",
+        p8: "❄️ Inverno Lendário\n\nDakota do Norte é famoso por seus invernos longos e nevados.\n\nLagos congelados, neve sem fim e noites silenciosas criam um mundo poderoso, mas pacífico. Esse inverno lendário é o coração de North Dakota Fairytales — um lugar onde histórias e canções crescem lentamente e de forma natural.",
+        p9: "🌨 Um tipo diferente de fama\n\nEntão, Dakota do Norte é famoso por alguma coisa? Sim — por sua natureza, seu inverno, seu silêncio e sua magia tranquila.\n\nE para as crianças, torna-se algo ainda mais especial:\num lugar onde histórias, canções e a imaginação podem crescer de forma segura e suave.",
+    },
+    ms: {
+        p1: "❄️ Adakah North Dakota terkenal dengan sesuatu?",
+        p2: "Pandangan musim sejuk yang tenang untuk kanak-kanak\n\nNorth Dakota dikenali dengan banyak perkara. Tetapi bukan dengan cara yang bising atau sesak. Ia adalah tempat langit yang luas, musim sejuk yang dalam, dan kekuatan alam yang tenang. Bagi kanak-kanak, ia terasa seperti dunia yang damai dan ajaib.",
+        p3: "🦬 Rumah bison besar\n\nNorth Dakota sering dipanggil rumah kepada bison besar. Di sini, anda boleh membayangkan kawanan kuat bergerak merentasi dataran bersalji — perlahan, stabil dan kuat. Dalam beberapa cerita, mereka diberi nama seperti \"Dakota Thunder\", simbol kekuatan dan keyakinan yang tenang.\n\nNegeri ini juga mempunyai beberapa patung haiwan terbesar di dunia, termasuk bison dan lembu gergasi — sesuatu yang sentiasa mengagumkan kanak-kanak dan membangkitkan rasa ingin tahu.",
+        p4: "🏔 Badlands dan Batu Pelangi\n\nSalah satu tempat paling unik di North Dakota ialah Badlands, termasuk Painted Canyon di dalam Taman Negara Theodore Roosevelt.\n\nKawasan ini sering dipanggil Batu Pelangi kerana bukit dan tebingnya menunjukkan lapisan warna yang lembut. Bagi kanak-kanak, ia seperti berjalan dalam lukisan semula jadi yang dibentuk oleh masa.",
+        p5: "🌲 Hutan Membatu — Magik Batu\n\nNorth Dakota juga mempunyai Hutan Membatu, di mana pokok purba telah bertukar menjadi batu.\n\nTempat ini sering digambarkan sebagai Magik Batu — sesuatu yang pernah hidup, kini berehat dengan tenang selama ribuan tahun. Ia tenang, misteri dan sesuai untuk imaginasi.",
+        p6: "🌌 Cahaya Utara — Penari Langit\n\nCahaya Utara sering dapat dilihat di North Dakota pada musim sejuk.\n\nRamai orang memanggilnya Penari Langit kerana cahaya itu bergerak lembut di langit malam — hijau, biru dan kadangkala ungu. Bagi kanak-kanak, ia terasa seperti langit hidup dan menceritakan kisah secara perlahan.",
+        p7: "🥁 Powwow — Warna dan Irama\n\nNorth Dakota juga terkenal dengan perhimpunan powwow, di mana tarian tradisional, muzik dan pakaian menyatukan warna, irama dan pergerakan.\n\nBulu, gendang dan corak terang mencipta pengalaman visual yang kuat yang mudah diingati oleh kanak-kanak.",
+        p8: "❄️ Musim sejuk legenda\n\nNorth Dakota terkenal dengan musim sejuk yang panjang dan bersalji.\n\nTasik beku, salji tanpa penghujung dan malam yang sunyi mencipta dunia yang kuat tetapi damai. Musim sejuk legenda ini adalah hati North Dakota Fairytales — tempat di mana cerita dan lagu berkembang perlahan dan semula jadi.",
+        p9: "🌨 Jenis kemasyhuran yang berbeza\n\nJadi, adakah North Dakota terkenal dengan sesuatu? Ya — dengan alamnya, musim sejuknya, kesunyiannya dan magiknya yang lembut.\n\nDan bagi kanak-kanak, ia menjadi lebih istimewa:\ntempat di mana cerita, lagu dan imaginasi boleh berkembang dengan selamat dan perlahan.",
+    },
+    id: {
+        p1: "❄️ Apakah North Dakota terkenal karena sesuatu?",
+        p2: "Pandangan musim dingin yang tenang untuk anak-anak\n\nNorth Dakota dikenal karena banyak hal. Tetapi bukan dengan cara yang ramai atau penuh keramaian. Ini adalah tempat dengan langit luas, musim dingin yang dalam, dan kekuatan alam yang tenang. Bagi anak-anak, tempat ini terasa seperti dunia yang damai dan ajaib.",
+        p3: "🦬 Rumah bagi bison besar\n\nNorth Dakota sering disebut sebagai rumah bagi bison besar. Di sini, Anda dapat membayangkan kawanan kuat bergerak melintasi dataran bersalju — perlahan, stabil, dan kuat. Dalam beberapa cerita, mereka bahkan diberi nama seperti \"Dakota Thunder\", simbol kekuatan dan kepercayaan diri yang tenang.\n\nNegara bagian ini juga menjadi rumah bagi beberapa patung hewan terbesar di dunia, termasuk bison dan sapi raksasa — sesuatu yang selalu membuat anak-anak kagum dan penasaran.",
+        p4: "🏔 Badlands dan Batu Pelangi\n\nSalah satu tempat paling unik di North Dakota adalah Badlands, termasuk Painted Canyon di dalam Taman Nasional Theodore Roosevelt.\n\nWilayah ini sering disebut Batu Pelangi karena bukit dan tebingnya menunjukkan lapisan warna yang lembut. Bagi anak-anak, ini terasa seperti berjalan di dalam lukisan alam yang dibentuk oleh waktu.",
+        p5: "🌲 Hutan Membatu — Keajaiban Batu\n\nNorth Dakota juga memiliki Hutan Membatu, tempat pohon-pohon kuno berubah menjadi batu.\n\nTempat ini sering digambarkan sebagai Keajaiban Batu — sesuatu yang pernah hidup, kini beristirahat dengan tenang selama ribuan tahun. Tempat ini tenang, misterius, dan sempurna untuk imajinasi.",
+        p6: "🌌 Aurora Borealis — Penari Langit\n\nAurora Borealis sering terlihat di North Dakota selama musim dingin.\n\nBanyak orang menyebutnya Penari Langit karena cahaya bergerak lembut di langit malam — hijau, biru, dan kadang ungu. Bagi anak-anak, ini terasa seperti langit hidup dan menceritakan kisah dengan lembut.",
+        p7: "🥁 Powwow — Warna dan Irama\n\nNorth Dakota juga dikenal dengan pertemuan powwow, di mana tarian tradisional, musik, dan pakaian menyatukan warna, irama, dan gerakan.\n\nBulu, drum, dan pola cerah menciptakan pengalaman visual yang kuat yang mudah diingat oleh anak-anak.",
+        p8: "❄️ Musim dingin legendaris\n\nNorth Dakota terkenal dengan musim dingin yang panjang dan bersalju.\n\nDanau beku, salju tanpa akhir, dan malam yang tenang menciptakan dunia yang kuat namun damai. Musim dingin legendaris ini adalah jantung North Dakota Fairytales — tempat di mana cerita dan lagu tumbuh perlahan dan alami.",
+        p9: "🌨 Jenis ketenaran yang berbeda\n\nJadi, apakah North Dakota terkenal karena sesuatu? Ya — karena alamnya, musim dinginnya, keheningannya, dan keajaiban yang tenang.\n\nDan bagi anak-anak, ini menjadi sesuatu yang lebih istimewa:\ntempat di mana cerita, lagu, dan imajinasi dapat tumbuh dengan aman dan lembut.",
+    },
+    de: {
+        p1: "❄️ Ist North Dakota für irgendetwas bekannt?",
+        p2: "Eine ruhige Winterperspektive für Kinder\n\nNorth Dakota ist für viele Dinge bekannt. Aber nicht auf eine laute oder überfüllte Weise. Es ist ein Ort mit weiten Himmeln, tiefen Wintern und einer stillen natürlichen Stärke. Für Kinder kann es sich wie eine ruhige und magische Welt anfühlen.",
+        p3: "🦬 Heimat der großen Bisons\n\nNorth Dakota wird oft als Heimat der großen Bisons bezeichnet. Hier kann man sich mächtige Herden vorstellen, die sich über schneebedeckte Ebenen bewegen — langsam, stetig und stark. In manchen Geschichten bekommen sie sogar Namen, wie \"Dakota Thunder\", ein Symbol für Stärke und stille Zuversicht.\n\nDer Staat beherbergt auch einige der größten Tierstatuen der Welt, darunter riesige Bisons und Kühe — etwas, das Kinder immer wieder staunen lässt und ihre Neugier weckt.",
+        p4: "🏔 Badlands und Regenbogenfelsen\n\nEiner der einzigartigsten Orte in North Dakota sind die Badlands, einschließlich des Painted Canyon im Theodore-Roosevelt-Nationalpark.\n\nDiese Landschaft wird oft Regenbogenfelsen genannt, weil die Hügel und Klippen weiche Schichten vieler Farben zeigen. Für Kinder fühlt es sich an, als würden sie durch ein natürliches Gemälde gehen, das von der Zeit geformt wurde.",
+        p5: "🌲 Der versteinerte Wald — Magie des Steins\n\nNorth Dakota ist auch die Heimat des versteinerten Waldes, wo alte Bäume zu Stein geworden sind.\n\nDieser Ort wird oft als die Magie des Steins beschrieben — etwas, das einst lebte und nun seit Tausenden von Jahren still ruht. Es ist ruhig, geheimnisvoll und perfekt für die Vorstellungskraft.",
+        p6: "🌌 Nordlichter — Tänzer des Himmels\n\nDie Nordlichter sind im Winter in North Dakota oft zu sehen.\n\nViele nennen sie die Tänzer des Himmels, weil sich die Lichter sanft über den Nachthimmel bewegen — grün, blau und manchmal violett. Für Kinder fühlt es sich an, als wäre der Himmel lebendig und würde leise eine Geschichte erzählen.",
+        p7: "🥁 Powwow — Farbe und Rhythmus\n\nNorth Dakota ist auch für Powwow-Treffen bekannt, bei denen traditionelle Tänze, Musik und Kleidung Farbe, Rhythmus und Bewegung zusammenbringen.\n\nFedern, Trommeln und leuchtende Muster schaffen ein starkes visuelles Erlebnis, das Kinder leicht in Erinnerung behalten.",
+        p8: "❄️ Legendärer Winter\n\nNorth Dakota ist berühmt für seine langen und schneereichen Winter.\n\nGefrorene Seen, endloser Schnee und ruhige Nächte erschaffen eine kraftvolle, aber friedliche Welt. Dieser legendäre Winter ist das Herz von North Dakota Fairytales — ein Ort, an dem Geschichten und Lieder langsam und natürlich wachsen.",
+        p9: "🌨 Eine andere Art von Bekanntheit\n\nIst North Dakota also für irgendetwas bekannt? Ja — für seine Natur, seinen Winter, seine Stille und seine sanfte Magie.\n\nUnd für Kinder wird es noch besonderer:\nein Ort, an dem Geschichten, Lieder und Fantasie sicher und behutsam wachsen können.",
+    },
+    ca: {
+        p1: "❄️ És Dakota del Nord famosa per alguna cosa?",
+        p2: "Una visió tranquil·la de l'hivern per als infants\n\nNorth Dakota és coneguda per moltes coses. Però no d'una manera sorollosa ni plena de gent. És un lloc de cels amplis, hiverns profunds i una força natural tranquil·la. Per als infants, pot semblar un món calmat i màgic.",
+        p3: "🦬 Llar dels grans bisons\n\nDakota del Nord sovint és anomenada la llar dels grans bisons. Aquí, es poden imaginar ramats poderosos movent-se per les planes nevades — lentament, amb calma i força. En algunes històries fins i tot reben noms, com \"Dakota Thunder\", un símbol de força i confiança tranquil·la.\n\nL'estat també acull algunes de les estàtues d'animals més grans del món, incloent bisons i vaques gegants — una cosa que sempre sorprèn els infants i desperta la seva curiositat.",
+        p4: "🏔 Badlands i Roques Arc de Sant Martí\n\nUn dels llocs més únics de Dakota del Nord són els Badlands, incloent el Painted Canyon dins del Parc Nacional Theodore Roosevelt.\n\nAquestes terres sovint s'anomenen Roques Arc de Sant Martí perquè els turons i els penya-segats mostren capes suaus de molts colors. Per als infants, és com caminar dins d'una pintura natural formada amb el temps.",
+        p5: "🌲 El bosc petrificat — màgia de la pedra\n\nDakota del Nord també és la llar del bosc petrificat, on els arbres antics s'han convertit en pedra.\n\nAquest lloc sovint es descriu com la màgia de la pedra — una cosa que una vegada va viure i ara descansa tranquil·lament des de fa milers d'anys. És tranquil, misteriós i perfecte per a la imaginació.",
+        p6: "🌌 Aurora boreal — dansaires del cel\n\nL'aurora boreal sovint es pot veure a Dakota del Nord durant l'hivern.\n\nMolta gent les anomena les dansaires del cel, perquè les llums es mouen suaument pel cel nocturn — verdes, blaves i de vegades violetes. Per als infants, sembla que el cel està viu i explica una història suaument.",
+        p7: "🥁 Powwow — color i ritme\n\nDakota del Nord també és coneguda pels powwows, on danses tradicionals, música i vestits uneixen color, ritme i moviment.\n\nPlomes, tambors i patrons brillants creen una experiència visual forta que els infants recorden fàcilment.",
+        p8: "❄️ Hivern llegendari\n\nDakota del Nord és famosa pels seus hiverns llargs i nevats.\n\nLlacs gelats, neu sense fi i nits tranquil·les creen un món poderós però pacífic. Aquest hivern llegendari és el cor de North Dakota Fairytales — un lloc on les històries i les cançons creixen lentament i de manera natural.",
+        p9: "🌨 Un tipus diferent de fama\n\nAleshores, Dakota del Nord és famosa per alguna cosa? Sí — per la seva natura, el seu hivern, el seu silenci i la seva màgia tranquil·la.\n\nI per als infants, esdevé encara més especial:\nun lloc on les històries, les cançons i la imaginació poden créixer de manera segura i suau.",
+    },
+    az: {
+        p1: "❄️ North Dakota nə ilə məşhurdur?",
+        p2: "Uşaqlar üçün sakit qış baxışı\n\nNorth Dakota bir çox şeylərlə tanınır. Amma səs-küylü və ya izdihamlı şəkildə deyil. Bu, geniş səma, dərin qışlar və sakit təbii güc məkanıdır. Uşaqlar üçün bu yer sakit və sehrli bir dünya kimi hiss olunur.",
+        p3: "🦬 Böyük bizonların evi\n\nNorth Dakota tez-tez böyük bizonların evi adlandırılır. Burada siz güclü sürülərin qarlı düzənliklərdə yavaş, sabit və güclü şəkildə hərəkət etdiyini təsəvvür edə bilərsiniz. Bəzi hekayələrdə onlara \"Dakota Thunder\" kimi adlar verilir — güc və sakit özünə inamın simvolu.\n\nŞtat həmçinin dünyanın ən böyük heyvan heykəllərindən bəzilərinə ev sahibliyi edir, o cümlədən nəhəng bizonlar və inəklər — bu isə uşaqları həmişə heyrətləndirir və maraq oyadır.",
+        p4: "🏔 Badlands və Göyqurşağı qayaları\n\nNorth Dakota-nın ən unikal yerlərindən biri Badlands-dir, buraya Theodore Roosevelt Milli Parkındakı Painted Canyon da daxildir.\n\nBu ərazilər tez-tez Göyqurşağı qayaları adlandırılır, çünki təpələr və qayalar müxtəlif rəngli yumşaq qatları göstərir. Uşaqlar üçün bu, zamanın yaratdığı təbii bir rəsmin içində gəzmək kimidir.",
+        p5: "🌲 Daşlaşmış meşə — daşın sehri\n\nNorth Dakota-da qədim ağacların daşa çevrildiyi Daşlaşmış Meşə də var.\n\nBu yer tez-tez daşın sehri kimi təsvir olunur — bir vaxtlar canlı olan bir şeyin minlərlə il sakitcə mövcud olması. Bu yer sakit, sirli və təsəvvür üçün mükəmməldir.",
+        p6: "🌌 Şimal işıqları — səma rəqqasları\n\nQışda North Dakota-da tez-tez şimal işıqlarını görmək mümkündür.\n\nBir çox insanlar onları səma rəqqasları adlandırır, çünki işıqlar gecə səmasında yumşaq şəkildə hərəkət edir — yaşıl, mavi və bəzən bənövşəyi rəngdə. Uşaqlar üçün bu, sanki səmanın canlı olub sakitcə hekayə danışması kimi hiss olunur.",
+        p7: "🥁 Powwow — rəng və ritm\n\nNorth Dakota həmçinin powwow toplantıları ilə tanınır, burada ənənəvi rəqslər, musiqi və geyimlər rəng, ritm və hərəkəti birləşdirir.\n\nLələklər, nağaralar və parlaq naxışlar uşaqların asanlıqla xatırladığı güclü vizual təəssürat yaradır.",
+        p8: "❄️ Əfsanəvi qış\n\nNorth Dakota uzun və qarlı qışları ilə məşhurdur.\n\nDonmuş göllər, sonsuz qar və sakit gecələr güclü, amma sakit bir dünya yaradır. Bu əfsanəvi qış North Dakota Fairytales-ın ürəyidir — hekayə və mahnıların yavaş və təbii şəkildə yarandığı yer.",
+        p9: "🌨 Fərqli bir məşhurluq növü\n\nBeləliklə, North Dakota nə ilə məşhurdur? Bəli — təbiəti, qışı, səssizliyi və sakit sehri ilə.\n\nUşaqlar üçün isə bu daha da xüsusi olur:\nhekayələrin, mahnıların və təsəvvürün təhlükəsiz və yumşaq şəkildə inkişaf etdiyi bir yer.",
+    },
+    hy: {
+        p1: "❄️ Արդյո՞ք Հյուսիսային Դակոտան հայտնի է ինչ-որ բանով։",
+        p2: "Հանգիստ ձմեռային տեսանկյուն երեխաների համար\n\nNorth Dakota հայտնի է բազմաթիվ բաներով։ Բայց ոչ աղմկոտ կամ մարդաշատ ձևով։ Սա լայն երկնքի, խոր ձմեռների և հանգիստ բնական ուժի վայր է։ Երեխաների համար այն թվում է խաղաղ և կախարդական աշխարհ։",
+        p3: "🦬 Մեծ բիզոնների տուն\n\nՀյուսիսային Դակոտան հաճախ կոչվում է մեծ բիզոնների տուն։ Այստեղ կարելի է պատկերացնել հզոր հոտեր, որոնք շարժվում են ձյունապատ դաշտերով՝ դանդաղ, կայուն և ուժեղ։ Որոշ պատմություններում նրանց նույնիսկ անուններ են տրվում, օրինակ «Dakota Thunder» — ուժի և հանգիստ վստահության խորհրդանիշ։\n\nՆահանգը նաև ունի աշխարհի ամենամեծ կենդանիների արձաններից մի քանիսը, ներառյալ հսկայական բիզոններ և կովեր — ինչը միշտ զարմացնում է երեխաներին և արթնացնում հետաքրքրությունը։",
+        p4: "🏔 Բեդլենդս և Ծիածանի ժայռեր\n\nՀյուսիսային Դակոտայի ամենայուրահատուկ վայրերից մեկը Բեդլենդսն է, ներառյալ Painted Canyon-ը Թեոդոր Ռուզվելտի ազգային պարկում։\n\nԱյս տարածքները հաճախ կոչվում են Ծիածանի ժայռեր, քանի որ բլուրներն ու ժայռերը ցույց են տալիս տարբեր գույների փափուկ շերտեր։ Երեխաների համար դա նման է ժամանակի կողմից ստեղծված բնական նկարի մեջ քայլելուն։",
+        p5: "🌲 Քարացած անտառ — քարի կախարդանք\n\nՀյուսիսային Դակոտայում կա նաև քարացած անտառ, որտեղ հին ծառերը դարձել են քար։\n\nԱյս վայրը հաճախ նկարագրվում է որպես քարի կախարդանք — մի բան, որը երբևէ կենդանի էր և այժմ հազարավոր տարիներ հանգիստ է։ Այն խաղաղ, խորհրդավոր և կատարյալ է երևակայության համար։",
+        p6: "🌌 Հյուսիսային լույսեր — երկնքի պարողներ\n\nՁմռանը Հյուսիսային Դակոտայում հաճախ կարելի է տեսնել հյուսիսային լույսերը։\n\nՇատերը դրանք կոչում են երկնքի պարողներ, որովհետև լույսերը մեղմ շարժվում են գիշերային երկնքում — կանաչ, կապույտ և երբեմն մանուշակագույն։ Երեխաների համար թվում է, թե երկինքը կենդանի է և հանգիստ պատմություն է պատմում։",
+        p7: "🥁 Powwow — գույն և ռիթմ\n\nՀյուսիսային Դակոտան հայտնի է նաև powwow հավաքներով, որտեղ ավանդական պարերը, երաժշտությունը և հագուստը միավորում են գույնը, ռիթմը և շարժումը։\n\nՓետուրները, թմբուկները և վառ նախշերը ստեղծում են ուժեղ տեսողական փորձ, որը երեխաները հեշտությամբ հիշում են։",
+        p8: "❄️ Լեգենդար ձմեռ\n\nՀյուսիսային Դակոտան հայտնի է իր երկար և ձյունառատ ձմեռներով։\n\nՍառած լճերը, անվերջ ձյունը և խաղաղ գիշերները ստեղծում են հզոր, բայց հանգիստ աշխարհ։ Այս լեգենդար ձմեռը North Dakota Fairytales-ի սիրտն է — մի վայր, որտեղ պատմություններն ու երգերը աճում են դանդաղ և բնական կերպով։",
+        p9: "🌨 Հայտնիության այլ տեսակ\n\nԱյսպիսով, արդյո՞ք Հյուսիսային Դակոտան հայտնի է ինչ-որ բանով։ Այո — իր բնությամբ, իր ձմռով, իր լռությամբ և իր մեղմ կախարդանքով։\n\nԻսկ երեխաների համար այն դառնում է ավելի հատուկ՝ մի վայր, որտեղ պատմությունները, երգերը և երևակայությունը կարող են աճել ապահով և հանգիստ։",
+    },
+    haw: {
+        p1: "❄️ Ua kaulana anei ʻo North Dakota no kekahi mea?",
+        p2: "He nānā mālie o ke kau hoʻoilo no nā keiki\n\nNorth Dakota ua ʻike ʻia no nā mea he nui. Akā ʻaʻole ma ke ʻano walaʻau a piha i ka lehulehu. He wahi kēia me nā lani ākea, nā kau hoʻoilo hohonu, a me ka ikaika mālie o ke kūlohelohe. No nā keiki, hiki ke like ia me kahi ao mālie a kupanaha.",
+        p3: "🦬 Ka home o nā bison nui\n\nUa kapa pinepine ʻia ʻo North Dakota he home no nā bison nui. Ma ʻaneʻi, hiki iā ʻoe ke noʻonoʻo i nā pūʻulu ikaika e neʻe ana ma luna o nā pāpū hau — mālie, paʻa, a ikaika. I kekahi mau moʻolelo, hāʻawi ʻia nā inoa iā lākou, e like me \"Dakota Thunder\", he hōʻailona o ka ikaika a me ka hilinaʻi mālie.\n\nAia pū kēia mokuʻāina i kekahi o nā kiʻi holoholona nui loa o ka honua, me nā bison nui a me nā bipi — he mea e kahaha ai nā keiki a hoʻāla i ko lākou hoihoi.",
+        p4: "🏔 Nā Badlands a me nā pōhaku ānuenue\n\nʻO kekahi o nā wahi kūikawā loa ma North Dakota ʻo nā Badlands, me Painted Canyon i loko o Theodore Roosevelt National Park.\n\nKapa pinepine ʻia kēia mau ʻāina he pōhaku ānuenue, no ka mea hōʻike nā puʻu a me nā pali i nā papa waihoʻoluʻu mālie he nui. No nā keiki, he mea kēia e like me ka hele ʻana i loko o kahi kiʻi pena kūlohelohe i hana ʻia e ka manawa.",
+        p5: "🌲 Ka ulu lāʻau pōhaku — ka kilokilo o ka pōhaku\n\nAia pū ma North Dakota ka ulu lāʻau pōhaku, kahi i hoʻololi ʻia ai nā lāʻau kahiko i pōhaku.\n\nKapa pinepine ʻia kēia wahi ʻo ka kilokilo o ka pōhaku — he mea i ola ma mua, a i kēia manawa e hoʻomaha mālie ana no nā tausani makahiki. He mālie, he hūnā, a kūpono loa no ka noʻonoʻo ʻana.",
+        p6: "🌌 Nā kukui ʻākau — nā mea hula o ke ao\n\nHiki ke ʻike pinepine ʻia nā kukui ʻākau ma North Dakota i ke kau hoʻoilo.\n\nKapa ʻia lākou e nā poʻe he nui he \"nā mea hula o ke ao\", no ka mea neʻe mālie nā kukui ma ke ao pō — ʻōmaʻomaʻo, uliuli, a i kekahi manawa poni. No nā keiki, he mea ia e like me ke ola ʻana o ke ao, e haʻi mālie ana i kahi moʻolelo.",
+        p7: "🥁 Powwow — waihoʻoluʻu a me ke kani\n\nUa ʻike pū ʻia ʻo North Dakota no nā hālāwai powwow, kahi e hui pū ai nā hula kuʻuna, ke mele, a me nā lole i ke waihoʻoluʻu, ke kani, a me ka neʻe ʻana.\n\nNā hulu, nā pahu kani, a me nā kaila mālamalama e hana i kahi ʻike maka ikaika e hoʻomanaʻo maʻalahi ʻia e nā keiki.",
+        p8: "❄️ Ke kau hoʻoilo kaulana\n\nUa kaulana ʻo North Dakota no kona mau kau hoʻoilo lōʻihi a piha i ka hau.\n\nNā loko paʻa, ka hau pau ʻole, a me nā pō mālie e hana i kahi ao ikaika akā mālie. ʻO kēia kau hoʻoilo kaulana ka puʻuwai o North Dakota Fairytales — kahi e ulu mālie ai nā moʻolelo a me nā mele.",
+        p9: "🌨 He ʻano kaulana ʻokoʻa\n\nNo laila, ua kaulana anei ʻo North Dakota no kekahi mea? ʻAe — no kona kūlohelohe, kona kau hoʻoilo, kona mālie, a me kona kilokilo mālie.\n\nA no nā keiki, lilo ia i mea ʻoi aku ka kūikawā:\nhe wahi kahi e ulu palekana ai nā moʻolelo, nā mele, a me ka noʻonoʻo ʻana.",
+    },
+    tt: {
+        p1: "❄️ Төньяк Дакота нәрсә белән данлыклы?",
+        p2: "Балалар өчен тыныч кышкы караш\n\nNorth Dakota күп нәрсәләр белән танылган. Әмма бу шау-шулы яки күп кеше җыелган урын түгел. Бу киң күкләр, тирән кышлар һәм табигатьнең тыныч көче булган урын. Балалар өчен ул тыныч һәм тылсымлы дөнья кебек тоела.",
+        p3: "🦬 Зур бизоннар иле\n\nТөньяк Дакота еш кына зур бизоннар иле дип атала. Монда көчле көтүләрнең карлы кырлар буйлап әкрен, тотрыклы һәм көчле хәрәкәт итүен күз алдына китерергә мөмкин. Кайбер әкиятләрдә аларга исемнәр дә бирелә, мәсәлән «Dakota Thunder» — көч һәм тыныч ышаныч символы.\n\nШтат шулай ук дөньядагы иң зур хайван сыннарының кайберләренә ия, шул исәптән гаять зур бизоннар һәм сыерлар — бу балаларны һәрвакыт гаҗәпләндерә һәм кызыксыну уята.",
+        p4: "🏔 Бэдлендс һәм салават күпере кыялары\n\nТөньяк Дакотаның иң үзенчәлекле урыннарының берсе — Бэдлендс, шул исәптән Теодор Рузвельт милли паркындагы Painted Canyon.\n\nБу җирләр еш кына салават күпере кыялары дип атала, чөнки калкулыклар һәм кыялар төрле төсләрнең йомшак катламнарын күрсәтә. Балалар өчен бу вакыт тарафыннан ясалган табигый рәсем эчендә йөрү кебек тоела.",
+        p5: "🌲 Ташка әйләнгән урман — таш тылсымы\n\nТөньяк Дакотада ташка әйләнгән урман да бар, анда борынгы агачлар ташка әйләнгән.\n\nБу урын еш кына таш тылсымы дип тасвирлана — кайчандыр тере булган нәрсә хәзер меңләгән еллар буе тыныч кына ята. Ул тыныч, серле һәм хыял өчен бик туры килә.",
+        p6: "🌌 Төньяк балкышы — күк биючеләре\n\nКыш көне Төньяк Дакотада еш кына төньяк балкышын күрергә мөмкин.\n\nКүпләр аны күк биючеләре дип атый, чөнки утлар төнге күк буйлап әкрен генә хәрәкәт итә — яшел, зәңгәр һәм кайчак шәмәхә төстә. Балалар өчен бу күк тере булып, әкрен генә әкият сөйләгән кебек тоела.",
+        p7: "🥁 Powwow — төс һәм ритм\n\nТөньяк Дакота шулай ук powwow җыеннары белән билгеле, анда традицион биюләр, музыка һәм киемнәр төсне, ритмны һәм хәрәкәтне берләштерә.\n\nКаурыйлар, барабаннар һәм якты бизәкләр көчле визуаль тәэсир тудыра, аны балалар җиңел хәтерли.",
+        p8: "❄️ Легендар кыш\n\nТөньяк Дакота озын һәм карлы кышлары белән данлыклы.\n\nТуңган күлләр, чиксез кар һәм тыныч төннәр көчле, әмма тыныч дөнья тудыра. Бу легендар кыш — North Dakota Fairytales проектының йөрәге, анда әкиятләр һәм җырлар әкрен һәм табигый рәвештә үсә.",
+        p9: "🌨 Башкача дан\n\nДимәк, Төньяк Дакота нәрсә белән данлыклы? Әйе — табигате, кышы, тынлыгы һәм тыныч тылсымы белән.\n\nӘ балалар өчен ул тагын да үзенчәлеклерәк:\nәкиятләр, җырлар һәм хыял куркынычсыз һәм йомшак рәвештә үсә торган урын.",
+    },
 };
 
 const t = text[lang as keyof typeof text] || text.en;
+const pageTitle =
+    (i18nText as any).old_snow_famous_meta_title ||
+    "What Is North Dakota Famous For? Kids’ Winter Guide — North Dakota Fairytales";
+const pageDescription =
+    (i18nText as any).old_snow_famous_meta_desc ||
+    "A calm winter look at North Dakota — bison, Badlands, Northern Lights, powwow — in stories and songs for children.";
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout
+    lang={lang}
+    title={pageTitle}
+    description={pageDescription}
+    supplementaryLdJson={oldSnowWinterProgramJsonLd()}
+>
     <div class="intro-card">
         <p>{t.p1}</p>
         <p>{t.p2}</p>
@@ -94,28 +262,30 @@ const t = text[lang as keyof typeof text] || text.en;
                     alt="North Dakota Badlands winter landscape with layered canyon hills and northern lights"
                 />
             </div>
-            <a
-                href={searchFamousHref}
-                aria-label={searchLabel}
-                title={searchLabel}
-                class="search-video-btn"
-                style="width: 150px !important; height: 150px !important;"
-            >
-                <img
-                    src={musicIcon.src}
-                    alt={snowyMusicAlt}
-                    class="w-[150px] h-[150px] object-contain search-video-icon"
-                    style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
-                    loading="lazy"
-                />
-                <span
-                    class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
-                    style="color: #b3e5fc !important;"
-                    dir={lang === "ar" ? "rtl" : "ltr"}
+            {showOldSnowSongSearch ? (
+                <a
+                    href={searchFamousHref}
+                    aria-label={searchLabel}
+                    title={searchLabel}
+                    class="search-video-btn"
+                    style="width: 150px !important; height: 150px !important;"
                 >
-                    {snowyMusicLabel}
-                </span>
-            </a>
+                    <img
+                        src={musicIcon.src}
+                        alt={snowyMusicAlt}
+                        class="w-[150px] h-[150px] object-contain search-video-icon"
+                        style="width: 150px !important; height: 150px !important; min-width: 150px; min-height: 150px;"
+                        loading="lazy"
+                    />
+                    <span
+                        class="search-video-label text-3xl font-bold tracking-tight uppercase text-[#b3e5fc] drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)] whitespace-nowrap"
+                        style="color: #b3e5fc !important;"
+                        dir={["ar", "fa", "ur"].includes(lang ?? "") ? "rtl" : "ltr"}
+                    >
+                        {snowyMusicLabel}
+                    </span>
+                </a>
+            ) : null}
         </div>
         <p>{t.p5}</p>
         <div class="nd-image">

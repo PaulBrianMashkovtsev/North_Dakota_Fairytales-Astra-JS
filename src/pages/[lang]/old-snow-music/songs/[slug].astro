@@ -11,6 +11,10 @@ import {
 } from "../../../../data/songs";
 import { oldSnowSongHref } from "../../../../lib/songPaths";
 import { normalizeContentEntryId } from "../../../../lib/contentId";
+import {
+    OLD_SNOW_MUSIC_CONTENT_LANGS,
+    oldSnowContentLang,
+} from "../../../../lib/oldSnowMusicHubLangs";
 import { normalizeVideoUploadDate } from "../../../../lib/videoUploadDate";
 
 const MORE_LABEL = {
@@ -68,31 +72,36 @@ export async function getStaticPaths() {
         })
         .filter((x): x is { params: { lang: string; slug: string } } => x != null);
 
-    const langs = ["en", "es", "fr", "ar"] as const;
     const slugs = ["index", ...ANIMAL_SLUGS] as const;
-    const animalPaths = langs.flatMap((lang) =>
-        slugs.map((slug) => ({ params: { lang, slug } })),
+    const animalPaths = OLD_SNOW_MUSIC_CONTENT_LANGS.flatMap((l) =>
+        slugs.map((s) => ({ params: { lang: l, slug: s } })),
     );
 
     return [...blogPathsAll, ...animalPaths];
 }
 
 const { lang, slug } = Astro.params;
-const currentLang = (["en", "es", "fr", "ar"].includes(lang ?? "")
-    ? lang
-    : "en") as keyof typeof MORE_LABEL;
-const isRTL = currentLang === "ar";
+const pageLang = lang ?? "en";
+const contentLang = oldSnowContentLang(pageLang);
+const blogSourceLang = (
+    OLD_SNOW_MUSIC_CONTENT_LANGS as readonly string[]
+).includes(pageLang)
+    ? (pageLang as (typeof OLD_SNOW_MUSIC_CONTENT_LANGS)[number])
+    : "en";
 
-const t = (translations[currentLang] || translations.en) as Record<string, string>;
+const isRTL = ["ar", "fa", "ur"].includes(pageLang);
+
+const t = (translations[pageLang as keyof typeof translations] ||
+    translations.en) as Record<string, string>;
 const pageH2 = t.song_h2_winter_tales ?? "";
-const moreLabel = MORE_LABEL[currentLang] ?? MORE_LABEL.en;
+const moreLabel = MORE_LABEL[contentLang] ?? MORE_LABEL.en;
 
 const blogEntriesForLang = await getCollection(
     "blog",
     (entry) =>
         typeof entry.id === "string" &&
         normalizeContentEntryId(entry.id).startsWith(
-            `${currentLang}/old-snow-music/songs/`,
+            `${blogSourceLang}/old-snow-music/songs/`,
         ),
 );
 
@@ -101,7 +110,7 @@ const currentBlog: CollectionEntry<"blog"> | undefined = blogEntriesForLang.find
 );
 
 const isAnimal = ANIMAL_SLUGS.includes(slug as AnimalSlug);
-const animalTitle = isAnimal ? animalLabels[currentLang][slug as AnimalSlug] : null;
+const animalTitle = isAnimal ? animalLabels[contentLang][slug as AnimalSlug] : null;
 
 let recommendationEntries: CollectionEntry<"blog">[] = [];
 let song: (typeof songs)[number] | undefined;
@@ -120,11 +129,19 @@ let videoObject:
 
 if (currentBlog) {
     song = songs.find((s) => s.slug === currentBlog.data.songSlug);
-    songText = song
-        ? song.translations[currentLang] || song.translations.en
-        : null;
+    const tr = song?.translations;
+    songText =
+        song && tr
+            ? (tr as Record<string, (typeof tr)["en"]>)[pageLang] ||
+              tr[blogSourceLang] ||
+              tr.en
+            : null;
+    const yt = song?.youtubeByLang;
     const youtubeUrl = song
-        ? song.youtubeByLang?.[currentLang] || song.youtubeByLang?.en || ""
+        ? (yt as Record<string, string> | undefined)?.[pageLang] ||
+          yt?.[blogSourceLang] ||
+          yt?.en ||
+          ""
         : "";
     youtubeId = extractYouTubeId(youtubeUrl);
 
@@ -156,7 +173,7 @@ const hreflangExcludeLangs =
 {
     currentBlog && song && songText ? (
         <BaseLayout
-            lang={currentLang}
+            lang={pageLang}
             title={songText.title}
             description={songText.description || songText.title}
             isAuthorPage={true}
@@ -214,7 +231,7 @@ const hreflangExcludeLangs =
                                         <a
                                             class="osm-rec__link"
                                             href={oldSnowSongHref(
-                                                currentLang,
+                                                pageLang,
                                                 recSlug,
                                             )}
                                         >
@@ -251,9 +268,9 @@ const hreflangExcludeLangs =
             </section>
         </BaseLayout>
     ) : isAnimal && animalTitle ? (
-        <BaseLayout lang={currentLang} title={animalTitle} isAuthorPage={true}>
+        <BaseLayout lang={pageLang} title={animalTitle} isAuthorPage={true}>
             <section
-                dir={currentLang === "ar" ? "rtl" : "ltr"}
+                dir={["ar", "fa", "ur"].includes(pageLang) ? "rtl" : "ltr"}
                 class="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8"
             >
                 <h1 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
@@ -261,14 +278,14 @@ const hreflangExcludeLangs =
                 </h1>
                 <p class="mt-4 text-slate-200">
                     <a
-                        href={`/${currentLang}/old-snow-music/search_animals`}
+                        href={`/${pageLang}/old-snow-music/search_animals`}
                         class="font-semibold text-sky-200 underline decoration-sky-300/80 underline-offset-4 hover:text-white"
                     >
-                        {currentLang === "en"
+                        {contentLang === "en"
                             ? "Back to animal search"
-                            : currentLang === "es"
+                            : contentLang === "es"
                               ? "Volver a búsqueda de animales"
-                              : currentLang === "fr"
+                              : contentLang === "fr"
                                 ? "Retour à la recherche d'animaux"
                                 : "العودة إلى بحث الحيوانات"}
                     </a>
@@ -277,7 +294,7 @@ const hreflangExcludeLangs =
         </BaseLayout>
     ) : (
         <BaseLayout
-            lang={currentLang}
+            lang={pageLang}
             title={t.song_not_found ?? "Not found"}
             isAuthorPage={true}
         >
