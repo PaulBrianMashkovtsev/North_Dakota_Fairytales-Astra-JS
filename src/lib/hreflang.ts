@@ -21,6 +21,13 @@ export const SUPPORTED_LANGS = [
 
 export type SupportedLang = (typeof SUPPORTED_LANGS)[number];
 
+/** URL segment → BCP-47 hreflang for `@astrojs/sitemap` `i18n.locales` (pt uses pt-BR like JSON-LD). */
+export function getSitemapI18nLocales(): Record<string, string> {
+  return Object.fromEntries(
+    SUPPORTED_LANGS.map((code) => [code, code === "pt" ? "pt-BR" : code])
+  );
+}
+
 const ensureTrailingSlash = (path: string) => {
   if (!path.startsWith("/")) path = `/${path}`;
   if (path === "/") return "/";
