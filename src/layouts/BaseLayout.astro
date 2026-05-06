@@ -124,23 +124,15 @@ const label = (homeLabels as any)[currentLang] || homeLabels.en;
         <meta property="og:image" content="https://northdakotafairytales.org/preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://northdakotafairytales.org/preview.jpg" />
-        <!-- TODO: replace G-XXXXXXXXXX with real GA4 Measurement ID -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P3SDRDWRZM"></script>
         <script is:inline>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
-        </script>
-        <script is:inline>
-          // Track client-side navigation events (Astro ViewTransitions/router navigation).
+          gtag('config', 'G-P3SDRDWRZM');
+
           document.addEventListener('astro:page-load', () => {
-            if (typeof window.gtag !== 'function') return;
-            window.gtag('config', 'G-XXXXXXXXXX', {
-              page_path: window.location.pathname + window.location.search,
-              page_title: document.title,
-              page_location: window.location.href
-            });
+            gtag('config', 'G-P3SDRDWRZM');
           });
         </script>
 
