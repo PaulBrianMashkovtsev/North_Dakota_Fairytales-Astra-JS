@@ -10,7 +10,10 @@ import {
     OLD_SNOW_HUB_LANGS_REGEX,
     oldSnowHubHreflangLangs,
 } from "../lib/oldSnowMusicHubLangs";
-import { resolveSongPageSeo } from "../lib/seoOldSnowSongs";
+import {
+    absoluteUrlWithTrailingSlash,
+    resolveSongPageSeo,
+} from "../lib/seoOldSnowSongs";
 import { normalizeVideoUploadDate } from "../lib/videoUploadDate";
 
 
@@ -39,7 +42,7 @@ const pathname = Astro.url.pathname;
 const hreflangNetwork = buildHreflangNetwork(Astro.site, Astro.url.pathname);
 const siteOrigin = String(Astro.site ?? baseOrigin).replace(/\/$/, "") || baseOrigin;
 
-/** New + legacy /song/ — canonical always https://…/[lang]/old-snow-music/songs/[slug] */
+/** New + legacy /song/ — canonical always https://…/[lang]/old-snow-music/songs/[slug]/ (trailing slash) */
 const songPageSeo = resolveSongPageSeo(pathname, siteOrigin);
 
 const oldSnowMatch = pathname.match(
@@ -52,20 +55,32 @@ const oldSnowHreflangLangs = oldSnowHubHreflangLangs(oldSnowSuffix);
 const oldSnowAlternates = isOldSnowMusicPage
     ? oldSnowHreflangLangs.map((altLang) => ({
           hreflang: altLang === "pt" ? "pt-BR" : altLang,
-          href: `${baseOrigin}/${altLang}/old-snow-music${oldSnowSuffix}`,
+          href: absoluteUrlWithTrailingSlash(
+              baseOrigin,
+              `/${altLang}/old-snow-music${oldSnowSuffix}`,
+          ),
       }))
     : [];
 
 const canonicalHref = songPageSeo
     ? songPageSeo.canonicalHref
     : isOldSnowMusicPage
-      ? `${baseOrigin}/${currentLang}/old-snow-music${oldSnowSuffix}`
-      : `${Astro.site}${pathname}`;
+      ? absoluteUrlWithTrailingSlash(
+            baseOrigin,
+            `/${currentLang}/old-snow-music${oldSnowSuffix}`,
+        )
+      : absoluteUrlWithTrailingSlash(
+            String(Astro.site ?? baseOrigin),
+            pathname,
+        );
 
 const xDefaultHref = songPageSeo
     ? songPageSeo.xDefaultHref
     : isOldSnowMusicPage
-      ? `${baseOrigin}/en/old-snow-music${oldSnowSuffix}`
+      ? absoluteUrlWithTrailingSlash(
+            baseOrigin,
+            `/en/old-snow-music${oldSnowSuffix}`,
+        )
       : hreflangNetwork.xDefault;
 
 const hreflangAlternates = songPageSeo

@@ -8,6 +8,7 @@ const SITE = "https://northdakotafairytales.org";
 
 export default defineConfig({
   site: SITE,
+  trailingSlash: "always",
   integrations: [
     sitemap({
       i18n: {

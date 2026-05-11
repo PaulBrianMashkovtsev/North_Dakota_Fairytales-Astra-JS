@@ -5,6 +5,17 @@ export const SEO_SONG_LANGS = SUPPORTED_LANGS as readonly ("en" | "es" | "fr" | 
 const TRAILING_SLASH = /\/+$/;
 
 /**
+ * Absolute URL with trailing slash (matches `trailingSlash: "always"` and `@astrojs/sitemap`).
+ */
+export function absoluteUrlWithTrailingSlash(siteOrigin: string, pathname: string): string {
+    const base = siteOrigin.replace(TRAILING_SLASH, "");
+    if (!pathname || pathname === "/") return `${base}/`;
+    const path = pathname.startsWith("/") ? pathname : `/${pathname}`;
+    const noTrail = path.replace(TRAILING_SLASH, "");
+    return `${base}${noTrail}/`;
+}
+
+/**
  * Normalizes pathname (strip trailing slash except root).
  */
 export function normalizePathname(pathname: string): string {
@@ -36,7 +47,7 @@ export function oldSnowSongAbsoluteUrl(
     slug: string,
 ): string {
     const base = origin.replace(TRAILING_SLASH, "");
-    return `${base}/${lang}/old-snow-music/songs/${slug}`;
+    return `${base}/${lang}/old-snow-music/songs/${slug}/`;
 }
 
 /**
