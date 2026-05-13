@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Video from "@components/Video.astro";
+import SafeYoutube from "@components/SafeYoutube.astro";
 import musicIcon from "../../../components/icons_search_buttons/music_icon.jpg";
 import { translations } from "../../../lib/i18n";
 import {
@@ -28,7 +28,7 @@ const videoLinks = {
 };
 const currentVideoUrl = videoLinks[contentLang as keyof typeof videoLinks] || videoLinks.en;
 const currentVideoId = currentVideoUrl.split("youtu.be/")[1]?.split("?")[0] ?? "";
-const currentVideoEmbedUrl = `https://www.youtube.com/embed/${currentVideoId}`;
+const currentVideoEmbedUrl = `https://www.youtube-nocookie.com/embed/${currentVideoId}`;
 const currentVideoContentUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
 const currentVideoThumbUrl = `https://img.youtube.com/vi/${currentVideoId}/maxresdefault.jpg`;
 const lyricsToggleLabels = {
@@ -186,9 +186,9 @@ const nav = {
         famousNavLabels[contentLang] ??
         famousNavLabels.en,
 };
-const animalsHref = `/${lang}/old-snow-music/animals`;
-const famousHref = `/${lang}/old-snow-music/is-north-dakota-famous`;
-const searchHref = `/${lang}/old-snow-music/search_index`;
+const animalsHref = `/${lang}/old-snow-music/animals/`;
+const famousHref = `/${lang}/old-snow-music/is-north-dakota-famous/`;
+const searchHref = `/${lang}/old-snow-music/search_index/`;
 const searchLabelByLang = {
     en: "Search",
     es: "Buscar",
@@ -484,12 +484,14 @@ const pageDescription =
 
         <p>{t.p1}</p>
         {showOldSnowSongSearch ? (
-            <div class="song-video-container relative mx-auto w-fit">
-                <Video
-                    src={currentVideoUrl}
-                    title="Welcome to North Dakota song"
-                    class="song-video-frame"
-                />
+            <div class="song-video-container relative mx-auto">
+                <div class="song-video-aspect">
+                    <SafeYoutube
+                        videoId={currentVideoId}
+                        title="Welcome to North Dakota song"
+                        class="song-video-frame"
+                    />
+                </div>
                 <a
                     href={searchHref}
                     aria-label={searchLabel}
@@ -592,15 +594,46 @@ const pageDescription =
   .song-video-container {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: min(96vw, 72rem);
     margin: 2rem auto;
   }
 
-  .song-video-frame {
+  /* 16:9 box — do not use Tailwind w-fit on parent (it shrink-wraps the player tiny). */
+  .song-video-aspect {
+    position: relative;
     width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    box-sizing: content-box;
+    overflow: hidden;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(10, 22, 38, 0.35);
-    overflow: hidden;
+    background: #000;
+  }
+
+  .song-video-aspect :global(.safe-youtube) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .song-video-aspect :global(.safe-youtube__iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .song-video-frame {
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .search-video-btn {

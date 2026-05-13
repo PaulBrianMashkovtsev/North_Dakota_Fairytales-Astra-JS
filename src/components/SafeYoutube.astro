@@ -1,0 +1,208 @@
+---
+/**
+ * Lite YouTube embed: poster + play until click; iframe loads from youtube-nocookie.com
+ * with rel=0 & modestbranding=1 (better LCP, no third-party player JS on first paint).
+ */
+interface Props {
+    /** 11-character YouTube video ID */
+    videoId: string;
+    /** Accessible title for iframe and play control */
+    title?: string;
+    class?: string;
+}
+
+const YT_ID = /^[a-zA-Z0-9_-]{11}$/;
+
+const { videoId, title = "YouTube video", class: className = "" } = Astro.props as Props;
+
+if (!YT_ID.test(videoId)) {
+    throw new Error(`SafeYoutube: invalid videoId "${videoId}"`);
+}
+
+const posterSrc = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+---
+
+<div
+    class:list={["safe-youtube", className]}
+    data-safe-youtube
+    data-video-id={videoId}
+    data-video-title={title}
+>
+    <div class="safe-youtube__facade">
+        <img
+            class="safe-youtube__poster"
+            src={posterSrc}
+            alt=""
+            width="1280"
+            height="720"
+            loading="lazy"
+            decoding="async"
+            onerror={`this.onerror=null;this.src='https://i.ytimg.com/vi/${videoId}/hqdefault.jpg'`}
+        />
+        <button
+            type="button"
+            class="safe-youtube__play"
+            aria-label={`Play video: ${title}`}
+        >
+            <span class="safe-youtube__play-icon" aria-hidden="true">
+                <svg viewBox="0 0 68 48" width="68" height="48" focusable="false">
+                    <path
+                        class="safe-youtube__play-bg"
+                        d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    />
+                    <polygon
+                        class="safe-youtube__play-triangle"
+                        points="45,24 27,15 27,33"
+                    />
+                </svg>
+            </span>
+            <span class="safe-youtube__play-ring" />
+        </button>
+    </div>
+</div>
+
+<script>
+    function nocookieEmbedSrc(videoId: string) {
+        const params = new URLSearchParams({
+            rel: "0",
+            modestbranding: "1",
+            autoplay: "1",
+        });
+        return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?${params}`;
+    }
+
+    function activate(root: HTMLElement) {
+        if (root.querySelector("iframe")) return;
+
+        const id = root.dataset.videoId;
+        if (!id) return;
+
+        const iframe = document.createElement("iframe");
+        iframe.src = nocookieEmbedSrc(id);
+        iframe.title = root.dataset.videoTitle || "YouTube video";
+        iframe.setAttribute(
+            "allow",
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; web-share",
+        );
+        iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.className = "safe-youtube__iframe";
+
+        root.replaceChildren(iframe);
+        root.classList.add("safe-youtube--active");
+    }
+
+    document.addEventListener(
+        "click",
+        (e) => {
+            const t = e.target;
+            if (!(t instanceof Element)) return;
+            const root = t.closest("[data-safe-youtube]");
+            if (!root || !(root instanceof HTMLElement)) return;
+            if (root.querySelector("iframe")) return;
+            if (!t.closest(".safe-youtube__facade")) return;
+            e.preventDefault();
+            activate(root);
+        },
+        { capture: true },
+    );
+</script>
+
+<style>
+    .safe-youtube {
+        position: relative;
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #0b1116;
+        overflow: hidden;
+    }
+
+    .safe-youtube__facade {
+        position: absolute;
+        inset: 0;
+        display: block;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .safe-youtube__poster {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .safe-youtube__play {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: min(5.5rem, 18vw);
+        height: min(5.5rem, 18vw);
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: transform 0.2s ease;
+    }
+
+    .safe-youtube__play:hover,
+    .safe-youtube__play:focus-visible {
+        transform: scale(1.06);
+    }
+
+    .safe-youtube__play:focus-visible {
+        outline: 3px solid #ffead0;
+        outline-offset: 4px;
+        border-radius: 50%;
+    }
+
+    .safe-youtube__play-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(255, 234, 208, 0.35) 0%,
+            rgba(11, 17, 22, 0.2) 70%
+        );
+        pointer-events: none;
+    }
+
+    .safe-youtube__play-icon {
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+    }
+
+    .safe-youtube__play-bg {
+        fill: #212121;
+        fill-opacity: 0.85;
+    }
+
+    .safe-youtube__play-triangle {
+        fill: #ffead0;
+    }
+
+    .safe-youtube__iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+    }
+
+    .safe-youtube--active {
+        background: #000;
+    }
+</style>

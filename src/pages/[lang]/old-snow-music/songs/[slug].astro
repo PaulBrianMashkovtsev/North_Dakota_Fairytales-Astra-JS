@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import SafeYoutube from "../../../../components/SafeYoutube.astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import { ANIMAL_SLUGS, animalLabels, type AnimalSlug } from "../../../../data/searchAnimals";
@@ -154,7 +155,7 @@ if (currentBlog) {
             name: songText.title,
             description: (songText.description || "").trim() || songText.title,
             thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
-            embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+            embedUrl: `https://www.youtube-nocookie.com/embed/${youtubeId}`,
             contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
             uploadDate: normalizeVideoUploadDate(uploadDateRaw),
         };
@@ -203,12 +204,9 @@ const hreflangExcludeLangs =
                         aria-label={songText.title}
                     >
                         <div class="song-page__video-fit">
-                            <iframe
-                                src={`https://www.youtube.com/embed/${youtubeId}`}
+                            <SafeYoutube
+                                videoId={youtubeId}
                                 title={songText.title}
-                                loading="eager"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                                allowfullscreen
                             />
                         </div>
                     </div>
@@ -278,7 +276,7 @@ const hreflangExcludeLangs =
                 </h1>
                 <p class="mt-4 text-slate-200">
                     <a
-                        href={`/${pageLang}/old-snow-music/search_animals`}
+                        href={`/${pageLang}/old-snow-music/search_animals/`}
                         class="font-semibold text-sky-200 underline decoration-sky-300/80 underline-offset-4 hover:text-white"
                     >
                         {contentLang === "en"
@@ -352,28 +350,35 @@ const hreflangExcludeLangs =
         color: #e2e8f0;
     }
     .song-page__video-bleed {
-        --song-vh: calc((100vh - 140px) * 0.62);
-        --song-vh: calc((100dvh - 140px) * 0.62);
-        width: fit-content;
-        max-width: 100%;
-        margin-inline: auto;
+        width: 100%;
+        max-width: min(96vw, 72rem);
+        margin: 0 auto;
         background: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         padding: 0.35rem;
         border-radius: 0.5rem;
         box-sizing: border-box;
     }
     .song-page__video-fit {
         position: relative;
-        width: min(52rem, calc(var(--song-vh) * 16 / 9));
-        max-width: 100%;
-        max-height: var(--song-vh);
-        aspect-ratio: 16 / 9;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        box-sizing: content-box;
         background: #000;
+        overflow: hidden;
     }
-    .song-page__video-fit iframe {
+    .song-page__video-fit :global(.safe-youtube) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: unset;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .song-page__video-fit :global(.safe-youtube__iframe) {
         position: absolute;
         inset: 0;
         width: 100%;

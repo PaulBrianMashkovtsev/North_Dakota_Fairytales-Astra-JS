@@ -55,7 +55,7 @@ const iconBySlug = {
 const buttonItems = ANIMAL_SLUGS.map((slug) => ({
     slug,
     label: labels[slug],
-    href: `/${pageLang}/category/${slug}`,
+    href: `/${pageLang}/category/${slug}/`,
     iconSrc: iconBySlug[slug].src,
     altText: {
         bear: (t as any).alt_bear,

@@ -18,7 +18,7 @@ const contentLang = oldSnowContentLang(lang);
 const showOldSnowSongSearch = oldSnowHasFullSongHub(lang);
 const i18nText = translations[lang as keyof typeof translations] || translations.en;
 const snowyMusicAlt = (i18nText as any).snowyMusicAlt || "Snowy Music";
-const searchAnimalsHref = `/${lang}/old-snow-music/search_animals`;
+const searchAnimalsHref = `/${lang}/old-snow-music/search_animals/`;
 const searchLabelByLang = {
     en: "Search",
     es: "Buscar",
@@ -296,7 +296,7 @@ const pageDescription =
         <p>{t.p1}</p>
         <p>{t.p2}</p>
         <p>{t.p3BeforeFox}</p>
-        <div class="song-video-container relative mx-auto w-fit">
+        <div class="song-video-container relative mx-auto">
             <div class="nd-image nd-image--with-search">
                 <img
                     src="/old-snow-music/pictures/fox_old.png"
